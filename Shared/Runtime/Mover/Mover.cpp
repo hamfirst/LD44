@@ -114,7 +114,7 @@ MoverResult Mover::UpdateMover(const CollisionDatabase & collision, const MoveRe
     }
     else
     {
-#ifdef MOVER_ONE_WAY_COLLISION
+#if defined(MOVER_ONE_WAY_COLLISION) && PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
       Box foot_box = Box::FromPoints(coll_box.m_Start, Vector2(coll_box.m_End.x, coll_box.m_Start.y));
       auto fool_coll_result = collision.CheckCollisionAny(foot_box, one_way_collision_mask);
       if (fool_coll_result)
@@ -155,7 +155,7 @@ MoverResult Mover::UpdateMover(const CollisionDatabase & collision, const MoveRe
 
   if (req.m_StepDown)
   {
-#ifdef MOVER_ONE_WAY_COLLISION
+#if defined(MOVER_ONE_WAY_COLLISION) && PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
     auto foot_mask = collision_mask | one_way_collision_mask;
 #else
     auto foot_mask = collision_mask;

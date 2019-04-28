@@ -727,11 +727,11 @@ struct StormReflTypeInfo<ChangeObserverToPlayer>::field_data<1 + StormReflTypeIn
 template <>
 struct StormReflTypeInfo<ChangeObserverToPlayer>::field_data_static<2 + StormReflTypeInfo<GameNetworkExternalEvent>::fields_n>
 {
-  using member_type = NetRangedNumber<int, 0, kMaxTeams - 1>; // NetRangedNumber<int, 0, 1>
+  using member_type = NetRangedNumber<int, 0, kMaxTeams - 1>; // NetRangedNumber<int, 0, 7>
   static constexpr auto GetName() { return "m_Team"; }
-  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 1>"; }
+  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 7>"; }
   static constexpr unsigned GetFieldNameHash() { return 0xFA7D3300; }
-  static constexpr unsigned GetTypeNameHash() { return 0x98C808CD; }
+  static constexpr unsigned GetTypeNameHash() { return 0xCE92AF4B; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 2 + StormReflTypeInfo<GameNetworkExternalEvent>::fields_n; }
   static constexpr auto GetMemberPtr() { return &ChangeObserverToPlayer::m_Team; }
@@ -952,11 +952,11 @@ struct StormReflTypeInfo<ChangePlayerTeam>::field_data<0 + StormReflTypeInfo<Gam
 template <>
 struct StormReflTypeInfo<ChangePlayerTeam>::field_data_static<1 + StormReflTypeInfo<GameNetworkExternalEvent>::fields_n>
 {
-  using member_type = NetRangedNumber<int, 0, kMaxTeams - 1>; // NetRangedNumber<int, 0, 1>
+  using member_type = NetRangedNumber<int, 0, kMaxTeams - 1>; // NetRangedNumber<int, 0, 7>
   static constexpr auto GetName() { return "m_Team"; }
-  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 1>"; }
+  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 7>"; }
   static constexpr unsigned GetFieldNameHash() { return 0xFA7D3300; }
-  static constexpr unsigned GetTypeNameHash() { return 0x98C808CD; }
+  static constexpr unsigned GetTypeNameHash() { return 0xCE92AF4B; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 1 + StormReflTypeInfo<GameNetworkExternalEvent>::fields_n; }
   static constexpr auto GetMemberPtr() { return &ChangePlayerTeam::m_Team; }

@@ -62,7 +62,7 @@ public:
   void PushCVCBox(const Box & b, GameLogicContainer & game_container);
   void PushCVCBox(uint32_t box_name_hash, GameLogicContainer & game_container);
 
-#ifdef MOVER_ONE_WAY_COLLISION
+#if defined(MOVER_ONE_WAY_COLLISION) && PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
   MoverResult MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity, bool fallthrough = false);
 #else
   MoverResult MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity);

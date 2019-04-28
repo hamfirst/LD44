@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ProjectSettings/ProjectPerspective.h"
+
 #include "Foundation/Math/Intersection.h"
 
 #include "Runtime/RuntimeCommon.h"
@@ -8,8 +10,10 @@
 class EngineState;
 class Entity;
 
+#if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
 #define MOVER_STEP_HEIGHT
 #define MOVER_ONE_WAY_COLLISION
+#endif
 
 struct MoverResult
 {

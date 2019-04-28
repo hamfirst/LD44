@@ -2076,11 +2076,11 @@ struct StormReflTypeInfo<GameInfoTeamSizes>
 template <>
 struct StormReflTypeInfo<GameInfoTeamSizes>::field_data_static<0>
 {
-  using member_type = int [2]; // int [2]
+  using member_type = int [8]; // int [8]
   static constexpr auto GetName() { return "m_MaxTeamSizes"; }
-  static constexpr auto GetType() { return "int [2]"; }
+  static constexpr auto GetType() { return "int [8]"; }
   static constexpr unsigned GetFieldNameHash() { return 0x810DE47B; }
-  static constexpr unsigned GetTypeNameHash() { return 0x859FE93A; }
+  static constexpr unsigned GetTypeNameHash() { return 0x7F7001B0; }
   static constexpr bool HasDefault() { return false; }
   static constexpr auto GetFieldIndex() { return 0; }
   static constexpr auto GetMemberPtr() { return &GameInfoTeamSizes::m_MaxTeamSizes; }
@@ -2093,8 +2093,8 @@ struct StormReflTypeInfo<GameInfoTeamSizes>::field_data<0, Self> : public StormR
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, int [2]> & Get() { return self.m_MaxTeamSizes; }
-  std::add_const_t<std::remove_reference_t<int [2]>> & Get() const { return self.m_MaxTeamSizes; }
+  match_const_t<Self, int [8]> & Get() { return self.m_MaxTeamSizes; }
+  std::add_const_t<std::remove_reference_t<int [8]>> & Get() const { return self.m_MaxTeamSizes; }
 };
 
 template <>
