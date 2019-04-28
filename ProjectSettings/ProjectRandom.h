@@ -1,3 +1,3 @@
 #pragma once
 
-static const unsigned long long kProjectRandom1 = 0xfd3473e1a57de6ffULL;
+static const unsigned long long kProjectRandom1 = 0x602e2c1ebd64fe9bULL;
