@@ -1,0 +1,47 @@
+[]
+
+{
+    "m_Emitters": {
+        "0": {
+            "m_SpawnEquations": {
+                "805372398": {
+                    "m_Equation": "[n -40, 40, [bias RandA, 2]]",
+                    "m_VariableName": "m_SpawnVelocityX"
+                },
+                "1191588216": {
+                    "m_Equation": "[n -40, 40, [bias RandB, 2]]",
+                    "m_VariableName": "m_SpawnVelocityY"
+                }
+            },
+            "m_Properties": {
+                "m_Name": "Emitter1",
+                "m_LinearFilter": false,
+                "m_Trail": false,
+                "m_Additive": false,
+                "m_Texture": "",
+                "m_PrespawnParticles": 0,
+                "m_UpdateDelay": 0
+            },
+            "m_EmitterEquations": {
+                "2225435367": {
+                    "m_VariableName": "m_EmitterLifetime",
+                    "m_Equation": "0.1"
+                },
+                "472491818": {
+                    "m_VariableName": "m_SpawnRate",
+                    "m_Equation": "100"
+                }
+            },
+            "m_ParticleEquations": {
+                "1196869079": {
+                    "m_VariableName": "m_ColorA",
+                    "m_Equation": "InvTimePct"
+                },
+                "3245731331": {
+                    "m_VariableName": "m_MaxLifetime",
+                    "m_Equation": "0.1"
+                }
+            }
+        }
+    }
+}

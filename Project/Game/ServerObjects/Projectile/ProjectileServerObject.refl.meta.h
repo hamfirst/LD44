@@ -235,7 +235,7 @@ template <>
 struct StormReflTypeInfo<ProjectileServerObject>
 {
   using MyBase = GameServerObjectBase;
-  static constexpr int fields_n = 6 + StormReflTypeInfo<MyBase>::fields_n;
+  static constexpr int fields_n = 8 + StormReflTypeInfo<MyBase>::fields_n;
   template <int N> struct field_data_static : public StormReflTypeInfo<MyBase>::field_data_static<N> {};
   template <int N, typename Self> struct field_data : public StormReflTypeInfo<MyBase>::field_data<N, match_const_t<Self, MyBase>>
   {
@@ -388,20 +388,70 @@ struct StormReflTypeInfo<ProjectileServerObject>::field_data<3 + StormReflTypeIn
 template <>
 struct StormReflTypeInfo<ProjectileServerObject>::field_data_static<4 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
+  using member_type = bool; // bool
+  static constexpr auto GetName() { return "m_Destroyed"; }
+  static constexpr auto GetType() { return "bool"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x07BCF325; }
+  static constexpr unsigned GetTypeNameHash() { return 0x55813692; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 4 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &ProjectileServerObject::m_Destroyed; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<ProjectileServerObject *>(obj); return &ptr->m_Destroyed; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const ProjectileServerObject *>(obj); return &ptr->m_Destroyed; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<ProjectileServerObject>::field_data<4 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<ProjectileServerObject>::field_data_static<4 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, bool> & Get() { return self.m_Destroyed; }
+  std::add_const_t<std::remove_reference_t<bool>> & Get() const { return self.m_Destroyed; }
+  void SetDefault() { self.m_Destroyed = StormReflTypeInfo<ProjectileServerObject>::GetDefault().m_Destroyed; }
+};
+
+template <>
+struct StormReflTypeInfo<ProjectileServerObject>::field_data_static<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = int8_t; // signed char
+  static constexpr auto GetName() { return "m_DamageBoost"; }
+  static constexpr auto GetType() { return "signed char"; }
+  static constexpr unsigned GetFieldNameHash() { return 0xA632E9D9; }
+  static constexpr unsigned GetTypeNameHash() { return 0xFA467DC9; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 5 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &ProjectileServerObject::m_DamageBoost; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<ProjectileServerObject *>(obj); return &ptr->m_DamageBoost; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const ProjectileServerObject *>(obj); return &ptr->m_DamageBoost; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<ProjectileServerObject>::field_data<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<ProjectileServerObject>::field_data_static<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, int8_t> & Get() { return self.m_DamageBoost; }
+  std::add_const_t<std::remove_reference_t<int8_t>> & Get() const { return self.m_DamageBoost; }
+  void SetDefault() { self.m_DamageBoost = StormReflTypeInfo<ProjectileServerObject>::GetDefault().m_DamageBoost; }
+};
+
+template <>
+struct StormReflTypeInfo<ProjectileServerObject>::field_data_static<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
   using member_type = ServerObjectComponent<ProjectileMotionBase, ProjectileMotionBaseConfig>; // ServerObjectComponent<ProjectileMotionBase, ProjectileMotionBaseConfig>
   static constexpr auto GetName() { return "m_Motion"; }
   static constexpr auto GetType() { return "ServerObjectComponent<ProjectileMotionBase, ProjectileMotionBaseConfig>"; }
   static constexpr unsigned GetFieldNameHash() { return 0xB8C1F620; }
   static constexpr unsigned GetTypeNameHash() { return 0xAFE7A191; }
   static constexpr bool HasDefault() { return true; }
-  static constexpr auto GetFieldIndex() { return 4 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetFieldIndex() { return 6 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
   static constexpr auto GetMemberPtr() { return &ProjectileServerObject::m_Motion; }
   static void * GetFromParent(void * obj) { auto ptr = static_cast<ProjectileServerObject *>(obj); return &ptr->m_Motion; }
   static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const ProjectileServerObject *>(obj); return &ptr->m_Motion; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<ProjectileServerObject>::field_data<4 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<ProjectileServerObject>::field_data_static<4 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+struct StormReflTypeInfo<ProjectileServerObject>::field_data<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<ProjectileServerObject>::field_data_static<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
@@ -411,7 +461,7 @@ struct StormReflTypeInfo<ProjectileServerObject>::field_data<4 + StormReflTypeIn
 };
 
 template <>
-struct StormReflTypeInfo<ProjectileServerObject>::field_data_static<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+struct StormReflTypeInfo<ProjectileServerObject>::field_data_static<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
   using member_type = ServerObjectComponent<ProjectileResponseBase, ProjectileResponseBaseConfig>; // ServerObjectComponent<ProjectileResponseBase, ProjectileResponseBaseConfig>
   static constexpr auto GetName() { return "m_Response"; }
@@ -419,14 +469,14 @@ struct StormReflTypeInfo<ProjectileServerObject>::field_data_static<5 + StormRef
   static constexpr unsigned GetFieldNameHash() { return 0xC857DFD5; }
   static constexpr unsigned GetTypeNameHash() { return 0x1C22E067; }
   static constexpr bool HasDefault() { return true; }
-  static constexpr auto GetFieldIndex() { return 5 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetFieldIndex() { return 7 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
   static constexpr auto GetMemberPtr() { return &ProjectileServerObject::m_Response; }
   static void * GetFromParent(void * obj) { auto ptr = static_cast<ProjectileServerObject *>(obj); return &ptr->m_Response; }
   static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const ProjectileServerObject *>(obj); return &ptr->m_Response; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<ProjectileServerObject>::field_data<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<ProjectileServerObject>::field_data_static<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+struct StormReflTypeInfo<ProjectileServerObject>::field_data<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<ProjectileServerObject>::field_data_static<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
   Self & self;
   field_data(Self & self) : self(self) {}

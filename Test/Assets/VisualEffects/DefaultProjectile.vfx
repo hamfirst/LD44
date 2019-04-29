@@ -3,43 +3,43 @@
 {
     "m_Emitters": {
         "0": {
+            "m_Properties": {
+                "m_Trail": true,
+                "m_UpdateDelay": 0,
+                "m_Additive": false,
+                "m_Texture": "",
+                "m_LinearFilter": false,
+                "m_Name": "Emitter1",
+                "m_PrespawnParticles": 0
+            },
+            "m_SpawnEquations": { },
             "m_ParticleEquations": {
-                "1196869079": {
-                    "m_VariableName": "m_ColorA",
-                    "m_Equation": "InvTimePct"
-                },
-                "3245731331": {
-                    "m_VariableName": "m_MaxLifetime",
-                    "m_Equation": "0.5"
-                },
-                "3286795273": {
-                    "m_VariableName": "m_ColorR",
-                    "m_Equation": "0"
+                "3730805869": {
+                    "m_Equation": "1",
+                    "m_VariableName": "m_ColorB"
                 },
                 "2922733794": {
-                    "m_VariableName": "m_ColorG",
-                    "m_Equation": "0"
+                    "m_Equation": "1",
+                    "m_VariableName": "m_ColorG"
                 },
-                "3730805869": {
-                    "m_VariableName": "m_ColorB",
-                    "m_Equation": "0"
+                "3286795273": {
+                    "m_Equation": "1",
+                    "m_VariableName": "m_ColorR"
+                },
+                "1196869079": {
+                    "m_Equation": "InvTimePct",
+                    "m_VariableName": "m_ColorA"
+                },
+                "3245731331": {
+                    "m_Equation": "0.1",
+                    "m_VariableName": "m_MaxLifetime"
                 }
             },
             "m_EmitterEquations": {
                 "472491818": {
-                    "m_VariableName": "m_SpawnRate",
-                    "m_Equation": "60"
+                    "m_Equation": "60",
+                    "m_VariableName": "m_SpawnRate"
                 }
-            },
-            "m_SpawnEquations": { },
-            "m_Properties": {
-                "m_Texture": "",
-                "m_UpdateDelay": 0,
-                "m_Additive": false,
-                "m_LinearFilter": false,
-                "m_Name": "Emitter1",
-                "m_PrespawnParticles": 0,
-                "m_Trail": true
             }
         }
     }

@@ -29,7 +29,7 @@ public:
   int LoadTexture(std::string path);
   int LoadAudio(std::string path);
   int LoadMusic(std::string path);
-  int LoadFont(std::string path, int size);
+  int LoadFont(std::string path, int size, int offset);
 
   int LoadAtlas(std::string path);
   int LoadSprite(std::string path);

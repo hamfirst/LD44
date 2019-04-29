@@ -2,43 +2,197 @@
 
 {
     "m_Anchors": {
-        "1": {
+        "11": {
+            "m_GUID": 3989297737,
+            "m_AnchorData": {
+                "T": 1690405181,
+                "D": { }
+            },
+            "m_Name": "NPCSpawn",
+            "m_X": 256,
+            "m_Sprite": "",
+            "m_Y": -32
+        },
+        "5": {
+            "m_Sprite": ".\/Sprites\/Player.sprite",
+            "m_Y": -80,
+            "m_X": 32,
             "m_Name": "PlayerSpawn",
+            "m_AnchorData": {
+                "D": {
+                    "m_Team": 5
+                },
+                "T": 678186780
+            },
+            "m_GUID": 320676266
+        },
+        "8": {
+            "m_Y": -96,
+            "m_Sprite": "",
+            "m_X": 256,
+            "m_Name": "NPCSpawn",
+            "m_GUID": 2338908632,
+            "m_AnchorData": {
+                "D": { },
+                "T": 1690405181
+            }
+        },
+        "3": {
+            "m_GUID": 428495604,
+            "m_AnchorData": {
+                "T": 678186780,
+                "D": {
+                    "m_Team": 2
+                }
+            },
+            "m_Name": "PlayerSpawn",
+            "m_X": 32,
+            "m_Sprite": ".\/Sprites\/Player.sprite",
+            "m_Y": 80
+        },
+        "4": {
+            "m_Sprite": ".\/Sprites\/Player.sprite",
+            "m_Y": -32,
+            "m_X": 80,
+            "m_Name": "PlayerSpawn",
+            "m_AnchorData": {
+                "D": {
+                    "m_Team": 4
+                },
+                "T": 678186780
+            },
+            "m_GUID": 1658362481
+        },
+        "6": {
+            "m_AnchorData": {
+                "T": 678186780,
+                "D": {
+                    "m_Team": 6
+                }
+            },
+            "m_GUID": 37462892,
+            "m_Name": "PlayerSpawn",
+            "m_X": -32,
+            "m_Y": -80,
+            "m_Sprite": ".\/Sprites\/Player.sprite"
+        },
+        "12": {
+            "m_GUID": 1036092562,
+            "m_AnchorData": {
+                "T": 1690405181,
+                "D": { }
+            },
+            "m_Name": "NPCSpawn",
+            "m_X": 320,
+            "m_Sprite": "",
+            "m_Y": 96
+        },
+        "9": {
+            "m_Y": -48,
+            "m_Sprite": "",
+            "m_X": 336,
+            "m_Name": "NPCSpawn",
+            "m_GUID": 2659393568,
+            "m_AnchorData": {
+                "D": { },
+                "T": 1690405181
+            }
+        },
+        "2": {
+            "m_GUID": 3534965463,
             "m_AnchorData": {
                 "T": 678186780,
                 "D": {
                     "m_Team": 1
                 }
             },
-            "m_GUID": 1245387701,
-            "m_X": 145,
-            "m_Y": -16,
-            "m_Sprite": ""
+            "m_Name": "PlayerSpawn",
+            "m_X": -32,
+            "m_Sprite": ".\/Sprites\/Player.sprite",
+            "m_Y": 80
+        },
+        "10": {
+            "m_Y": -96,
+            "m_Sprite": "",
+            "m_X": 400,
+            "m_Name": "NPCSpawn",
+            "m_GUID": 2945988093,
+            "m_AnchorData": {
+                "D": { },
+                "T": 1690405181
+            }
         },
         "0": {
-            "m_Y": -16,
-            "m_Sprite": "",
-            "m_GUID": 2529306946,
+            "m_Sprite": ".\/Sprites\/Player.sprite",
+            "m_Y": 32,
+            "m_X": -80,
+            "m_Name": "PlayerSpawn",
             "m_AnchorData": {
                 "D": {
                     "m_Team": 0
                 },
                 "T": 678186780
             },
-            "m_Name": "PlayerSpawnTest",
-            "m_X": -80
+            "m_GUID": 166529220
+        },
+        "7": {
+            "m_AnchorData": {
+                "T": 678186780,
+                "D": {
+                    "m_Team": 7
+                }
+            },
+            "m_GUID": 1742069904,
+            "m_Name": "PlayerSpawn",
+            "m_X": -80,
+            "m_Y": -32,
+            "m_Sprite": ".\/Sprites\/Player.sprite"
+        },
+        "1": {
+            "m_Sprite": ".\/Sprites\/Player.sprite",
+            "m_Y": 32,
+            "m_X": 80,
+            "m_Name": "PlayerSpawn",
+            "m_AnchorData": {
+                "D": {
+                    "m_Team": 3
+                },
+                "T": 678186780
+            },
+            "m_GUID": 3944290984
         }
     },
-    "m_Paths": { },
     "m_EntityLayers": { },
+    "m_Paths": { },
     "m_ParallaxLayers": { },
-    "m_ServerObjectLayers": { },
-    "m_ManualTileLayers": { },
+    "m_ServerObjectLayers": {
+        "0": {
+            "m_Objects": { },
+            "m_Name": "Server Object Layer"
+        }
+    },
+    "m_ManualTileLayers": {
+        "0": {
+            "m_LayerOrder": 0,
+            "m_Name": "Tile Layer",
+            "m_TileSheet": ".\/TileSheets\/Tiles.tilesheet",
+            "m_Tiles": {
+                "5": [721554505784,9925678831329345654],
+                "3": [790273982504,9925678831329345639],
+                "4": [790273982488,9925678831329345623],
+                "2": [790273982520,9925678831329345655],
+                "1": [790273982536,9925678831329345671],
+                "0": [721554505800,9925678831329345670]
+            },
+            "m_Animations": { },
+            "m_CollisionLayer": true
+        }
+    },
     "m_PathfindingInfo": {
         "m_CalculatedInfo": {
-            "m_Surfaces": [{"m_EndConnections2":0,"m_Clearance":200,"m_StartConnections2":0,"m_P2":{"y":-16,"x":15},"m_P1":{"y":-16,"x":0},"m_StartConnections1":0,"m_EndConnections1":0},{"m_EndConnections2":0,"m_Clearance":200,"m_StartConnections2":0,"m_P2":{"y":-48,"x":31},"m_P1":{"y":-48,"x":16},"m_StartConnections1":0,"m_EndConnections1":0}],
             "m_Id": 1982792571,
-            "m_Connections": []
+            "m_Connections": [],
+            "m_Surfaces": [{"m_EndConnections2":0,"m_Clearance":200,"m_StartConnections2":0,"m_P2":{"y":-16,"x":15},"m_P1":{"y":-16,"x":0},"m_StartConnections1":0,"m_EndConnections1":0},{"m_EndConnections2":0,"m_Clearance":200,"m_StartConnections2":0,"m_P2":{"y":-48,"x":31},"m_P1":{"y":-48,"x":16},"m_StartConnections1":0,"m_EndConnections1":0}]
         }
     }
 }

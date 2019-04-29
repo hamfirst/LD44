@@ -7,6 +7,7 @@ class GameContainer;
 static const int kDefaultResolutionWidth = 420;
 static const int kDefaultResolutionHeight = 240;
 
+#define CAMERA_FOLLOW_PLAYER
 
 struct CameraShakeInfo
 {

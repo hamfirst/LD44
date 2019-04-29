@@ -27,7 +27,7 @@ void GameCamera::Update()
     shake += EvalShake(elem, t);
   }
 
-  SetPosition(Vector2(0, 0) + shake);
+  SetOffset(shake);
 }
 
 void GameCamera::TransformWorldSpaceToGameplaySpace(int & x, int & y)

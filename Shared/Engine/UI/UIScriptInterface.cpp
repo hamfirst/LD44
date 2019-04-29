@@ -436,6 +436,11 @@ void UIScriptInterface::DrawTextureInternal(int texture_id, int x, int y, float 
     }
   }
 
+  if(texture == nullptr)
+  {
+    return;
+  }
+
   QuadVertexBufferBuilder buffer_builder;
 
   int size_x = (int)roundf(texture->GetWidth() * scale_x);

@@ -1,0 +1,40 @@
+[]
+
+{
+    "m_InstanceData": {
+        "m_SingleBoxData": {
+            "0": {
+                "m_FrameDataName": "MoveBox",
+                "m_Data": {
+                    "m_End": {
+                        "y": 0,
+                        "x": 2
+                    },
+                    "m_Start": {
+                        "y": -4,
+                        "x": -2
+                    }
+                }
+            }
+        }
+    },
+    "m_Animations": {
+        "0": {
+            "m_Name": "Animation",
+            "m_Frames": {
+                "0": {
+                    "m_FrameDuration": 5,
+                    "m_FrameId": "7450160725315551232"
+                }
+            },
+            "m_Events": { }
+        }
+    },
+    "m_Textures": {
+        "0": {
+            "m_FrameHeight": 11,
+            "m_Filename": ".\/Images\/Potion.png",
+            "m_FrameWidth": 11
+        }
+    }
+}

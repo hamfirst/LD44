@@ -79,6 +79,18 @@ void GameServerObjectBase::ResetAnimState()
   SetAnimationState(AnimationState{});
 }
 
+Optional<Box> GameServerObjectBase::GetMoveBox(uint32_t box_name_hash)
+{
+  auto & sprite = GetSprite();
+  if(sprite)
+  {
+    auto box = sprite->GetSingleBoxDefault(box_name_hash).Offset(m_Position);
+    return box;
+  }
+
+  return {};
+}
+
 void GameServerObjectBase::PushDealDamageEventBox(const Box & b, const DamageEvent & damage_event, GameLogicContainer & game_container)
 {
   EventMetaData new_meta(this, &game_container);
@@ -93,7 +105,7 @@ void GameServerObjectBase::PushDealDamageEventBox(const Box & b, const DamageEve
 
   box = box.Offset(m_Position);
 
-  auto dmg = game_container.GetServerObjectEventSystem().PushEventSource(box, new_meta, EventDef<DamageEvent>{});
+  auto dmg = game_container.GetServerObjectEventSystem().PushEventSource<DamageEvent>(box, new_meta);
   *dmg = damage_event;
 }
 
@@ -165,7 +177,7 @@ void GameServerObjectBase::PushReceiveDamageEventBoxes(uint32_t multi_box_name_h
 
 void GameServerObjectBase::PushReceiveDamageCollisionBox(const Box & b, GameLogicContainer & game_container)
 {
-  game_container.GetSystems().GetCollisionDatabase().PushDynamicCollision(b,
+  game_container.GetSystems().GetCollisionDatabase().PushDynamicCollision(b.Offset(m_Position),
           (uint32_t)GameCollisionType::kCollisionDamagable, CollisionDatabaseObjectInfo(GetObjectHandle()), m_CollisionId);
 }
 
@@ -208,6 +220,11 @@ void GameServerObjectBase::PushCVCBox(uint32_t box_name_hash, GameLogicContainer
     auto box = sprite->GetSingleBoxDefault(box_name_hash).Offset(m_Position);
     PushCVCBox(box, game_container);
   }
+}
+
+void GameServerObjectBase::PushSelfAsTarget(GameLogicContainer & game_container)
+{
+  game_container.GetSystems().GetTargetDatabase().PushTarget(this, game_container);
 }
 
 const SpritePtr & GameServerObjectBase::GetSprite() const
@@ -321,4 +338,14 @@ GameNetVec2 GameServerObjectBase::MoveCheckIntersectionDatabase(GameLogicContain
   }
 
   return result_velocity;
+}
+
+std::vector<ServerObjectHandle> GameServerObjectBase::QueryTargetDatabase(GameNetVal vision_cone_angle,
+        GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
+        GameLogicContainer & game_container)
+{
+  auto coll_database = collision_mask != 0 ? &game_container.GetSystems().GetCollisionDatabase() : nullptr;
+
+  return game_container.GetSystems().GetTargetDatabase().QueryForTargets(this, vision_cone_angle,
+          vision_distance, vision_forward, collision_mask, coll_database, game_container);
 }

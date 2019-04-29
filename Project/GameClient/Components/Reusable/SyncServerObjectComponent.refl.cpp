@@ -58,3 +58,8 @@ void SyncServerObjectComponent::UpdateFirst()
     }
   }
 }
+
+void SyncServerObjectComponent::ServerDestroy()
+{
+  UpdateFirst();
+}

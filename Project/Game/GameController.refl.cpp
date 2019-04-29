@@ -1,4 +1,5 @@
 #include "Game/GameCommon.h"
+
 #include "Foundation/Pathfinding/Pathfinding.h"
 
 #include "GameShared/Systems/GameLogicSystems.h"
@@ -13,7 +14,9 @@
 #include "Game/GameStage.h"
 #include "Game/AI/PlayerAI.h"
 #include "Game/Configs/GameConfig.refl.meta.h"
+
 #include "Game/ServerObjects/Player/PlayerServerObject.refl.meta.h"
+#include "Game/ServerObjects/Bot/NPC/NPCBot.refl.meta.h"
 
 #include "Runtime/ServerObject/ServerObjectManager.h"
 
@@ -21,6 +24,10 @@
 
 
 GLOBAL_ASSET(ConfigPtr<GameConfig>, "./Configs/GameConfig.gameconfig", g_GameConfig);
+
+CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/BatChirps.wav", g_BatChirpsAudio);
+
+#define SHUFFLE_SPAWNS
 
 struct GameControllerRegister
 {
@@ -223,7 +230,7 @@ void GameController::ConvertObserverToPlayer(std::size_t observer_index, std::si
   game_data.m_Players.EmplaceAt(player_index, std::move(player));
 }
 
-void GameController::ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameLogicContainer & game)
+void GameController::ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameLogicContainer & game, bool replace_with_bot)
 {
   auto & game_data = game.GetLowFrequencyInstanceDataForModify();
   auto & user_name = game_data.m_Players[player_index].m_UserName;
@@ -236,8 +243,15 @@ void GameController::ConvertPlayerToObserver(std::size_t observer_index, std::si
   game_data.m_Observers.EmplaceAt(observer_index, std::move(observer));
 
 #ifdef NET_FILL_WITH_BOTS
-  ConstructBot(player_index, game, "AI", team);
+  if(replace_with_bot)
+  {
+    ConstructBot(player_index, game, "AI", team);
+  }
+  else
 #endif
+  {
+    CleanupPlayer(game, player_index);
+  }
 }
 
 #endif
@@ -330,7 +344,7 @@ void GameController::InitPlayer(GameLogicContainer & game, std::size_t player_in
   }
 }
 
-void GameController::SetPlayerToSpawn(GameLogicContainer & game, std::size_t player_index)
+void GameController::SetPlayerToSpawn(GameLogicContainer & game, std::size_t player_index) const
 {
   auto & stage = game.GetStage();
   auto & spawns = stage.GetPlayerSpawns();
@@ -338,13 +352,36 @@ void GameController::SetPlayerToSpawn(GameLogicContainer & game, std::size_t pla
   auto & player = game.GetLowFrequencyInstanceData().m_Players[player_index];
   auto player_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
 
-  if (spawns[(int)player.m_Team].size() == 0)
+  auto player_team = (int)player.m_Team;
+
+
+#ifdef SHUFFLE_SPAWNS
+  std::vector<int> teams;
+  for(int index = 0; index < kMaxTeams; ++index)
+  {
+    teams.push_back(index);
+  }
+
+  NetRandom r(game.GetInstanceData().m_Round);
+  std::vector<int> shuffle_teams;
+
+  for(int index = 0; index < kMaxTeams; ++index)
+  {
+    auto team = r.GetRandom() % teams.size();
+    shuffle_teams.push_back(teams[team]);
+    teams.erase(teams.begin() + team);
+  }
+
+  player_team = shuffle_teams[player_team];
+#endif
+
+  if (spawns[player_team].size() == 0)
   {
     player_obj->m_Position = {};
   }
   else
   {
-    auto & spawn = spawns[(int)player.m_Team][0];
+    auto & spawn = spawns[player_team][0];
     player_obj->m_Position = GameNetVec2(spawn.x, spawn.y);
   }
 }
@@ -456,7 +493,13 @@ int GameController::GetScoreLimit(GameLogicContainer & game) const
 #ifdef NET_USE_ROUND_TIMER
 void GameController::RoundStarted(GameLogicContainer & game) const
 {
+  // Vampire
+  VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerObject> player)
+  {
+    player->PoofToBat(game, false);
+  });
 
+  game.GetEventSender().SendSoundEvent({}, g_BatChirpsAudio, false);
 }
 
 void GameController::RoundEnded(GameLogicContainer & game) const
@@ -466,7 +509,16 @@ void GameController::RoundEnded(GameLogicContainer & game) const
 
 void GameController::RoundReset(GameLogicContainer & game) const
 {
+  VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerObject> player)
+  {
+    SetPlayerToSpawn(game, player_index);
 
+    // Vampire
+    game.GetEventSender().SendVfxSpriteAttachedEvent(player->GetSlotIndex(),
+            GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell5"));
+  });
+
+  RespawnNPCs(game);
 }
 
 int GameController::GetTimeLimit(GameLogicContainer & game) const
@@ -590,6 +642,7 @@ void GameController::Update(GameLogicContainer & game)
   ServerObjectUpdateList update_list;
   obj_manager.IncrementTimeAlive();
   obj_manager.CreateUpdateList(update_list);
+  obj_manager.StartUpdateLoop();
 
 #ifdef NET_MODE_TURN_BASED_RUN
   CheckEndTurnTimer(game);
@@ -614,16 +667,22 @@ void GameController::Update(GameLogicContainer & game)
   auto & event_system = game.GetServerObjectEventSystem();
   auto & collision = game.GetSystems().GetCollisionDatabase();
   auto & cvc = game.GetSystems().GetCVCPushSystem();
+  auto & targeting = game.GetSystems().GetTargetDatabase();
 
   collision.ResetDynamicCollision();
   cvc.Clear();
+  targeting.Clear();
 
   update_list.CallFirst(game);
   event_system.FinalizeEvents(game.GetObjectManager());
+
   update_list.CallMiddle(game);
   event_system.FinalizeEvents(game.GetObjectManager());
+
   update_list.CallLast(game);
   event_system.FinalizeEvents(game.GetObjectManager());
+
+  obj_manager.CompleteUpdateLoop();
 
   cvc.ProcessCVC(game);
 
@@ -657,7 +716,7 @@ void GameController::Update(GameLogicContainer & game)
     else if(game_data.m_RoundState == RoundState::kPostRound)
     {
       game_data.m_RoundState = RoundState::kPreRound;
-      game_data.m_RoundTimer = kPostRoundTimer;
+      game_data.m_RoundTimer = kPreRoundTimer;
 
       RoundReset(game);
     }
@@ -669,6 +728,17 @@ void GameController::Update(GameLogicContainer & game)
 #if NET_MODE == NET_MODE_GGPO
   game.GetInstanceData().m_FrameCount++;
 #endif
+
+
+  // Vampire
+  if(game.GetInstanceData().m_FrameCount == 10)
+  {
+    VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerObject> player)
+    {
+      game.GetEventSender().SendVfxSpriteAttachedEvent(player->GetSlotIndex(),
+              GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell5"));
+    });
+  }
 }
 
 void GameController::StartGame(GameLogicContainer & game)
@@ -677,7 +747,7 @@ void GameController::StartGame(GameLogicContainer & game)
 
 #ifdef NET_USE_ROUND_TIMER
   global_data.m_RoundState = RoundState::kPreRound;
-  global_data.m_RoundTimer = kPostRoundTimer;
+  global_data.m_RoundTimer = kPreRoundTimer;
 #endif
 
 #if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
@@ -691,6 +761,8 @@ void GameController::StartGame(GameLogicContainer & game)
 
   auto & stage = game.GetStage();
   auto slot = kMaxPlayers;
+
+  RespawnNPCs(game);
 
   game.TriggerImmediateSend();
 }
@@ -743,20 +815,84 @@ void GameController::HandlePlaceholderEvent(const PlaceholderClientEvent & ev, s
   auto & global_data = game.GetInstanceData();
 }
 
+void GameController::HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev, GameLogicContainer & game)
+{
+
+}
+
+
+#if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
 void GameController::HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameLogicContainer & game)
 {
   auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
   if (server_obj)
   {
-#ifdef PLATFORMER_MOVEMENT
     server_obj->Jump(game);
+  }
+}
 #endif
+
+
+#ifdef NET_USE_AIM_DIRECTION
+void GameController::HandleFireEvent(const FireEvent & ev, std::size_t player_index, GameLogicContainer & game)
+{
+  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  if (server_obj)
+  {
+    server_obj->Fire(game);
+  }
+}
+#endif
+
+void GameController::HandleUseEvent(const UseEvent & ev, std::size_t player_index, GameLogicContainer & game)
+{
+  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  if (server_obj)
+  {
+    server_obj->Use(game);
   }
 }
 
-void GameController::HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev, GameLogicContainer & game)
+void GameController::HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t player_index, GameLogicContainer & game)
 {
+  if(game.GetInstanceData().m_RoundState != RoundState::kPostRound)
+  {
+    return;
+  }
 
+  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  if (server_obj)
+  {
+    server_obj->PurchaseUpgrade((PlayerUpgrade)ev.m_Upgrade);
+  }
+}
+
+
+void GameController::RespawnNPCs(GameLogicContainer & game) const
+{
+  game.GetObjectManager().VisitObjects([&](auto index, NotNullPtr<ServerObject> obj)
+  {
+    if(obj->CastTo<NPCBot>())
+    {
+      obj->Destroy(game.GetObjectManager());
+    }
+  });
+
+  auto & stage = game.GetStage();
+  auto npc_spawns = stage.GetNPCSpawns();
+
+  for(int index = 0; index < 20 && npc_spawns.size() > 0; ++index)
+  {
+    auto spawn = game.GetInstanceData().m_Random.GetRandom() % npc_spawns.size();
+
+    NPCBotInitData init_data;
+    init_data.m_NPCIndex = game.GetInstanceData().m_Random.GetRandom() % 4;
+
+    auto bot = game.GetObjectManager().CreateDynamicObject<NPCBot>(game, &init_data);
+    bot->m_Position = GameNetVec2(npc_spawns[spawn].x, npc_spawns[spawn].y);
+
+    npc_spawns.erase(npc_spawns.begin() + spawn);
+  }
 }
 
 #if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
@@ -834,3 +970,18 @@ void GameController::HandleEndTurnEvent(const EndTurnEvent & ev, std::size_t pla
 }
 
 #endif
+
+template <typename Visitor>
+void GameController::VisitPlayers(GameLogicContainer & game, Visitor && visitor) const
+{
+  auto & obj_manager = game.GetObjectManager();
+  obj_manager.VisitObjects([&](std::size_t index, NotNullPtr<ServerObject> server_object)
+  {
+    auto player = server_object->CastTo<PlayerServerObject>();
+    if(player)
+    {
+      visitor(index, player);
+    }
+  });
+}
+

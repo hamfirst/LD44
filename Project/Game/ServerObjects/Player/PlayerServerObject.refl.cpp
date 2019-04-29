@@ -8,13 +8,17 @@
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 #include "Game/GameCollision.refl.h"
+#include "Game/GameController.refl.h"
 
 #include "Game/ServerObjects/Player/PlayerServerObject.refl.h"
 #include "Game/ServerObjects/Player/PlayerServerObject.refl.meta.h"
 #include "Game/ServerObjects/Player/States/PlayerStateIdle.refl.h"
 #include "Game/ServerObjects/Player/States/PlayerStateJump.refl.h"
+#include "Game/ServerObjects/Player/States/PlayerStateBite.refl.h"
 
 #include "Game/ServerObjects/Projectile/ProjectileServerObject.refl.meta.h"
+#include "Game/ServerObjects/Pickups/HealthPickup/HealthPickup.refl.h"
+#include "Game/ServerObjects/Bot/NPC/NPCBot.refl.h"
 
 #include "Game/Configs/PlayerConfig.refl.meta.h"
 #include "Game/Configs/ProjectileConfig.refl.meta.h"
@@ -22,6 +26,10 @@
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/Entity/EntityResource.h"
 #include "Runtime/Animation/AnimationState.h"
+
+// Vampire
+CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/PoofFromBat.wav", g_PoofFromBatAudio);
+CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/TransformToBat.wav", g_PoofToBatAudio);
 
 struct PlayerServerObjectConfigResources
 {
@@ -61,9 +69,22 @@ void PlayerServerObject::UpdateMiddle(GameLogicContainer & game_container)
   m_State->Animate(*this, game_container);
   m_State->PostUpdate(*this, game_container);
 
-  PushCVCBox(COMPILE_TIME_CRC32_STR("MoveBox"), game_container);
-  PushReceiveDamageEventBoxes(COMPILE_TIME_CRC32_STR("ReceiveDamage"), game_container);
-  PushReceiveDamageCollisionBoxes(COMPILE_TIME_CRC32_STR("ReceiveDamage"), game_container);
+  // Vampire (just the if)
+  if(m_Bat == false)
+  {
+    auto move_box = GetMoveBox();
+
+    if(move_box)
+    {
+      PushCVCBox(move_box.Value(), game_container);
+      game_container.GetServerObjectEventSystem().PushEventReceiver<PickupAvailableEvent>(GetObjectHandle(), move_box.Value());
+    }
+
+    PushSelfAsTarget(game_container);
+
+    PushReceiveDamageEventBoxes(COMPILE_TIME_CRC32_STR("ReceiveDamage"), game_container);
+    PushReceiveDamageCollisionBoxes(COMPILE_TIME_CRC32_STR("ReceiveDamage"), game_container);
+  }
 }
 
 void PlayerServerObject::UpdateLast(GameLogicContainer & game_container)
@@ -88,11 +109,22 @@ void PlayerServerObject::UpdateLast(GameLogicContainer & game_container)
   }
 
   --m_RefireTime;
-  if(m_RefireTime == 0)
+  --m_FrozenFrames;
+
+  // Vampire
+  if(m_BatTimer > 0)
   {
-    ProjectileServerObject::SpawnProjectile(m_Position, GetDirectionForFacing(m_Facing), GetTeam(game_container), GetObjectHandle(),
-            g_PlayerConfigResources[m_Config.CurrentIndex()].m_ProjectileConfig, game_container);
-    m_RefireTime = 20;
+    --m_BatTimer;
+
+    if(m_BatTimer == 0)
+    {
+      game_container.GetEventSender().SendVfxSpriteAttachedEvent(GetSlotIndex(),
+              GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell2"));
+      game_container.GetEventSender().SendSoundEvent(GetPosition(), g_PoofFromBatAudio, false);
+      m_Bat = false;
+
+      m_FrozenFrames = 20;
+    }
   }
 }
 
@@ -108,8 +140,6 @@ void PlayerServerObject::ResetState(GameLogicContainer & game_container)
   {
     m_Facing = CharacterFacing::kLeft;
   }
-
-  m_Health = 255;
 }
 
 MoverResult PlayerServerObject::MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & extra_movement)
@@ -185,6 +215,103 @@ void PlayerServerObject::Jump(GameLogicContainer & game_container)
 }
 #endif
 
+#ifdef NET_USE_AIM_DIRECTION
+void PlayerServerObject::Fire(GameLogicContainer & game_container)
+{
+  if(m_RefireTime == 0 && m_Bat == false && game_container.GetInstanceData().m_RoundState == RoundState::kRound &&
+      m_NPCBeingEaten.GetRawSlotIndex() == -1 && m_Ammo > 0)
+  {
+    --m_Ammo;
+
+    auto aim_x = GameNetLUT::Cos(m_Input.m_AimDirection);
+    auto aim_y = GameNetLUT::Sin(m_Input.m_AimDirection);
+
+    auto aim_dir = GameNetVec2(aim_x, aim_y);
+    auto offset = GameNetVec2(aim_x * GameNetVal(5), (aim_y * GameNetVal(3)) - GameNetVal(4));
+
+    auto pos = m_Position;
+    pos += offset;
+
+    auto proj = ProjectileServerObject::SpawnProjectile(pos, aim_dir, GetTeam(game_container), GetObjectHandle(),
+            g_PlayerConfigResources[m_Config.CurrentIndex()].m_ProjectileConfig, game_container);
+
+    if(m_Upgrades & (int)PlayerUpgrade::kDamage1)
+    {
+      proj->m_DamageBoost++;
+    }
+
+    if(m_Upgrades & (int)PlayerUpgrade::kDamage2)
+    {
+      proj->m_DamageBoost++;
+    }
+
+    game_container.GetEventSender().SendMuzzleFlashEvent(GetSlotIndex(), m_Input.m_AimDirection);
+    m_RefireTime = 20;
+
+    if(m_Upgrades & (int)PlayerUpgrade::kRate1)
+    {
+      m_RefireTime -= 4;
+    }
+
+    if(m_Upgrades & (int)PlayerUpgrade::kRate2)
+    {
+      m_RefireTime -= 4;
+    }
+
+    // Vampire
+    //RemoveFromGame(game_container);
+  }
+}
+#endif
+
+void PlayerServerObject::Use(GameLogicContainer & game_container)
+{
+  //Vampire
+  if(m_InCoffin || m_NPCBeingEaten.GetRawSlotIndex() != -1 || game_container.GetInstanceData().m_RoundState != RoundState::kRound)
+  {
+    return;
+  }
+
+  // Look for NPCs to eat or Coffins to use
+  auto & obj_manager = game_container.GetObjectManager();
+  obj_manager.VisitObjects([&](auto index, NotNullPtr<ServerObject> object)
+  {
+    auto npc = object->CastTo<NPCBot>();
+    if(npc && npc->m_BeingEaten == false)
+    {
+      auto dist = ManhattanDist(m_Position, npc->m_Position);
+      if(dist > GameNetVal(16))
+      {
+        return;
+      }
+
+      GameNetVal aim_x = GameNetLUT::Cos(m_Input.m_AimDirection);
+
+      npc->m_Position = m_Position;
+      if(aim_x > GameNetVal(0))
+      {
+        npc->m_Position += GameNetVec2(4, 0);
+      }
+      else
+      {
+        npc->m_Position -= GameNetVec2(4, 0);
+      }
+
+      npc->m_Velocity = GameNetVec2(0, 0);
+      npc->m_BeingEaten = true;
+
+      m_NPCBeingEaten = npc->GetObjectHandle();
+
+      TransitionToState<PlayerStateBite>(game_container);
+    }
+  });
+}
+
+void PlayerServerObject::RemoveFromGame(GameLogicContainer & game_container)
+{
+  Destroy(game_container.GetObjectManager());
+}
+
 bool PlayerServerObject::HandlePlaceholderEvent(const PlaceholderEvent & ev, const EventMetaData & meta)
 {
   return true;
@@ -220,12 +347,26 @@ bool PlayerServerObject::HandleDamageEvent(const DamageEvent & ev, const EventMe
 
   if (ev.m_Amount >= m_Health)
   {
-#ifdef NET_USE_ROUND_TIMER
-    auto other_player = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(GetSlotIndex() == 0 ? 1 : 0);
-    game.GetInstanceData().m_RoundState = RoundState::kPostRound;
-    game.GetInstanceData().m_RoundTimer = kMaxRoundTimer;
-#endif
-    m_Health = 0;
+    // Vampire
+    if(m_Lives > 0)
+    {
+      --m_Lives;
+      m_Health = 1;
+
+      PoofToBat(game, true);
+
+      HealthPickupInitData health_pickup_init_data;
+      auto health_pickup = game.GetObjectManager().CreateDynamicObject<HealthPickup>(game, &health_pickup_init_data);
+      health_pickup->m_Position = m_Position - GameNetVec2(0, 5);
+      health_pickup->m_AvoidObject = GetObjectHandle();
+    }
+    else
+    {
+      game.GetEventSender().SendVfxSpriteAttachedEvent(GetSlotIndex(),
+              GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell4"));
+
+      RemoveFromGame(game);
+    }
   }
   else
   {
@@ -251,6 +392,28 @@ bool PlayerServerObject::HandleDealDamageEvent(const DealDamageAnimationEvent & 
     PushDealDamageEventBox(*b, dmg, game_container);
   }
 
+  return true;
+}
+
+bool PlayerServerObject::HandlePickupAvailableEvent(const PickupAvailableEvent & ev, const EventMetaData & meta)
+{
+  if(meta.m_SourceServerObject == nullptr)
+  {
+    return false;
+  }
+
+  auto pickup = meta.m_SourceServerObject->CastTo<PickupBase>();
+  if(pickup == nullptr)
+  {
+    return false;
+  }
+
+  if(pickup->CanBePickedUp(this, *meta.m_GameLogicContainer) == false)
+  {
+    return false;
+  }
+
+  pickup->PickUp(this, *meta.m_GameLogicContainer);
   return true;
 }
 
@@ -304,4 +467,147 @@ czstr PlayerServerObject::GetDefaultEntityBinding() const
 const ConfigPtr<PlayerConfig> & PlayerServerObject::GetConfig() const
 {
   return m_Config.Value();
+}
+
+void PlayerServerObject::PoofToBat(GameLogicContainer & game_container, bool play_audio)
+{
+  m_Bat = true;
+  m_BatTimer = kMaxBatTimer;
+
+  game_container.GetEventSender().SendVfxSpriteAttachedEvent(GetSlotIndex(),
+          GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell3"));
+
+  if(play_audio)
+  {
+    game_container.GetEventSender().SendSoundEvent(GetPosition(), g_PoofToBatAudio, false);
+  }
+
+  m_FrozenFrames = 40;
+}
+
+void PlayerServerObject::GiveHealth(int health)
+{
+  auto max_health = GetMaxHealth();
+  m_Health = std::min(max_health, (int)m_Health + health);
+}
+
+void PlayerServerObject::RefillAmmo()
+{
+  m_Ammo = kDefaultAmmo;
+  if(m_Upgrades & (int)PlayerUpgrade::kAmmo1)
+  {
+    m_Ammo += 6;
+  }
+
+  if(m_Upgrades & (int)PlayerUpgrade::kAmmo2)
+  {
+    m_Ammo += 6;
+  }
+}
+
+int PlayerServerObject::GetMaxHealth()
+{
+  auto health = kDefaultMaxHealth;
+
+  if(m_Upgrades & (int)PlayerUpgrade::kHealth1)
+  {
+    health += 2;
+  }
+
+  if(m_Upgrades & (int)PlayerUpgrade::kHealth2)
+  {
+    health += 2;
+  }
+
+  return health;
+}
+
+int PlayerServerObject::GetUpgradeCost(PlayerUpgrade upgrade)
+{
+  if(m_Upgrades & (int)upgrade)
+  {
+    return 0;
+  }
+
+  if(upgrade == PlayerUpgrade::kDamage2 && (m_Upgrades & (int)PlayerUpgrade::kDamage1) == 0)
+  {
+    return 0;
+  }
+
+  if(upgrade == PlayerUpgrade::kAmmo2 && (m_Upgrades & (int)PlayerUpgrade::kAmmo1) == 0)
+  {
+    return 0;
+  }
+
+  if(upgrade == PlayerUpgrade::kHealth2 && (m_Upgrades & (int)PlayerUpgrade::kHealth1) == 0)
+  {
+    return 0;
+  }
+
+  if(upgrade == PlayerUpgrade::kLife2 && (m_Upgrades & (int)PlayerUpgrade::kLife1) == 0)
+  {
+    return 0;
+  }
+
+  if(upgrade == PlayerUpgrade::kLife3 && ((m_Upgrades & (int)PlayerUpgrade::kLife1) == 0) || (m_Upgrades & (int)PlayerUpgrade::kLife2) == 0)
+  {
+    return 0;
+  }
+
+  if(upgrade == PlayerUpgrade::kRate2 && (m_Upgrades & (int)PlayerUpgrade::kRate1) == 0)
+  {
+    return 0;
+  }
+
+  if(((upgrade == PlayerUpgrade::kLife1) || (upgrade == PlayerUpgrade::kLife2) || (upgrade == PlayerUpgrade::kLife3)) && m_Lives >= 3)
+  {
+    return 0;
+  }
+
+  switch(upgrade)
+  {
+    default:
+      return 0;
+    case PlayerUpgrade::kDamage1:
+      return 3;
+    case PlayerUpgrade::kDamage2:
+      return 7;
+    case PlayerUpgrade::kAmmo1:
+      return 2;
+    case PlayerUpgrade::kAmmo2:
+      return 3;
+    case PlayerUpgrade::kHealth1:
+      return 3;
+    case PlayerUpgrade::kHealth2:
+      return 6;
+    case PlayerUpgrade::kSpeed1:
+      return 6;
+    case PlayerUpgrade::kLife1:
+      return 4;
+    case PlayerUpgrade::kLife2:
+      return 5;
+    case PlayerUpgrade::kLife3:
+      return 6;
+    case PlayerUpgrade::kRate1:
+      return 5;
+    case PlayerUpgrade::kRate2:
+      return 7;
+  }
+}
+
+void PlayerServerObject::PurchaseUpgrade(PlayerUpgrade upgrade)
+{
+  auto cost = GetUpgradeCost(upgrade);
+  if(cost == 0)
+  {
+    return;
+  }
+
+  m_Upgrades |= (int)upgrade;
+  m_Health -= cost;
+
+  if(upgrade == PlayerUpgrade::kLife1 || upgrade == PlayerUpgrade::kLife2 || upgrade == PlayerUpgrade::kLife3)
+  {
+    ++m_Lives;
+  }
 }

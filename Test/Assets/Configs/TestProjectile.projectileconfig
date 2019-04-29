@@ -1,9 +1,14 @@
 []
 
 {
+    "m_ResponseConfig": {
+        "D": { },
+        "T": 2802092574
+    },
+    "m_MaxDistance": 250,
     "m_MotionConfig": {
         "D": {
-            "m_Speed": "2.000000"
+            "m_Speed": "8.000000"
         },
         "T": 3016896601
     }

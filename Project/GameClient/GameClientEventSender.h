@@ -7,7 +7,7 @@ class GameClientEventSender
 public:
 
   template <typename EventType>
-  void SendClientEvent(const EventType & event, std::size_t client_index)
+  void SendClientEvent(const EventType & event, std::size_t client_index = 0)
   {
     static_assert(std::is_base_of<ClientNetworkEvent, EventType>::value, "Sending client event of the wrong type");
 

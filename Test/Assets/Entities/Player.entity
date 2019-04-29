@@ -1,13 +1,11 @@
 []
 
 {
-    "m_Sprite": ".\/Sprites\/Player.sprite",
     "m_Components": {
         "0": {
-            "T": 4226357423,
-            "D": {
-                "m_SyncSprite": true
-            }
+            "T": 658572242,
+            "D": { }
         }
-    }
+    },
+    "m_Sprite": ".\/Sprites\/Player.sprite"
 }

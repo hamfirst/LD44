@@ -135,7 +135,7 @@ void GameModeTutorial::Update()
   m_FrameClock.RemoveExtra();
 
   auto & camera = container.GetClientSystems()->GetCamera();
-  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetPosition(), camera.GetGameResolution());
+  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetOffsetPosition(), camera.GetGameResolution());
 
   {
     PROFILE_SCOPE("VFX update");
@@ -177,7 +177,7 @@ void GameModeTutorial::Render()
   camera.SetScreenResolution(screen_resolution);
   camera.Update();
 
-  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetPosition(), camera.GetGameResolution());
+  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetOffsetPosition(), camera.GetGameResolution());
 
   {
     PROFILE_SCOPE("Camera Draw");

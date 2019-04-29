@@ -1,6 +1,12 @@
 
 #include "GameShared/BehaviorTree/BehaviorTree.h"
 #include "GameShared/BehaviorTree/States/PlayAnimationBotState.refl.h"
+#include "GameShared/BehaviorTree/States/PlayAnimationForTimeBotState.refl.h"
+#include "GameShared/BehaviorTree/States/MoveForTimeBotState.refl.h"
+
+#include "GameShared/BehaviorTree/Conditionals/IsDeadBotConditional.refl.h"
+#include "GameShared/BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h"
+#include "GameShared/BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h"
 
 using BT = StormBehaviorTreeTemplateBuilder<BotServerObject, GameLogicContainer>;
 

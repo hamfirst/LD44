@@ -49,7 +49,7 @@ void PlayerStateIdle::Transition(PlayerServerObject & player, GameLogicContainer
 
 #ifndef PLATFORMER_MOVEMENT
 
-  if (player.m_Input.m_InputStr > GameNetVal(0))
+  if (player.m_Input.m_InputStr > GameNetVal(0) && player.m_FrozenFrames == 0)
   {
     player.TransitionToState<PlayerStateMoving>(game_container);
   }
@@ -82,7 +82,33 @@ void PlayerStateIdle::Transition(PlayerServerObject & player, GameLogicContainer
 
 void PlayerStateIdle::Animate(PlayerServerObject & player, GameLogicContainer & game_container)
 {
-#ifndef PLATFORMER_MOVEMENT
+  // Vampire
+  if(player.m_Bat)
+  {
+    player.FrameAdvance(COMPILE_TIME_CRC32_STR("Bat"));
+    player.TriggerAnimationEvents(game_container, *this);
+    return;
+  }
+
+#if defined(NET_USE_AIM_DIRECTION)
+
+  GameNetVal aim_x = GameNetLUT::Cos(player.m_Input.m_AimDirection);
+  GameNetVal aim_y = GameNetLUT::Sin(player.m_Input.m_AimDirection);
+
+  if(aim_y > GameNetVal(0))
+  {
+    player.FrameAdvance(COMPILE_TIME_CRC32_STR("IdleUp"));
+  }
+  else
+  {
+    player.FrameAdvance(COMPILE_TIME_CRC32_STR("IdleDown"));
+  }
+
+#elif defined(PLATFORMER_MOVEMENT)
+
+  player.FrameAdvance(COMPILE_TIME_CRC32_STR("Idle"));
+
+#else
   switch ((CharacterFacing)player.m_Facing)
   {
   case CharacterFacing::kLeft:
@@ -96,9 +122,6 @@ void PlayerStateIdle::Animate(PlayerServerObject & player, GameLogicContainer & 
     player.FrameAdvance(COMPILE_TIME_CRC32_STR("Down_Idle"));
     break;
   }
-#else
-
-  player.FrameAdvance(COMPILE_TIME_CRC32_STR("Idle"));
 
 #endif
 

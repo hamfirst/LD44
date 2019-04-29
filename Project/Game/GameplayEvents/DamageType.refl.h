@@ -4,6 +4,7 @@
 
 enum STORM_REFL_ENUM class DamageType
 {
+  kProjectile,
   kMelee,
   kFall,
 };

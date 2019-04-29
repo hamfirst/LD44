@@ -10,6 +10,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}
 
 set(CMAKE_CXX_STANDARD 17)
 
+include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
+
 set(GENERIC_SRC_GameClient 
             Components/PlayerComponent.refl.cpp
             Components/PlayerComponent.refl.reg.cpp
@@ -203,3 +205,8 @@ add_library(GameClient STATIC ${GENERIC_SRC_GameClient} ${PLATFORM_SRC_GameClien
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${GENERIC_SRC_GameClient} ${PLATFORM_SRC_GameClient}
             ${GENERIC_HEADER_GameClient} ${PLATFORM_HEADER_GameClient})
 
+set_target_properties(GameClient PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT GameClientCommon.h)
+
+if(GENERATE_PCH)
+  cotire(GameClient)
+endif()

@@ -23,7 +23,7 @@ struct GlyphInfo
 class ENGINE_EXPORT TextRenderer
 {
 public:
-  TextRenderer(const AssetReference<FontAsset> & asset_ref, int font_size, std::vector<std::unique_ptr<TextBackupFont>> & backup_fonts);
+  TextRenderer(const AssetReference<FontAsset> & asset_ref, int font_size, int offset, std::vector<std::unique_ptr<TextBackupFont>> & backup_fonts);
   ~TextRenderer();
 
   void CreateVertexBufferForString(const std::string_view & utf8_str, float scale, int sel_start, int sel_end, int cursor_pos,
@@ -60,6 +60,7 @@ private:
   FT_Face m_Face;
 
   int m_FontSize;
+  int m_Offset;
 
   Texture m_Texture;
 

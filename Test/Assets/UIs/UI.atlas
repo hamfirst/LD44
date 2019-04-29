@@ -1,0 +1,28 @@
+[]
+
+{
+    "m_Textures": {
+        "0": {
+            "m_Filename": ".\/Images\/UI\/Plank_08_png_processed.png"
+        }
+    },
+    "m_Elements": {
+        "0": {
+            "m_Data": {
+                "m_RepeatVertical": true,
+                "m_EndOffsetY": 7,
+                "m_StartX": 0,
+                "m_StartOffsetX": 27,
+                "m_StartOffsetY": 11,
+                "m_Type": "k9Slice",
+                "m_EndOffsetX": 25,
+                "m_EndY": 42,
+                "m_StartY": 0,
+                "m_RepeatHorizontal": true,
+                "m_EndX": 202
+            },
+            "m_Name": "TopBar",
+            "m_TextureHash": 3398546230
+        }
+    }
+}

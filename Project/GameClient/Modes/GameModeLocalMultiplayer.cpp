@@ -166,7 +166,7 @@ void GameModeLocalMultiplayer::Update()
   m_FrameClock.RemoveExtra();
 
   auto & camera = container.GetClientSystems()->GetCamera();
-  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetPosition(), camera.GetGameResolution());
+  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetOffsetPosition(), camera.GetGameResolution());
 
   visual_effects->Update(viewport_bounds);
   ui_manager.Update();
@@ -207,7 +207,7 @@ void GameModeLocalMultiplayer::Render()
   camera.SetScreenResolution(screen_resolution);
   camera.Update();
 
-  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetPosition(), camera.GetGameResolution());
+  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetOffsetPosition(), camera.GetGameResolution());
 
   camera.Draw(container, &engine_state, render_state);
 

@@ -69,3 +69,8 @@ void AttachVfxComponent::UpdateLast()
     vfx->SetPosition(pos);
   }
 }
+
+void AttachVfxComponent::ServerDestroy()
+{
+  UpdateLast();
+};

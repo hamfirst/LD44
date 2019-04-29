@@ -100,10 +100,18 @@ public:
 
   void SendCreateEntity(const GameNetVec2 & pos, uint32_t asset_hash);
   void SendCameraShake(const GameNetVec2 & pos);
-  void SendSoundEvent(const GameNetVec2 & pos, uint32_t asset_hash);
-  void SendSoundEvent(const GameNetVec2 & pos, const GameNetVec2 & normal, uint32_t asset_hash);
+  void SendSoundEvent(const GameNetVec2 & pos, uint32_t asset_hash, bool noisy);
+  void SendSoundEvent(const GameNetVec2 & pos, const GameNetVec2 & normal, uint32_t asset_hash, bool noisy);
   void SendVfxEvent(const GameNetVec2 & pos, uint32_t asset_hash);
   void SendVfxEvent(const GameNetVec2 & pos, const GameNetVec2 & normal, uint32_t asset_hash);
+
+  void SendVfxSpriteEvent(const GameNetVec2 & pos, uint32_t asset_hash, uint32_t animation_hash);
+  void SendVfxSpriteAttachedEvent(int player_index, const GameNetVec2 & pos, uint32_t asset_hash, uint32_t animation_hash);
+
+
+  void SendMuzzleFlashEvent(int player_index, GameNetVal angle);
+  void SendProjectileImpactEvent(bool hit_character, const GameNetVec2 & pos);
+
 
 protected:
   virtual void SendGlobalEvent(std::size_t class_id, const void * event_ptr) {}

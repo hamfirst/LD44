@@ -95,15 +95,8 @@ void GameClientWidget::showEvent(QShowEvent * ev)
 
   auto init_settings = std::make_unique<GameContainerInitSettings>();
   init_settings->m_UserName = "Player" + std::to_string(m_ClientIndex + 1);
+  init_settings->m_AutoBotGame = m_BotGame;
 
-  if (m_BotGame)
-  {
-    init_settings->m_AutoBotGame = false;
-  }
-  else
-  {
-    init_settings->m_AutoConnect = false;
-  }
 
   m_FakeWindow->HandleMouseMoveMessage(cursor_pos.x(), cursor_pos.y());
   m_GameContainer.Emplace(m_FakeWindow->GetWindow(), std::move(init_settings));

@@ -1,19 +1,25 @@
+
+
 #pragma once
 
-#include ""StormNet/NetReflectionStruct.h""
-#include ""StormNet/NetReflectionTypeDatabase.h""
+#include ""GameShared/GameSharedCommon.h""
+#include ""Game/GameFullState.refl.h""
 
-#include ""Game/ServerObjects/Bot/States/BotStateBase.refl.h""
+#include ""Game/ServerObjects/Bot/BotServerObject.refl.h""
 
-class {class_name} : public BotStateBase, public BotStateEventHandler<{class_name}>
+
+class {class_name}
 {{
 public:
   NET_REFL;
+  STORM_REFL_NODEFAULT;
 
-  virtual void Move(BotServerObject & Bot, GameLogicContainer & game_container) override;
-  virtual void Transition(BotServerObject & Bot, GameLogicContainer & game_container) override;
-  virtual void Animate(BotServerObject & Bot, GameLogicContainer & game_container) override;
+  {class_name}();
 
-public:
-  // Serialized variables
+  void Activate(BotServerObject & bot, GameLogicContainer & container);
+  bool Update(BotServerObject & bot, GameLogicContainer & container);
+
+private:
+
 }};
+

@@ -22,6 +22,8 @@ public:
 
   void UpdateFirst();
 
+  virtual void ServerDestroy() override;
+
 private:
   bool m_SyncSprite;
 };

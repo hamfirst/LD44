@@ -1,0 +1,23 @@
+[]
+
+{
+    "m_Animations": {
+        "0": {
+            "m_Frames": {
+                "0": {
+                    "m_FrameId": "7617458446048165888",
+                    "m_FrameDuration": 200
+                }
+            },
+            "m_Events": { },
+            "m_Name": "Animation"
+        }
+    },
+    "m_Textures": {
+        "0": {
+            "m_FrameWidth": 16,
+            "m_FrameHeight": 32,
+            "m_Filename": ".\/Images\/AlertIcon.png"
+        }
+    }
+}

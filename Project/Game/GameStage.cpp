@@ -9,6 +9,8 @@
 
 #include "Game/Data/PlayerSpawn.refl.meta.h"
 #include "Game/Data/KillVolume.refl.meta.h"
+#include "Game/Data/NPCSpawn.refl.meta.h"
+#include "Game/Data/CoverPoint.refl.meta.h"
 #include "GameShared/GameLogicContainer.h"
 
 GameStage::GameStage(const Map & map) :
@@ -83,6 +85,20 @@ GameStage::GameStage(const Map & map) :
     if (player_spawn_info)
     {
       m_PlayerSpawns[(int)player_spawn_info->m_Team].push_back(anchor.second.GetPoint());
+      continue;
+    }
+
+    auto npc_spawn = anchor.second.m_AnchorData.GetAs<NPCSpawn>();
+    if(npc_spawn)
+    {
+      m_NPCSpawns.push_back(anchor.second.GetPoint());
+      continue;
+    }
+
+    auto cover_point = anchor.second.m_AnchorData.GetAs<CoverPoint>();
+    if(cover_point)
+    {
+      m_CoverPoints.push_back(anchor.second.GetPoint());
       continue;
     }
   }
@@ -189,6 +205,10 @@ std::vector<Vector2> GameStage::FindPath(const Vector2 & start, const Vector2 & 
 
   return path;
 
+#else
+
+  return {};
+
 #endif
 }
 
@@ -205,6 +225,16 @@ const std::vector<GameCollisionLine> GameStage::GetCollisionLines() const
 const std::vector<std::vector<Vector2>> & GameStage::GetPlayerSpawns() const
 {
   return m_PlayerSpawns;
+}
+
+const std::vector<Vector2> & GameStage::GetNPCSpawns() const
+{
+  return m_NPCSpawns;
+}
+
+const std::vector<Vector2> & GameStage::GetCoverPoints() const
+{
+  return m_CoverPoints;
 }
 
 const std::vector<Box> & GameStage::GetKillVolumes() const
@@ -262,6 +292,16 @@ NullOptPtr<const MapVolume> GameStage::ResolveHandle(const MapVolumeHandle & han
   return nullptr;
 }
 
+std::vector<Vector2> GameStage::QueryNPCSpawns(const Vector2 & pos, int min_dist, int max_dist) const
+{
+  return QueryPointList(m_NPCSpawns, pos, min_dist, max_dist);
+}
+
+std::vector<Vector2> GameStage::QueryCoverPoints(const Vector2 & pos, int min_dist, int max_dist) const
+{
+  return QueryPointList(m_CoverPoints, pos, min_dist, max_dist);
+}
+
 GameFullState GameStage::CreateDefaultGameState() const
 {
   return GameFullState{ ServerObjectManager(m_StaticObjects, m_DynamicObjects, m_DynamicObjectCount, kMaxPlayers) };
@@ -270,4 +310,21 @@ GameFullState GameStage::CreateDefaultGameState() const
 void GameStage::InitAllObjects(GameLogicContainer & game_container) const
 {
   game_container.GetObjectManager().InitAllObjects(m_StaticObjects, m_DynamicObjects, game_container);
+}
+
+
+std::vector<Vector2> GameStage::QueryPointList(const std::vector<Vector2> & points, const Vector2 & pos, int min_dist, int max_dist) const
+{
+  std::vector<Vector2> out;
+
+  for(auto & elem : points)
+  {
+    auto mdist = ManhattanDist(pos, elem);
+    if(mdist >= min_dist && mdist <= max_dist)
+    {
+      out.push_back(elem);
+    }
+  }
+
+  return out;
 }

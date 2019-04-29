@@ -201,7 +201,7 @@ EditorContainer::EditorContainer(QWidget *parent) :
   GetProperyMetaData<MapEditorAnchorInitData>(m_PropertyDatabase);
 
   QString exec_path = QFileInfo(QCoreApplication::applicationFilePath()).canonicalPath();
-  g_TextManager.LoadFont("./Fonts/FFF.ttf", -1, 8);
+  g_TextManager.LoadFont("./Fonts/FFF.ttf", -1, 8, 0);
 
   m_EngineInitialized = true;
   m_NextDocumentId = 1;

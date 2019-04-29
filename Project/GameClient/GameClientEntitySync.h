@@ -19,7 +19,8 @@ public:
   void Sync(GameClientInstanceContainer & instance_container);
   void DestroyAll();
 
-  void SendEntityEvent(int entity_index, uint32_t type_name_hash, const void * ev);
+  NullOptPtr<Entity> FindEntity(int object_index, GameClientInstanceContainer & instance_container);
+  void SendEntityEvent(ServerObjectHandle server_object_handle, uint32_t type_name_hash, const void * ev);
 
 private:
 

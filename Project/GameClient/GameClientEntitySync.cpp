@@ -199,9 +199,49 @@ void GameClientEntitySync::DestroyAll()
   m_CurrentEntities.Clear();
 }
 
-void GameClientEntitySync::SendEntityEvent(int entity_index, uint32_t type_name_hash, const void * ev)
+NullOptPtr<Entity> GameClientEntitySync::FindEntity(int object_index, GameClientInstanceContainer & instance_container)
 {
-//  auto entity = m_Entities[entity_index].Resolve();
+  auto history_container = instance_container.GetLogicContainer(NET_SYNC_HISTORY_FRAMES);
+  auto current_container = instance_container.GetLogicContainer();
+
+  auto & history_obj_manager = history_container.GetObjectManager();
+  auto & current_obj_manager = current_container.GetObjectManager();
+
+  auto object_handle = ServerObjectHandle::ConstructFromStaticIndex(object_index);
+  auto current_obj = object_handle.Resolve(current_obj_manager);
+
+  if(current_obj && IsLocal(current_obj, current_container))
+  {
+    if(m_CurrentEntities.HasAt(object_index))
+    {
+      return m_CurrentEntities[object_index].Resolve();
+    }
+
+    return nullptr;
+  }
+
+  auto history_obj = object_handle.Resolve(history_obj_manager);
+  if(history_obj && !IsLocal(history_obj, history_container))
+  {
+    if(m_HistoryEntities.HasAt(object_index))
+    {
+      return m_HistoryEntities[object_index].Resolve();
+    }
+
+    return nullptr;
+  }
+
+  return nullptr;
+}
+
+void GameClientEntitySync::SendEntityEvent(ServerObjectHandle server_object_handle, uint32_t type_name_hash, const void * ev)
+{
+//  if(server_object_handle.GetRawSlotIndex() >= m_CurrentEntities.size())
+//  {
+//    return;
+//  }
+//
+//  auto entity = m_CurrentEntities[server_object_handle.GetRawSlotIndex()].Resolve();
 //
 //  if (entity)
 //  {

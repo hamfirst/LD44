@@ -94,6 +94,11 @@ void GameClientInputManager::Update()
 
     ClientInput input;
 
+    auto pointer_state = input_state->GetPointerState();
+    auto pointer_pos = Vector2f(pointer_state.m_Pos);
+    pointer_pos -= Vector2f(0.5f, 0.5f) * camera.GetScreenResolution();
+    input.m_AimDirection = GameNetVal::CreateFromFloat(atan2f(pointer_pos.y, pointer_pos.x));
+
 #ifndef PLATFORMER_MOVEMENT
     input.m_InputStr = GameNetVal::CreateFromFloat(input_str);
     input.m_InputAngle = GameNetVal::CreateFromFloat(atan2f(input_vec.y, input_vec.x));
@@ -107,6 +112,19 @@ void GameClientInputManager::Update()
     input.m_XInput = GameNetVal::CreateFromFloat(input_vec.x);
     input.m_YInput = GameNetVal::CreateFromFloat(input_vec.y);
 #endif
+
+#ifdef NET_USE_AIM_DIRECTION
+    if (input_state->GetMousePressedThisFrame(kMouseLeftButton) || input_state->GetGamepadButtonPressedThisFrame(gamepad_index, GamepadButton::kR2))
+    {
+      SendEvent(client_index, FireEvent{});
+    }
+#endif
+
+    if (input_state->GetMousePressedThisFrame(kMouseRightButton) || input_state->GetGamepadButtonPressedThisFrame(gamepad_index, GamepadButton::kY))
+    {
+      SendEvent(client_index, UseEvent{});
+    }
+
     SendInput(client_index, input);
 
     if (client_index == 0)

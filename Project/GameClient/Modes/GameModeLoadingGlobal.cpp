@@ -56,7 +56,7 @@ void GameModeLoadingGlobal::Update()
         container.StartNetworkClient(net_settings);
         container.SwitchMode<GameModeConnectingGame>();
       }
-      else if (init_settings->m_AutoBotGame)
+      else if (init_settings->m_AutoBotGame || true)
       {
         container.SwitchMode<GameModeSinglePlayerBots>(GameInitSettings{}, false);
       }

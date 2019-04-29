@@ -6,19 +6,13 @@
 #include "Foundation/Any/Any.h"
 #include "Foundation/SpatialDatabase/SpatialDatabase.h"
 
-template <typename EventType>
-struct EventDef
-{
-
-};
-
 template <typename ObjectType, typename HandleType>
 class EventSystem
 {
 public:
 
   template <typename Event, typename ... InitArgs>
-  NotNullPtr<Event> PushEventSource(const Box & box, const EventMetaData & meta, EventDef<Event> event_type, InitArgs && ... init_args)
+  NotNullPtr<Event> PushEventSource(const Box & box, const EventMetaData & meta, InitArgs && ... init_args)
   {
     EventSrc event_data;
     event_data.m_Type = Event::TypeNameHash;

@@ -24,6 +24,7 @@ public:
   virtual ~AttachVfxComponent();
 
   void OnDestroy() override;
+  void ServerDestroy() override;
 
   void UpdateLast();
 

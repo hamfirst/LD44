@@ -1,0 +1,71 @@
+[]
+
+{
+    "m_Emitters": {
+        "0": {
+            "m_EmitterEquations": {
+                "472491818": {
+                    "m_Equation": "300",
+                    "m_VariableName": "m_SpawnRate"
+                },
+                "2225435367": {
+                    "m_Equation": "0.1",
+                    "m_VariableName": "m_EmitterLifetime"
+                }
+            },
+            "m_ParticleEquations": {
+                "1196869079": {
+                    "m_Equation": "InvTimePct",
+                    "m_VariableName": "m_ColorA"
+                },
+                "3245731331": {
+                    "m_Equation": "0.3",
+                    "m_VariableName": "m_MaxLifetime"
+                },
+                "3286795273": {
+                    "m_Equation": "[n 1, 0.6, RandD]",
+                    "m_VariableName": "m_ColorR"
+                },
+                "2922733794": {
+                    "m_Equation": "[n 0.0, 0.1, RandD]",
+                    "m_VariableName": "m_ColorG"
+                },
+                "3098055020": {
+                    "m_Equation": "-100",
+                    "m_VariableName": "m_ForceY"
+                },
+                "3730805869": {
+                    "m_Equation": "[n 0.0, 0.1, RandD]",
+                    "m_VariableName": "m_ColorB"
+                }
+            },
+            "m_Properties": {
+                "m_LinearFilter": false,
+                "m_PrespawnParticles": 0,
+                "m_UpdateDelay": 0,
+                "m_Texture": "",
+                "m_Additive": false,
+                "m_Name": "Emitter1",
+                "m_Trail": false
+            },
+            "m_SpawnEquations": {
+                "805372398": {
+                    "m_VariableName": "m_SpawnVelocityX",
+                    "m_Equation": "[n -40, 40, [bias RandA, 2]]"
+                },
+                "181007620": {
+                    "m_VariableName": "m_SpawnOffsetY",
+                    "m_Equation": "[n -3, 3, RandH]"
+                },
+                "2110702994": {
+                    "m_VariableName": "m_SpawnOffsetX",
+                    "m_Equation": "[n -3, 3, RandG]"
+                },
+                "1191588216": {
+                    "m_VariableName": "m_SpawnVelocityY",
+                    "m_Equation": "[n -40, 40, [bias RandB, 2]]"
+                }
+            }
+        }
+    }
+}

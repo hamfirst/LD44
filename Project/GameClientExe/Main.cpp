@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
   EngineRenderInit();
   RegisterGameplayShaders();
 
-  g_TextManager.LoadFont("./Fonts/FFF.ttf", -1, 8);
+  g_TextManager.LoadFont("./Fonts/FFF.ttf", -1, 8, 0);
 
   auto init_settings = std::make_unique<GameContainerInitSettings>();
   //init_settings->m_AutoBotGame = true;

@@ -87,8 +87,9 @@ void QuadVertexBufferBuilder::AddFrame(const Box & position, const Vector2 & tex
   quad.m_TextureSize = texture_size;
 
   int width_in_frames = (texture_size.x + frame_size.x - 1) / frame_size.x;
+  int height_in_frames = (texture_size.y + frame_size.y - 1) / frame_size.y;
   int fx = (frame_index % width_in_frames) * frame_size.x;
-  int fy = (frame_index / width_in_frames) * frame_size.y;
+  int fy = (height_in_frames - (frame_index / width_in_frames) - 1) * frame_size.y;
 
   quad.m_TexCoords.m_Start = Vector2(fx, fy);
   quad.m_TexCoords.m_End = quad.m_TexCoords.m_Start + frame_size;

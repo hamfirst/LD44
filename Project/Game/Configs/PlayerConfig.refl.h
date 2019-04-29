@@ -13,7 +13,8 @@ public:
   RString STORM_REFL_ATTR_VAL(file, entity) m_EntityFile = "./Entities/Player.entity";
   RString STORM_REFL_ATTR_VAL(file, config) m_ProjectileFile = "./Configs/TestProjectile.projectileconfig";
 
-  RDeterministicFloat<GameNetVal> m_MoveSpeed = "2.0";
+  RDeterministicFloat<GameNetVal> m_MoveSpeed = "1.3";
+  RDeterministicFloat<GameNetVal> m_MoveSpeedBat = "2.5";
   RDeterministicFloat<GameNetVal> m_MoveAccel = "5.0";
 
 #ifdef PLATFORMER_MOVEMENT

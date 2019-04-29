@@ -282,7 +282,7 @@ int UIScriptLoader::LoadMusic(std::string path)
   return id | kMusicId;
 }
 
-int UIScriptLoader::LoadFont(std::string path, int size)
+int UIScriptLoader::LoadFont(std::string path, int size, int offset)
 {
   auto test_font_id = g_TextManager.FindFontId(path.c_str(), size);
   if(test_font_id)
@@ -290,7 +290,7 @@ int UIScriptLoader::LoadFont(std::string path, int size)
     return test_font_id.Value() | kFontId;
   }
 
-  g_TextManager.LoadFont(path.c_str(), m_NextFontId, size);
+  g_TextManager.LoadFont(path.c_str(), m_NextFontId, size, offset);
   auto id = m_NextFontId;
   m_NextFontId++;
   return id | kFontId;

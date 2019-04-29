@@ -2,11 +2,26 @@
 
 {
     "m_Functions": {
-        "5": {
-            "m_Name": "Tutorial"
+        "1": {
+            "m_Value": "",
+            "m_Name": "PlayOnline"
+        },
+        "7": {
+            "m_Name": "PlaySingleplayer"
+        },
+        "6": {
+            "m_DebugOutput": false,
+            "m_Value": "true",
+            "m_Name": "CanQuit"
+        },
+        "4": {
+            "m_Name": "PlayOffline"
         },
         "3": {
             "m_Name": "JoinPrivateMatch"
+        },
+        "5": {
+            "m_Name": "Tutorial"
         },
         "2": {
             "m_Name": "CreatePrivateMatch"
@@ -14,29 +29,10 @@
         "0": {
             "m_Name": "Quit",
             "m_Value": ""
-        },
-        "7": {
-            "m_Name": "PlaySingleplayer"
-        },
-        "1": {
-            "m_Value": "",
-            "m_Name": "PlayOnline"
-        },
-        "6": {
-            "m_Name": "CanQuit",
-            "m_DebugOutput": false,
-            "m_Value": "true"
-        },
-        "4": {
-            "m_Name": "PlayOffline"
         }
     },
     "m_InitFunction": "InitMainMenu",
     "m_Variables": {
-        "0": {
-            "m_Value": "true",
-            "m_Name": "allow_local"
-        },
         "1": {
             "m_Value": "true",
             "m_Name": "allow_tutorial"
@@ -44,6 +40,10 @@
         "2": {
             "m_Value": "true",
             "m_Name": "allow_quit"
+        },
+        "0": {
+            "m_Value": "true",
+            "m_Name": "allow_local"
         }
     }
 }

@@ -13,6 +13,7 @@ ServerObjectManager::ServerObjectManager(const std::vector<ServerObjectStaticIni
                                          int max_dynamic_objects, int num_reserved_slots)
 {
   m_Initialized = false;
+  m_InUpdateLoop = false;
 
   m_NumGUIDS = static_objects.size() + max_dynamic_objects;
   m_GuidList = std::make_shared<ServerObjectGuidList>(ServerObjectGuidList{ std::make_unique<uint32_t[]>(m_NumGUIDS) });
@@ -56,6 +57,8 @@ ServerObjectManager::ServerObjectManager(const std::vector<ServerObjectStaticIni
 
     m_DynamicObjects.EmplaceAt(dynamic_slot_index, DynamicObjectInfo{ptr, obj.m_TypeIndex, true});
     m_GuidList->m_GUIDs[dynamic_slot_index] = obj.m_GUID;
+
+    ++slot_index;
   }
 }
 
@@ -379,6 +382,31 @@ void ServerObjectManager::Deserialize(NetBitReader & reader)
   }
 }
 
+void ServerObjectManager::StartUpdateLoop()
+{
+  ASSERT(m_InUpdateLoop == false, "Recursive update loop!");
+  m_InUpdateLoop = true;
+}
+
+bool ServerObjectManager::CompleteUpdateLoop()
+{
+  ASSERT(m_InUpdateLoop == true, "Not in update loop!");
+  m_InUpdateLoop = false;
+
+  if(m_DeadObjects.empty())
+  {
+    return false;
+  }
+
+  for(auto & elem : m_DeadObjects)
+  {
+    DestroyDynamicObjectInternal(elem);
+  }
+
+  m_DeadObjects.clear();
+  return true;
+}
+
 void ServerObjectManager::InitAllObjects(
         const std::vector<ServerObjectStaticInitData> & static_objects,
         const std::vector<ServerObjectStaticInitData> & dynamic_objects,
@@ -483,6 +511,13 @@ NullOptPtr<ServerObject> ServerObjectManager::CreateDynamicObjectInternal(int ty
 
 void ServerObjectManager::DestroyDynamicObjectInternal(NotNullPtr<ServerObject> ptr)
 {
+  if(m_InUpdateLoop)
+  {
+    ptr->m_IsDestroyed = true;
+    m_DeadObjects.push_back(ptr);
+    return;
+  }
+
   if(ptr->m_IsUnsynced)
   {
     for(std::size_t index = 0, end = m_UnsyncedObjects.size(); index < end; ++index)
@@ -545,6 +580,7 @@ NullOptPtr<ServerObject> ServerObjectManager::ResolveHandle(int slot_index, int 
     return nullptr;
   }
 
+  NullOptPtr<ServerObject> out_obj = nullptr;
   if (slot_index < (int)m_StaticObjects.size())
   {
     if (gen != 0)
@@ -552,17 +588,26 @@ NullOptPtr<ServerObject> ServerObjectManager::ResolveHandle(int slot_index, int 
       return nullptr;
     }
 
-    return const_cast<ServerObject *>(m_StaticObjects[slot_index]);
+    out_obj = m_StaticObjects[slot_index];
+  }
+  else
+  {
+    slot_index -= (int) m_StaticObjects.size();
+    if (m_DynamicObjectGen[slot_index] != gen)
+    {
+      return nullptr;
+    }
+
+    auto ptr = m_DynamicObjects.TryGet(slot_index);
+    out_obj = ptr ? ptr->m_ServerObject : nullptr;
   }
 
-  slot_index -= (int)m_StaticObjects.size();
-  if (m_DynamicObjectGen[slot_index] != gen)
+  if(out_obj && out_obj->m_IsDestroyed)
   {
     return nullptr;
   }
 
-  auto ptr = m_DynamicObjects.TryGet(slot_index);
-  return ptr ? const_cast<ServerObject *>(ptr->m_ServerObject) : nullptr;
+  return out_obj;
 }
 
 NullOptPtr<ServerObject> ServerObjectManager::GetReservedSlotObjectInternal(std::size_t slot_index, std::size_t type_index)
@@ -575,3 +620,4 @@ NullOptPtr<ServerObject> ServerObjectManager::GetReservedSlotObjectInternal(std:
   auto dynamic_object_info = m_DynamicObjects.TryGet(slot_index);
   return dynamic_object_info && dynamic_object_info->m_TypeIndex == type_index ? dynamic_object_info->m_ServerObject : nullptr;
 }
+

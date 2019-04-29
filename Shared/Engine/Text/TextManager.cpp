@@ -58,9 +58,9 @@ Optional<int> TextManager::FindFontId(czstr font_path, int font_size)
   return {};
 }
 
-void TextManager::LoadFont(czstr font_path, int font_id, int font_size)
+void TextManager::LoadFont(czstr font_path, int font_id, int font_size, int font_offset)
 {
-  s_Fonts.emplace(std::make_pair(font_id, std::make_unique<TextRenderer>(FontAsset::Load(font_path), font_size, s_BackupFonts)));
+  s_Fonts.emplace(std::make_pair(font_id, std::make_unique<TextRenderer>(FontAsset::Load(font_path), font_size, font_offset, s_BackupFonts)));
 }
 
 bool TextManager::IsFontLoaded(int font_id)

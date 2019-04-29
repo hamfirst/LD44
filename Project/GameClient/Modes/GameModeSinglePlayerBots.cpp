@@ -167,7 +167,7 @@ void GameModeSinglePlayerBots::Update()
   m_FrameClock.RemoveExtra();
 
   auto & camera = container.GetClientSystems()->GetCamera();
-  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetPosition(), camera.GetGameResolution());
+  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetOffsetPosition(), camera.GetGameResolution());
 
   {
     PROFILE_SCOPE("VFX update");
@@ -216,7 +216,7 @@ void GameModeSinglePlayerBots::Render()
     camera.Update();
   }
 
-  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetPosition(), camera.GetGameResolution());
+  auto viewport_bounds = Box::FromFrameCenterAndSize(camera.GetOffsetPosition(), camera.GetGameResolution());
 
   {
     PROFILE_SCOPE("Camera Draw");

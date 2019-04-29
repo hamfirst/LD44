@@ -36,3 +36,15 @@ void SpriteBaseAnimationFrameListEditorDialog::closeEvent(QCloseEvent * ev)
 {
   emit closed();
 }
+
+void SpriteBaseAnimationFrameListEditorDialog::resizeEvent(QResizeEvent * ev)
+{
+  m_FrameList->setGeometry(0, 0, width(), height() - 200);
+  m_FrameList->SetFrameSelectionCallback([this](uint64_t frame_id) { m_Timeline->AddFrame(frame_id); });
+  m_FrameList->show();
+
+  m_Timeline->setGeometry(0, height() - 200, width(), 150);
+  m_Timeline->show();
+
+  ui.layoutWidget->setGeometry(QRect(width() - 400, height() - 50, 351, 33));
+}

@@ -32,11 +32,15 @@ static const int kTurnUpdateTime = 60 * 2;
 static const int kMaxScore = 5;
 #endif
 
+#ifdef NET_USE_ROUNDS
+static const int kMaxRounds = 15;
+#endif
+
 #ifdef NET_USE_ROUND_TIMER
 
-static const int kPreRoundTimer = 60 * 5;
-static const int kMaxRoundTimer = 60 * 60 * 5;
-static const int kPostRoundTimer = 60 * 5;
+static const int kPreRoundTimer = 60 * 3;
+static const int kMaxRoundTimer = 60 * 45;
+static const int kPostRoundTimer = 60 * 20;
 
 enum STORM_REFL_ENUM class RoundState
 {
@@ -93,6 +97,10 @@ struct ClientInput
   GameNetVal m_InputStr;
 
 #endif
+
+#ifdef NET_USE_AIM_DIRECTION
+  GameNetVal m_AimDirection;
+#endif
 };
 
 // Data sent from the client to the server
@@ -107,9 +115,32 @@ struct ClientAuthData
   ClientInput m_Input;
 };
 
-struct AIPlayerInfo
+enum STORM_REFL_ENUM PlayerAIState
+{
+  kSearchForNPCs,
+  kSearchForCover,
+  kEscape,
+};
+
+struct AITargetPos
 {
   NET_REFL;
+  GameNetVal x;
+  GameNetVal y;
+};
+
+struct AIPlayerInfo
+{
+
+  NET_REFL;
+  PlayerAIState m_State;
+
+  int8_t m_LastSeenPlayer = -1;
+  uint8_t m_TimeInLos = 0;
+  uint8_t m_TimeOutOfLos = 0;
+  uint8_t m_CoverCounter = 0;
+
+  NetOptional<AITargetPos> m_TargetPosition;
 };
 
 #ifdef NET_USE_LOADOUT
@@ -161,6 +192,9 @@ struct GameInstanceData
 #endif
   NetOptional<NetRangedNumber<int, -1, kMaxTeams>> m_WiningTeam;
 
+#ifdef NET_USE_ROUNDS
+  NetRangedNumber<int, 0, kMaxRounds> m_Round;
+#endif
 
 #ifdef NET_USE_ROUND_TIMER
   NetEnum<RoundState> m_RoundState;

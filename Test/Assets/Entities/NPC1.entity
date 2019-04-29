@@ -1,0 +1,13 @@
+[]
+
+{
+    "m_Components": {
+        "0": {
+            "T": 4226357423,
+            "D": {
+                "m_SyncSprite": false
+            }
+        }
+    },
+    "m_Sprite": ".\/Sprites\/NPC1.sprite"
+}

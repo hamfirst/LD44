@@ -74,7 +74,7 @@ void ServerObject::InitStaticComponents()
 
 bool ServerObject::IsDestroyed() const
 {
-  return false;
+  return m_IsDestroyed;
 }
 
 int ServerObject::GetSlotIndex() const

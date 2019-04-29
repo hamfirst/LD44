@@ -11,6 +11,111 @@
 
 
 template <>
+struct StormReflEnumInfo<PlayerUpgrade>
+{
+  static constexpr int elems_n = 12;
+  static constexpr auto GetName() { return "PlayerUpgrade"; }
+  static constexpr auto GetNameHash() { return 0xAD96772E; }
+  template <int N> struct elems { };
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<0>
+{
+  static constexpr auto GetName() { return "kDamage1"; }
+  static constexpr auto GetNameHash() { return 0x7DBB8FF6; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kDamage1; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<1>
+{
+  static constexpr auto GetName() { return "kDamage2"; }
+  static constexpr auto GetNameHash() { return 0xE4B2DE4C; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kDamage2; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<2>
+{
+  static constexpr auto GetName() { return "kAmmo1"; }
+  static constexpr auto GetNameHash() { return 0x8C9A2F3C; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kAmmo1; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<3>
+{
+  static constexpr auto GetName() { return "kAmmo2"; }
+  static constexpr auto GetNameHash() { return 0x15937E86; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kAmmo2; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<4>
+{
+  static constexpr auto GetName() { return "kHealth1"; }
+  static constexpr auto GetNameHash() { return 0xBDDEF12C; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kHealth1; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<5>
+{
+  static constexpr auto GetName() { return "kHealth2"; }
+  static constexpr auto GetNameHash() { return 0x24D7A096; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kHealth2; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<6>
+{
+  static constexpr auto GetName() { return "kSpeed1"; }
+  static constexpr auto GetNameHash() { return 0x75BEFD94; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kSpeed1; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<7>
+{
+  static constexpr auto GetName() { return "kLife1"; }
+  static constexpr auto GetNameHash() { return 0x0DD27BB1; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kLife1; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<8>
+{
+  static constexpr auto GetName() { return "kLife2"; }
+  static constexpr auto GetNameHash() { return 0x94DB2A0B; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kLife2; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<9>
+{
+  static constexpr auto GetName() { return "kLife3"; }
+  static constexpr auto GetNameHash() { return 0xE3DC1A9D; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kLife3; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<10>
+{
+  static constexpr auto GetName() { return "kRate1"; }
+  static constexpr auto GetNameHash() { return 0x08140DA3; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kRate1; }
+};
+
+template <>
+struct StormReflEnumInfo<PlayerUpgrade>::elems<11>
+{
+  static constexpr auto GetName() { return "kRate2"; }
+  static constexpr auto GetNameHash() { return 0x911D5C19; }
+  static constexpr auto GetValue() { return PlayerUpgrade::kRate2; }
+};
+
+template <>
 struct StormReflTypeInfo<PlayerServerObjectInitData>
 {
   using MyBase = GameServerObjectBaseInitData;
@@ -68,7 +173,7 @@ template <>
 struct StormReflTypeInfo<PlayerServerObject>
 {
   using MyBase = GameServerObjectBase;
-  static constexpr int fields_n = 12 + StormReflTypeInfo<MyBase>::fields_n;
+  static constexpr int fields_n = 20 + StormReflTypeInfo<MyBase>::fields_n;
   template <int N> struct field_data_static : public StormReflTypeInfo<MyBase>::field_data_static<N> {};
   template <int N, typename Self> struct field_data : public StormReflTypeInfo<MyBase>::field_data<N, match_const_t<Self, MyBase>>
   {
@@ -246,45 +351,20 @@ struct StormReflTypeInfo<PlayerServerObject>::field_data<4 + StormReflTypeInfo<G
 template <>
 struct StormReflTypeInfo<PlayerServerObject>::field_data_static<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
-  using member_type = uint8_t; // unsigned char
-  static constexpr auto GetName() { return "m_Health"; }
-  static constexpr auto GetType() { return "unsigned char"; }
-  static constexpr unsigned GetFieldNameHash() { return 0x83E574DB; }
-  static constexpr unsigned GetTypeNameHash() { return 0xF80DFA26; }
-  static constexpr bool HasDefault() { return true; }
-  static constexpr auto GetFieldIndex() { return 5 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
-  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_Health; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_Health; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_Health; }
-};
-
-template <typename Self>
-struct StormReflTypeInfo<PlayerServerObject>::field_data<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
-{
-  Self & self;
-  field_data(Self & self) : self(self) {}
-  match_const_t<Self, uint8_t> & Get() { return self.m_Health; }
-  std::add_const_t<std::remove_reference_t<uint8_t>> & Get() const { return self.m_Health; }
-  void SetDefault() { self.m_Health = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_Health; }
-};
-
-template <>
-struct StormReflTypeInfo<PlayerServerObject>::field_data_static<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
-{
   using member_type = NetRangedNumber<int, 0, 31>; // NetRangedNumber<int, 0, 31>
   static constexpr auto GetName() { return "m_AttackId"; }
   static constexpr auto GetType() { return "NetRangedNumber<int, 0, 31>"; }
   static constexpr unsigned GetFieldNameHash() { return 0xA5FC6351; }
   static constexpr unsigned GetTypeNameHash() { return 0x72324C82; }
   static constexpr bool HasDefault() { return true; }
-  static constexpr auto GetFieldIndex() { return 6 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetFieldIndex() { return 5 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
   static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_AttackId; }
   static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_AttackId; }
   static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_AttackId; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<PlayerServerObject>::field_data<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<5 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
@@ -294,7 +374,7 @@ struct StormReflTypeInfo<PlayerServerObject>::field_data<6 + StormReflTypeInfo<G
 };
 
 template <>
-struct StormReflTypeInfo<PlayerServerObject>::field_data_static<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
   using member_type = bool; // bool
   static constexpr auto GetName() { return "m_Invulnerable"; }
@@ -302,14 +382,14 @@ struct StormReflTypeInfo<PlayerServerObject>::field_data_static<7 + StormReflTyp
   static constexpr unsigned GetFieldNameHash() { return 0x91D2B6B5; }
   static constexpr unsigned GetTypeNameHash() { return 0x55813692; }
   static constexpr bool HasDefault() { return true; }
-  static constexpr auto GetFieldIndex() { return 7 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetFieldIndex() { return 6 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
   static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_Invulnerable; }
   static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_Invulnerable; }
   static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_Invulnerable; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<PlayerServerObject>::field_data<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<6 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
@@ -319,7 +399,7 @@ struct StormReflTypeInfo<PlayerServerObject>::field_data<7 + StormReflTypeInfo<G
 };
 
 template <>
-struct StormReflTypeInfo<PlayerServerObject>::field_data_static<8 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
 {
   using member_type = NetRangedNumber<int, 0, 20>; // NetRangedNumber<int, 0, 20>
   static constexpr auto GetName() { return "m_RefireTime"; }
@@ -327,10 +407,35 @@ struct StormReflTypeInfo<PlayerServerObject>::field_data_static<8 + StormReflTyp
   static constexpr unsigned GetFieldNameHash() { return 0x7C0B0C6F; }
   static constexpr unsigned GetTypeNameHash() { return 0x6AEB17F4; }
   static constexpr bool HasDefault() { return true; }
-  static constexpr auto GetFieldIndex() { return 8 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetFieldIndex() { return 7 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
   static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_RefireTime; }
   static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_RefireTime; }
   static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_RefireTime; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<7 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, NetRangedNumber<int, 0, 20>> & Get() { return self.m_RefireTime; }
+  std::add_const_t<std::remove_reference_t<NetRangedNumber<int, 0, 20>>> & Get() const { return self.m_RefireTime; }
+  void SetDefault() { self.m_RefireTime = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_RefireTime; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<8 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = NetRangedNumber<int, 0, 30>; // NetRangedNumber<int, 0, 30>
+  static constexpr auto GetName() { return "m_Ammo"; }
+  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 30>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0xD112EB35; }
+  static constexpr unsigned GetTypeNameHash() { return 0x6B297DC3; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 8 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_Ammo; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_Ammo; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_Ammo; }
 };
 
 template <typename Self>
@@ -338,9 +443,9 @@ struct StormReflTypeInfo<PlayerServerObject>::field_data<8 + StormReflTypeInfo<G
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, NetRangedNumber<int, 0, 20>> & Get() { return self.m_RefireTime; }
-  std::add_const_t<std::remove_reference_t<NetRangedNumber<int, 0, 20>>> & Get() const { return self.m_RefireTime; }
-  void SetDefault() { self.m_RefireTime = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_RefireTime; }
+  match_const_t<Self, NetRangedNumber<int, 0, 30>> & Get() { return self.m_Ammo; }
+  std::add_const_t<std::remove_reference_t<NetRangedNumber<int, 0, 30>>> & Get() const { return self.m_Ammo; }
+  void SetDefault() { self.m_Ammo = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_Ammo; }
 };
 
 template <>
@@ -419,10 +524,210 @@ struct StormReflTypeInfo<PlayerServerObject>::field_data<11 + StormReflTypeInfo<
 };
 
 template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<12 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = bool; // bool
+  static constexpr auto GetName() { return "m_Bat"; }
+  static constexpr auto GetType() { return "bool"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x6C7EED78; }
+  static constexpr unsigned GetTypeNameHash() { return 0x55813692; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 12 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_Bat; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_Bat; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_Bat; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<12 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<12 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, bool> & Get() { return self.m_Bat; }
+  std::add_const_t<std::remove_reference_t<bool>> & Get() const { return self.m_Bat; }
+  void SetDefault() { self.m_Bat = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_Bat; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<13 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = NetRangedNumber<int, 0, kMaxBatTimer>; // NetRangedNumber<int, 0, 300>
+  static constexpr auto GetName() { return "m_BatTimer"; }
+  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 300>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0xD181A204; }
+  static constexpr unsigned GetTypeNameHash() { return 0x8FE665DF; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 13 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_BatTimer; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_BatTimer; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_BatTimer; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<13 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<13 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, NetRangedNumber<int, 0, kMaxBatTimer>> & Get() { return self.m_BatTimer; }
+  std::add_const_t<std::remove_reference_t<NetRangedNumber<int, 0, kMaxBatTimer>>> & Get() const { return self.m_BatTimer; }
+  void SetDefault() { self.m_BatTimer = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_BatTimer; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<14 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = NetRangedNumber<int, 0, kAbsoluteMaxHealth>; // NetRangedNumber<int, 0, 12>
+  static constexpr auto GetName() { return "m_Health"; }
+  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 12>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x83E574DB; }
+  static constexpr unsigned GetTypeNameHash() { return 0x5A9BCB2F; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 14 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_Health; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_Health; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_Health; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<14 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<14 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, NetRangedNumber<int, 0, kAbsoluteMaxHealth>> & Get() { return self.m_Health; }
+  std::add_const_t<std::remove_reference_t<NetRangedNumber<int, 0, kAbsoluteMaxHealth>>> & Get() const { return self.m_Health; }
+  void SetDefault() { self.m_Health = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_Health; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<15 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = NetRangedNumber<int, 0, kMaxLives>; // NetRangedNumber<int, 0, 5>
+  static constexpr auto GetName() { return "m_Lives"; }
+  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 5>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0xD002EE3E; }
+  static constexpr unsigned GetTypeNameHash() { return 0xFCA4CDC9; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 15 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_Lives; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_Lives; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_Lives; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<15 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<15 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, NetRangedNumber<int, 0, kMaxLives>> & Get() { return self.m_Lives; }
+  std::add_const_t<std::remove_reference_t<NetRangedNumber<int, 0, kMaxLives>>> & Get() const { return self.m_Lives; }
+  void SetDefault() { self.m_Lives = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_Lives; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<16 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = ServerObjectHandle; // ServerObjectHandle
+  static constexpr auto GetName() { return "m_NPCBeingEaten"; }
+  static constexpr auto GetType() { return "ServerObjectHandle"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x53500748; }
+  static constexpr unsigned GetTypeNameHash() { return 0xCB9DB57C; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 16 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_NPCBeingEaten; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_NPCBeingEaten; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_NPCBeingEaten; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<16 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<16 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, ServerObjectHandle> & Get() { return self.m_NPCBeingEaten; }
+  std::add_const_t<std::remove_reference_t<ServerObjectHandle>> & Get() const { return self.m_NPCBeingEaten; }
+  void SetDefault() { self.m_NPCBeingEaten = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_NPCBeingEaten; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<17 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = bool; // bool
+  static constexpr auto GetName() { return "m_InCoffin"; }
+  static constexpr auto GetType() { return "bool"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x59AF9CCD; }
+  static constexpr unsigned GetTypeNameHash() { return 0x55813692; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 17 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_InCoffin; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_InCoffin; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_InCoffin; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<17 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<17 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, bool> & Get() { return self.m_InCoffin; }
+  std::add_const_t<std::remove_reference_t<bool>> & Get() const { return self.m_InCoffin; }
+  void SetDefault() { self.m_InCoffin = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_InCoffin; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<18 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = NetRangedNumber<int, 0, 64>; // NetRangedNumber<int, 0, 64>
+  static constexpr auto GetName() { return "m_FrozenFrames"; }
+  static constexpr auto GetType() { return "NetRangedNumber<int, 0, 64>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0xF3953FAD; }
+  static constexpr unsigned GetTypeNameHash() { return 0x098E7A2C; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 18 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_FrozenFrames; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_FrozenFrames; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_FrozenFrames; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<18 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<18 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, NetRangedNumber<int, 0, 64>> & Get() { return self.m_FrozenFrames; }
+  std::add_const_t<std::remove_reference_t<NetRangedNumber<int, 0, 64>>> & Get() const { return self.m_FrozenFrames; }
+  void SetDefault() { self.m_FrozenFrames = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_FrozenFrames; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerServerObject>::field_data_static<19 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  using member_type = int16_t; // short
+  static constexpr auto GetName() { return "m_Upgrades"; }
+  static constexpr auto GetType() { return "short"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x10F7842B; }
+  static constexpr unsigned GetTypeNameHash() { return 0x8F2890A2; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 19 + StormReflTypeInfo<GameServerObjectBase>::fields_n; }
+  static constexpr auto GetMemberPtr() { return &PlayerServerObject::m_Upgrades; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerServerObject *>(obj); return &ptr->m_Upgrades; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerServerObject *>(obj); return &ptr->m_Upgrades; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerServerObject>::field_data<19 + StormReflTypeInfo<GameServerObjectBase>::fields_n, Self> : public StormReflTypeInfo<PlayerServerObject>::field_data_static<19 + StormReflTypeInfo<GameServerObjectBase>::fields_n>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, int16_t> & Get() { return self.m_Upgrades; }
+  std::add_const_t<std::remove_reference_t<int16_t>> & Get() const { return self.m_Upgrades; }
+  void SetDefault() { self.m_Upgrades = StormReflTypeInfo<PlayerServerObject>::GetDefault().m_Upgrades; }
+};
+
+template <>
 struct StormReflFuncInfo<PlayerServerObject>
 {
   using MyBase = GameServerObjectBase;
-  static constexpr int funcs_n = 3 + StormReflFuncInfo<MyBase>::funcs_n;
+  static constexpr int funcs_n = 4 + StormReflFuncInfo<MyBase>::funcs_n;
   template <int N> struct func_data_static : public StormReflFuncInfo<MyBase>::func_data_static<N> {};
 };
 
@@ -526,6 +831,42 @@ struct StormReflFuncInfo<PlayerServerObject>::func_data_static<2 + StormReflFunc
 
 template <>
 struct StormReflFuncInfo<PlayerServerObject>::func_data_static<2 + StormReflFuncInfo<GameServerObjectBase>::funcs_n>::param_info<1>
+{
+  using param_type = const EventMetaData &;
+  static constexpr auto GetName() { return "meta"; }
+  static constexpr auto GetType() { return "const EventMetaData &"; }
+  static constexpr unsigned GetNameHash() { return 0xD7F21435; }
+  static constexpr unsigned GetTypeNameHash() { return 0x039083D7; }
+};
+
+template <>
+struct StormReflFuncInfo<PlayerServerObject>::func_data_static<3 + StormReflFuncInfo<GameServerObjectBase>::funcs_n>
+{
+  using func_ptr_type = bool (PlayerServerObject::*)(const PickupAvailableEvent &, const EventMetaData &);
+  using return_type = bool;
+  static constexpr int params_n = 2;
+  static constexpr auto GetName() { return "HandlePickupAvailableEvent"; }
+  static constexpr auto GetReturnType() { return "bool"; }
+  static constexpr unsigned GetFunctionNameHash() { return 0x08F1EBDE; }
+  static constexpr unsigned GetReturnTypeNameHash() { return 0x55813692; }
+  static constexpr auto GetFunctionIndex() { return 3 + StormReflFuncInfo<GameServerObjectBase>::funcs_n; }
+  static constexpr func_ptr_type GetFunctionPtr() { return &PlayerServerObject::HandlePickupAvailableEvent; }
+  template <int i>
+  struct param_info { };
+};
+
+template <>
+struct StormReflFuncInfo<PlayerServerObject>::func_data_static<3 + StormReflFuncInfo<GameServerObjectBase>::funcs_n>::param_info<0>
+{
+  using param_type = const PickupAvailableEvent &;
+  static constexpr auto GetName() { return "ev"; }
+  static constexpr auto GetType() { return "const PickupAvailableEvent &"; }
+  static constexpr unsigned GetNameHash() { return 0xE0355914; }
+  static constexpr unsigned GetTypeNameHash() { return 0xCCE26520; }
+};
+
+template <>
+struct StormReflFuncInfo<PlayerServerObject>::func_data_static<3 + StormReflFuncInfo<GameServerObjectBase>::funcs_n>::param_info<1>
 {
   using param_type = const EventMetaData &;
   static constexpr auto GetName() { return "meta"; }

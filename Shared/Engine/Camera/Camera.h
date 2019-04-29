@@ -15,12 +15,14 @@ public:
   void SetGameResolution(const RenderVec2 & resolution);
   void SetScreenResolution(const RenderVec2 & resolution);
   void SetPosition(const RenderVec2 & position);
+  void SetOffset(const RenderVec2 & offset);
 
   void BootstrapShader(ShaderProgram & shader, RenderState & render_state);
 
   const RenderVec2 & GetGameResolution() const;
   const RenderVec2 & GetScreenResolution() const;
   const RenderVec2 & GetPosition() const;
+  RenderVec2 GetOffsetPosition() const;
 
   RenderVec2 TransformFromScreenSpaceToClipSpace(const RenderVec2 & pos);
   RenderVec2 TransformFromScreenSpaceToWorldSpace(const RenderVec2 & pos);
@@ -32,4 +34,5 @@ private:
   RenderVec2 m_ScreenResolution;
   RenderVec2 m_GameResolution;
   RenderVec2 m_Position;
+  RenderVec2 m_Offset;
 };

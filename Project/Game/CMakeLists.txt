@@ -30,11 +30,17 @@ set(GENERIC_SRC_Game
             GameStage.cpp
             ServerObjects/Bot/BotServerObject.refl.cpp
             ServerObjects/Bot/BotServerObject.refl.reg.cpp
+            ServerObjects/Bot/NPC/NPCBot.refl.cpp
+            ServerObjects/Bot/NPC/NPCBot.refl.reg.cpp
             ServerObjects/Bot/TestBot/TestBot.refl.cpp
             ServerObjects/Bot/TestBot/TestBot.refl.reg.cpp
             ServerObjects/CharacterFacing.refl.cpp
             ServerObjects/GameServerObjectBase.refl.cpp
             ServerObjects/GameServerObjectBase.refl.reg.cpp
+            ServerObjects/Pickups/HealthPickup/HealthPickup.refl.cpp
+            ServerObjects/Pickups/HealthPickup/HealthPickup.refl.reg.cpp
+            ServerObjects/Pickups/PickupBase.refl.cpp
+            ServerObjects/Pickups/PickupBase.refl.reg.cpp
             ServerObjects/Player/PlayerServerObject.refl.cpp
             ServerObjects/Player/PlayerServerObject.refl.reg.cpp
             ServerObjects/Player/States/PlayerStateBase.refl.cpp
@@ -47,6 +53,10 @@ set(GENERIC_SRC_Game
             ServerObjects/Projectile/ProjectileServerObject.refl.cpp
             ServerObjects/Projectile/ProjectileServerObject.refl.reg.cpp
             ServerObjects/Projectile/Response/ProjectileResponseBase.refl.cpp
+            ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.cpp
+            ServerObjects/Player/States/PlayerStateBite.refl.cpp
+            Data/NPCSpawn.refl.reg.cpp
+            Data/CoverPoint.refl.reg.cpp
             #CPP_PLACEHOLDER
             )
 
@@ -88,16 +98,23 @@ set(GENERIC_HEADER_Game
             GameplayEvents/DamageEvent.h
             GameplayEvents/DamageType.refl.h
             GameplayEvents/DamageType.refl.meta.h
+            GameplayEvents/PickupEvents.h
             GameplayEvents/PlaceholderEvent.h
             ServerObjects/Bot/BotBehaviorTree.h
             ServerObjects/Bot/BotServerObject.refl.h
             ServerObjects/Bot/BotServerObject.refl.meta.h
+            ServerObjects/Bot/NPC/NPCBot.refl.h
+            ServerObjects/Bot/NPC/NPCBot.refl.meta.h
             ServerObjects/Bot/TestBot/TestBot.refl.h
             ServerObjects/Bot/TestBot/TestBot.refl.meta.h
             ServerObjects/CharacterFacing.refl.h
             ServerObjects/CharacterFacing.refl.meta.h
             ServerObjects/GameServerObjectBase.refl.h
             ServerObjects/GameServerObjectBase.refl.meta.h
+            ServerObjects/Pickups/HealthPickup/HealthPickup.refl.h
+            ServerObjects/Pickups/HealthPickup/HealthPickup.refl.meta.h
+            ServerObjects/Pickups/PickupBase.refl.h
+            ServerObjects/Pickups/PickupBase.refl.meta.h
             ServerObjects/Player/PlayerServerObject.refl.h
             ServerObjects/Player/PlayerServerObject.refl.meta.h
             ServerObjects/Player/States/PlayerStateBase.refl.h
@@ -118,7 +135,15 @@ set(GENERIC_HEADER_Game
             ServerObjects/Projectile/ProjectileServerObject.refl.meta.h
             ServerObjects/Projectile/Response/ProjectileResponseBase.refl.h
             ServerObjects/Projectile/Response/ProjectileResponseBase.refl.meta.h
+            ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.h
+            ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.meta.h
             Systems/GameDeliberateSyncSystemList.h
+            ServerObjects/Player/States/PlayerStateBite.refl.h
+            ServerObjects/Player/States/PlayerStateBite.refl.meta.h
+            Data/NPCSpawn.refl.h
+            Data/NPCSpawn.refl.meta.h
+            Data/CoverPoint.refl.h
+            Data/CoverPoint.refl.meta.h
             #HEADER_PLACEHOLDER
             )
 
@@ -139,9 +164,12 @@ set(GENERIC_REFL_Game
             GameSimulationStats.refl.h
             GameplayEvents/DamageType.refl.h
             ServerObjects/Bot/BotServerObject.refl.h
+            ServerObjects/Bot/NPC/NPCBot.refl.h
             ServerObjects/Bot/TestBot/TestBot.refl.h
             ServerObjects/CharacterFacing.refl.h
             ServerObjects/GameServerObjectBase.refl.h
+            ServerObjects/Pickups/HealthPickup/HealthPickup.refl.h
+            ServerObjects/Pickups/PickupBase.refl.h
             ServerObjects/Player/PlayerServerObject.refl.h
             ServerObjects/Player/States/PlayerStateBase.refl.h
             ServerObjects/Player/States/PlayerStateBasicAttack.refl.h
@@ -152,6 +180,10 @@ set(GENERIC_REFL_Game
             ServerObjects/Projectile/Motion/ProjectileMotionLinear.refl.h
             ServerObjects/Projectile/ProjectileServerObject.refl.h
             ServerObjects/Projectile/Response/ProjectileResponseBase.refl.h
+            ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.h
+            ServerObjects/Player/States/PlayerStateBite.refl.h
+            Data/NPCSpawn.refl.h
+            Data/CoverPoint.refl.h
             #REFL_PLACEHOLDER
             )
 

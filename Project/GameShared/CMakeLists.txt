@@ -14,8 +14,14 @@ include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
 
 set(GENERIC_SRC_GameShared 
             BehaviorTree/BehaviorTreeTypeDatabase.cpp
+            BehaviorTree/Conditionals/IsDeadBotConditional.refl.cpp
+            BehaviorTree/Conditionals/IsDeadBotConditional.refl.reg.cpp
+            BehaviorTree/States/MoveForTimeBotState.refl.cpp
+            BehaviorTree/States/MoveForTimeBotState.refl.reg.cpp
             BehaviorTree/States/PlayAnimationBotState.refl.cpp
             BehaviorTree/States/PlayAnimationBotState.refl.reg.cpp
+            BehaviorTree/States/PlayAnimationForTimeBotState.refl.cpp
+            BehaviorTree/States/PlayAnimationForTimeBotState.refl.reg.cpp
             GameEventReconciler.cpp
             GameLevelList.cpp
             GameLogicContainer.cpp
@@ -26,6 +32,11 @@ set(GENERIC_SRC_GameShared
             Systems/CVCPushSystem.cpp
             Systems/GameLogicSystems.cpp
             Systems/GameServerObjectOverlapSystem.cpp
+            Systems/TargetDatabase.cpp
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.cpp
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.reg.cpp
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.cpp
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.reg.cpp
             #CPP_PLACEHOLDER
             )
 
@@ -33,8 +44,14 @@ set(GENERIC_HEADER_GameShared
             BehaviorTree/BehaviorTree.h
             BehaviorTree/BehaviorTreeSerialize.h
             BehaviorTree/BehaviorTreeTypeDatabase.h
+            BehaviorTree/Conditionals/IsDeadBotConditional.refl.h
+            BehaviorTree/Conditionals/IsDeadBotConditional.refl.meta.h
+            BehaviorTree/States/MoveForTimeBotState.refl.h
+            BehaviorTree/States/MoveForTimeBotState.refl.meta.h
             BehaviorTree/States/PlayAnimationBotState.refl.h
             BehaviorTree/States/PlayAnimationBotState.refl.meta.h
+            BehaviorTree/States/PlayAnimationForTimeBotState.refl.h
+            BehaviorTree/States/PlayAnimationForTimeBotState.refl.meta.h
             GameEventReconciler.h
             GameLevelList.h
             GameLevelListAsset.refl.h
@@ -50,13 +67,23 @@ set(GENERIC_HEADER_GameShared
             Systems/GameLogicSystems.h
             Systems/GameServerObjectOverlapRegistrationMacros.h
             Systems/GameServerObjectOverlapSystem.h
+            Systems/TargetDatabase.h
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.meta.h
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.meta.h
             #HEADER_PLACEHOLDER
             )
 
 set(GENERIC_REFL_GameShared 
+            BehaviorTree/Conditionals/IsDeadBotConditional.refl.h
+            BehaviorTree/States/MoveForTimeBotState.refl.h
             BehaviorTree/States/PlayAnimationBotState.refl.h
+            BehaviorTree/States/PlayAnimationForTimeBotState.refl.h
             GameLevelListAsset.refl.h
             GamePlayListAsset.refl.h
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h
             #REFL_PLACEHOLDER
             )
 

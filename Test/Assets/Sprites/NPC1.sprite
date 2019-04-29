@@ -1,0 +1,74 @@
+[]
+
+{
+    "m_Animations": {
+        "2": {
+            "m_Frames": {
+                "0": {
+                    "m_FrameId": "5735841610202087844",
+                    "m_FrameDuration": 5
+                }
+            },
+            "m_Events": { },
+            "m_Name": "Dead"
+        },
+        "1": {
+            "m_Name": "Move",
+            "m_Frames": {
+                "0": {
+                    "m_FrameDuration": 9,
+                    "m_FrameId": "5735841610202087871"
+                },
+                "1": {
+                    "m_FrameDuration": 9,
+                    "m_FrameId": "5735841610202087872"
+                },
+                "2": {
+                    "m_FrameDuration": 9,
+                    "m_FrameId": "5735841610202087873"
+                }
+            },
+            "m_Events": { }
+        },
+        "0": {
+            "m_Frames": {
+                "0": {
+                    "m_FrameDuration": 5,
+                    "m_FrameId": "5735841610202087871"
+                }
+            },
+            "m_Events": { },
+            "m_Name": "Idle"
+        }
+    },
+    "m_InstanceData": {
+        "m_SingleBoxData": {
+            "0": {
+                "m_Data": {
+                    "m_Start": {
+                        "x": -5,
+                        "y": -8
+                    },
+                    "m_End": {
+                        "x": 4,
+                        "y": -1
+                    }
+                },
+                "m_FrameDataName": "MoveBox"
+            }
+        },
+        "m_MultiBoxData": {
+            "0": {
+                "m_Data": [{"m_Start":{"x":-5,"y":-8},"m_End":{"x":4,"y":3}}],
+                "m_FrameDataName": "ReceiveDamage"
+            }
+        }
+    },
+    "m_Textures": {
+        "0": {
+            "m_FrameWidth": 16,
+            "m_FrameHeight": 16,
+            "m_Filename": ".\/Images\/Dudes.png"
+        }
+    }
+}

@@ -134,6 +134,9 @@ public:
   void Serialize(NetBitWriter & writer) const;
   void Deserialize(NetBitReader & reader);
 
+  void StartUpdateLoop();
+  bool CompleteUpdateLoop();
+
 protected:
 
   friend class ServerObject;
@@ -156,6 +159,7 @@ protected:
   NullOptPtr<ServerObject> ResolveHandle(int slot_index, int gen) const;
   NullOptPtr<ServerObject> GetReservedSlotObjectInternal(std::size_t slot_index, std::size_t type_index);
 
+
   struct DynamicObjectInfo
   {
     NullOptPtr<ServerObject> m_ServerObject;
@@ -169,10 +173,12 @@ private:
   std::vector<int> m_DynamicObjectGen;
   SparseList<DynamicObjectInfo> m_DynamicObjects;
   std::vector<DynamicObjectInfo> m_UnsyncedObjects;
+  std::vector<NotNullPtr<ServerObject>> m_DeadObjects;
 
   int m_ReservedSlots;
   int m_MaxDynamicObjects;
   bool m_Initialized;
+  bool m_InUpdateLoop;
 
   std::shared_ptr<ServerObjectGuidList> m_GuidList;
   int m_NumGUIDS;

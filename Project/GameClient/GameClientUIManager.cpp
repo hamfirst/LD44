@@ -22,12 +22,14 @@
 extern ConfigPtr<GameConfig> g_GameConfig;
 
 GLOBAL_ASSET(UIResourcePtr, "./UIs/QuitPopup.ui", g_QuitPopup);
+GLOBAL_ASSET(UIResourcePtr, "./UIs/StoreMenu.ui", g_StoreMenu);
 
 GameClientUIManager::GameClientUIManager(GameContainer & container, int local_index) :
   m_GameContainer(container),
   m_LocalIndex(local_index),
   m_WantsToQuit(false),
-  m_PopupOpen(false)
+  m_PopupOpen(false),
+  m_ShopOpen(false)
 {
 
 }
@@ -39,6 +41,8 @@ GameClientUIManager::~GameClientUIManager()
 
 void GameClientUIManager::Update()
 {
+  auto dt = (float)m_UpdateClock.GetTimeSinceLastCheck();
+
   auto input_state = m_GameContainer.GetWindow().GetInputState();
   if (input_state->GetKeyPressedThisFrame(SDL_SCANCODE_ESCAPE))
   {
@@ -62,12 +66,110 @@ void GameClientUIManager::Update()
     m_DrawProfileData = !m_DrawProfileData;
   }
 
+  for(auto & elem : m_Alerts)
+  {
+    elem.alpha -= dt;
+  }
+  m_Alerts.erase(std::remove_if(m_Alerts.begin(), m_Alerts.end(), [](auto & elem) { return elem.alpha <= 0; }), m_Alerts.end());
+
   m_GameContainer.UpdateUIManager();
 
   GameClientUIData ui_data;
 
   auto ui_script_data = CreateScriptDataObject(m_GameContainer.GetUIManager()->GetScriptState(), GetScriptData());
   m_GameContainer.GetUIManager()->SetGlobal("hud_info", std::move(ui_script_data));
+
+  auto & game_state = m_GameContainer.GetInstanceData()->GetFullState();
+  auto & global_data = game_state.m_InstanceData;
+  auto & client_local = m_GameContainer.GetInstanceData()->GetClientLocalData(m_LocalIndex);
+
+  if(client_local.m_PlayerIndex != -1)
+  {
+    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(client_local.m_PlayerIndex);
+    if(player_obj)
+    {
+      UpgradeInfo upgrade_info;
+      if((player_obj->m_Upgrades & (int)PlayerUpgrade::kDamage1) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kDamage1);
+      }
+      else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kDamage2) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kDamage2);
+      }
+
+
+      if((player_obj->m_Upgrades & (int)PlayerUpgrade::kAmmo1) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kAmmo1);
+      }
+      else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kAmmo2) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kAmmo2);
+      }
+
+
+      if((player_obj->m_Upgrades & (int)PlayerUpgrade::kHealth1) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kHealth1);
+      }
+      else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kHealth2) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kHealth2);
+      }
+
+      if((player_obj->m_Upgrades & (int)PlayerUpgrade::kSpeed1) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kSpeed1);
+      }
+
+      if((player_obj->m_Upgrades & (int)PlayerUpgrade::kLife1) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kLife1);
+      }
+      else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kLife2) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kLife2);
+      }
+      else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kLife3) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kLife3);
+      }
+
+      if((player_obj->m_Upgrades & (int)PlayerUpgrade::kRate1) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kRate1);
+      }
+      else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kRate2) == 0)
+      {
+        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kRate2);
+      }
+
+      m_GameContainer.GetUIManager()->SetGlobal("upgrade_info",
+              CreateScriptDataObject(m_GameContainer.GetUIManager()->GetScriptState(), upgrade_info));
+    }
+  }
+
+  if(game_state.m_InstanceData.m_RoundState == RoundState::kPostRound && m_ShopOpen == false && m_PopupOpen == false)
+  {
+    auto & ui = GetUIManager();
+    auto & game_interface = ui.CreateGameInterface();
+
+    BIND_SCRIPT_INTERFACE(game_interface, this, BuyDamage);
+    BIND_SCRIPT_INTERFACE(game_interface, this, BuyAmmo);
+    BIND_SCRIPT_INTERFACE(game_interface, this, BuyHealth);
+    BIND_SCRIPT_INTERFACE(game_interface, this, BuySpeed);
+    BIND_SCRIPT_INTERFACE(game_interface, this, BuyLife);
+    BIND_SCRIPT_INTERFACE(game_interface, this, BuyRate);
+
+    ui.PushUIDef(g_StoreMenu);
+
+    m_ShopOpen = true;
+  }
+  else if(game_state.m_InstanceData.m_RoundState != RoundState::kPostRound && m_ShopOpen)
+  {
+    CancelPopup();
+  }
 }
 
 void GameClientUIManager::Render()
@@ -98,6 +200,8 @@ void GameClientUIManager::Render()
 
 void GameClientUIManager::ShowQuitPopup()
 {
+  CancelPopup();
+
   auto & ui = GetUIManager();
   auto & game_interface = ui.CreateGameInterface();
 
@@ -114,6 +218,7 @@ void GameClientUIManager::CancelPopup()
   GetUIManager().ClearUI();
   GetUIManager().ClearGameInterface();
   m_PopupOpen = false;
+  m_ShopOpen = false;
 }
 
 void GameClientUIManager::ShowTutorial()
@@ -123,7 +228,7 @@ void GameClientUIManager::ShowTutorial()
 
 bool GameClientUIManager::IsPopupOpen()
 {
-  return m_PopupOpen;
+  return m_PopupOpen || m_ShopOpen;
 }
 
 bool GameClientUIManager::IsBlocking()
@@ -139,6 +244,15 @@ bool GameClientUIManager::WantsToQuit()
 UIManager & GameClientUIManager::GetUIManager()
 {
   return *m_GameContainer.GetEngineState().GetUIManager();
+}
+
+void GameClientUIManager::AddNoiseAlert(float angle, float alpha)
+{
+  NoiseAlert alert;
+  alert.angle = angle;
+  alert.alpha = alpha;
+
+  m_Alerts.push_back(alert);
 }
 
 GameClientUIData GameClientUIManager::GetScriptData()
@@ -175,10 +289,174 @@ GameClientUIData GameClientUIManager::GetScriptData()
   }
 #endif
 
+  data.alerts = m_Alerts;
+  data.num_alerts = m_Alerts.size();
+
+  data.max_ammo = kDefaultAmmo;
+
+
+  if(client_local.m_PlayerIndex != -1)
+  {
+    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+            client_local.m_PlayerIndex);
+    if (player_obj)
+    {
+      data.ammo = player_obj->m_Ammo;
+      data.health = player_obj->m_Health;
+      data.lives = player_obj->m_Lives;
+
+      if(player_obj->m_Upgrades & (int)PlayerUpgrade::kAmmo1)
+      {
+        data.max_ammo += 6;
+      }
+
+      if(player_obj->m_Upgrades & (int)PlayerUpgrade::kAmmo2)
+      {
+        data.max_ammo += 6;
+      }
+    }
+  }
+
   return data;
 }
 
 void GameClientUIManager::Quit()
 {
   m_WantsToQuit = true;
+}
+
+void GameClientUIManager::BuyDamage()
+{
+  auto & game_state = m_GameContainer.GetInstanceData()->GetFullState();
+  auto & global_data = game_state.m_InstanceData;
+  auto & client_local = m_GameContainer.GetInstanceData()->GetClientLocalData(m_LocalIndex);
+  auto & input_manager = m_GameContainer.GetClientSystems()->GetInputManager();
+
+  if(client_local.m_PlayerIndex != -1)
+  {
+    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+            client_local.m_PlayerIndex);
+    if (player_obj)
+    {
+      if(player_obj->m_Upgrades & (int)PlayerUpgrade::kDamage1)
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kDamage2});
+      }
+      else
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kDamage1});
+      }
+    }
+  }
+}
+
+void GameClientUIManager::BuyAmmo()
+{
+  auto & game_state = m_GameContainer.GetInstanceData()->GetFullState();
+  auto & global_data = game_state.m_InstanceData;
+  auto & client_local = m_GameContainer.GetInstanceData()->GetClientLocalData(m_LocalIndex);
+  auto & input_manager = m_GameContainer.GetClientSystems()->GetInputManager();
+
+
+  if(client_local.m_PlayerIndex != -1)
+  {
+    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+            client_local.m_PlayerIndex);
+    if (player_obj)
+    {
+      if(player_obj->m_Upgrades & (int)PlayerUpgrade::kAmmo1)
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kAmmo2});
+      }
+      else
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kAmmo1});
+      }
+    }
+  }
+}
+
+void GameClientUIManager::BuyHealth()
+{
+  auto & game_state = m_GameContainer.GetInstanceData()->GetFullState();
+  auto & global_data = game_state.m_InstanceData;
+  auto & client_local = m_GameContainer.GetInstanceData()->GetClientLocalData(m_LocalIndex);
+  auto & input_manager = m_GameContainer.GetClientSystems()->GetInputManager();
+
+
+  if(client_local.m_PlayerIndex != -1)
+  {
+    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+            client_local.m_PlayerIndex);
+    if (player_obj)
+    {
+      if(player_obj->m_Upgrades & (int)PlayerUpgrade::kHealth1)
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kHealth2});
+      }
+      else
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kHealth1});
+      }
+    }
+  }
+}
+
+void GameClientUIManager::BuySpeed()
+{
+  m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kSpeed1}, 0);
+}
+
+void GameClientUIManager::BuyLife()
+{
+  auto & game_state = m_GameContainer.GetInstanceData()->GetFullState();
+  auto & global_data = game_state.m_InstanceData;
+  auto & client_local = m_GameContainer.GetInstanceData()->GetClientLocalData(m_LocalIndex);
+
+
+  if(client_local.m_PlayerIndex != -1)
+  {
+    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+            client_local.m_PlayerIndex);
+    if (player_obj)
+    {
+      if((player_obj->m_Upgrades & (int)PlayerUpgrade::kLife1) && (player_obj->m_Upgrades & (int)PlayerUpgrade::kLife2))
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kLife3});
+      }
+      else if(player_obj->m_Upgrades & (int)PlayerUpgrade::kLife1)
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kRate2});
+      }
+      else
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kRate1});
+      }
+    }
+  }
+}
+
+void GameClientUIManager::BuyRate()
+{
+  auto & game_state = m_GameContainer.GetInstanceData()->GetFullState();
+  auto & global_data = game_state.m_InstanceData;
+  auto & client_local = m_GameContainer.GetInstanceData()->GetClientLocalData(m_LocalIndex);
+
+
+  if(client_local.m_PlayerIndex != -1)
+  {
+    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+            client_local.m_PlayerIndex);
+    if (player_obj)
+    {
+      if(player_obj->m_Upgrades & (int)PlayerUpgrade::kRate1)
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kRate2});
+      }
+      else
+      {
+        m_GameContainer.GetInstanceData()->GetEventSender().SendClientEvent(PurchaseEvent{ClientNetworkEvent{}, (int)PlayerUpgrade::kRate1});
+      }
+    }
+  }
 }

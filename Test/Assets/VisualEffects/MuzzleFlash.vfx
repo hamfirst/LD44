@@ -1,0 +1,60 @@
+[]
+
+{
+    "m_Inputs": {
+        "0": {
+            "m_VariableName": "Angle"
+        }
+    },
+    "m_Emitters": {
+        "0": {
+            "m_ParticleEquations": {
+                "3730805869": {
+                    "m_VariableName": "m_ColorB",
+                    "m_Equation": "[n 0.4, 0.3, RandC]"
+                },
+                "1406679156": {
+                    "m_VariableName": "m_Drag",
+                    "m_Equation": "1"
+                },
+                "3245731331": {
+                    "m_VariableName": "m_MaxLifetime",
+                    "m_Equation": "0.1"
+                },
+                "1196869079": {
+                    "m_VariableName": "m_ColorA",
+                    "m_Equation": "[pow InvTimePct, 0.5]"
+                }
+            },
+            "m_EmitterEquations": {
+                "2225435367": {
+                    "m_VariableName": "m_EmitterLifetime",
+                    "m_Equation": "0.1"
+                },
+                "472491818": {
+                    "m_VariableName": "m_SpawnRate",
+                    "m_Equation": "200"
+                }
+            },
+            "m_SpawnEquations": {
+                "1191588216": {
+                    "m_VariableName": "m_SpawnVelocityY",
+                    "m_Equation": "[sin Angle + [n -1, 1, [bias RandA, 2]]]  * [symn 20, 200, RandA]"
+                },
+                "805372398": {
+                    "m_VariableName": "m_SpawnVelocityX",
+                    "m_Equation": "[cos Angle + [n -1, 1, [bias RandA, 2]]] * [symn 20, 200, RandA]"
+                }
+            },
+            "m_Properties": {
+                "m_Name": "Emitter1",
+                "m_PrespawnParticles": 0,
+                "m_Trail": false,
+                "m_LinearFilter": false,
+                "m_UpdateDelay": 0,
+                "m_Texture": "",
+                "m_Additive": false
+            }
+        }
+    }
+}

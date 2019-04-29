@@ -13,6 +13,7 @@ struct PlayerServerObjectInfo
 {
   NotNullPtr<PlayerServerObject> m_CurrentObject;
   bool m_IsLocal;
+  int m_LocalIndex;
   Vector2f m_CurrentPos;
 };
 
@@ -35,6 +36,8 @@ public:
   virtual void ServerDestroy() override;
 
   void UpdateFirst();
+
+  void Draw(const Box & viewport_bounds, const RenderVec2 & screen_center, RenderState & render_state);
 
   PlayerServerObjectInfo GetServerObjectInfo();
 

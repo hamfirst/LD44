@@ -4,7 +4,7 @@ QuickMenu.alpha = 1
 QuickMenu.fading = false
 QuickMenu.max_options = 4
 QuickMenu.spacing = 4
-QuickMenu.button_width = 80
+QuickMenu.button_width = 90
 
 function QuickMenu:setup(o)
   Elem:setup(o)
@@ -204,7 +204,7 @@ function QuickMenu:TransitionOut(dir)
 
   local target_x = -70
   if dir == -1 then
-    target_x = 10
+    target_x = 70
   end
 
   for k, v in pairs(self.buttons) do

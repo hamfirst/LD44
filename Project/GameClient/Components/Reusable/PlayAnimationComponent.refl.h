@@ -16,6 +16,7 @@ struct PlayAnimationComponentInitData : public ComponentInitData
   STORM_DATA_DEFAULT_CONSTRUCTION_DERIVED(PlayAnimationComponentInitData);
 
   RString m_Animation = "Animation";
+  uint32_t STORM_REFL_IGNORE m_AnimationHash = 0;
   REnum<PlayAnimationComponentLoopMode> m_LoopMode = PlayAnimationComponentLoopMode::kPlayLooping;
 };
 

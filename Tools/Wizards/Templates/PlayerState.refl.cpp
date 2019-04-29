@@ -1,8 +1,8 @@
 #include ""Game/GameCommon.h""
-
-#include ""Game/GameLogicContainer.h""
 #include ""Game/GameServerEventSender.h""
 #include ""Game/GameStage.h""
+
+#include ""GameShared/GameLogicContainer.h""
 
 #include ""Game/ServerObjects/Player/PlayerServerObject.refl.h""
 

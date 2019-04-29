@@ -10,7 +10,7 @@ PlayerList.highlighted_menu_pos = 0
 PlayerList.selected_player_id = 0
 PlayerList.selected_menu_pos = 0
 
-player_list_big_font = loader:LoadFont("./Fonts/FFF.ttf", 9)
+player_list_big_font = loader:LoadFont("./Fonts/FFF.ttf", 9, 0)
 game_leader_icon = loader:LoadTexture("./Images/UI/GameLeader.png")
 player_ready_icon = loader:LoadTexture("./Images/UI/PlayerReady.png")
 

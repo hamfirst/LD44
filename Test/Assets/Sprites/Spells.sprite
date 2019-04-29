@@ -1,0 +1,2972 @@
+[]
+
+{
+    "m_Animations": {
+        "0": {
+            "m_Name": "Spell1",
+            "m_Frames": {
+                "110": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "113": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "88": {
+                    "m_FrameId": 8668354127819964426,
+                    "m_FrameDuration": 1
+                },
+                "101": {
+                    "m_FrameId": 8668354127819964522,
+                    "m_FrameDuration": 1
+                },
+                "107": {
+                    "m_FrameId": 8668354127819964524,
+                    "m_FrameDuration": 1
+                },
+                "66": {
+                    "m_FrameId": 8668354127819964457,
+                    "m_FrameDuration": 1
+                },
+                "28": {
+                    "m_FrameId": 8668354127819964473,
+                    "m_FrameDuration": 1
+                },
+                "64": {
+                    "m_FrameId": 8668354127819964488,
+                    "m_FrameDuration": 1
+                },
+                "86": {
+                    "m_FrameId": 8668354127819964510,
+                    "m_FrameDuration": 1
+                },
+                "112": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "2": {
+                    "m_FrameId": 8668354127819964427,
+                    "m_FrameDuration": 1
+                },
+                "87": {
+                    "m_FrameId": 8668354127819964490,
+                    "m_FrameDuration": 1
+                },
+                "84": {
+                    "m_FrameId": 8668354127819964469,
+                    "m_FrameDuration": 1
+                },
+                "89": {
+                    "m_FrameId": 8668354127819964437,
+                    "m_FrameDuration": 1
+                },
+                "90": {
+                    "m_FrameId": 8668354127819964448,
+                    "m_FrameDuration": 1
+                },
+                "22": {
+                    "m_FrameId": 8668354127819964463,
+                    "m_FrameDuration": 1
+                },
+                "119": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "108": {
+                    "m_FrameId": 8668354127819964514,
+                    "m_FrameDuration": 1
+                },
+                "97": {
+                    "m_FrameId": 8668354127819964521,
+                    "m_FrameDuration": 1
+                },
+                "85": {
+                    "m_FrameId": 8668354127819964500,
+                    "m_FrameDuration": 1
+                },
+                "83": {
+                    "m_FrameId": 8668354127819964519,
+                    "m_FrameDuration": 1
+                },
+                "99": {
+                    "m_FrameId": 8668354127819964481,
+                    "m_FrameDuration": 1
+                },
+                "36": {
+                    "m_FrameId": 8668354127819964433,
+                    "m_FrameDuration": 1
+                },
+                "35": {
+                    "m_FrameId": 8668354127819964483,
+                    "m_FrameDuration": 1
+                },
+                "39": {
+                    "m_FrameId": 8668354127819964475,
+                    "m_FrameDuration": 1
+                },
+                "82": {
+                    "m_FrameId": 8668354127819964458,
+                    "m_FrameDuration": 1
+                },
+                "74": {
+                    "m_FrameId": 8668354127819964436,
+                    "m_FrameDuration": 1
+                },
+                "109": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "38": {
+                    "m_FrameId": 8668354127819964444,
+                    "m_FrameDuration": 1
+                },
+                "72": {
+                    "m_FrameId": 8668354127819964515,
+                    "m_FrameDuration": 1
+                },
+                "37": {
+                    "m_FrameId": 8668354127819964484,
+                    "m_FrameDuration": 1
+                },
+                "14": {
+                    "m_FrameId": 8668354127819964441,
+                    "m_FrameDuration": 1
+                },
+                "47": {
+                    "m_FrameId": 8668354127819964434,
+                    "m_FrameDuration": 1
+                },
+                "71": {
+                    "m_FrameId": 8668354127819964425,
+                    "m_FrameDuration": 1
+                },
+                "115": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "32": {
+                    "m_FrameId": 8668354127819964454,
+                    "m_FrameDuration": 1
+                },
+                "100": {
+                    "m_FrameId": 8668354127819964512,
+                    "m_FrameDuration": 1
+                },
+                "70": {
+                    "m_FrameId": 8668354127819964468,
+                    "m_FrameDuration": 1
+                },
+                "21": {
+                    "m_FrameId": 8668354127819964442,
+                    "m_FrameDuration": 1
+                },
+                "76": {
+                    "m_FrameId": 8668354127819964499,
+                    "m_FrameDuration": 1
+                },
+                "103": {
+                    "m_FrameId": 8668354127819964492,
+                    "m_FrameDuration": 1
+                },
+                "75": {
+                    "m_FrameId": 8668354127819964517,
+                    "m_FrameDuration": 1
+                },
+                "27": {
+                    "m_FrameId": 8668354127819964432,
+                    "m_FrameDuration": 1
+                },
+                "44": {
+                    "m_FrameId": 8668354127819964493,
+                    "m_FrameDuration": 1
+                },
+                "19": {
+                    "m_FrameId": 8668354127819964452,
+                    "m_FrameDuration": 1
+                },
+                "52": {
+                    "m_FrameId": 8668354127819964496,
+                    "m_FrameDuration": 1
+                },
+                "34": {
+                    "m_FrameId": 8668354127819964482,
+                    "m_FrameDuration": 1
+                },
+                "114": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "42": {
+                    "m_FrameId": 8668354127819964455,
+                    "m_FrameDuration": 1
+                },
+                "4": {
+                    "m_FrameId": 8668354127819964418,
+                    "m_FrameDuration": 1
+                },
+                "73": {
+                    "m_FrameId": 8668354127819964516,
+                    "m_FrameDuration": 1
+                },
+                "16": {
+                    "m_FrameId": 8668354127819964460,
+                    "m_FrameDuration": 1
+                },
+                "13": {
+                    "m_FrameId": 8668354127819964451,
+                    "m_FrameDuration": 1
+                },
+                "81": {
+                    "m_FrameId": 8668354127819964518,
+                    "m_FrameDuration": 1
+                },
+                "6": {
+                    "m_FrameId": 8668354127819964439,
+                    "m_FrameDuration": 1
+                },
+                "30": {
+                    "m_FrameId": 8668354127819964464,
+                    "m_FrameDuration": 1
+                },
+                "12": {
+                    "m_FrameId": 8668354127819964430,
+                    "m_FrameDuration": 1
+                },
+                "92": {
+                    "m_FrameId": 8668354127819964480,
+                    "m_FrameDuration": 1
+                },
+                "95": {
+                    "m_FrameId": 8668354127819964501,
+                    "m_FrameDuration": 1
+                },
+                "26": {
+                    "m_FrameId": 8668354127819964472,
+                    "m_FrameDuration": 1
+                },
+                "79": {
+                    "m_FrameId": 8668354127819964509,
+                    "m_FrameDuration": 1
+                },
+                "61": {
+                    "m_FrameId": 8668354127819964435,
+                    "m_FrameDuration": 1
+                },
+                "10": {
+                    "m_FrameId": 8668354127819964449,
+                    "m_FrameDuration": 1
+                },
+                "45": {
+                    "m_FrameId": 8668354127819964494,
+                    "m_FrameDuration": 1
+                },
+                "57": {
+                    "m_FrameId": 8668354127819964504,
+                    "m_FrameDuration": 1
+                },
+                "116": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "18": {
+                    "m_FrameId": 8668354127819964431,
+                    "m_FrameDuration": 1
+                },
+                "80": {
+                    "m_FrameId": 8668354127819964479,
+                    "m_FrameDuration": 1
+                },
+                "25": {
+                    "m_FrameId": 8668354127819964471,
+                    "m_FrameDuration": 1
+                },
+                "118": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "98": {
+                    "m_FrameId": 8668354127819964491,
+                    "m_FrameDuration": 1
+                },
+                "8": {
+                    "m_FrameId": 8668354127819964440,
+                    "m_FrameDuration": 1
+                },
+                "7": {
+                    "m_FrameId": 8668354127819964429,
+                    "m_FrameDuration": 1
+                },
+                "23": {
+                    "m_FrameId": 8668354127819964453,
+                    "m_FrameDuration": 1
+                },
+                "9": {
+                    "m_FrameId": 8668354127819964419,
+                    "m_FrameDuration": 1
+                },
+                "60": {
+                    "m_FrameId": 8668354127819964467,
+                    "m_FrameDuration": 1
+                },
+                "41": {
+                    "m_FrameId": 8668354127819964485,
+                    "m_FrameDuration": 1
+                },
+                "31": {
+                    "m_FrameId": 8668354127819964474,
+                    "m_FrameDuration": 1
+                },
+                "77": {
+                    "m_FrameId": 8668354127819964489,
+                    "m_FrameDuration": 1
+                },
+                "15": {
+                    "m_FrameId": 8668354127819964420,
+                    "m_FrameDuration": 1
+                },
+                "17": {
+                    "m_FrameId": 8668354127819964461,
+                    "m_FrameDuration": 1
+                },
+                "11": {
+                    "m_FrameId": 8668354127819964450,
+                    "m_FrameDuration": 1
+                },
+                "69": {
+                    "m_FrameId": 8668354127819964508,
+                    "m_FrameDuration": 1
+                },
+                "1": {
+                    "m_FrameId": 8668354127819964417,
+                    "m_FrameDuration": 1
+                },
+                "0": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "111": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "43": {
+                    "m_FrameId": 8668354127819964423,
+                    "m_FrameDuration": 1
+                },
+                "46": {
+                    "m_FrameId": 8668354127819964476,
+                    "m_FrameDuration": 1
+                },
+                "94": {
+                    "m_FrameId": 8668354127819964511,
+                    "m_FrameDuration": 1
+                },
+                "93": {
+                    "m_FrameId": 8668354127819964459,
+                    "m_FrameDuration": 1
+                },
+                "24": {
+                    "m_FrameId": 8668354127819964421,
+                    "m_FrameDuration": 1
+                },
+                "96": {
+                    "m_FrameId": 8668354127819964470,
+                    "m_FrameDuration": 1
+                },
+                "33": {
+                    "m_FrameId": 8668354127819964422,
+                    "m_FrameDuration": 1
+                },
+                "105": {
+                    "m_FrameId": 8668354127819964513,
+                    "m_FrameDuration": 1
+                },
+                "5": {
+                    "m_FrameId": 8668354127819964438,
+                    "m_FrameDuration": 1
+                },
+                "49": {
+                    "m_FrameId": 8668354127819964466,
+                    "m_FrameDuration": 1
+                },
+                "56": {
+                    "m_FrameId": 8668354127819964424,
+                    "m_FrameDuration": 1
+                },
+                "50": {
+                    "m_FrameId": 8668354127819964495,
+                    "m_FrameDuration": 1
+                },
+                "59": {
+                    "m_FrameId": 8668354127819964497,
+                    "m_FrameDuration": 1
+                },
+                "78": {
+                    "m_FrameId": 8668354127819964447,
+                    "m_FrameDuration": 1
+                },
+                "55": {
+                    "m_FrameId": 8668354127819964477,
+                    "m_FrameDuration": 1
+                },
+                "91": {
+                    "m_FrameId": 8668354127819964520,
+                    "m_FrameDuration": 1
+                },
+                "29": {
+                    "m_FrameId": 8668354127819964443,
+                    "m_FrameDuration": 1
+                },
+                "67": {
+                    "m_FrameId": 8668354127819964498,
+                    "m_FrameDuration": 1
+                },
+                "58": {
+                    "m_FrameId": 8668354127819964505,
+                    "m_FrameDuration": 1
+                },
+                "40": {
+                    "m_FrameId": 8668354127819964465,
+                    "m_FrameDuration": 1
+                },
+                "117": {
+                    "m_FrameId": 8668354127819964416,
+                    "m_FrameDuration": 1
+                },
+                "102": {
+                    "m_FrameId": 8668354127819964502,
+                    "m_FrameDuration": 1
+                },
+                "62": {
+                    "m_FrameId": 8668354127819964506,
+                    "m_FrameDuration": 1
+                },
+                "48": {
+                    "m_FrameId": 8668354127819964486,
+                    "m_FrameDuration": 1
+                },
+                "53": {
+                    "m_FrameId": 8668354127819964456,
+                    "m_FrameDuration": 1
+                },
+                "3": {
+                    "m_FrameId": 8668354127819964428,
+                    "m_FrameDuration": 1
+                },
+                "20": {
+                    "m_FrameId": 8668354127819964462,
+                    "m_FrameDuration": 1
+                },
+                "63": {
+                    "m_FrameId": 8668354127819964446,
+                    "m_FrameDuration": 1
+                },
+                "54": {
+                    "m_FrameId": 8668354127819964487,
+                    "m_FrameDuration": 1
+                },
+                "65": {
+                    "m_FrameId": 8668354127819964507,
+                    "m_FrameDuration": 1
+                },
+                "51": {
+                    "m_FrameId": 8668354127819964445,
+                    "m_FrameDuration": 1
+                },
+                "104": {
+                    "m_FrameId": 8668354127819964523,
+                    "m_FrameDuration": 1
+                },
+                "68": {
+                    "m_FrameId": 8668354127819964478,
+                    "m_FrameDuration": 1
+                },
+                "106": {
+                    "m_FrameId": 8668354127819964503,
+                    "m_FrameDuration": 1
+                }
+            },
+            "m_Events": { }
+        },
+        "1": {
+            "m_Frames": {
+                "80": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "25": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830115
+                },
+                "45": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830114
+                },
+                "10": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830101
+                },
+                "116": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "57": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "18": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830091
+                },
+                "98": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "118": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "8": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830096
+                },
+                "7": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830089
+                },
+                "23": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830105
+                },
+                "9": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830083
+                },
+                "60": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "26": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830116
+                },
+                "95": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "92": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "12": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830090
+                },
+                "30": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830112
+                },
+                "6": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830095
+                },
+                "81": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "13": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830103
+                },
+                "16": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830108
+                },
+                "73": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "79": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "61": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "4": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830082
+                },
+                "114": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "52": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "34": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830122
+                },
+                "42": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830107
+                },
+                "44": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830126
+                },
+                "27": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830092
+                },
+                "41": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830125
+                },
+                "31": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830118
+                },
+                "77": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "19": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830104
+                },
+                "15": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830084
+                },
+                "17": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830109
+                },
+                "11": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830102
+                },
+                "69": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "1": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830081
+                },
+                "0": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "111": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "43": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830120
+                },
+                "46": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830127
+                },
+                "24": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830085
+                },
+                "96": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "33": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830086
+                },
+                "105": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "5": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830094
+                },
+                "49": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "56": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "50": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "59": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "78": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "55": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "91": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "29": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830099
+                },
+                "67": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "58": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "40": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830113
+                },
+                "117": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "93": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "94": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "102": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "62": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "48": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "53": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "20": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830110
+                },
+                "63": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "3": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830088
+                },
+                "54": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "65": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "51": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "104": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "68": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "106": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "75": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "103": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "76": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "21": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830098
+                },
+                "70": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "100": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "32": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830106
+                },
+                "115": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "71": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "47": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "14": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830097
+                },
+                "37": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830124
+                },
+                "72": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "38": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830100
+                },
+                "109": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "74": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "82": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "39": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830119
+                },
+                "35": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830123
+                },
+                "36": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830093
+                },
+                "99": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "83": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "85": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "97": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "108": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "119": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "22": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830111
+                },
+                "90": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "89": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "84": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "87": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "2": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830087
+                },
+                "112": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "86": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "64": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "28": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830117
+                },
+                "66": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "107": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "101": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "88": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "113": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                },
+                "110": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 4606149938726830080
+                }
+            },
+            "m_Events": { },
+            "m_Name": "Spell2"
+        },
+        "2": {
+            "m_Events": { },
+            "m_Name": "Spell3",
+            "m_Frames": {
+                "106": {
+                    "m_FrameId": 183659428711497824,
+                    "m_FrameDuration": 1
+                },
+                "68": {
+                    "m_FrameId": 183659428711497790,
+                    "m_FrameDuration": 1
+                },
+                "104": {
+                    "m_FrameId": 183659428711497843,
+                    "m_FrameDuration": 1
+                },
+                "51": {
+                    "m_FrameId": 183659428711497757,
+                    "m_FrameDuration": 1
+                },
+                "58": {
+                    "m_FrameId": 183659428711497817,
+                    "m_FrameDuration": 1
+                },
+                "63": {
+                    "m_FrameId": 183659428711497758,
+                    "m_FrameDuration": 1
+                },
+                "20": {
+                    "m_FrameId": 183659428711497774,
+                    "m_FrameDuration": 1
+                },
+                "3": {
+                    "m_FrameId": 183659428711497740,
+                    "m_FrameDuration": 1
+                },
+                "117": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "40": {
+                    "m_FrameId": 183659428711497777,
+                    "m_FrameDuration": 1
+                },
+                "62": {
+                    "m_FrameId": 183659428711497818,
+                    "m_FrameDuration": 1
+                },
+                "102": {
+                    "m_FrameId": 183659428711497833,
+                    "m_FrameDuration": 1
+                },
+                "53": {
+                    "m_FrameId": 183659428711497768,
+                    "m_FrameDuration": 1
+                },
+                "48": {
+                    "m_FrameId": 183659428711497798,
+                    "m_FrameDuration": 1
+                },
+                "65": {
+                    "m_FrameId": 183659428711497819,
+                    "m_FrameDuration": 1
+                },
+                "54": {
+                    "m_FrameId": 183659428711497799,
+                    "m_FrameDuration": 1
+                },
+                "67": {
+                    "m_FrameId": 183659428711497810,
+                    "m_FrameDuration": 1
+                },
+                "29": {
+                    "m_FrameId": 183659428711497755,
+                    "m_FrameDuration": 1
+                },
+                "91": {
+                    "m_FrameId": 183659428711497749,
+                    "m_FrameDuration": 1
+                },
+                "55": {
+                    "m_FrameId": 183659428711497789,
+                    "m_FrameDuration": 1
+                },
+                "78": {
+                    "m_FrameId": 183659428711497759,
+                    "m_FrameDuration": 1
+                },
+                "59": {
+                    "m_FrameId": 183659428711497809,
+                    "m_FrameDuration": 1
+                },
+                "50": {
+                    "m_FrameId": 183659428711497807,
+                    "m_FrameDuration": 1
+                },
+                "56": {
+                    "m_FrameId": 183659428711497736,
+                    "m_FrameDuration": 1
+                },
+                "49": {
+                    "m_FrameId": 183659428711497778,
+                    "m_FrameDuration": 1
+                },
+                "5": {
+                    "m_FrameId": 183659428711497750,
+                    "m_FrameDuration": 1
+                },
+                "105": {
+                    "m_FrameId": 183659428711497793,
+                    "m_FrameDuration": 1
+                },
+                "33": {
+                    "m_FrameId": 183659428711497734,
+                    "m_FrameDuration": 1
+                },
+                "24": {
+                    "m_FrameId": 183659428711497733,
+                    "m_FrameDuration": 1
+                },
+                "96": {
+                    "m_FrameId": 183659428711497841,
+                    "m_FrameDuration": 1
+                },
+                "93": {
+                    "m_FrameId": 183659428711497760,
+                    "m_FrameDuration": 1
+                },
+                "94": {
+                    "m_FrameId": 183659428711497832,
+                    "m_FrameDuration": 1
+                },
+                "46": {
+                    "m_FrameId": 183659428711497788,
+                    "m_FrameDuration": 1
+                },
+                "43": {
+                    "m_FrameId": 183659428711497735,
+                    "m_FrameDuration": 1
+                },
+                "111": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "0": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "75": {
+                    "m_FrameId": 183659428711497829,
+                    "m_FrameDuration": 1
+                },
+                "103": {
+                    "m_FrameId": 183659428711497803,
+                    "m_FrameDuration": 1
+                },
+                "76": {
+                    "m_FrameId": 183659428711497811,
+                    "m_FrameDuration": 1
+                },
+                "21": {
+                    "m_FrameId": 183659428711497754,
+                    "m_FrameDuration": 1
+                },
+                "70": {
+                    "m_FrameId": 183659428711497780,
+                    "m_FrameDuration": 1
+                },
+                "100": {
+                    "m_FrameId": 183659428711497842,
+                    "m_FrameDuration": 1
+                },
+                "32": {
+                    "m_FrameId": 183659428711497766,
+                    "m_FrameDuration": 1
+                },
+                "115": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "71": {
+                    "m_FrameId": 183659428711497737,
+                    "m_FrameDuration": 1
+                },
+                "47": {
+                    "m_FrameId": 183659428711497746,
+                    "m_FrameDuration": 1
+                },
+                "14": {
+                    "m_FrameId": 183659428711497753,
+                    "m_FrameDuration": 1
+                },
+                "37": {
+                    "m_FrameId": 183659428711497796,
+                    "m_FrameDuration": 1
+                },
+                "72": {
+                    "m_FrameId": 183659428711497827,
+                    "m_FrameDuration": 1
+                },
+                "38": {
+                    "m_FrameId": 183659428711497756,
+                    "m_FrameDuration": 1
+                },
+                "109": {
+                    "m_FrameId": 183659428711497844,
+                    "m_FrameDuration": 1
+                },
+                "82": {
+                    "m_FrameId": 183659428711497770,
+                    "m_FrameDuration": 1
+                },
+                "74": {
+                    "m_FrameId": 183659428711497748,
+                    "m_FrameDuration": 1
+                },
+                "39": {
+                    "m_FrameId": 183659428711497787,
+                    "m_FrameDuration": 1
+                },
+                "35": {
+                    "m_FrameId": 183659428711497795,
+                    "m_FrameDuration": 1
+                },
+                "36": {
+                    "m_FrameId": 183659428711497745,
+                    "m_FrameDuration": 1
+                },
+                "99": {
+                    "m_FrameId": 183659428711497813,
+                    "m_FrameDuration": 1
+                },
+                "83": {
+                    "m_FrameId": 183659428711497831,
+                    "m_FrameDuration": 1
+                },
+                "85": {
+                    "m_FrameId": 183659428711497812,
+                    "m_FrameDuration": 1
+                },
+                "97": {
+                    "m_FrameId": 183659428711497771,
+                    "m_FrameDuration": 1
+                },
+                "108": {
+                    "m_FrameId": 183659428711497814,
+                    "m_FrameDuration": 1
+                },
+                "119": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "22": {
+                    "m_FrameId": 183659428711497775,
+                    "m_FrameDuration": 1
+                },
+                "90": {
+                    "m_FrameId": 183659428711497839,
+                    "m_FrameDuration": 1
+                },
+                "89": {
+                    "m_FrameId": 183659428711497838,
+                    "m_FrameDuration": 1
+                },
+                "84": {
+                    "m_FrameId": 183659428711497781,
+                    "m_FrameDuration": 1
+                },
+                "87": {
+                    "m_FrameId": 183659428711497802,
+                    "m_FrameDuration": 1
+                },
+                "2": {
+                    "m_FrameId": 183659428711497739,
+                    "m_FrameDuration": 1
+                },
+                "112": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "86": {
+                    "m_FrameId": 183659428711497822,
+                    "m_FrameDuration": 1
+                },
+                "64": {
+                    "m_FrameId": 183659428711497800,
+                    "m_FrameDuration": 1
+                },
+                "28": {
+                    "m_FrameId": 183659428711497785,
+                    "m_FrameDuration": 1
+                },
+                "66": {
+                    "m_FrameId": 183659428711497769,
+                    "m_FrameDuration": 1
+                },
+                "107": {
+                    "m_FrameId": 183659428711497834,
+                    "m_FrameDuration": 1
+                },
+                "101": {
+                    "m_FrameId": 183659428711497782,
+                    "m_FrameDuration": 1
+                },
+                "88": {
+                    "m_FrameId": 183659428711497738,
+                    "m_FrameDuration": 1
+                },
+                "113": {
+                    "m_FrameId": 183659428711497835,
+                    "m_FrameDuration": 1
+                },
+                "110": {
+                    "m_FrameId": 183659428711497804,
+                    "m_FrameDuration": 1
+                },
+                "1": {
+                    "m_FrameId": 183659428711497729,
+                    "m_FrameDuration": 1
+                },
+                "69": {
+                    "m_FrameId": 183659428711497820,
+                    "m_FrameDuration": 1
+                },
+                "11": {
+                    "m_FrameId": 183659428711497762,
+                    "m_FrameDuration": 1
+                },
+                "17": {
+                    "m_FrameId": 183659428711497773,
+                    "m_FrameDuration": 1
+                },
+                "15": {
+                    "m_FrameId": 183659428711497732,
+                    "m_FrameDuration": 1
+                },
+                "19": {
+                    "m_FrameId": 183659428711497764,
+                    "m_FrameDuration": 1
+                },
+                "77": {
+                    "m_FrameId": 183659428711497801,
+                    "m_FrameDuration": 1
+                },
+                "31": {
+                    "m_FrameId": 183659428711497786,
+                    "m_FrameDuration": 1
+                },
+                "41": {
+                    "m_FrameId": 183659428711497797,
+                    "m_FrameDuration": 1
+                },
+                "27": {
+                    "m_FrameId": 183659428711497744,
+                    "m_FrameDuration": 1
+                },
+                "44": {
+                    "m_FrameId": 183659428711497805,
+                    "m_FrameDuration": 1
+                },
+                "42": {
+                    "m_FrameId": 183659428711497767,
+                    "m_FrameDuration": 1
+                },
+                "34": {
+                    "m_FrameId": 183659428711497794,
+                    "m_FrameDuration": 1
+                },
+                "52": {
+                    "m_FrameId": 183659428711497808,
+                    "m_FrameDuration": 1
+                },
+                "114": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "4": {
+                    "m_FrameId": 183659428711497730,
+                    "m_FrameDuration": 1
+                },
+                "61": {
+                    "m_FrameId": 183659428711497747,
+                    "m_FrameDuration": 1
+                },
+                "79": {
+                    "m_FrameId": 183659428711497821,
+                    "m_FrameDuration": 1
+                },
+                "73": {
+                    "m_FrameId": 183659428711497828,
+                    "m_FrameDuration": 1
+                },
+                "16": {
+                    "m_FrameId": 183659428711497772,
+                    "m_FrameDuration": 1
+                },
+                "13": {
+                    "m_FrameId": 183659428711497763,
+                    "m_FrameDuration": 1
+                },
+                "81": {
+                    "m_FrameId": 183659428711497830,
+                    "m_FrameDuration": 1
+                },
+                "6": {
+                    "m_FrameId": 183659428711497751,
+                    "m_FrameDuration": 1
+                },
+                "30": {
+                    "m_FrameId": 183659428711497776,
+                    "m_FrameDuration": 1
+                },
+                "12": {
+                    "m_FrameId": 183659428711497742,
+                    "m_FrameDuration": 1
+                },
+                "92": {
+                    "m_FrameId": 183659428711497840,
+                    "m_FrameDuration": 1
+                },
+                "95": {
+                    "m_FrameId": 183659428711497792,
+                    "m_FrameDuration": 1
+                },
+                "26": {
+                    "m_FrameId": 183659428711497784,
+                    "m_FrameDuration": 1
+                },
+                "60": {
+                    "m_FrameId": 183659428711497779,
+                    "m_FrameDuration": 1
+                },
+                "9": {
+                    "m_FrameId": 183659428711497731,
+                    "m_FrameDuration": 1
+                },
+                "23": {
+                    "m_FrameId": 183659428711497765,
+                    "m_FrameDuration": 1
+                },
+                "7": {
+                    "m_FrameId": 183659428711497741,
+                    "m_FrameDuration": 1
+                },
+                "8": {
+                    "m_FrameId": 183659428711497752,
+                    "m_FrameDuration": 1
+                },
+                "118": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "98": {
+                    "m_FrameId": 183659428711497823,
+                    "m_FrameDuration": 1
+                },
+                "18": {
+                    "m_FrameId": 183659428711497743,
+                    "m_FrameDuration": 1
+                },
+                "57": {
+                    "m_FrameId": 183659428711497816,
+                    "m_FrameDuration": 1
+                },
+                "116": {
+                    "m_FrameId": 183659428711497728,
+                    "m_FrameDuration": 1
+                },
+                "10": {
+                    "m_FrameId": 183659428711497761,
+                    "m_FrameDuration": 1
+                },
+                "45": {
+                    "m_FrameId": 183659428711497806,
+                    "m_FrameDuration": 1
+                },
+                "25": {
+                    "m_FrameId": 183659428711497783,
+                    "m_FrameDuration": 1
+                },
+                "80": {
+                    "m_FrameId": 183659428711497791,
+                    "m_FrameDuration": 1
+                }
+            }
+        },
+        "6": {
+            "m_Frames": {
+                "0": {
+                    "m_FrameId": "7617458446048165888",
+                    "m_FrameDuration": 200
+                }
+            },
+            "m_Events": { },
+            "m_Name": "Alert"
+        },
+        "4": {
+            "m_Name": "Spell5",
+            "m_Frames": {
+                "63": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635740
+                },
+                "20": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635754
+                },
+                "3": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635723
+                },
+                "53": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635749
+                },
+                "48": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635776
+                },
+                "58": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635793
+                },
+                "67": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635787
+                },
+                "106": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "68": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635769
+                },
+                "102": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "62": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635794
+                },
+                "104": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "51": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635739
+                },
+                "77": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635770
+                },
+                "41": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635775
+                },
+                "31": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635765
+                },
+                "29": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635737
+                },
+                "91": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "78": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635751
+                },
+                "59": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635786
+                },
+                "55": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635768
+                },
+                "50": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635784
+                },
+                "56": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635720
+                },
+                "49": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635758
+                },
+                "5": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635732
+                },
+                "93": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "94": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "46": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635767
+                },
+                "54": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635777
+                },
+                "65": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635795
+                },
+                "43": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635719
+                },
+                "117": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "40": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635757
+                },
+                "0": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "105": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "96": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "24": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635717
+                },
+                "33": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635718
+                },
+                "15": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635716
+                },
+                "17": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635753
+                },
+                "11": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635743
+                },
+                "32": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635747
+                },
+                "115": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "71": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635721
+                },
+                "47": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635729
+                },
+                "14": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635735
+                },
+                "37": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635774
+                },
+                "72": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635731
+                },
+                "38": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635738
+                },
+                "109": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "74": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635779
+                },
+                "82": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "39": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635766
+                },
+                "35": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635773
+                },
+                "36": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635728
+                },
+                "99": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "83": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635780
+                },
+                "85": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "97": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "111": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "108": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "119": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "22": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635755
+                },
+                "107": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "64": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635778
+                },
+                "101": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "84": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "110": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "66": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635750
+                },
+                "28": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635764
+                },
+                "86": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "112": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "2": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635722
+                },
+                "87": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "90": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "89": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "88": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "113": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "75": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635741
+                },
+                "103": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "76": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635797
+                },
+                "100": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "21": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635736
+                },
+                "70": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635760
+                },
+                "19": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635745
+                },
+                "42": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635748
+                },
+                "34": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635772
+                },
+                "52": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635785
+                },
+                "114": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "27": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635727
+                },
+                "44": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635782
+                },
+                "61": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635730
+                },
+                "79": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635761
+                },
+                "4": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635714
+                },
+                "8": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635734
+                },
+                "118": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "98": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "73": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635788
+                },
+                "16": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635752
+                },
+                "30": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635756
+                },
+                "12": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635725
+                },
+                "92": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "25": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635762
+                },
+                "80": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635789
+                },
+                "26": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635763
+                },
+                "95": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                },
+                "10": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635742
+                },
+                "45": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635783
+                },
+                "23": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635746
+                },
+                "7": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635724
+                },
+                "60": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635759
+                },
+                "9": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635715
+                },
+                "69": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635796
+                },
+                "1": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635713
+                },
+                "6": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635733
+                },
+                "81": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635798
+                },
+                "13": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635744
+                },
+                "18": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635726
+                },
+                "57": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635792
+                },
+                "116": {
+                    "m_FrameDuration": 1,
+                    "m_FrameId": 10217692180315635712
+                }
+            },
+            "m_Events": { }
+        },
+        "5": {
+            "m_Events": { },
+            "m_Name": "Spell6",
+            "m_Frames": {
+                "106": {
+                    "m_FrameId": 14586299611183317024,
+                    "m_FrameDuration": 1
+                },
+                "68": {
+                    "m_FrameId": 14586299611183317072,
+                    "m_FrameDuration": 1
+                },
+                "104": {
+                    "m_FrameId": 14586299611183317002,
+                    "m_FrameDuration": 1
+                },
+                "51": {
+                    "m_FrameId": 14586299611183317059,
+                    "m_FrameDuration": 1
+                },
+                "58": {
+                    "m_FrameId": 14586299611183317031,
+                    "m_FrameDuration": 1
+                },
+                "63": {
+                    "m_FrameId": 14586299611183317010,
+                    "m_FrameDuration": 1
+                },
+                "20": {
+                    "m_FrameId": 14586299611183316994,
+                    "m_FrameDuration": 1
+                },
+                "3": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "117": {
+                    "m_FrameId": 14586299611183317098,
+                    "m_FrameDuration": 1
+                },
+                "40": {
+                    "m_FrameId": 14586299611183316997,
+                    "m_FrameDuration": 1
+                },
+                "62": {
+                    "m_FrameId": 14586299611183317052,
+                    "m_FrameDuration": 1
+                },
+                "102": {
+                    "m_FrameId": 14586299611183317086,
+                    "m_FrameDuration": 1
+                },
+                "53": {
+                    "m_FrameId": 14586299611183317060,
+                    "m_FrameDuration": 1
+                },
+                "48": {
+                    "m_FrameId": 14586299611183317030,
+                    "m_FrameDuration": 1
+                },
+                "65": {
+                    "m_FrameId": 14586299611183317042,
+                    "m_FrameDuration": 1
+                },
+                "54": {
+                    "m_FrameId": 14586299611183317020,
+                    "m_FrameDuration": 1
+                },
+                "67": {
+                    "m_FrameId": 14586299611183317021,
+                    "m_FrameDuration": 1
+                },
+                "29": {
+                    "m_FrameId": 14586299611183317027,
+                    "m_FrameDuration": 1
+                },
+                "91": {
+                    "m_FrameId": 14586299611183317093,
+                    "m_FrameDuration": 1
+                },
+                "55": {
+                    "m_FrameId": 14586299611183317051,
+                    "m_FrameDuration": 1
+                },
+                "78": {
+                    "m_FrameId": 14586299611183317082,
+                    "m_FrameDuration": 1
+                },
+                "59": {
+                    "m_FrameId": 14586299611183316999,
+                    "m_FrameDuration": 1
+                },
+                "50": {
+                    "m_FrameId": 14586299611183317058,
+                    "m_FrameDuration": 1
+                },
+                "56": {
+                    "m_FrameId": 14586299611183317041,
+                    "m_FrameDuration": 1
+                },
+                "49": {
+                    "m_FrameId": 14586299611183316998,
+                    "m_FrameDuration": 1
+                },
+                "5": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "105": {
+                    "m_FrameId": 14586299611183317013,
+                    "m_FrameDuration": 1
+                },
+                "33": {
+                    "m_FrameId": 14586299611183317037,
+                    "m_FrameDuration": 1
+                },
+                "24": {
+                    "m_FrameId": 14586299611183317016,
+                    "m_FrameDuration": 1
+                },
+                "96": {
+                    "m_FrameId": 14586299611183317055,
+                    "m_FrameDuration": 1
+                },
+                "93": {
+                    "m_FrameId": 14586299611183317065,
+                    "m_FrameDuration": 1
+                },
+                "94": {
+                    "m_FrameId": 14586299611183317023,
+                    "m_FrameDuration": 1
+                },
+                "46": {
+                    "m_FrameId": 14586299611183317040,
+                    "m_FrameDuration": 1
+                },
+                "43": {
+                    "m_FrameId": 14586299611183317008,
+                    "m_FrameDuration": 1
+                },
+                "111": {
+                    "m_FrameId": 14586299611183317077,
+                    "m_FrameDuration": 1
+                },
+                "0": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "75": {
+                    "m_FrameId": 14586299611183317073,
+                    "m_FrameDuration": 1
+                },
+                "103": {
+                    "m_FrameId": 14586299611183317066,
+                    "m_FrameDuration": 1
+                },
+                "76": {
+                    "m_FrameId": 14586299611183317043,
+                    "m_FrameDuration": 1
+                },
+                "21": {
+                    "m_FrameId": 14586299611183317014,
+                    "m_FrameDuration": 1
+                },
+                "70": {
+                    "m_FrameId": 14586299611183317063,
+                    "m_FrameDuration": 1
+                },
+                "100": {
+                    "m_FrameId": 14586299611183317045,
+                    "m_FrameDuration": 1
+                },
+                "32": {
+                    "m_FrameId": 14586299611183317036,
+                    "m_FrameDuration": 1
+                },
+                "115": {
+                    "m_FrameId": 14586299611183317057,
+                    "m_FrameDuration": 1
+                },
+                "71": {
+                    "m_FrameId": 14586299611183317053,
+                    "m_FrameDuration": 1
+                },
+                "47": {
+                    "m_FrameId": 14586299611183317050,
+                    "m_FrameDuration": 1
+                },
+                "14": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "37": {
+                    "m_FrameId": 14586299611183317018,
+                    "m_FrameDuration": 1
+                },
+                "72": {
+                    "m_FrameId": 14586299611183317000,
+                    "m_FrameDuration": 1
+                },
+                "38": {
+                    "m_FrameId": 14586299611183317039,
+                    "m_FrameDuration": 1
+                },
+                "109": {
+                    "m_FrameId": 14586299611183317035,
+                    "m_FrameDuration": 1
+                },
+                "82": {
+                    "m_FrameId": 14586299611183317033,
+                    "m_FrameDuration": 1
+                },
+                "74": {
+                    "m_FrameId": 14586299611183317081,
+                    "m_FrameDuration": 1
+                },
+                "39": {
+                    "m_FrameId": 14586299611183317029,
+                    "m_FrameDuration": 1
+                },
+                "35": {
+                    "m_FrameId": 14586299611183317028,
+                    "m_FrameDuration": 1
+                },
+                "36": {
+                    "m_FrameId": 14586299611183317038,
+                    "m_FrameDuration": 1
+                },
+                "99": {
+                    "m_FrameId": 14586299611183317095,
+                    "m_FrameDuration": 1
+                },
+                "83": {
+                    "m_FrameId": 14586299611183317074,
+                    "m_FrameDuration": 1
+                },
+                "85": {
+                    "m_FrameId": 14586299611183317084,
+                    "m_FrameDuration": 1
+                },
+                "97": {
+                    "m_FrameId": 14586299611183317094,
+                    "m_FrameDuration": 1
+                },
+                "108": {
+                    "m_FrameId": 14586299611183317056,
+                    "m_FrameDuration": 1
+                },
+                "119": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "22": {
+                    "m_FrameId": 14586299611183317015,
+                    "m_FrameDuration": 1
+                },
+                "90": {
+                    "m_FrameId": 14586299611183317012,
+                    "m_FrameDuration": 1
+                },
+                "89": {
+                    "m_FrameId": 14586299611183317092,
+                    "m_FrameDuration": 1
+                },
+                "84": {
+                    "m_FrameId": 14586299611183317054,
+                    "m_FrameDuration": 1
+                },
+                "87": {
+                    "m_FrameId": 14586299611183317001,
+                    "m_FrameDuration": 1
+                },
+                "2": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "112": {
+                    "m_FrameId": 14586299611183317046,
+                    "m_FrameDuration": 1
+                },
+                "86": {
+                    "m_FrameId": 14586299611183317044,
+                    "m_FrameDuration": 1
+                },
+                "64": {
+                    "m_FrameId": 14586299611183317062,
+                    "m_FrameDuration": 1
+                },
+                "28": {
+                    "m_FrameId": 14586299611183317006,
+                    "m_FrameDuration": 1
+                },
+                "66": {
+                    "m_FrameId": 14586299611183317071,
+                    "m_FrameDuration": 1
+                },
+                "107": {
+                    "m_FrameId": 14586299611183317096,
+                    "m_FrameDuration": 1
+                },
+                "101": {
+                    "m_FrameId": 14586299611183317076,
+                    "m_FrameDuration": 1
+                },
+                "88": {
+                    "m_FrameId": 14586299611183317091,
+                    "m_FrameDuration": 1
+                },
+                "113": {
+                    "m_FrameId": 14586299611183317097,
+                    "m_FrameDuration": 1
+                },
+                "110": {
+                    "m_FrameId": 14586299611183317087,
+                    "m_FrameDuration": 1
+                },
+                "1": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "69": {
+                    "m_FrameId": 14586299611183317032,
+                    "m_FrameDuration": 1
+                },
+                "11": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "17": {
+                    "m_FrameId": 14586299611183316993,
+                    "m_FrameDuration": 1
+                },
+                "15": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "19": {
+                    "m_FrameId": 14586299611183317004,
+                    "m_FrameDuration": 1
+                },
+                "77": {
+                    "m_FrameId": 14586299611183317011,
+                    "m_FrameDuration": 1
+                },
+                "31": {
+                    "m_FrameId": 14586299611183316996,
+                    "m_FrameDuration": 1
+                },
+                "41": {
+                    "m_FrameId": 14586299611183317047,
+                    "m_FrameDuration": 1
+                },
+                "27": {
+                    "m_FrameId": 14586299611183317026,
+                    "m_FrameDuration": 1
+                },
+                "44": {
+                    "m_FrameId": 14586299611183317049,
+                    "m_FrameDuration": 1
+                },
+                "42": {
+                    "m_FrameId": 14586299611183317048,
+                    "m_FrameDuration": 1
+                },
+                "34": {
+                    "m_FrameId": 14586299611183317007,
+                    "m_FrameDuration": 1
+                },
+                "52": {
+                    "m_FrameId": 14586299611183317009,
+                    "m_FrameDuration": 1
+                },
+                "114": {
+                    "m_FrameId": 14586299611183317067,
+                    "m_FrameDuration": 1
+                },
+                "4": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "61": {
+                    "m_FrameId": 14586299611183317070,
+                    "m_FrameDuration": 1
+                },
+                "79": {
+                    "m_FrameId": 14586299611183317022,
+                    "m_FrameDuration": 1
+                },
+                "73": {
+                    "m_FrameId": 14586299611183317080,
+                    "m_FrameDuration": 1
+                },
+                "16": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "13": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "81": {
+                    "m_FrameId": 14586299611183317083,
+                    "m_FrameDuration": 1
+                },
+                "6": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "30": {
+                    "m_FrameId": 14586299611183317017,
+                    "m_FrameDuration": 1
+                },
+                "12": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "92": {
+                    "m_FrameId": 14586299611183317075,
+                    "m_FrameDuration": 1
+                },
+                "95": {
+                    "m_FrameId": 14586299611183317085,
+                    "m_FrameDuration": 1
+                },
+                "26": {
+                    "m_FrameId": 14586299611183317025,
+                    "m_FrameDuration": 1
+                },
+                "60": {
+                    "m_FrameId": 14586299611183317069,
+                    "m_FrameDuration": 1
+                },
+                "9": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "23": {
+                    "m_FrameId": 14586299611183317005,
+                    "m_FrameDuration": 1
+                },
+                "7": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "8": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "118": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "98": {
+                    "m_FrameId": 14586299611183317034,
+                    "m_FrameDuration": 1
+                },
+                "18": {
+                    "m_FrameId": 14586299611183317003,
+                    "m_FrameDuration": 1
+                },
+                "57": {
+                    "m_FrameId": 14586299611183317061,
+                    "m_FrameDuration": 1
+                },
+                "116": {
+                    "m_FrameId": 14586299611183317088,
+                    "m_FrameDuration": 1
+                },
+                "10": {
+                    "m_FrameId": 14586299611183316992,
+                    "m_FrameDuration": 1
+                },
+                "45": {
+                    "m_FrameId": 14586299611183317019,
+                    "m_FrameDuration": 1
+                },
+                "25": {
+                    "m_FrameId": 14586299611183316995,
+                    "m_FrameDuration": 1
+                },
+                "80": {
+                    "m_FrameId": 14586299611183317064,
+                    "m_FrameDuration": 1
+                }
+            }
+        },
+        "3": {
+            "m_Events": { },
+            "m_Name": "Spell4",
+            "m_Frames": {
+                "106": {
+                    "m_FrameId": 12730727641703776352,
+                    "m_FrameDuration": 1
+                },
+                "68": {
+                    "m_FrameId": 12730727641703776318,
+                    "m_FrameDuration": 1
+                },
+                "104": {
+                    "m_FrameId": 12730727641703776371,
+                    "m_FrameDuration": 1
+                },
+                "51": {
+                    "m_FrameId": 12730727641703776285,
+                    "m_FrameDuration": 1
+                },
+                "58": {
+                    "m_FrameId": 12730727641703776345,
+                    "m_FrameDuration": 1
+                },
+                "63": {
+                    "m_FrameId": 12730727641703776286,
+                    "m_FrameDuration": 1
+                },
+                "20": {
+                    "m_FrameId": 12730727641703776302,
+                    "m_FrameDuration": 1
+                },
+                "3": {
+                    "m_FrameId": 12730727641703776268,
+                    "m_FrameDuration": 1
+                },
+                "117": {
+                    "m_FrameId": 12730727641703776354,
+                    "m_FrameDuration": 1
+                },
+                "40": {
+                    "m_FrameId": 12730727641703776305,
+                    "m_FrameDuration": 1
+                },
+                "62": {
+                    "m_FrameId": 12730727641703776346,
+                    "m_FrameDuration": 1
+                },
+                "102": {
+                    "m_FrameId": 12730727641703776361,
+                    "m_FrameDuration": 1
+                },
+                "53": {
+                    "m_FrameId": 12730727641703776296,
+                    "m_FrameDuration": 1
+                },
+                "48": {
+                    "m_FrameId": 12730727641703776326,
+                    "m_FrameDuration": 1
+                },
+                "65": {
+                    "m_FrameId": 12730727641703776347,
+                    "m_FrameDuration": 1
+                },
+                "54": {
+                    "m_FrameId": 12730727641703776327,
+                    "m_FrameDuration": 1
+                },
+                "67": {
+                    "m_FrameId": 12730727641703776338,
+                    "m_FrameDuration": 1
+                },
+                "29": {
+                    "m_FrameId": 12730727641703776283,
+                    "m_FrameDuration": 1
+                },
+                "91": {
+                    "m_FrameId": 12730727641703776277,
+                    "m_FrameDuration": 1
+                },
+                "55": {
+                    "m_FrameId": 12730727641703776317,
+                    "m_FrameDuration": 1
+                },
+                "78": {
+                    "m_FrameId": 12730727641703776287,
+                    "m_FrameDuration": 1
+                },
+                "59": {
+                    "m_FrameId": 12730727641703776337,
+                    "m_FrameDuration": 1
+                },
+                "50": {
+                    "m_FrameId": 12730727641703776335,
+                    "m_FrameDuration": 1
+                },
+                "56": {
+                    "m_FrameId": 12730727641703776264,
+                    "m_FrameDuration": 1
+                },
+                "49": {
+                    "m_FrameId": 12730727641703776306,
+                    "m_FrameDuration": 1
+                },
+                "5": {
+                    "m_FrameId": 12730727641703776278,
+                    "m_FrameDuration": 1
+                },
+                "105": {
+                    "m_FrameId": 12730727641703776321,
+                    "m_FrameDuration": 1
+                },
+                "33": {
+                    "m_FrameId": 12730727641703776262,
+                    "m_FrameDuration": 1
+                },
+                "24": {
+                    "m_FrameId": 12730727641703776261,
+                    "m_FrameDuration": 1
+                },
+                "96": {
+                    "m_FrameId": 12730727641703776369,
+                    "m_FrameDuration": 1
+                },
+                "93": {
+                    "m_FrameId": 12730727641703776288,
+                    "m_FrameDuration": 1
+                },
+                "94": {
+                    "m_FrameId": 12730727641703776360,
+                    "m_FrameDuration": 1
+                },
+                "46": {
+                    "m_FrameId": 12730727641703776316,
+                    "m_FrameDuration": 1
+                },
+                "43": {
+                    "m_FrameId": 12730727641703776263,
+                    "m_FrameDuration": 1
+                },
+                "111": {
+                    "m_FrameId": 12730727641703776363,
+                    "m_FrameDuration": 1
+                },
+                "0": {
+                    "m_FrameId": 12730727641703776256,
+                    "m_FrameDuration": 1
+                },
+                "75": {
+                    "m_FrameId": 12730727641703776357,
+                    "m_FrameDuration": 1
+                },
+                "103": {
+                    "m_FrameId": 12730727641703776331,
+                    "m_FrameDuration": 1
+                },
+                "76": {
+                    "m_FrameId": 12730727641703776339,
+                    "m_FrameDuration": 1
+                },
+                "21": {
+                    "m_FrameId": 12730727641703776282,
+                    "m_FrameDuration": 1
+                },
+                "70": {
+                    "m_FrameId": 12730727641703776308,
+                    "m_FrameDuration": 1
+                },
+                "100": {
+                    "m_FrameId": 12730727641703776370,
+                    "m_FrameDuration": 1
+                },
+                "32": {
+                    "m_FrameId": 12730727641703776294,
+                    "m_FrameDuration": 1
+                },
+                "115": {
+                    "m_FrameId": 12730727641703776364,
+                    "m_FrameDuration": 1
+                },
+                "71": {
+                    "m_FrameId": 12730727641703776265,
+                    "m_FrameDuration": 1
+                },
+                "47": {
+                    "m_FrameId": 12730727641703776274,
+                    "m_FrameDuration": 1
+                },
+                "14": {
+                    "m_FrameId": 12730727641703776281,
+                    "m_FrameDuration": 1
+                },
+                "37": {
+                    "m_FrameId": 12730727641703776324,
+                    "m_FrameDuration": 1
+                },
+                "72": {
+                    "m_FrameId": 12730727641703776355,
+                    "m_FrameDuration": 1
+                },
+                "38": {
+                    "m_FrameId": 12730727641703776284,
+                    "m_FrameDuration": 1
+                },
+                "109": {
+                    "m_FrameId": 12730727641703776372,
+                    "m_FrameDuration": 1
+                },
+                "82": {
+                    "m_FrameId": 12730727641703776298,
+                    "m_FrameDuration": 1
+                },
+                "74": {
+                    "m_FrameId": 12730727641703776276,
+                    "m_FrameDuration": 1
+                },
+                "39": {
+                    "m_FrameId": 12730727641703776315,
+                    "m_FrameDuration": 1
+                },
+                "35": {
+                    "m_FrameId": 12730727641703776323,
+                    "m_FrameDuration": 1
+                },
+                "36": {
+                    "m_FrameId": 12730727641703776273,
+                    "m_FrameDuration": 1
+                },
+                "99": {
+                    "m_FrameId": 12730727641703776341,
+                    "m_FrameDuration": 1
+                },
+                "83": {
+                    "m_FrameId": 12730727641703776359,
+                    "m_FrameDuration": 1
+                },
+                "85": {
+                    "m_FrameId": 12730727641703776340,
+                    "m_FrameDuration": 1
+                },
+                "97": {
+                    "m_FrameId": 12730727641703776299,
+                    "m_FrameDuration": 1
+                },
+                "108": {
+                    "m_FrameId": 12730727641703776342,
+                    "m_FrameDuration": 1
+                },
+                "119": {
+                    "m_FrameId": 12730727641703776365,
+                    "m_FrameDuration": 1
+                },
+                "22": {
+                    "m_FrameId": 12730727641703776303,
+                    "m_FrameDuration": 1
+                },
+                "90": {
+                    "m_FrameId": 12730727641703776367,
+                    "m_FrameDuration": 1
+                },
+                "89": {
+                    "m_FrameId": 12730727641703776366,
+                    "m_FrameDuration": 1
+                },
+                "84": {
+                    "m_FrameId": 12730727641703776309,
+                    "m_FrameDuration": 1
+                },
+                "87": {
+                    "m_FrameId": 12730727641703776330,
+                    "m_FrameDuration": 1
+                },
+                "2": {
+                    "m_FrameId": 12730727641703776267,
+                    "m_FrameDuration": 1
+                },
+                "112": {
+                    "m_FrameId": 12730727641703776353,
+                    "m_FrameDuration": 1
+                },
+                "86": {
+                    "m_FrameId": 12730727641703776350,
+                    "m_FrameDuration": 1
+                },
+                "64": {
+                    "m_FrameId": 12730727641703776328,
+                    "m_FrameDuration": 1
+                },
+                "28": {
+                    "m_FrameId": 12730727641703776313,
+                    "m_FrameDuration": 1
+                },
+                "66": {
+                    "m_FrameId": 12730727641703776297,
+                    "m_FrameDuration": 1
+                },
+                "107": {
+                    "m_FrameId": 12730727641703776362,
+                    "m_FrameDuration": 1
+                },
+                "101": {
+                    "m_FrameId": 12730727641703776310,
+                    "m_FrameDuration": 1
+                },
+                "88": {
+                    "m_FrameId": 12730727641703776266,
+                    "m_FrameDuration": 1
+                },
+                "113": {
+                    "m_FrameId": 12730727641703776373,
+                    "m_FrameDuration": 1
+                },
+                "110": {
+                    "m_FrameId": 12730727641703776332,
+                    "m_FrameDuration": 1
+                },
+                "1": {
+                    "m_FrameId": 12730727641703776257,
+                    "m_FrameDuration": 1
+                },
+                "69": {
+                    "m_FrameId": 12730727641703776348,
+                    "m_FrameDuration": 1
+                },
+                "11": {
+                    "m_FrameId": 12730727641703776290,
+                    "m_FrameDuration": 1
+                },
+                "17": {
+                    "m_FrameId": 12730727641703776301,
+                    "m_FrameDuration": 1
+                },
+                "15": {
+                    "m_FrameId": 12730727641703776260,
+                    "m_FrameDuration": 1
+                },
+                "19": {
+                    "m_FrameId": 12730727641703776292,
+                    "m_FrameDuration": 1
+                },
+                "77": {
+                    "m_FrameId": 12730727641703776329,
+                    "m_FrameDuration": 1
+                },
+                "31": {
+                    "m_FrameId": 12730727641703776314,
+                    "m_FrameDuration": 1
+                },
+                "41": {
+                    "m_FrameId": 12730727641703776325,
+                    "m_FrameDuration": 1
+                },
+                "27": {
+                    "m_FrameId": 12730727641703776272,
+                    "m_FrameDuration": 1
+                },
+                "44": {
+                    "m_FrameId": 12730727641703776333,
+                    "m_FrameDuration": 1
+                },
+                "42": {
+                    "m_FrameId": 12730727641703776295,
+                    "m_FrameDuration": 1
+                },
+                "34": {
+                    "m_FrameId": 12730727641703776322,
+                    "m_FrameDuration": 1
+                },
+                "52": {
+                    "m_FrameId": 12730727641703776336,
+                    "m_FrameDuration": 1
+                },
+                "114": {
+                    "m_FrameId": 12730727641703776343,
+                    "m_FrameDuration": 1
+                },
+                "4": {
+                    "m_FrameId": 12730727641703776258,
+                    "m_FrameDuration": 1
+                },
+                "61": {
+                    "m_FrameId": 12730727641703776275,
+                    "m_FrameDuration": 1
+                },
+                "79": {
+                    "m_FrameId": 12730727641703776349,
+                    "m_FrameDuration": 1
+                },
+                "73": {
+                    "m_FrameId": 12730727641703776356,
+                    "m_FrameDuration": 1
+                },
+                "16": {
+                    "m_FrameId": 12730727641703776300,
+                    "m_FrameDuration": 1
+                },
+                "13": {
+                    "m_FrameId": 12730727641703776291,
+                    "m_FrameDuration": 1
+                },
+                "81": {
+                    "m_FrameId": 12730727641703776358,
+                    "m_FrameDuration": 1
+                },
+                "6": {
+                    "m_FrameId": 12730727641703776279,
+                    "m_FrameDuration": 1
+                },
+                "30": {
+                    "m_FrameId": 12730727641703776304,
+                    "m_FrameDuration": 1
+                },
+                "12": {
+                    "m_FrameId": 12730727641703776270,
+                    "m_FrameDuration": 1
+                },
+                "92": {
+                    "m_FrameId": 12730727641703776368,
+                    "m_FrameDuration": 1
+                },
+                "95": {
+                    "m_FrameId": 12730727641703776320,
+                    "m_FrameDuration": 1
+                },
+                "26": {
+                    "m_FrameId": 12730727641703776312,
+                    "m_FrameDuration": 1
+                },
+                "60": {
+                    "m_FrameId": 12730727641703776307,
+                    "m_FrameDuration": 1
+                },
+                "9": {
+                    "m_FrameId": 12730727641703776259,
+                    "m_FrameDuration": 1
+                },
+                "23": {
+                    "m_FrameId": 12730727641703776293,
+                    "m_FrameDuration": 1
+                },
+                "7": {
+                    "m_FrameId": 12730727641703776269,
+                    "m_FrameDuration": 1
+                },
+                "8": {
+                    "m_FrameId": 12730727641703776280,
+                    "m_FrameDuration": 1
+                },
+                "118": {
+                    "m_FrameId": 12730727641703776375,
+                    "m_FrameDuration": 1
+                },
+                "98": {
+                    "m_FrameId": 12730727641703776351,
+                    "m_FrameDuration": 1
+                },
+                "18": {
+                    "m_FrameId": 12730727641703776271,
+                    "m_FrameDuration": 1
+                },
+                "57": {
+                    "m_FrameId": 12730727641703776344,
+                    "m_FrameDuration": 1
+                },
+                "116": {
+                    "m_FrameId": 12730727641703776374,
+                    "m_FrameDuration": 1
+                },
+                "10": {
+                    "m_FrameId": 12730727641703776289,
+                    "m_FrameDuration": 1
+                },
+                "45": {
+                    "m_FrameId": 12730727641703776334,
+                    "m_FrameDuration": 1
+                },
+                "25": {
+                    "m_FrameId": 12730727641703776311,
+                    "m_FrameDuration": 1
+                },
+                "80": {
+                    "m_FrameId": 12730727641703776319,
+                    "m_FrameDuration": 1
+                }
+            }
+        }
+    },
+    "m_Textures": {
+        "0": {
+            "m_Filename": ".\/Images\/SpellFx1.png",
+            "m_FrameWidth": 52,
+            "m_FrameHeight": 52
+        },
+        "1": {
+            "m_Filename": ".\/Images\/SpellFx2.png",
+            "m_FrameWidth": 52,
+            "m_FrameHeight": 52
+        },
+        "2": {
+            "m_FrameHeight": 52,
+            "m_Filename": ".\/Images\/SpellFx3.png",
+            "m_FrameWidth": 52
+        },
+        "6": {
+            "m_FrameWidth": 16,
+            "m_FrameHeight": 32,
+            "m_Filename": ".\/Images\/AlertIcon.png"
+        },
+        "4": {
+            "m_FrameHeight": 52,
+            "m_Filename": ".\/Images\/SpellFx5.png",
+            "m_FrameWidth": 52
+        },
+        "5": {
+            "m_FrameHeight": 52,
+            "m_Filename": ".\/Images\/SpellFx6.png",
+            "m_FrameWidth": 52
+        },
+        "3": {
+            "m_FrameHeight": 52,
+            "m_Filename": ".\/Images\/SpellFx4.png",
+            "m_FrameWidth": 52
+        }
+    },
+    "m_FrameData": {
+        "8668354127819964423": { }
+    }
+}

@@ -46,7 +46,7 @@ public:
 
   Optional<int> FindFontId(czstr font_path, int font_size);
   
-  void LoadFont(czstr font_path, int font_id, int font_size);
+  void LoadFont(czstr font_path, int font_id, int font_size, int font_offset);
   bool IsFontLoaded(int font_id);
   bool AllFontsLoaded();
   void AddTextToBuffer(const std::string_view & text, int font_id, float scale,

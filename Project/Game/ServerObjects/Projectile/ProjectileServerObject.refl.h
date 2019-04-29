@@ -54,7 +54,7 @@ public:
 
   void Init(const ProjectileServerObjectInitData & init_data, GameLogicContainer & game_container);
   void UpdateFirst(GameLogicContainer & game_container);
-  void UpdateMiddle(GameLogicContainer & game_container);
+  void UpdateLast(GameLogicContainer & game_container);
 
   void HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result, GameLogicContainer & game_container);
   void HandleRangeExpired(GameLogicContainer & game_container);
@@ -74,6 +74,10 @@ public:
   NetRangedNumber<int, -1, kMaxTeams - 1> m_Team;
   ServerObjectHandle m_Owner;
   ProjectileConfigPtr m_Config;
+  bool m_Destroyed = false;
+
+  // Vampire
+  int8_t m_DamageBoost = 0;
 
   ServerObjectComponent<ProjectileMotionBase, ProjectileMotionBaseConfig> m_Motion;
   ServerObjectComponent<ProjectileResponseBase, ProjectileResponseBaseConfig> m_Response;

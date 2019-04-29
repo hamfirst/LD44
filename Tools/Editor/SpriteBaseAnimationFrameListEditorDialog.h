@@ -26,6 +26,7 @@ public:
 
 protected:
   virtual void closeEvent(QCloseEvent * ev) override;
+  virtual void resizeEvent(QResizeEvent * ev) override;
 
 signals:
   void closed();

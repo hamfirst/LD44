@@ -43,13 +43,13 @@ public:
           GameLogicContainer & game, int team, uint32_t random_number);
 #endif
 
-  void ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameLogicContainer & game);
+  void ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameLogicContainer & game, bool replace_with_bot = true);
 #endif
 
   void ProcessExternal(const NetPolymorphic<GameNetworkExternalEvent> & ext, GameLogicContainer & game);
 
   void InitPlayer(GameLogicContainer & game, std::size_t player_index, const GamePlayer & player);
-  void SetPlayerToSpawn(GameLogicContainer & game, std::size_t player_index);
+  void SetPlayerToSpawn(GameLogicContainer & game, std::size_t player_index) const;
   void CleanupPlayer(GameLogicContainer & game, std::size_t player_index);
   int AddAIPlayer(GameLogicContainer & game, uint32_t random_number);
   void FillWithBots(GameLogicContainer & game, uint32_t random_number);
@@ -88,10 +88,20 @@ public:
 #endif
 
   void STORM_REFL_FUNC HandlePlaceholderEvent(const PlaceholderClientEvent & ev, std::size_t player_index, GameLogicContainer & game);
-  void STORM_REFL_FUNC HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameLogicContainer & game);
-
   void STORM_REFL_FUNC HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev, GameLogicContainer & game);
 
+#if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
+  void STORM_REFL_FUNC HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameLogicContainer & game);
+#endif
+
+#ifdef NET_USE_AIM_DIRECTION
+  void STORM_REFL_FUNC HandleFireEvent(const FireEvent & ev, std::size_t player_index, GameLogicContainer & game);
+#endif
+
+  void STORM_REFL_FUNC HandleUseEvent(const UseEvent & ev, std::size_t player_index, GameLogicContainer & game);
+  void STORM_REFL_FUNC HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t player_index, GameLogicContainer & game);
+
+  void RespawnNPCs(GameLogicContainer & game) const;
 
 #if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
   bool IsPlayerActive(std::size_t player_index, GameLogicContainer & game);
@@ -100,6 +110,12 @@ public:
 
   void STORM_REFL_FUNC HandleEndTurnEvent(const EndTurnEvent & ev, std::size_t player_index, GameLogicContainer & game);
 #endif
+
+private:
+
+  template <typename Visitor>
+  void VisitPlayers(GameLogicContainer & game, Visitor && visitor) const;
+
 private:
 
   std::vector<Delegate<void, const void *, std::size_t, GameLogicContainer &>> m_ClientEventCallbacks;

@@ -15,7 +15,15 @@
 
 PlayAnimationComponent::PlayAnimationComponent(PlayAnimationComponentInitData && init_data)
 {
-  m_AnimationHash = crc32(init_data.m_Animation.data());
+  if(init_data.m_AnimationHash != 0)
+  {
+    m_AnimationHash = init_data.m_AnimationHash;
+  }
+  else
+  {
+    m_AnimationHash = crc32(init_data.m_Animation.data());
+  }
+
   m_LoopMode = init_data.m_LoopMode;
 }
 

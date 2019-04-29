@@ -149,6 +149,7 @@ private:
 private:
   bool m_IsStatic = false;
   bool m_IsUnsynced = false;
+  bool m_IsDestroyed = false;
   int m_TypeIndex = 0;
   int m_SlotIndex = 0;
   int m_FramesAlive = 0;

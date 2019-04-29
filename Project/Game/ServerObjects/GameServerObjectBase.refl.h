@@ -50,6 +50,8 @@ public:
   bool FrameAdvance(uint32_t anim_name_hash, bool loop = true, int frames = 1);
   void ResetAnimState();
 
+  Optional<Box> GetMoveBox(uint32_t box_name_hash = COMPILE_TIME_CRC32_STR("MoveBox"));
+
   void PushDealDamageEventBox(const Box & b, const DamageEvent & damage_event, GameLogicContainer & game_container);
   void PushDealDamageEventBox(uint32_t box_name_hash, const DamageEvent & damage_event, GameLogicContainer & game_container);
   void PushDealDamageEventBoxes(uint32_t multi_box_name_hash, const DamageEvent & damage_event, GameLogicContainer & game_container);
@@ -61,6 +63,7 @@ public:
   void PushReceiveDamageCollisionBoxes(uint32_t multi_box_name_hash, GameLogicContainer & game_container);
   void PushCVCBox(const Box & b, GameLogicContainer & game_container);
   void PushCVCBox(uint32_t box_name_hash, GameLogicContainer & game_container);
+  void PushSelfAsTarget(GameLogicContainer & game_container);
 
 #if defined(MOVER_ONE_WAY_COLLISION) && PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
   MoverResult MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity, bool fallthrough = false);
@@ -69,6 +72,10 @@ public:
 #endif
 
   GameNetVec2 MoveCheckIntersectionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity, GameNetVal player_radius, GameNetVal move_threshold);
+
+  std::vector<ServerObjectHandle> QueryTargetDatabase(GameNetVal vision_cone_angle,
+          GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
+          GameLogicContainer & game_container);
 
   virtual const SpritePtr & GetSprite() const;
   virtual Optional<CharacterFacing> GetFacing() const;

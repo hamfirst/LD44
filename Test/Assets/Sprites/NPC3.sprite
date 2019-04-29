@@ -1,0 +1,51 @@
+[]
+
+{
+    "m_Textures": {
+        "0": {
+            "m_Filename": ".\/Images\/Dudes.png",
+            "m_FrameWidth": 16,
+            "m_FrameHeight": 16
+        }
+    },
+    "m_Animations": {
+        "2": {
+            "m_Frames": {
+                "0": {
+                    "m_FrameId": "5735841610202087847",
+                    "m_FrameDuration": 5
+                }
+            },
+            "m_Events": { },
+            "m_Name": "Dead"
+        },
+        "1": {
+            "m_Name": "Move",
+            "m_Frames": {
+                "0": {
+                    "m_FrameDuration": 9,
+                    "m_FrameId": "5735841610202088318"
+                },
+                "1": {
+                    "m_FrameDuration": 9,
+                    "m_FrameId": "5735841610202088319"
+                },
+                "2": {
+                    "m_FrameDuration": 9,
+                    "m_FrameId": "5735841610202088320"
+                }
+            },
+            "m_Events": { }
+        },
+        "0": {
+            "m_Name": "Idle",
+            "m_Frames": {
+                "0": {
+                    "m_FrameDuration": 5,
+                    "m_FrameId": "5735841610202088318"
+                }
+            },
+            "m_Events": { }
+        }
+    }
+}

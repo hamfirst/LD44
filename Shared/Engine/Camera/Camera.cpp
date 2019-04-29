@@ -33,13 +33,18 @@ void Camera::SetPosition(const RenderVec2 & position)
   m_Position = position;
 }
 
+void Camera::SetOffset(const RenderVec2 & offset)
+{
+  m_Offset = offset;
+}
+
 void Camera::BootstrapShader(ShaderProgram & shader, RenderState & render_state)
 {
   render_state.BindShader(shader);
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), RenderVec4(m_GameResolution, m_ScreenResolution));
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Color"), Color(255, 255, 255, 255));
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), 1.0f, 0.0f, 0.0f, 1.0f);
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), -m_Position);
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), -GetOffsetPosition());
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);
 }
 
@@ -56,6 +61,11 @@ const RenderVec2 & Camera::GetScreenResolution() const
 const RenderVec2 & Camera::GetPosition() const
 {
   return m_Position;
+}
+
+RenderVec2 Camera::GetOffsetPosition() const
+{
+  return m_Position + m_Offset;
 }
 
 RenderVec2 Camera::TransformFromScreenSpaceToClipSpace(const RenderVec2 & pos)
@@ -78,7 +88,7 @@ RenderVec2 Camera::TransformFromClipSpaceToWorldSpace(const RenderVec2 & pos)
 {
   auto transformed_pos = pos;
   transformed_pos *= m_GameResolution * 0.5f;
-  transformed_pos += m_Position;
+  transformed_pos += GetOffsetPosition();
   return transformed_pos;
 }
 
@@ -88,7 +98,7 @@ void Camera::Draw(GameContainer & game_container, NotNullPtr<EngineState> engine
 
   render_state.EnableBlendMode();
 
-  viewport.m_Start = m_Position - (m_GameResolution / 2.0f);
+  viewport.m_Start = GetOffsetPosition() - (m_GameResolution / 2.0f);
   viewport.m_End = viewport.m_Start + m_GameResolution;
 
   auto visitor = [&](ShaderProgram & shader)
@@ -103,5 +113,5 @@ void Camera::Draw(GameContainer & game_container, NotNullPtr<EngineState> engine
   engine_state->GetMapSystem()->DrawAllMaps(viewport, draw_list);
   engine_state->GetEntitySystem()->DrawAllEntities(viewport, draw_list);
   engine_state->GetVisualEffectManager()->DrawAllEffects(viewport, draw_list);
-  draw_list.Draw(game_container, viewport, m_Position, render_state);
+  draw_list.Draw(game_container, viewport, GetOffsetPosition(), render_state);
 }

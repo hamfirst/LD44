@@ -7,6 +7,8 @@
 #include "Foundation/Sequencer/Sequencer.h"
 #include "Foundation/Time/FPSClock.h"
 
+#include "GameClient/GameClientUIData.refl.h"
+
 class GameContainer;
 class GameClientEventSender;
 class GameCamera;
@@ -37,11 +39,20 @@ public:
 
   UIManager & GetUIManager();
 
+  void AddNoiseAlert(float angle, float alpha);
+
 protected:
 
   GameClientUIData GetScriptData();
 
   void Quit();
+
+  void BuyDamage();
+  void BuyAmmo();
+  void BuyHealth();
+  void BuySpeed();
+  void BuyLife();
+  void BuyRate();
 
 private:
 
@@ -50,9 +61,13 @@ private:
 
   bool m_WantsToQuit;
   bool m_PopupOpen;
+  bool m_ShopOpen;
 
   bool m_DrawProfileData = false;
   bool m_DrawFPS = false;
   FPSClock m_FPSClock;
+  StopWatch m_UpdateClock;
+
+  std::vector<NoiseAlert> m_Alerts;
 };
 

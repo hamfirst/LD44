@@ -17,3 +17,8 @@ CVCPushSystem & GameLogicSystems::GetCVCPushSystem()
 {
   return m_CVCPushSystem;
 }
+
+TargetDatabase & GameLogicSystems::GetTargetDatabase()
+{
+  return m_TargetDatabase;
+}

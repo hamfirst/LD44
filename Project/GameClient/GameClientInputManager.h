@@ -29,12 +29,14 @@ public:
   void HandleClick(bool state);
   void HandleButtonPress(bool state, int button);
 
+
+  template <typename EventType>
+  void SendEvent(std::size_t client_index, const EventType & event);
+
 protected:
 
   void SendInput(std::size_t client_index, ClientInput & input);
 
-  template <typename EventType>
-  void SendEvent(std::size_t client_index, const EventType & event);
 
 private:
 

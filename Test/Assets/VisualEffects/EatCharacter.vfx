@@ -1,0 +1,71 @@
+[]
+
+{
+    "m_Emitters": {
+        "0": {
+            "m_SpawnEquations": {
+                "805372398": {
+                    "m_Equation": "[n -40, 40, [bias RandA, 2]]",
+                    "m_VariableName": "m_SpawnVelocityX"
+                },
+                "1191588216": {
+                    "m_Equation": "[n -40, 40, [bias RandB, 2]]",
+                    "m_VariableName": "m_SpawnVelocityY"
+                },
+                "2110702994": {
+                    "m_Equation": "[n -3, 3, RandG]",
+                    "m_VariableName": "m_SpawnOffsetX"
+                },
+                "181007620": {
+                    "m_Equation": "[n -3, 3, RandH]",
+                    "m_VariableName": "m_SpawnOffsetY"
+                }
+            },
+            "m_Properties": {
+                "m_Trail": false,
+                "m_PrespawnParticles": 0,
+                "m_LinearFilter": false,
+                "m_UpdateDelay": 0,
+                "m_Additive": false,
+                "m_Texture": "",
+                "m_Name": "Emitter1"
+            },
+            "m_EmitterEquations": {
+                "2225435367": {
+                    "m_VariableName": "m_EmitterLifetime",
+                    "m_Equation": "0.9"
+                },
+                "472491818": {
+                    "m_VariableName": "m_SpawnRate",
+                    "m_Equation": "300"
+                }
+            },
+            "m_ParticleEquations": {
+                "3730805869": {
+                    "m_VariableName": "m_ColorB",
+                    "m_Equation": "[n 0.0, 0.1, RandD]"
+                },
+                "3098055020": {
+                    "m_VariableName": "m_ForceY",
+                    "m_Equation": "-100"
+                },
+                "2922733794": {
+                    "m_VariableName": "m_ColorG",
+                    "m_Equation": "[n 0.0, 0.1, RandD]"
+                },
+                "3286795273": {
+                    "m_VariableName": "m_ColorR",
+                    "m_Equation": "[n 1, 0.6, RandD]"
+                },
+                "1196869079": {
+                    "m_VariableName": "m_ColorA",
+                    "m_Equation": "InvTimePct"
+                },
+                "3245731331": {
+                    "m_VariableName": "m_MaxLifetime",
+                    "m_Equation": "0.3"
+                }
+            }
+        }
+    }
+}

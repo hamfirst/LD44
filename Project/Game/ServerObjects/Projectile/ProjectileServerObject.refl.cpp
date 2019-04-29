@@ -40,10 +40,16 @@ void ProjectileServerObject::Init(const ProjectileServerObjectInitData & init_da
 
 void ProjectileServerObject::UpdateFirst(GameLogicContainer & game_container)
 {
+  if(m_Destroyed)
+  {
+    Destroy(game_container.GetObjectManager());
+    return;
+  }
+
   GameServerObjectBase::UpdateFirst(game_container);
 }
 
-void ProjectileServerObject::UpdateMiddle(GameLogicContainer & game_container)
+void ProjectileServerObject::UpdateLast(GameLogicContainer & game_container)
 {
   if(m_Motion)
   {
@@ -59,7 +65,7 @@ void ProjectileServerObject::HandleImpact(NullOptPtr<CollisionDatabaseTraceResul
   }
   else
   {
-    Destroy(game_container.GetObjectManager());
+    m_Destroyed = true;
   }
 }
 

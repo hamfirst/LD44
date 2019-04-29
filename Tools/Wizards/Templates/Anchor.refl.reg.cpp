@@ -13,4 +13,4 @@
 #include ""{rel_path}/{refl_meta_file}""
 
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL({class_name});
-REGISTER_ANCHOR_DATA({class_name});
+REGISTER_TYPE({class_name}, AnchorDataBase);

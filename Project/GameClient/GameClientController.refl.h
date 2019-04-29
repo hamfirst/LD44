@@ -29,11 +29,18 @@ public:
 
   void HandleGlobalEvent(std::size_t event_class_id, const void * event_ptr);
   void HandleAuthEvent(std::size_t event_class_id, const void * event_ptr);
+  void HandleEntityEvent(const ServerObjectHandle & handle, std::size_t event_class_id, const void * event_ptr);
 
   void STORM_REFL_FUNC HandleCreateEntityGlobalEvent(const CreateEntityGlobalEvent & ev);
   void STORM_REFL_FUNC HandleCameraShakeEvent(const CameraShakeEvent & ev);
   void STORM_REFL_FUNC HandlePlaySoundGlobalEvent(const PlaySoundGlobalEvent & ev);
   void STORM_REFL_FUNC HandlePlayVfxGlobalEvent(const PlayVfxGlobalEvent & ev);
+  void STORM_REFL_FUNC HandlePlayVfxAttachedGlobalEvent(const PlayVfxAttachedGlobalEvent & ev);
+  void STORM_REFL_FUNC HandlePlayVfxSpriteGlobalEvent(const PlayVfxSpriteGlobalEvent & ev);
+  void STORM_REFL_FUNC HandlePlayVfxSpriteAttachedGlobalEvent(const PlayVfxSpriteAttachedGlobalEvent & ev);
+  void STORM_REFL_FUNC HandleMuzzleFlashEvent(const MuzzleFlashEvent & ev);
+  void STORM_REFL_FUNC HandleProjectileImpactEvent(const ProjectileImpactEvent & ev);
+
   void STORM_REFL_FUNC HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev);
 
 private:

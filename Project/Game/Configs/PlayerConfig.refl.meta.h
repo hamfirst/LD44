@@ -10,7 +10,7 @@ template <>
 struct StormReflTypeInfo<PlayerConfig>
 {
   using MyBase = void;
-  static constexpr int fields_n = 4;
+  static constexpr int fields_n = 5;
   template <int N> struct field_data_static {};
   template <int N, typename Self> struct field_data {};
   template <int N> struct annotations { static constexpr int annotations_n = 0; template <int A> struct annoation { }; };
@@ -156,19 +156,44 @@ template <>
 struct StormReflTypeInfo<PlayerConfig>::field_data_static<3>
 {
   using member_type = RDeterministicFloat<GameNetVal>; // RDeterministicFloat<NetFixedPoint<long, 32, 16> >
+  static constexpr auto GetName() { return "m_MoveSpeedBat"; }
+  static constexpr auto GetType() { return "RDeterministicFloat<NetFixedPoint<long, 32, 16> >"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x96DB15C6; }
+  static constexpr unsigned GetTypeNameHash() { return 0x9C9647A3; }
+  static constexpr bool HasDefault() { return true; }
+  static constexpr auto GetFieldIndex() { return 3; }
+  static constexpr auto GetMemberPtr() { return &PlayerConfig::m_MoveSpeedBat; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerConfig *>(obj); return &ptr->m_MoveSpeedBat; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerConfig *>(obj); return &ptr->m_MoveSpeedBat; }
+};
+
+template <typename Self>
+struct StormReflTypeInfo<PlayerConfig>::field_data<3, Self> : public StormReflTypeInfo<PlayerConfig>::field_data_static<3>
+{
+  Self & self;
+  field_data(Self & self) : self(self) {}
+  match_const_t<Self, RDeterministicFloat<GameNetVal>> & Get() { return self.m_MoveSpeedBat; }
+  std::add_const_t<std::remove_reference_t<RDeterministicFloat<GameNetVal>>> & Get() const { return self.m_MoveSpeedBat; }
+  void SetDefault() { self.m_MoveSpeedBat = StormReflTypeInfo<PlayerConfig>::GetDefault().m_MoveSpeedBat; }
+};
+
+template <>
+struct StormReflTypeInfo<PlayerConfig>::field_data_static<4>
+{
+  using member_type = RDeterministicFloat<GameNetVal>; // RDeterministicFloat<NetFixedPoint<long, 32, 16> >
   static constexpr auto GetName() { return "m_MoveAccel"; }
   static constexpr auto GetType() { return "RDeterministicFloat<NetFixedPoint<long, 32, 16> >"; }
   static constexpr unsigned GetFieldNameHash() { return 0x13507455; }
   static constexpr unsigned GetTypeNameHash() { return 0x9C9647A3; }
   static constexpr bool HasDefault() { return true; }
-  static constexpr auto GetFieldIndex() { return 3; }
+  static constexpr auto GetFieldIndex() { return 4; }
   static constexpr auto GetMemberPtr() { return &PlayerConfig::m_MoveAccel; }
   static void * GetFromParent(void * obj) { auto ptr = static_cast<PlayerConfig *>(obj); return &ptr->m_MoveAccel; }
   static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const PlayerConfig *>(obj); return &ptr->m_MoveAccel; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<PlayerConfig>::field_data<3, Self> : public StormReflTypeInfo<PlayerConfig>::field_data_static<3>
+struct StormReflTypeInfo<PlayerConfig>::field_data<4, Self> : public StormReflTypeInfo<PlayerConfig>::field_data_static<4>
 {
   Self & self;
   field_data(Self & self) : self(self) {}

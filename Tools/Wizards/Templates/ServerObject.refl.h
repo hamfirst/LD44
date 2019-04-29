@@ -2,11 +2,12 @@
 
 #include ""Game/GameCommon.h""
 
-#include ""Game/GameLogicContainer.h""
 #include ""Game/GameServerEventSender.h""
 #include ""Game/GameStage.h""
-#include ""Game/Systems/GameLogicSystems.h""
-#include ""Game/ServerObjects/GameServerObjectBase.h""
+#include ""Game/ServerObjects/GameServerObjectBase.refl.h""
+
+#include ""GameShared/Systems/GameLogicSystems.h""
+#include ""GameShared/GameLogicContainer.h""
 
 #include ""Runtime/ServerObject/ServerObject.h""
 #include ""Runtime/ServerObject/ServerObjectInitData.refl.h""
@@ -34,6 +35,7 @@ public:
   void UpdateMiddle(GameLogicContainer & game_container);
 
   virtual czstr GetDefaultEntityBinding() const override;
+  virtual const SpritePtr & GetSprite() const override;
 public:
   // Serialized variables
 }};

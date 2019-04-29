@@ -56,6 +56,13 @@ public:
   NetRangedNumber<int, 0, 31> m_AnimFrame = 0;
   NetRangedNumber<int, 0, 63> m_AnimDelay = 0;
   NetEnum<CharacterFacing> m_Facing = CharacterFacing::kRight;
+  int16_t m_StateTimer = 0;
+
+  // Vampire
+  bool m_Dead = false;
+  uint8_t m_AlertedFrames = 0;
+  bool m_BeingEaten = false;
+
 
 private:
   bool m_Retransition = false;

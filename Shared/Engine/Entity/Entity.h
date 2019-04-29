@@ -70,7 +70,7 @@ public:
   template <typename Event, typename ... InitArgs>
   NotNullPtr<Event> PushEvent(const Box & box, InitArgs && ... init_args)
   {
-    m_EventSystem->PushEventSource(box, EventDef<Event>{}, std::forward<InitArgs>(init_args)...);
+    m_EventSystem->PushEventSource<Event>(box, std::forward<InitArgs>(init_args)...);
   }
 
   template <typename Event>

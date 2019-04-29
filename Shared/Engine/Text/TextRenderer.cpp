@@ -14,12 +14,13 @@ extern FT_Library g_FreeType;
 #define COMMON_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!.?-_,:;()\"' \r\n"
 
 
-TextRenderer::TextRenderer(const AssetReference<FontAsset> & asset_ref, int font_size, std::vector<std::unique_ptr<TextBackupFont>> & backup_fonts) :
+TextRenderer::TextRenderer(const AssetReference<FontAsset> & asset_ref, int font_size, int font_offset, std::vector<std::unique_ptr<TextBackupFont>> & backup_fonts) :
   m_Font(asset_ref),
   m_BackupFonts(backup_fonts),
   m_Loaded(false),
   m_Face(nullptr),
   m_FontSize(font_size),
+  m_Offset(font_offset),
   m_Alloc(g_EngineSettings.m_FontCacheSize, g_EngineSettings.m_FontCacheSize)
 {
   m_Texture.CreateEmptyTexture(g_EngineSettings.m_FontCacheSize, g_EngineSettings.m_FontCacheSize, TextureType::kGrayscale);
@@ -68,7 +69,7 @@ void TextRenderer::FinalizeAssetLoad(FontAsset * asset)
 void TextRenderer::AddGlyphToBuffer(float x, float y, float scale, const GlyphInfo & glyph, const TextSettings & settings, TextBufferBuilder & buffer, const Color & color)
 {
   float sx = x + (float)glyph.m_BufferLeft * scale;
-  float sy = y + (float)glyph.m_BufferTop * scale;
+  float sy = y + (float)glyph.m_BufferTop * scale + m_Offset;
 
   float w = (float)glyph.m_Width * scale;
   float h = (float)glyph.m_Height * scale;
