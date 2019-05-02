@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <optional>
 
 #include <QWidget>
 
@@ -80,10 +81,8 @@ private:
     bool m_Defunct;
   };
 
-  std::vector<int> m_ParentChangeCallbackOperations;
   std::unordered_map<uint64_t, ParentPathChangeCallbackData> m_ParentChangeCallbacks;
-  std::vector<std::pair<uint64_t, ParentPathChangeCallbackData>> m_NewParentChangeCallbacks;
-  std::vector<std::size_t> m_DeadParentChangeCallbacks;
+  std::vector<std::pair<uint64_t, std::optional<ParentPathChangeCallbackData>>> m_DeferredParentChangeCallbacks;
 
   struct ChildPathChangeCallbackData
   {

@@ -363,7 +363,7 @@ bool PlayerServerObject::HandleDamageEvent(const DamageEvent & ev, const EventMe
     else
     {
       game.GetEventSender().SendVfxSpriteAttachedEvent(GetSlotIndex(),
-              GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell4"));
+              GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell6"));
 
       RemoveFromGame(game);
     }
@@ -549,7 +549,7 @@ int PlayerServerObject::GetUpgradeCost(PlayerUpgrade upgrade)
     return 0;
   }
 
-  if(upgrade == PlayerUpgrade::kLife3 && ((m_Upgrades & (int)PlayerUpgrade::kLife1) == 0) || (m_Upgrades & (int)PlayerUpgrade::kLife2) == 0)
+  if(upgrade == PlayerUpgrade::kLife3 && (((m_Upgrades & (int)PlayerUpgrade::kLife1) == 0) || (m_Upgrades & (int)PlayerUpgrade::kLife2) == 0))
   {
     return 0;
   }

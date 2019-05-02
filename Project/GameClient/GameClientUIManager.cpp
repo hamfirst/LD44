@@ -66,6 +66,12 @@ void GameClientUIManager::Update()
     m_DrawProfileData = !m_DrawProfileData;
   }
 
+  if (m_RefreshShop)
+  {
+    CancelPopup();
+    m_RefreshShop = false;
+  }
+
   for(auto & elem : m_Alerts)
   {
     elem.alpha -= dt;
@@ -101,48 +107,48 @@ void GameClientUIManager::Update()
 
       if((player_obj->m_Upgrades & (int)PlayerUpgrade::kAmmo1) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kAmmo1);
+        upgrade_info.ammo = player_obj->GetUpgradeCost(PlayerUpgrade::kAmmo1);
       }
       else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kAmmo2) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kAmmo2);
+        upgrade_info.ammo = player_obj->GetUpgradeCost(PlayerUpgrade::kAmmo2);
       }
 
 
       if((player_obj->m_Upgrades & (int)PlayerUpgrade::kHealth1) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kHealth1);
+        upgrade_info.health = player_obj->GetUpgradeCost(PlayerUpgrade::kHealth1);
       }
       else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kHealth2) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kHealth2);
+        upgrade_info.health = player_obj->GetUpgradeCost(PlayerUpgrade::kHealth2);
       }
 
       if((player_obj->m_Upgrades & (int)PlayerUpgrade::kSpeed1) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kSpeed1);
+        upgrade_info.speed = player_obj->GetUpgradeCost(PlayerUpgrade::kSpeed1);
       }
 
       if((player_obj->m_Upgrades & (int)PlayerUpgrade::kLife1) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kLife1);
+        upgrade_info.life = player_obj->GetUpgradeCost(PlayerUpgrade::kLife1);
       }
       else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kLife2) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kLife2);
+        upgrade_info.life = player_obj->GetUpgradeCost(PlayerUpgrade::kLife2);
       }
       else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kLife3) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kLife3);
+        upgrade_info.life = player_obj->GetUpgradeCost(PlayerUpgrade::kLife3);
       }
 
       if((player_obj->m_Upgrades & (int)PlayerUpgrade::kRate1) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kRate1);
+        upgrade_info.rate = player_obj->GetUpgradeCost(PlayerUpgrade::kRate1);
       }
       else if((player_obj->m_Upgrades & (int)PlayerUpgrade::kRate2) == 0)
       {
-        upgrade_info.damage = player_obj->GetUpgradeCost(PlayerUpgrade::kRate2);
+        upgrade_info.rate = player_obj->GetUpgradeCost(PlayerUpgrade::kRate2);
       }
 
       m_GameContainer.GetUIManager()->SetGlobal("upgrade_info",
@@ -348,6 +354,8 @@ void GameClientUIManager::BuyDamage()
       }
     }
   }
+
+  m_RefreshShop = true;
 }
 
 void GameClientUIManager::BuyAmmo()
@@ -374,6 +382,8 @@ void GameClientUIManager::BuyAmmo()
       }
     }
   }
+
+  m_RefreshShop = true;
 }
 
 void GameClientUIManager::BuyHealth()
@@ -400,6 +410,8 @@ void GameClientUIManager::BuyHealth()
       }
     }
   }
+
+  m_RefreshShop = true;
 }
 
 void GameClientUIManager::BuySpeed()
@@ -434,6 +446,8 @@ void GameClientUIManager::BuyLife()
       }
     }
   }
+
+  m_RefreshShop = true;
 }
 
 void GameClientUIManager::BuyRate()
@@ -459,4 +473,6 @@ void GameClientUIManager::BuyRate()
       }
     }
   }
+
+  m_RefreshShop = true;
 }

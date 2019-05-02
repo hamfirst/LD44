@@ -80,9 +80,6 @@ Currency = Elem:construct()
 function Currency:Draw()
   ui:DrawTexture(plank1, screen_start_x + 25, screen_end_y - 33)
 
-  hud_info.health = 5
-  hud_info.lives = 3
-
   local heart_x = screen_start_x + 35
   while hud_info.health > 0 do
     if hud_info.health > 1 then

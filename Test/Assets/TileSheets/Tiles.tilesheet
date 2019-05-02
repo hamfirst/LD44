@@ -2,6 +2,14 @@
 
 {
     "m_FrameData": {
+        "9925678831329345644": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
         "1310695955699335170": {
             "m_MultiBoxData": {
                 "0": {
@@ -10,18 +18,44 @@
                 }
             }
         },
-        "11695311425793687553": { },
-        "11695311425793687557": { },
-        "9925678831329345703": { },
-        "9925678831329345541": { },
-        "9925678831329345639": {
+        "9925678831329345643": {
             "m_MultiBoxData": {
                 "0": {
-                    "m_Data": [],
-                    "m_FrameDataName": "Collision"
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
                 }
             }
         },
+        "11695311425793687553": { },
+        "9925678831329345648": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345541": { },
+        "11695311425793687564": { },
+        "11695311425793687557": { },
+        "172420770608185398": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345761": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":0,"y":1}}]
+                }
+            }
+        },
+        "9925678831329345703": { },
+        "9925678831329345681": { },
         "11695311425793687556": {
             "m_MultiBoxData": {
                 "0": {
@@ -30,7 +64,14 @@
                 }
             }
         },
-        "11695311425793687564": { },
+        "9925678831329345639": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_Data": [],
+                    "m_FrameDataName": "Collision"
+                }
+            }
+        },
         "11695311425793687554": { },
         "11695311425793687552": {
             "m_MultiBoxData": {
@@ -41,15 +82,6 @@
             }
         },
         "9925678831329345702": { },
-        "9925678831329345536": {
-            "m_MultiBoxData": {
-                "0": {
-                    "m_FrameDataName": "Collision",
-                    "m_Data": []
-                }
-            }
-        },
-        "11695311425793687561": { },
         "1310695955699335169": {
             "m_MultiBoxData": {
                 "0": {
@@ -58,11 +90,93 @@
                 }
             }
         },
-        "172420770608185344": { },
+        "9925678831329345536": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345660": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "11695311425793687561": { },
+        "9925678831329345696": { },
+        "172420770608185344": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345680": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":7}}]
+                }
+            }
+        },
         "11695311425793687563": { },
+        "9925678831329345658": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345692": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
         "9925678831329345672": { },
+        "9925678831329345727": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345664": { },
+        "12655386828635897856": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-31},"m_End":{"x":-1,"y":-24}}]
+                }
+            }
+        },
         "11695311425793687558": { },
+        "9925678831329345689": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
         "11695311425793687555": { },
+        "1310695955699335171": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_Data": [],
+                    "m_FrameDataName": "Collision"
+                }
+            }
+        },
         "11695311425793687560": { },
         "1310695955699335168": {
             "m_MultiBoxData": {
@@ -74,35 +188,907 @@
         },
         "11695311425793687565": { },
         "11695311425793687562": { },
-        "1310695955699335171": {
+        "9925678831329345645": {
             "m_MultiBoxData": {
                 "0": {
-                    "m_Data": [],
-                    "m_FrameDataName": "Collision"
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
                 }
             }
         },
-        "11695311425793687559": { }
-    },
-    "m_InstanceData": {
-        "m_MultiBoxData": {
-            "0": {
-                "m_Data": [{"m_End":{"y":7,"x":7},"m_Start":{"y":-8,"x":-8}}],
-                "m_FrameDataName": "Collision"
+        "9925678831329345630": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
             }
-        }
-    },
-    "m_Textures": {
-        "0": {
-            "m_FrameHeight": 16,
-            "m_Filename": ".\/Images\/DarkTown.png",
-            "m_FrameWidth": 16
         },
-        "1": {
-            "m_FrameHeight": 16,
-            "m_Filename": ".\/Images\/DarkTiles.png",
-            "m_FrameWidth": 16
-        }
+        "11695311425793687559": { },
+        "9925678831329345674": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "13074749046030073856": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-18,"y":-7},"m_End":{"x":12,"y":5}}]
+                }
+            }
+        },
+        "9925678831329345662": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "5170467495634534400": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-41,"y":-70},"m_End":{"x":41,"y":41}},{"m_Start":{"x":-31,"y":42},"m_End":{"x":33,"y":58}},{"m_Start":{"x":-14,"y":59},"m_End":{"x":10,"y":69}}]
+                }
+            }
+        },
+        "27384552565506048": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-29,"y":-45},"m_End":{"x":35,"y":48}},{"m_Start":{"x":-42,"y":-17},"m_End":{"x":46,"y":48}}]
+                }
+            }
+        },
+        "9925678831329345647": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "16717517487888924672": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":3,"y":-30},"m_End":{"x":9,"y":-23}}]
+                }
+            }
+        },
+        "9925678831329345691": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345694": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9493173507203268608": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-22,"y":-21},"m_End":{"x":21,"y":22}}]
+                }
+            }
+        },
+        "9925678831329345642": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "2434351106474639360": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-19,"y":-13},"m_End":{"x":19,"y":12}}]
+                }
+            }
+        },
+        "14541317649893163008": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-23,"y":-38},"m_End":{"x":21,"y":30}}]
+                }
+            }
+        },
+        "9925678831329345631": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345659": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "14926254377265004544": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-14,"y":-19},"m_End":{"x":13,"y":15}}]
+                }
+            }
+        },
+        "9925678831329345646": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345690": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345675": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345663": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345615": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345676": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345537": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345677": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345661": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345678": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345679": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345688": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345693": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345695": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345704": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185354": { },
+        "9925678831329345705": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185369": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345706": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345707": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345708": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345709": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345710": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345711": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345712": { },
+        "9925678831329345720": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345721": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345722": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345741": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":0}}]
+                }
+            }
+        },
+        "9925678831329345723": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345724": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345725": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345726": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185380": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345728": { },
+        "9925678831329345780": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":1},"m_End":{"x":-3,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345736": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-3,"y":-6},"m_End":{"x":5,"y":6}}]
+                }
+            }
+        },
+        "9925678831329345737": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-4},"m_End":{"x":2,"y":6}}]
+                }
+            }
+        },
+        "9925678831329345738": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-6,"y":-5},"m_End":{"x":5,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345739": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-6,"y":-7},"m_End":{"x":5,"y":6}}]
+                }
+            }
+        },
+        "9925678831329345781": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-6,"y":-7},"m_End":{"x":5,"y":8}}]
+                }
+            }
+        },
+        "172420770608185393": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185399": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345782": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-7,"y":-6},"m_End":{"x":6,"y":6}}]
+                }
+            }
+        },
+        "9925678831329345686": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-5,"y":-8},"m_End":{"x":4,"y":-4}}]
+                }
+            }
+        },
+        "9925678831329345685": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345701": { },
+        "9925678831329345744": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345745": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345746": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":0,"y":-8},"m_End":{"x":7,"y":-1}}]
+                }
+            }
+        },
+        "9925678831329345747": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":-1}}]
+                }
+            }
+        },
+        "9925678831329345748": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":-1,"y":-1}}]
+                }
+            }
+        },
+        "9925678831329345764": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":-3,"y":7}}]
+                }
+            }
+        },
+        "172420770608185361": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "9925678831329345763": { },
+        "9925678831329345762": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":1,"y":-8},"m_End":{"x":7,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345778": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":0,"y":1},"m_End":{"x":7,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345779": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":2},"m_End":{"x":7,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345760": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-1,"y":-8},"m_End":{"x":7,"y":2}}]
+                }
+            }
+        },
+        "9925678831329345777": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-1},"m_End":{"x":1,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345776": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-1,"y":-1},"m_End":{"x":7,"y":7}}]
+                }
+            }
+        },
+        "172420770608185345": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185346": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185367": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185347": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185348": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185349": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185350": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185351": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185352": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185353": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185360": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185396": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185362": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185363": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185364": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185365": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185366": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185368": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185370": { },
+        "172420770608185376": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185377": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185378": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185379": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185381": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185382": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185383": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185384": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185385": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185386": { },
+        "172420770608185392": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185394": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185395": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185397": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": []
+                }
+            }
+        },
+        "172420770608185400": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345649": { },
+        "9925678831329345650": { },
+        "9925678831329345651": { },
+        "9925678831329345652": { },
+        "9925678831329345740": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":0}}]
+                }
+            }
+        },
+        "9925678831329345742": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":0}}]
+                }
+            }
+        },
+        "9925678831329345743": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":0}}]
+                }
+            }
+        },
+        "9925678831329345755": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-4,"y":-8},"m_End":{"x":4,"y":7}}]
+                }
+            }
+        },
+        "9925678831329345775": {
+            "m_MultiBoxData": {
+                "0": {
+                    "m_FrameDataName": "Collision",
+                    "m_Data": [{"m_Start":{"x":-8,"y":-8},"m_End":{"x":7,"y":0}}]
+                }
+            }
+        },
+        "9925678831329345774": { }
     },
     "m_Animations": {
         "0": {
@@ -125,6 +1111,71 @@
                 }
             },
             "m_Name": "Animation"
+        }
+    },
+    "m_InstanceData": {
+        "m_MultiBoxData": {
+            "0": {
+                "m_Data": [{"m_End":{"y":7,"x":7},"m_Start":{"y":-8,"x":-8}}],
+                "m_FrameDataName": "Collision"
+            }
+        }
+    },
+    "m_Textures": {
+        "0": {
+            "m_FrameHeight": 16,
+            "m_Filename": ".\/Images\/DarkTown.png",
+            "m_FrameWidth": 16
+        },
+        "1": {
+            "m_FrameHeight": 16,
+            "m_Filename": ".\/Images\/DarkTiles.png",
+            "m_FrameWidth": 16
+        },
+        "2": {
+            "m_Filename": ".\/Images\/Coffin.png",
+            "m_FrameWidth": 48,
+            "m_FrameHeight": 16
+        },
+        "3": {
+            "m_Filename": ".\/Images\/House1.png",
+            "m_FrameWidth": 113,
+            "m_FrameHeight": 144
+        },
+        "8": {
+            "m_Filename": ".\/Images\/Stump.png",
+            "m_FrameWidth": 70,
+            "m_FrameHeight": 80
+        },
+        "4": {
+            "m_Filename": ".\/Images\/House2.png",
+            "m_FrameWidth": 100,
+            "m_FrameHeight": 100
+        },
+        "5": {
+            "m_Filename": ".\/Images\/Lamp1.png",
+            "m_FrameWidth": 25,
+            "m_FrameHeight": 65
+        },
+        "6": {
+            "m_Filename": ".\/Images\/Lamp2.png",
+            "m_FrameWidth": 25,
+            "m_FrameHeight": 65
+        },
+        "7": {
+            "m_Filename": ".\/Images\/Stand1.png",
+            "m_FrameWidth": 48,
+            "m_FrameHeight": 45
+        },
+        "9": {
+            "m_Filename": ".\/Images\/Tree.png",
+            "m_FrameWidth": 70,
+            "m_FrameHeight": 80
+        },
+        "10": {
+            "m_Filename": ".\/Images\/Well.png",
+            "m_FrameWidth": 32,
+            "m_FrameHeight": 40
         }
     }
 }

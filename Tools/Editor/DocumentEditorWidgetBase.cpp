@@ -87,8 +87,7 @@ uint64_t DocumentEditorWidgetBase::AddParentChangeCallback(czstr path, DocumentE
 
   if (m_TriggeringCallbacks)
   {
-    m_NewParentChangeCallbacks.emplace_back(std::make_pair(callback_id, std::move(cb_data)));
-    m_ParentChangeCallbackOperations.push_back(1);
+    m_DeferredParentChangeCallbacks.emplace_back(std::make_pair(callback_id, std::move(cb_data)));
   }
   else
   {
@@ -100,13 +99,22 @@ uint64_t DocumentEditorWidgetBase::AddParentChangeCallback(czstr path, DocumentE
 
 void DocumentEditorWidgetBase::RemoveParentChangeCallback(uint64_t callback_id)
 {
-  if (m_TriggeringCallbacks)
+  auto itr = m_ParentChangeCallbacks.find(callback_id);
+  if (itr == m_ParentChangeCallbacks.end())
   {
-    m_DeadParentChangeCallbacks.emplace_back(callback_id);
-    m_ParentChangeCallbackOperations.push_back(0);
+    bool found_deferred = false;
+    for (auto & elem : m_DeferredParentChangeCallbacks)
+    {
+      if (elem.first == callback_id)
+      {
+        found_deferred = true;
+        break;
+      }
+    }
+
+    ASSERT(found_deferred, "Bad shit")
   }
 
-  auto itr = m_ParentChangeCallbacks.find(callback_id);
   if (itr != m_ParentChangeCallbacks.end())
   {
     if (m_TriggeringCallbacks)
@@ -117,6 +125,10 @@ void DocumentEditorWidgetBase::RemoveParentChangeCallback(uint64_t callback_id)
     {
       m_ParentChangeCallbacks.erase(itr);
     }
+  }
+  else
+  {
+    m_DeferredParentChangeCallbacks.emplace_back(std::make_pair(callback_id, std::nullopt));
   }
 }
 
@@ -201,27 +213,19 @@ void DocumentEditorWidgetBase::TriggerChangeCallbacks(const ReflectionChangeNoti
 
   m_TriggeringCallbacks = false;
 
-  std::size_t new_parent_change_index = 0;
-  std::size_t dead_parent_change_index = 0;
-
-  for (auto & op : m_ParentChangeCallbackOperations)
+  for (auto & op : m_DeferredParentChangeCallbacks)
   {
-    if (op == 0)
+    if (op.second.has_value() == false)
     {
-      m_ParentChangeCallbacks.erase(m_DeadParentChangeCallbacks[dead_parent_change_index]);
-      dead_parent_change_index++;
+      m_ParentChangeCallbacks.erase(op.first);
     }
     else
     {
-      m_ParentChangeCallbacks.emplace(std::move(m_NewParentChangeCallbacks[new_parent_change_index]));
-      new_parent_change_index++;
+      m_ParentChangeCallbacks.emplace(op.first, std::move(op.second.value()));
     }
   }
 
-  m_ParentChangeCallbackOperations.clear();
-  m_DeadParentChangeCallbacks.clear();
-  m_NewParentChangeCallbacks.clear();
-
+  m_DeferredParentChangeCallbacks.clear();
 
   m_TriggeringCallbacks = true;
 

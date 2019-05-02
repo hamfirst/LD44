@@ -65,6 +65,7 @@ private:
 
   bool m_DrawProfileData = false;
   bool m_DrawFPS = false;
+  bool m_RefreshShop = false;
   FPSClock m_FPSClock;
   StopWatch m_UpdateClock;
 

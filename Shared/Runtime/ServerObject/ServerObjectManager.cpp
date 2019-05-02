@@ -96,6 +96,8 @@ ServerObjectManager::ServerObjectManager(const ServerObjectManager & rhs)
 
   m_GuidList = rhs.m_GuidList;
   m_NumGUIDS = rhs.m_NumGUIDS;
+
+  m_InUpdateLoop = false;
 }
 
 ServerObjectManager::~ServerObjectManager()

@@ -34,8 +34,15 @@ PropertyEditorNumber::PropertyEditorNumber(DocumentEditorWidgetBase * editor, Pr
 
 PropertyEditorNumber::~PropertyEditorNumber()
 {
-  m_Editor->RemoveChangeCallback(m_PathHash, m_CallbackId);
-  m_Editor->RemoveParentChangeCallback(m_ParentCallbackId);
+  if (m_CallbackId != 0)
+  {
+    m_Editor->RemoveChangeCallback(m_PathHash, m_CallbackId);
+  }
+
+  if (m_ParentCallbackId != 0)
+  {
+    m_Editor->RemoveParentChangeCallback(m_ParentCallbackId);
+  }
 }
 
 void PropertyEditorNumber::resizeEvent(QResizeEvent * ev)

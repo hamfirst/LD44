@@ -787,7 +787,6 @@ void EditorContainer::HandleDocumentServerEvent(DocumentServerEvent & ev)
   else
   {
     const char * data = ev.m_Data.c_str();
-    qInfo() << data;
 
     auto enum_hash = crc32begin();
     while (*data != ' ')
