@@ -9,8 +9,8 @@
 
 #include "Runtime/Config/ConfigRegistrationMacros.h"
 
-#include "Game/Configs/ProjectileConfig.refl.h"
-#include "Game/Configs/ProjectileConfig.refl.meta.h"
+#include "Game/ServerObjects/Projectile/ProjectileConfig.refl.h"
+#include "Game/ServerObjects/Projectile/ProjectileConfig.refl.meta.h"
 
 REGISTER_CONFIG_TYPE(ProjectileConfig, "Projectile Config", "projectileconfig", "Configs");
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(ProjectileConfig);

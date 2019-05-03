@@ -3,22 +3,22 @@
 #include "Foundation/Pathfinding/Pathfinding.h"
 
 #include "GameShared/Systems/GameLogicSystems.h"
-#include "LobbyShared/LobbyGameFuncs.h"
+#include "GameShared/GameLogicContainer.h"
 
 #include "Game/GameController.refl.meta.h"
-#include "GameShared/GameLogicContainer.h"
 #include "Game/GameNetworkData.refl.meta.h"
 #include "Game/GameNetworkEvents.refl.meta.h"
 #include "Game/GameSimulationEventCallbacks.h"
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 #include "Game/AI/PlayerAI.h"
-#include "Game/Configs/GameConfig.refl.meta.h"
-
+#include "Game/GameConfig.refl.meta.h"
 #include "Game/ServerObjects/Player/PlayerServerObject.refl.meta.h"
 #include "Game/ServerObjects/Bot/NPC/NPCBot.refl.meta.h"
 
 #include "Runtime/ServerObject/ServerObjectManager.h"
+
+#include "LobbyShared/LobbyGameFuncs.h"
 
 #include "StormRefl/StormReflMetaCall.h"
 

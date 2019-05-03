@@ -8,7 +8,7 @@
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 #include "Game/ServerObjects/GameServerObjectBase.refl.h"
-#include "Game/Configs/ProjectileConfig.refl.h"
+#include "Game/ServerObjects/Projectile/ProjectileConfig.refl.h"
 #include "Game/ServerObjects/Projectile/Motion/ProjectileMotionBase.refl.h"
 
 #include "Runtime/Asset/Asset.h"

@@ -14,13 +14,13 @@ include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
 
 set(GENERIC_SRC_Game 
             AI/PlayerAI.cpp
-            Configs/GameConfig.refl.reg.cpp
-            Configs/PlayerConfig.refl.reg.cpp
-            Configs/ProjectileConfig.refl.reg.cpp
+            Data/CoverPoint.refl.reg.cpp
             Data/DealDamageAnimationEvent.refl.reg.cpp
             Data/KillVolume.refl.reg.cpp
+            Data/NPCSpawn.refl.reg.cpp
             Data/PlayerSpawn.refl.reg.cpp
             GameCommon.cpp
+            GameConfig.refl.reg.cpp
             GameController.refl.cpp
             GameMessages.refl.cpp
             GameNetworkEvents.refl.cpp
@@ -41,42 +41,42 @@ set(GENERIC_SRC_Game
             ServerObjects/Pickups/HealthPickup/HealthPickup.refl.reg.cpp
             ServerObjects/Pickups/PickupBase.refl.cpp
             ServerObjects/Pickups/PickupBase.refl.reg.cpp
+            ServerObjects/Player/PlayerConfig.refl.reg.cpp
             ServerObjects/Player/PlayerServerObject.refl.cpp
             ServerObjects/Player/PlayerServerObject.refl.reg.cpp
             ServerObjects/Player/States/PlayerStateBase.refl.cpp
             ServerObjects/Player/States/PlayerStateBasicAttack.refl.cpp
+            ServerObjects/Player/States/PlayerStateBite.refl.cpp
             ServerObjects/Player/States/PlayerStateIdle.refl.cpp
             ServerObjects/Player/States/PlayerStateJump.refl.cpp
             ServerObjects/Player/States/PlayerStateMoving.refl.cpp
             ServerObjects/Projectile/Motion/ProjectileMotionBase.refl.cpp
             ServerObjects/Projectile/Motion/ProjectileMotionLinear.refl.cpp
+            ServerObjects/Projectile/ProjectileConfig.refl.reg.cpp
             ServerObjects/Projectile/ProjectileServerObject.refl.cpp
             ServerObjects/Projectile/ProjectileServerObject.refl.reg.cpp
             ServerObjects/Projectile/Response/ProjectileResponseBase.refl.cpp
             ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.cpp
-            ServerObjects/Player/States/PlayerStateBite.refl.cpp
-            Data/NPCSpawn.refl.reg.cpp
-            Data/CoverPoint.refl.reg.cpp
             #CPP_PLACEHOLDER
             )
 
 set(GENERIC_HEADER_Game 
             AI/PlayerAI.h
-            Configs/GameConfig.refl.h
-            Configs/GameConfig.refl.meta.h
-            Configs/PlayerConfig.refl.h
-            Configs/PlayerConfig.refl.meta.h
-            Configs/ProjectileConfig.refl.h
-            Configs/ProjectileConfig.refl.meta.h
+            Data/CoverPoint.refl.h
+            Data/CoverPoint.refl.meta.h
             Data/DealDamageAnimationEvent.refl.h
             Data/DealDamageAnimationEvent.refl.meta.h
             Data/KillVolume.refl.h
             Data/KillVolume.refl.meta.h
+            Data/NPCSpawn.refl.h
+            Data/NPCSpawn.refl.meta.h
             Data/PlayerSpawn.refl.h
             Data/PlayerSpawn.refl.meta.h
             GameCollision.refl.h
             GameCollision.refl.meta.h
             GameCommon.h
+            GameConfig.refl.h
+            GameConfig.refl.meta.h
             GameController.refl.h
             GameController.refl.meta.h
             GameFullState.refl.h
@@ -115,12 +115,16 @@ set(GENERIC_HEADER_Game
             ServerObjects/Pickups/HealthPickup/HealthPickup.refl.meta.h
             ServerObjects/Pickups/PickupBase.refl.h
             ServerObjects/Pickups/PickupBase.refl.meta.h
+            ServerObjects/Player/PlayerConfig.refl.h
+            ServerObjects/Player/PlayerConfig.refl.meta.h
             ServerObjects/Player/PlayerServerObject.refl.h
             ServerObjects/Player/PlayerServerObject.refl.meta.h
             ServerObjects/Player/States/PlayerStateBase.refl.h
             ServerObjects/Player/States/PlayerStateBase.refl.meta.h
             ServerObjects/Player/States/PlayerStateBasicAttack.refl.h
             ServerObjects/Player/States/PlayerStateBasicAttack.refl.meta.h
+            ServerObjects/Player/States/PlayerStateBite.refl.h
+            ServerObjects/Player/States/PlayerStateBite.refl.meta.h
             ServerObjects/Player/States/PlayerStateIdle.refl.h
             ServerObjects/Player/States/PlayerStateIdle.refl.meta.h
             ServerObjects/Player/States/PlayerStateJump.refl.h
@@ -131,6 +135,8 @@ set(GENERIC_HEADER_Game
             ServerObjects/Projectile/Motion/ProjectileMotionBase.refl.meta.h
             ServerObjects/Projectile/Motion/ProjectileMotionLinear.refl.h
             ServerObjects/Projectile/Motion/ProjectileMotionLinear.refl.meta.h
+            ServerObjects/Projectile/ProjectileConfig.refl.h
+            ServerObjects/Projectile/ProjectileConfig.refl.meta.h
             ServerObjects/Projectile/ProjectileServerObject.refl.h
             ServerObjects/Projectile/ProjectileServerObject.refl.meta.h
             ServerObjects/Projectile/Response/ProjectileResponseBase.refl.h
@@ -138,23 +144,17 @@ set(GENERIC_HEADER_Game
             ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.h
             ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.meta.h
             Systems/GameDeliberateSyncSystemList.h
-            ServerObjects/Player/States/PlayerStateBite.refl.h
-            ServerObjects/Player/States/PlayerStateBite.refl.meta.h
-            Data/NPCSpawn.refl.h
-            Data/NPCSpawn.refl.meta.h
-            Data/CoverPoint.refl.h
-            Data/CoverPoint.refl.meta.h
             #HEADER_PLACEHOLDER
             )
 
 set(GENERIC_REFL_Game 
-            Configs/GameConfig.refl.h
-            Configs/PlayerConfig.refl.h
-            Configs/ProjectileConfig.refl.h
+            Data/CoverPoint.refl.h
             Data/DealDamageAnimationEvent.refl.h
             Data/KillVolume.refl.h
+            Data/NPCSpawn.refl.h
             Data/PlayerSpawn.refl.h
             GameCollision.refl.h
+            GameConfig.refl.h
             GameController.refl.h
             GameFullState.refl.h
             GameMessages.refl.h
@@ -170,20 +170,20 @@ set(GENERIC_REFL_Game
             ServerObjects/GameServerObjectBase.refl.h
             ServerObjects/Pickups/HealthPickup/HealthPickup.refl.h
             ServerObjects/Pickups/PickupBase.refl.h
+            ServerObjects/Player/PlayerConfig.refl.h
             ServerObjects/Player/PlayerServerObject.refl.h
             ServerObjects/Player/States/PlayerStateBase.refl.h
             ServerObjects/Player/States/PlayerStateBasicAttack.refl.h
+            ServerObjects/Player/States/PlayerStateBite.refl.h
             ServerObjects/Player/States/PlayerStateIdle.refl.h
             ServerObjects/Player/States/PlayerStateJump.refl.h
             ServerObjects/Player/States/PlayerStateMoving.refl.h
             ServerObjects/Projectile/Motion/ProjectileMotionBase.refl.h
             ServerObjects/Projectile/Motion/ProjectileMotionLinear.refl.h
+            ServerObjects/Projectile/ProjectileConfig.refl.h
             ServerObjects/Projectile/ProjectileServerObject.refl.h
             ServerObjects/Projectile/Response/ProjectileResponseBase.refl.h
             ServerObjects/Projectile/Response/ProjectileResponseDefault.refl.h
-            ServerObjects/Player/States/PlayerStateBite.refl.h
-            Data/NPCSpawn.refl.h
-            Data/CoverPoint.refl.h
             #REFL_PLACEHOLDER
             )
 

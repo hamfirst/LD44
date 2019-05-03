@@ -12,7 +12,7 @@
 #include "Game/GameplayEvents/PickupEvents.h"
 #include "Game/Data/DealDamageAnimationEvent.refl.h"
 
-#include "Game/Configs/PlayerConfig.refl.h"
+#include "Game/ServerObjects/Player/PlayerConfig.refl.h"
 
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/Config/ConfigResource.h"

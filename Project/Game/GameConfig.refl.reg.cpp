@@ -10,8 +10,8 @@
 
 #include "Runtime/Config/ConfigRegistrationMacros.h"
 
-#include "Game/Configs/PlayerConfig.refl.h"
-#include "Game/Configs/PlayerConfig.refl.meta.h"
+#include "Game/GameConfig.refl.h"
+#include "Game/GameConfig.refl.meta.h"
 
-REGISTER_CONFIG_TYPE(PlayerConfig, "Player Config", "playerconfig", "Configs");
-STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(PlayerConfig);
+REGISTER_CONFIG_TYPE(GameConfig, "Game Config", "gameconfig", "Configs");
+STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(GameConfig);

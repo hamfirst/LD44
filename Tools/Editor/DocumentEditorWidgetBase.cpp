@@ -112,7 +112,7 @@ void DocumentEditorWidgetBase::RemoveParentChangeCallback(uint64_t callback_id)
       }
     }
 
-    ASSERT(found_deferred, "Bad shit")
+    ASSERT(found_deferred, "Removing parent change callback that isn't in the list");
   }
 
   if (itr != m_ParentChangeCallbacks.end())

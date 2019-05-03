@@ -77,12 +77,12 @@ void PlayerComponent::UpdateFirst()
   if (info.m_IsLocal)
   {
     object = info.m_CurrentObject;
-    GetEntity()->SetPosition(info.m_CurrentPos);
+    GetEntity()->SetPosition((Vector2)(info.m_CurrentPos));
   }
   else
   {
     object = info.m_CurrentObject;
-    GetEntity()->SetPosition(info.m_CurrentPos + m_DeadReckonOffset);
+    GetEntity()->SetPosition((Vector2)(info.m_CurrentPos + m_DeadReckonOffset));
     m_DeadReckonPos = info.m_CurrentPos;
     m_DeadReckonOffset -= m_DeadReckonDec;
   }

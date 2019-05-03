@@ -8,7 +8,7 @@
 
 #include "Game/GameNetworkEvents.refl.h"
 #include "Game/ServerObjects/Player/PlayerServerObject.refl.h"
-#include "Game/Configs/GameConfig.refl.h"
+#include "Game/GameConfig.refl.h"
 
 #include "Engine/Window/Window.h"
 #include "Engine/Input/ControlId.h"

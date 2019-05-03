@@ -7,7 +7,7 @@
 #include "Game/GameServerTypes.h"
 #include "GameShared/GameLogicContainer.h"
 
-#include "Game/Configs/PlayerConfig.refl.h"
+#include "Game/ServerObjects/Player/PlayerConfig.refl.h"
 
 #include "Runtime/Event/EventHandler.h"
 #include "Runtime/Config/ConfigResource.h"

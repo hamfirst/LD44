@@ -19,9 +19,8 @@
 #include "Game/ServerObjects/Projectile/ProjectileServerObject.refl.meta.h"
 #include "Game/ServerObjects/Pickups/HealthPickup/HealthPickup.refl.h"
 #include "Game/ServerObjects/Bot/NPC/NPCBot.refl.h"
-
-#include "Game/Configs/PlayerConfig.refl.meta.h"
-#include "Game/Configs/ProjectileConfig.refl.meta.h"
+#include "Game/ServerObjects/Player/PlayerConfig.refl.meta.h"
+#include "Game/ServerObjects/Projectile/ProjectileConfig.refl.meta.h"
 
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/Entity/EntityResource.h"
@@ -70,7 +69,7 @@ void PlayerServerObject::UpdateMiddle(GameLogicContainer & game_container)
   m_State->PostUpdate(*this, game_container);
 
   // Vampire (just the if)
-  if(m_Bat == false)
+  if(m_Bat == false && game_container.GetInstanceData().m_RoundState == RoundState::kRound)
   {
     auto move_box = GetMoveBox();
 

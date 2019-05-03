@@ -14,6 +14,10 @@ include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
 
 set(GENERIC_SRC_GameShared 
             BehaviorTree/BehaviorTreeTypeDatabase.cpp
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.cpp
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.reg.cpp
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.cpp
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.reg.cpp
             BehaviorTree/Conditionals/IsDeadBotConditional.refl.cpp
             BehaviorTree/Conditionals/IsDeadBotConditional.refl.reg.cpp
             BehaviorTree/States/MoveForTimeBotState.refl.cpp
@@ -29,21 +33,24 @@ set(GENERIC_SRC_GameShared
             GameSharedCommon.cpp
             GameStageManager.cpp
             GameWebrtc.cpp
+            SkillTree/SkillTree.cpp
+            SkillTree/SkillTreeConfig.refl.reg.cpp
             Systems/CVCPushSystem.cpp
             Systems/GameLogicSystems.cpp
             Systems/GameServerObjectOverlapSystem.cpp
             Systems/TargetDatabase.cpp
-            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.cpp
-            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.reg.cpp
-            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.cpp
-            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.reg.cpp
+            SkillTree/SkillTreeCompiled.cpp
             #CPP_PLACEHOLDER
-            )
+  Modifier/Modifier.refl.reg.cpp Modifier/Modifier.refl.cpp)
 
 set(GENERIC_HEADER_GameShared 
             BehaviorTree/BehaviorTree.h
             BehaviorTree/BehaviorTreeSerialize.h
             BehaviorTree/BehaviorTreeTypeDatabase.h
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.meta.h
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.meta.h
             BehaviorTree/Conditionals/IsDeadBotConditional.refl.h
             BehaviorTree/Conditionals/IsDeadBotConditional.refl.meta.h
             BehaviorTree/States/MoveForTimeBotState.refl.h
@@ -63,27 +70,32 @@ set(GENERIC_HEADER_GameShared
             GameProtocol.h
             GameSharedCommon.h
             GameStageManager.h
+            SkillTree/SkillTree.h
+            SkillTree/SkillTreeConfig.refl.h
+            SkillTree/SkillTreeConfig.refl.meta.h
+            SkillTree/SkillTreeSerialize.h
             Systems/CVCPushSystem.h
             Systems/GameLogicSystems.h
             Systems/GameServerObjectOverlapRegistrationMacros.h
             Systems/GameServerObjectOverlapSystem.h
             Systems/TargetDatabase.h
-            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h
-            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.meta.h
-            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h
-            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.meta.h
+            SkillTree/SkillTreeCompiled.h
+            Modifier/Modifier.refl.h
+            Modifier/Modifier.refl.meta.h
             #HEADER_PLACEHOLDER
             )
 
 set(GENERIC_REFL_GameShared 
+            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h
+            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h
             BehaviorTree/Conditionals/IsDeadBotConditional.refl.h
             BehaviorTree/States/MoveForTimeBotState.refl.h
             BehaviorTree/States/PlayAnimationBotState.refl.h
             BehaviorTree/States/PlayAnimationForTimeBotState.refl.h
             GameLevelListAsset.refl.h
             GamePlayListAsset.refl.h
-            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h
-            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h
+            SkillTree/SkillTreeConfig.refl.h
+            Modifier/Modifier.refl.h
             #REFL_PLACEHOLDER
             )
 
