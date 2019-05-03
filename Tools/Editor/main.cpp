@@ -11,6 +11,7 @@
 #include "Foundation/Buffer/BufferUtil.h"
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
+#include "ProjectSettings/ProjectPerspective.h"
 
 #include "Runtime/FrameData/FrameData.refl.meta.h"
 
@@ -49,6 +50,11 @@ int main(int argc, char *argv[])
   auto settings = BufferToString(buffer);
 
   StormReflParseJson(g_FrameData, settings.data());
+  
+#if PROJECT_PERSPECTIVE == PERSPECTIVE_TOPDOWN
+  g_FrameData.m_SpriteFrameData.emplace_back(FrameDataDefElem{ FrameDataDefType::kLowerEdge, "LowerEdge" });
+  g_FrameData.m_TileFrameData.emplace_back(FrameDataDefElem{ FrameDataDefType::kLowerEdge, "LowerEdge" });
+#endif
 
 
 #if NET_BACKEND == NET_BACKEND_WEBRTC
