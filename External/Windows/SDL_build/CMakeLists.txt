@@ -1751,10 +1751,10 @@ if(SDL_STATIC)
 endif()
 
 ##### Installation targets #####
-#install(TARGETS ${_INSTALL_LIBS} EXPORT SDL2Targets
-#  LIBRARY DESTINATION "lib${LIB_SUFFIX}"
-#  ARCHIVE DESTINATION "lib${LIB_SUFFIX}"
-#  RUNTIME DESTINATION bin)
+install(TARGETS ${_INSTALL_LIBS} EXPORT SDL2Targets
+  LIBRARY DESTINATION "lib${LIB_SUFFIX}"
+  ARCHIVE DESTINATION "lib${LIB_SUFFIX}"
+  RUNTIME DESTINATION bin)
 
 ##### Export files #####
 if (APPLE)
@@ -1814,7 +1814,8 @@ if(NOT (WINDOWS OR CYGWIN))
   endif()
   install(PROGRAMS ${SDL2_BINARY_DIR}/sdl2-config DESTINATION bin)
   # TODO: what about the .spec file? Is it only needed for RPM creation?
-  install(FILES "${SDL2_SOURCE_DIR}/sdl2.m4" DESTINATION "${CMAKE_INSTALL_FULL_DATAROOTDIR}/aclocal")
+  
+  #install(FILES "${SDL2_SOURCE_DIR}/sdl2.m4" DESTINATION "${CMAKE_INSTALL_FULL_DATAROOTDIR}/aclocal")
 endif()
 
 ##### Uninstall target #####

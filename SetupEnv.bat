@@ -9,6 +9,8 @@ if "%CMAKE_DIR%"=="" (set "CMAKE_DIR=C:\Program Files\CMake\")
 if "%MINGW_DIR%"=="" (set "MINGW_DIR=C:\Mingw")
 if "%EM_SDK_PATH%"=="" (set "EM_SDK_PATH=C:\emsdk")
 if "%VC_PATH%"=="" (set "VC_PATH=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community")
+if "%CLANG_SRC_INCLUDE_PATH%"=="" (set "CLANG_SRC_INCLUDE_PATH=C:\LLVM\include")
+if "%CLANG_SRC_LIBRARY_PATH%"=="" (set "CLANG_SRC_LIBRARY_PATH=C:\LLVM\lib")
 
 call :grab_environment_variable "QT Directory", true, "%QT_DIR%"
 echo QT Directory set to %return_val%
@@ -35,6 +37,16 @@ echo Visual Studio Directory set to %return_val%
 set VC_PATH=%return_val%
 echo.
 
+call :grab_environment_variable "libclang include path", true, "%CLANG_SRC_INCLUDE_PATH%"
+echo Clang source include path set to %return_val%
+set CLANG_SRC_INCLUDE_PATH=%return_val%
+echo.
+
+call :grab_environment_variable "libclang library path", true, "%CLANG_SRC_LIBRARY_PATH%"
+echo Clang source library path set to %return_val%
+set CLANG_SRC_LIBRARY_PATH=%return_val%
+echo.
+
 type NUL > ProjectSettings/ProjectEnv.txt
 
 echo QT_DIR=%QT_DIR% >> ProjectSettings/ProjectEnv.txt
@@ -43,6 +55,8 @@ echo MINGW_DIR=%MINGW_DIR% >> ProjectSettings/ProjectEnv.txt
 echo CLANG_HEADER_PATH=. >> ProjectSettings/ProjectEnv.txt
 echo EM_SDK_PATH=%EM_SDK_PATH% >> ProjectSettings/ProjectEnv.txt
 echo VC_PATH=%VC_PATH% >> ProjectSettings/ProjectEnv.txt
+echo CLANG_SRC_INCLUDE_PATH=%CLANG_SRC_INCLUDE_PATH% >> ProjectSettings/ProjectEnv.txt
+echo CLANG_SRC_LIBRARY_PATH=%CLANG_SRC_LIBRARY_PATH% >> ProjectSettings/ProjectEnv.txt
 
 git update-index --skip-worktree ProjectSettings/ProjectEnv.txt
 

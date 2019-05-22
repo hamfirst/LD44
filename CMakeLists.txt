@@ -4,9 +4,21 @@ file(READ ProjectSettings/ProjectName.txt PROJECT_NAME)
 string(REGEX REPLACE "\n$" "" PROJECT_NAME "${PROJECT_NAME}")
 
 file(WRITE ProjectSettings/ProjectName.h "#pragma once\n\nstatic const char * kProjectName = \"" ${PROJECT_NAME} "\";\n\n")
+file(STRINGS ProjectSettings/ProjectEnv.txt PROJECT_ENV)
+
+foreach(ENV_VAR ${PROJECT_ENV})
+  string(REPLACE "\\" "/" ENV_VAR_ESCAPED "${ENV_VAR}")
+  string(FIND "${ENV_VAR_ESCAPED}" "=" EQ_POS)
+  string(SUBSTRING "${ENV_VAR_ESCAPED}" 0 ${EQ_POS} ENV_VAR_NAME)
+
+  math(EXPR ENV_VAR_VALUE_START "${EQ_POS} + 1")
+  string(SUBSTRING "${ENV_VAR_ESCAPED}" "${ENV_VAR_VALUE_START}" -1 ENV_VAR_VALUE)
+  string(STRIP "${ENV_VAR_VALUE}" ENV_VAR_VALUE_STRIPPED)
+
+  set("${ENV_VAR_NAME}" "${ENV_VAR_VALUE_STRIPPED}")
+endforeach(ENV_VAR)
 
 project(${PROJECT_NAME})
-
 message("-- Project Name: " ${PROJECT_NAME})
 
 include(CMake/StormBrewerEngine.cmake)
@@ -339,12 +351,6 @@ if(BUILD_TOOLS)
 
   set_target_properties(addcode PROPERTIES CXX_STANDARD 17)
 
-  if(MSVC)
-	  link_directories("C:\\Dev\\llvm-build\\RelWithDebInfo\\lib")
-  else()
-    link_directories("/usr/local/lib")
-  endif()
-
   add_executable(DistFetch Dummy.cpp)
   target_link_libraries(DistFetch DistFetchLib DistFetcher StormSocketCPP mbedtls asio)
   set_target_properties(DistFetch PROPERTIES FOLDER Executable)
@@ -361,8 +367,11 @@ if(BUILD_TOOLS)
     target_link_libraries(DistUpload stdc++fs pthread)
   endif()
 
+  link_directories(${CLANG_SRC_LIB_PATH})
   add_executable(stormrefl StormTech/StormRefl/main.cpp StormTech/StormRefl/StormReflOutput.cpp)
   set_target_properties(stormrefl PROPERTIES FOLDER Tools)
+
+  target_include_directories(stormrefl PRIVATE ${CLANG_SRC_INCLUDE_PATH})
 
   target_link_libraries(stormrefl
     clangFrontend
@@ -378,16 +387,9 @@ if(BUILD_TOOLS)
     clangTooling
   )
 
-  if(MSVC)
-    target_link_libraries(stormrefl libclang)
-  else()
-    target_link_libraries(stormrefl clang)
-  endif()
-
 	target_link_libraries(stormrefl
 	  LLVMX86AsmParser # MC, MCParser, Support, X86Desc, X86Info
 	  LLVMX86Desc # MC, Support, X86AsmPrinter, X86Info
-	  LLVMX86AsmPrinter # MC, Support, X86Utils
 	  LLVMX86Info # MC, Support, Target
 	  LLVMX86Utils # Core, Support
 	  LLVMipo
@@ -406,6 +408,8 @@ if(BUILD_TOOLS)
 	  #LLVMDebugInfoDWARF
 	  LLVMBinaryFormat
 	  LLVMProfileData
+    LLVMDemangle
+    LLVMRemarks
 	)
 
   if(MSVC)
@@ -451,7 +455,7 @@ if(BUILD_TOOLS)
   endif()
 
   find_package(Qt5Widgets CONFIG REQUIRED)
-  find_package(Qt5OpenGL CONFIG REQUIRED)
+  #find_package(Qt5OpenGL CONFIG REQUIRED)
 
   add_executable(EditorExe Dummy.cpp)
   set_target_properties(EditorExe PROPERTIES FOLDER Executable)
@@ -516,7 +520,7 @@ if(BUILD_TOOLS)
   target_link_libraries(EditorExe freetype)
 
   target_link_libraries(EditorExe QTUtil)
-  target_link_libraries(EditorExe Qt5::Widgets Qt5::OpenGL)
+  target_link_libraries(EditorExe Qt5::Widgets)
 
   if(MSVC)
     if("${CMAKE_GENERATOR}" MATCHES "(Win64|IA64)")
@@ -540,6 +544,21 @@ if(BUILD_TOOLS)
   if(NOT MSVC)
     target_link_libraries(EditorExe stdc++fs)
     target_link_libraries(EditorExe dl pthread)
+  endif()
+
+  if(MSVC)
+    add_custom_target(QTDeploy ${QT_DIR}/bin/windeployqt.exe $<TARGET_FILE:EditorExe>)
+    set_target_properties(QTDeploy PROPERTIES FOLDER QTDeploy)
+
+    if(EXPORT_TEST)
+      add_custom_target(QTDeployTest ${QT_DIR}/bin/windeployqt.exe ${PROJECT_SOURCE_DIR}/Test/EditorExe.exe)
+      set_target_properties(QTDeployTest PROPERTIES FOLDER QTDeploy)
+    endif()
+
+    if(EXPORT_DIST)
+      add_custom_target(QTDeployDist ${QT_DIR}/bin/windeployqt.exe ${PROJECT_SOURCE_DIR}/Distribute/EditorExe.exe)
+      set_target_properties(QTDeployDist PROPERTIES FOLDER QTDeploy)
+    endif()
   endif()
 
   add_custom_target(TargetAddCode ALL
