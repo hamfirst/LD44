@@ -12,7 +12,7 @@
 #include "Foundation/Time/FrameClock.h"
 
 #include "Runtime/Runtime.h"
-#include "Runtime/Entity/EntityResource.h"
+#include "Runtime/ClientEntity/ClientEntityResource.h"
 #include "Runtime/Map/MapResource.h"
 #include "Runtime/Asset/Asset.h"
 

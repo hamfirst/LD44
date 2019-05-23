@@ -1,18 +1,18 @@
-#include <Project/GameClient/Components/Reusable/PlayAnimationComponent.refl.h>
 #include "GameClient/GameClientCommon.h"
+#include "GameClient/GameContainer.h"
+#include "GameClient/GameClientUIManager.h"
+#include "GameClient/GameClientController.refl.meta.h"
+#include "GameClient/ClientComponents/Reusable/PlayAnimationComponent.refl.h"
+#include "GameClient/ClientComponents/Reusable/PlayAnimationComponent.refl.meta.h"
 
-#include "Engine/Entity/Entity.h"
-#include "Engine/Entity/EntitySystem.h"
+#include "Engine/Entity/ClientEntity.h"
+#include "Engine/Entity/ClientEntitySystem.h"
 #include "Engine/EngineState.h"
 #include "Engine/Audio/AudioManager.h"
 #include "Engine/VisualEffect/VisualEffectManager.h"
 
-#include "Runtime/Entity/EntityResource.h"
+#include "Runtime/ClientEntity/ClientEntityResource.h"
 
-#include "GameClient/GameContainer.h"
-#include "GameClient/GameClientUIManager.h"
-#include "GameClient/GameClientController.refl.meta.h"
-#include "GameClient/Components/Reusable/PlayAnimationComponent.refl.meta.h"
 
 #include "StormRefl/StormReflMetaCall.h"
 
@@ -163,14 +163,14 @@ void GameClientController::HandleAuthEvent(std::size_t event_class_id, const voi
   m_AuthEventCallbacks[event_class_id].Call(event_ptr);
 }
 
-void GameClientController::HandleEntityEvent(const ServerObjectHandle & handle, std::size_t event_class_id, const void * event_ptr)
+void GameClientController::HandleEntityEvent(const ServerEntityHandle & handle, std::size_t event_class_id, const void * event_ptr)
 {
   m_GameContainer.GetInstanceData()->GetEntitySync().SendEntityEvent(handle, event_class_id, event_ptr);
 }
 
 void GameClientController::HandleCreateEntityGlobalEvent(const CreateEntityGlobalEvent & ev)
 {
-  auto entity_asset = EntityResource::Find(ev.m_AssetHash);
+  auto entity_asset = ClientEntityResource::Find(ev.m_AssetHash);
   if (entity_asset.IsLoaded())
   {
     auto entity = m_GameContainer.GetEngineState().CreateEntity(entity_asset.GetResource());

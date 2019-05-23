@@ -11,7 +11,7 @@
 #include "Game/GameMessages.refl.meta.h"
 #include "Game/GameFullState.refl.meta.h"
 #include "Game/Systems/GameDeliberateSyncSystemList.h"
-#include "Game/ServerObjects/Player/PlayerServerObject.refl.h"
+#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
 
 #include "GameClient/GameNetworkClient.h"
 #include "GameClient/GameContainer.h"
@@ -334,7 +334,7 @@ void GameNetworkClient::HandleSimUpdate(const GameFullState & sim)
     CheckFinalizeConnect();
   }
 
-  m_InstanceContainer->GetEntitySync().Sync(m_InstanceContainer->GetFullState().m_ServerObjectManager);
+  m_InstanceContainer->GetEntitySync().Sync(m_InstanceContainer->GetFullState().m_ServerEntityManager);
 }
 
 void GameNetworkClient::HandleClientDataUpdate(ClientLocalData && client_data)

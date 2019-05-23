@@ -9,8 +9,8 @@ struct Box;
 class GameContainer;
 class GameLogicContainer;
 
-class Entity;
-class ServerObject;
+class ClientEntity;
+class ServerEntity;
 
 struct EventMetaData
 {
@@ -23,14 +23,14 @@ struct EventMetaData
   }
 
 
-  EventMetaData(NotNullPtr<Entity> entity_src, NotNullPtr<GameContainer> game_container) :
+  EventMetaData(NotNullPtr<ClientEntity> entity_src, NotNullPtr<GameContainer> game_container) :
     m_SourceEntity(entity_src), 
     m_GameContainer(game_container)
   {
 
   }
 
-  EventMetaData(NotNullPtr<ServerObject> server_object_src, NotNullPtr<GameLogicContainer> game_logic_container) :
+  EventMetaData(NotNullPtr<ServerEntity> server_object_src, NotNullPtr<GameLogicContainer> game_logic_container) :
     m_SourceServerObject(server_object_src),
     m_GameLogicContainer(game_logic_container)
   {
@@ -43,8 +43,8 @@ struct EventMetaData
 
   }
 
-  NullOptPtr<Entity> m_SourceEntity = nullptr;
-  NullOptPtr<ServerObject> m_SourceServerObject = nullptr;
+  NullOptPtr<ClientEntity> m_SourceEntity = nullptr;
+  NullOptPtr<ServerEntity> m_SourceServerObject = nullptr;
   NullOptPtr<GameContainer> m_GameContainer = nullptr;
   NullOptPtr<GameLogicContainer> m_GameLogicContainer = nullptr;
   NullOptPtr<const Box> m_ActiveAreaStart = nullptr;

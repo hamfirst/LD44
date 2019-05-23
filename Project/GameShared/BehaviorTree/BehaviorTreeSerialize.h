@@ -4,7 +4,7 @@
 #include "StormNet/NetSerialize.h"
 #include "StormNet/NetDeserialize.h"
 
-#include "Runtime/ServerObject/ServerObjectSerialize.h"
+#include "Runtime/ServerEntity/ServerEntitySerialize.h"
 
 #include "GameShared/BehaviorTree/BehaviorTree.h"
 #include "GameShared/BehaviorTree/BehaviorTreeTypeDatabase.h"

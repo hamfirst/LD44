@@ -8,7 +8,7 @@
 #include "Runtime/DocumentResource/DocumentResourceManager.h"
 
 #include "Runtime/Sprite/SpriteDef.refl.meta.h"
-#include "Runtime/Entity/EntityDef.refl.meta.h"
+#include "Runtime/ClientEntity/ClientEntityDef.refl.meta.h"
 #include "Runtime/Map/MapDef.refl.meta.h"
 #include "Runtime/UI/UIDef.refl.meta.h"
 #include "Runtime/Atlas/AtlasDef.refl.meta.h"
@@ -21,18 +21,18 @@
 #include "Runtime/Config/ConfigManager.h"
 #include "Runtime/SpriteBase/SpriteAnimationEventRegister.h"
 #include "Runtime/Asset/Asset.h"
-#include "Runtime/ServerObject/ServerObjectSystem.h"
-#include "Runtime/ServerObject/ServerObjectInitDataTypeDatabase.h"
-#include "Runtime/ServerObject/ServerObjectRegistrationMacros.h"
+#include "Runtime/ServerEntity/ServerEntitySystem.h"
+#include "Runtime/ServerEntity/ServerEntityInitDataTypeDatabase.h"
+#include "Runtime/ServerEntity/ServerEntityRegistrationMacros.h"
 
 void RuntimeInit()
 {
   g_TypeDatabaseRegisterCallList.CallAll();
   g_ConfigRegistrationCallList.CallAll();
-  g_ServerObjectRegisterCallList.CallAll();
+  g_ServerEntityRegisterCallList.CallAll();
   g_GlobalAssetListRegister.CallAll();
   g_GlobalDependentAssetRegister.CallAll();
-  g_ServerObjectSystem.FinalizeTypes();
+  g_ServerEntitySystem.FinalizeTypes();
 }
 
 void RuntimeCleanup()
@@ -43,10 +43,10 @@ void RuntimeCleanup()
 void RuntimeRegisterTypes(PropertyFieldDatabase & property_db)
 {
   GetProperyMetaData<SpriteDef>(property_db);
-  GetProperyMetaData<EntityDef>(property_db);
-  GetProperyMetaData<ServerObjectDef>(property_db);
-  GetProperyMetaData<MapEntity>(property_db);
-  GetProperyMetaData<MapServerObject>(property_db);
+  GetProperyMetaData<ClientEntityDef>(property_db);
+  GetProperyMetaData<ServerEntityDef>(property_db);
+  GetProperyMetaData<MapClientEntity>(property_db);
+  GetProperyMetaData<MapServerEntity>(property_db);
   GetProperyMetaData<MapParallaxLayerObject>(property_db);
   GetProperyMetaData<MapDef>(property_db);
   GetProperyMetaData<UIDef>(property_db);

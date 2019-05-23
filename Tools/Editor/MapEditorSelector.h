@@ -3,8 +3,8 @@
 #include <QWidget>
 
 #include "MapEditorTileSelector.h"
-#include "MapEditorEntitySelector.h"
-#include "MapEditorServerObjectSelector.h"
+#include "MapEditorClientEntitySelector.h"
+#include "MapEditorServerEntitySelector.h"
 #include "MapEditorParallaxObjectSelector.h"
 
 class MapEditorSelector : public QWidget
@@ -14,8 +14,8 @@ public:
   MapEditorSelector(NotNullPtr<MapEditor> editor, MapDef & map, QWidget * parent = nullptr);
 
   NotNullPtr<MapEditorTileSelector> GetTileSelector();
-  NotNullPtr<MapEditorEntitySelector> GetEntitySelector();
-  NotNullPtr<MapEditorServerObjectSelector> GetServerObjectSelector();
+  NotNullPtr<MapEditorClientEntitySelector> GetEntitySelector();
+  NotNullPtr<MapEditorServerEntitySelector> GetServerObjectSelector();
   NotNullPtr<MapEditorParallaxObjectSelector> GetParallaxObjectSelector();
 
 protected:
@@ -25,8 +25,8 @@ protected:
 private:
 
   std::unique_ptr<MapEditorTileSelector> m_TileSelector;
-  std::unique_ptr<MapEditorEntitySelector> m_EntitySelector;
-  std::unique_ptr<MapEditorServerObjectSelector> m_ServerObjectSelector;
+  std::unique_ptr<MapEditorClientEntitySelector> m_EntitySelector;
+  std::unique_ptr<MapEditorServerEntitySelector> m_ServerObjectSelector;
   std::unique_ptr<MapEditorParallaxObjectSelector> m_ParallaxObjectSelector;
 };
 

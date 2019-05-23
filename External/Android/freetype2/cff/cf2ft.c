@@ -2,7 +2,7 @@
 /*                                                                         */
 /*  cf2ft.c                                                                */
 /*                                                                         */
-/*    FreeType Glue Component to Adobe's Interpreter (body).               */
+/*    FreeType Glue ClientComponent to Adobe's Interpreter (body).               */
 /*                                                                         */
 /*  Copyright 2013-2014 Adobe Systems Incorporated.                        */
 /*                                                                         */

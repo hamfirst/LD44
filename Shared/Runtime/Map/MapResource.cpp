@@ -104,7 +104,7 @@ void MapResource::OnDataLoadComplete(const std::string & resource_data)
     }
   }
 
-  for(auto layer : m_Data->m_EntityLayers)
+  for(auto layer : m_Data->m_ClientEntityLayers)
   {
     for(auto elem : layer.second.m_Entities)
     {
@@ -115,9 +115,9 @@ void MapResource::OnDataLoadComplete(const std::string & resource_data)
     }
   }
 
-  for(auto layer : m_Data->m_ServerObjectLayers)
+  for(auto layer : m_Data->m_ServerEntityLayers)
   {
-    for(auto elem : layer.second.m_Objects)
+    for(auto elem : layer.second.m_Entities)
     {
       if (elem.second.m_GUID == 0U)
       {

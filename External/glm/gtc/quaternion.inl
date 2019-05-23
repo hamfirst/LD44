@@ -49,7 +49,7 @@ namespace detail
 	};
 }//namespace detail
 
-	// -- Component accesses --
+	// -- ClientComponent accesses --
 
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER GLM_CONSTEXPR typename tquat<T, P>::length_type tquat<T, P>::length() const

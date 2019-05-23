@@ -7,8 +7,8 @@
 #include "Foundation/TypeDatabase/TypeDatabase.h"
 
 #include "Runtime/RuntimeCommon.h"
-#include "Runtime/Entity/EntityDef.refl.h"
-#include "Runtime/ServerObject/ServerObjectDef.refl.h"
+#include "Runtime/ClientEntity/ClientEntityDef.refl.h"
+#include "Runtime/ServerEntity/ServerEntityDef.refl.h"
 #include "Runtime/Anchor/AnchorDef.refl.h"
 #include "Runtime/Anchor/AnchorTypeDatabase.h"
 #include "Runtime/Path/PathDef.refl.h"
@@ -30,6 +30,7 @@ struct RUNTIME_EXPORT MapPropertiesInfo
   RPolymorphic<MapPropertiesDef, void, true> m_MapProperties;
 };
 
+
 struct RUNTIME_EXPORT MapManualTileLayer
 {
   STORM_DATA_DEFAULT_CONSTRUCTION(MapManualTileLayer);
@@ -43,42 +44,42 @@ struct RUNTIME_EXPORT MapManualTileLayer
   RSparseList<ROpaque<MapAnimatedTile>> STORM_REFL_ATTR(noui) m_Animations;
 };
 
-struct RUNTIME_EXPORT MapEntity
+struct RUNTIME_EXPORT MapClientEntity
 {
-  STORM_DATA_DEFAULT_CONSTRUCTION(MapEntity);
+  STORM_DATA_DEFAULT_CONSTRUCTION(MapClientEntity);
   RString m_Name;
   RUInt STORM_REFL_ATTR(noui) m_GUID;
   RInt m_XPosition;
   RInt m_YPosition;
-  EntityDef m_EntityDef;
+  ClientEntityDef m_EntityDef;
 };
 
-struct RUNTIME_EXPORT MapEntityLayer
+struct RUNTIME_EXPORT MapClientEntityLayer
 {
-  STORM_DATA_DEFAULT_CONSTRUCTION(MapEntityLayer);
+  STORM_DATA_DEFAULT_CONSTRUCTION(MapClientEntityLayer);
 
   RString m_Name;
   RInt m_LayerOrder;
-  RMergeList<MapEntity> STORM_REFL_ATTR(noui) m_Entities;
+  RMergeList<MapClientEntity> STORM_REFL_ATTR(noui) m_Entities;
 };
 
-struct RUNTIME_EXPORT MapServerObject
+struct RUNTIME_EXPORT MapServerEntity
 {
-  STORM_DATA_DEFAULT_CONSTRUCTION(MapServerObject);
+  STORM_DATA_DEFAULT_CONSTRUCTION(MapServerEntity);
   RString m_Name;
   RUInt STORM_REFL_ATTR(noui) m_GUID;
   RInt m_XPosition;
   RInt m_YPosition;
 
-  ServerObjectDef m_ServerObject;
+  ServerEntityDef m_ServerEntity;
 };
 
-struct RUNTIME_EXPORT MapServerObjectLayer
+struct RUNTIME_EXPORT MapServerEntityLayer
 {
-  STORM_DATA_DEFAULT_CONSTRUCTION(MapServerObjectLayer);
+  STORM_DATA_DEFAULT_CONSTRUCTION(MapServerEntityLayer);
 
   RString m_Name;
-  RMergeList<MapServerObject> STORM_REFL_ATTR(noui) m_Objects;
+  RMergeList<MapServerEntity> STORM_REFL_ATTR(noui) m_Entities;
 };
 
 enum STORM_REFL_ENUM class MapParallaxLayerObjectType
@@ -293,8 +294,8 @@ struct RUNTIME_EXPORT MapDef
   MapPropertiesInfo m_PropertiesInfo;
   MapPathfindingInfo m_PathfindingInfo;
   RMergeList<MapManualTileLayer> m_ManualTileLayers;
-  RMergeList<MapServerObjectLayer> m_ServerObjectLayers;
-  RMergeList<MapEntityLayer> m_EntityLayers;
+  RMergeList<MapServerEntityLayer> m_ServerEntityLayers;
+  RMergeList<MapClientEntityLayer> m_ClientEntityLayers;
   RMergeList<MapParallaxLayer> m_ParallaxLayers;
   RMergeList<MapEffectLayer> m_EffectLayers;
   RMergeList<MapAnchor> m_Anchors;

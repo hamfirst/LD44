@@ -13,7 +13,7 @@ MapHandleType GetMapHandleForTypeNameHash(uint32_t type_name_hash)
       return MapHandleType::kEntity;
     case StormReflTypeInfo<MapEffectLayerHandle>::GetNameHash():
       return MapHandleType::kEffectLayer;
-    case StormReflTypeInfo<MapServerObjectHandle>::GetNameHash():
+    case StormReflTypeInfo<MapServerEntityHandle>::GetNameHash():
       return MapHandleType::kServerObject;
     case StormReflTypeInfo<MapAnchorHandle>::GetNameHash():
       return MapHandleType::kAnchor;
@@ -29,7 +29,7 @@ MapHandleType GetMapHandleForTypeNameHash(uint32_t type_name_hash)
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapHandleBase);
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapEntityHandle);
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapEffectLayerHandle);
-STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapServerObjectHandle);
+STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapServerEntityHandle);
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapAnchorHandle);
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapPathHandle);
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(MapVolumeHandle);

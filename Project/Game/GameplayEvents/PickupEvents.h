@@ -3,7 +3,7 @@
 #include "Runtime/Event/Event.h"
 
 #include "Game/GameplayEvents/DamageType.refl.h"
-#include "Game/ServerObjects/CharacterFacing.refl.h"
+#include "Game/ServerEntities/CharacterFacing.refl.h"
 
 struct PickupAvailableEvent
 {

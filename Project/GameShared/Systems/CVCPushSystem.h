@@ -2,15 +2,15 @@
 
 #include "GameShared/GameSharedCommon.h"
 #include "GameShared/GameLogicContainer.h"
-#include "Runtime/ServerObject/ServerObject.h"
+#include "Runtime/ServerEntity/ServerEntity.h"
 
-class GameServerObjectBase;
+class GameServerEntityBase;
 
 class CVCPushSystem
 {
 public:
 
-  void SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServerObjectBase> obj);
+  void SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServerEntityBase> obj);
   void ProcessCVC(GameLogicContainer & game_container);
 
   void Clear();
@@ -19,7 +19,7 @@ private:
 
   struct CVCData
   {
-    ServerObjectHandle m_Handle;
+    ServerEntityHandle m_Handle;
     Box m_Box;
   };
 

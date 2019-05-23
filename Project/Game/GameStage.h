@@ -62,7 +62,7 @@ public:
   const std::vector<Vector2> & GetCoverPoints() const;
   const std::vector<Box> & GetKillVolumes() const;
 
-  Optional<ServerObjectHandle> FindStaticObject(uint32_t obj_name_hash) const;
+  Optional<ServerEntityHandle> FindStaticObject(uint32_t obj_name_hash) const;
 
   NullOptPtr<const MapAnchor> ResolveHandle(const MapAnchorHandle & handle) const;
   NullOptPtr<const MapPath> ResolveHandle(const MapPathHandle & handle) const;
@@ -87,8 +87,8 @@ private:
 
   std::shared_ptr<MapDef> m_Map;
 
-  std::vector<ServerObjectStaticInitData> m_StaticObjects;
-  std::vector<ServerObjectStaticInitData> m_DynamicObjects;
+  std::vector<ServerEntityStaticInitData> m_StaticEntities;
+  std::vector<ServerEntityStaticInitData> m_DynamicEntities;
   int m_DynamicObjectCount;
 
   StaticCollisionDatabase m_CollisionDatabase;
@@ -108,6 +108,6 @@ private:
   std::vector<Vector2> m_CoverPoints;
   std::vector<Box> m_KillVolumes;
 
-  std::unordered_map<uint32_t, ServerObjectHandle> m_StaticObjLookup;
-  std::unordered_map<uint32_t, int> m_ServerObjectHandleLookup;
+  std::unordered_map<uint32_t, ServerEntityHandle> m_StaticObjLookup;
+  std::unordered_map<uint32_t, int> m_ServerEntityHandleLookup;
 };

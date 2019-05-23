@@ -9,7 +9,7 @@
 #include ""{rel_path}/{refl_header_file}""
 #include ""{rel_path}/{refl_meta_file}""
 
-czstr g_{class_name}EntityFile = "./Entities/Entity.entity";
+czstr g_{class_name}EntityFile = "./Gameplay/ClientEntity.entity";
 GLOBAL_ASSET(EntityResourcePtr, g_{class_name}EntityFile, g_{class_name}Entity);
 
 void {class_name}::Init(const {class_name}InitData & init_data, GameLogicContainer & game_container)

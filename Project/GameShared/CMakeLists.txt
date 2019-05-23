@@ -33,15 +33,17 @@ set(GENERIC_SRC_GameShared
             GameSharedCommon.cpp
             GameStageManager.cpp
             GameWebrtc.cpp
+            Modifier/Modifier.refl.cpp
+            Modifier/Modifier.refl.reg.cpp
             SkillTree/SkillTree.cpp
+            SkillTree/SkillTreeCompiled.cpp
             SkillTree/SkillTreeConfig.refl.reg.cpp
             Systems/CVCPushSystem.cpp
             Systems/GameLogicSystems.cpp
-            Systems/GameServerObjectOverlapSystem.cpp
+  Systems/GameServerEntityOverlapSystem.cpp
             Systems/TargetDatabase.cpp
-            SkillTree/SkillTreeCompiled.cpp
             #CPP_PLACEHOLDER
-  Modifier/Modifier.refl.reg.cpp Modifier/Modifier.refl.cpp)
+            )
 
 set(GENERIC_HEADER_GameShared 
             BehaviorTree/BehaviorTree.h
@@ -70,18 +72,18 @@ set(GENERIC_HEADER_GameShared
             GameProtocol.h
             GameSharedCommon.h
             GameStageManager.h
+            Modifier/Modifier.refl.h
+            Modifier/Modifier.refl.meta.h
             SkillTree/SkillTree.h
+            SkillTree/SkillTreeCompiled.h
             SkillTree/SkillTreeConfig.refl.h
             SkillTree/SkillTreeConfig.refl.meta.h
             SkillTree/SkillTreeSerialize.h
             Systems/CVCPushSystem.h
             Systems/GameLogicSystems.h
-            Systems/GameServerObjectOverlapRegistrationMacros.h
-            Systems/GameServerObjectOverlapSystem.h
+  Systems/GameServerEntityOverlapRegistrationMacros.h
+  Systems/GameServerEntityOverlapSystem.h
             Systems/TargetDatabase.h
-            SkillTree/SkillTreeCompiled.h
-            Modifier/Modifier.refl.h
-            Modifier/Modifier.refl.meta.h
             #HEADER_PLACEHOLDER
             )
 
@@ -94,8 +96,8 @@ set(GENERIC_REFL_GameShared
             BehaviorTree/States/PlayAnimationForTimeBotState.refl.h
             GameLevelListAsset.refl.h
             GamePlayListAsset.refl.h
-            SkillTree/SkillTreeConfig.refl.h
             Modifier/Modifier.refl.h
+            SkillTree/SkillTreeConfig.refl.h
             #REFL_PLACEHOLDER
             )
 

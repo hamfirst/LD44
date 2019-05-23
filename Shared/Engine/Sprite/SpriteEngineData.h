@@ -5,7 +5,7 @@
 #include "Engine/Rendering/VertexBuffer.h"
 #include "Engine/Rendering/ShaderProgram.h"
 #include "Engine/Asset/TextureAsset.h"
-#include "Engine/Entity/Entity.h"
+#include "Engine/Entity/ClientEntity.h"
 #include "Engine/Shader/ShaderManager.h"
 
 #include "Runtime/SpriteBase/SpriteBaseDef.refl.h"

@@ -23,8 +23,8 @@ void MapEditorToolAllLayers::Cleanup()
     layer->ClearSelection();
   };
 
-  m_MapEditor.GetEntityManager().VisitLayers(layer_visitor);
-  m_MapEditor.GetServerObjectManager().VisitLayers(layer_visitor);
+  m_MapEditor.GetClientEntityManager().VisitLayers(layer_visitor);
+  m_MapEditor.GetServerEntityManager().VisitLayers(layer_visitor);
   m_MapEditor.GetParallaxManager().VisitLayers(layer_visitor);
 
   m_MapEditor.GetViewer().ClearSelectionBox();
@@ -37,7 +37,8 @@ void MapEditorToolAllLayers::Delete()
     layer->DeleteSelectedEntities();
   };
 
-  m_MapEditor.GetEntityManager().VisitLayers(entity_visitor);
+  m_MapEditor.GetClientEntityManager().VisitLayers(entity_visitor);
+  m_MapEditor.GetServerEntityManager().VisitLayers(entity_visitor);
 }
 
 void MapEditorToolAllLayers::DrawPreview(const Vector2 & pos, bool alt, bool shift, bool ctrl)

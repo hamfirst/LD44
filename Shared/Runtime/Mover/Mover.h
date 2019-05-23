@@ -8,7 +8,7 @@
 #include "Runtime/Collision/CollisionDatabase.h"
 
 class EngineState;
-class Entity;
+class ClientEntity;
 
 #if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
 #define MOVER_STEP_HEIGHT

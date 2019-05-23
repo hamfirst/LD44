@@ -230,9 +230,9 @@
 
     CompCount--;
 
-    OTV_LIMIT_CHECK( CompCount * 2 );     /* Component */
+    OTV_LIMIT_CHECK( CompCount * 2 );     /* ClientComponent */
 
-    /* no need to check the Component glyph indices */
+    /* no need to check the ClientComponent glyph indices */
 
     OTV_EXIT;
   }

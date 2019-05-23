@@ -13,10 +13,10 @@
 #include "Game/GameStage.h"
 #include "Game/AI/PlayerAI.h"
 #include "Game/GameConfig.refl.meta.h"
-#include "Game/ServerObjects/Player/PlayerServerObject.refl.meta.h"
-#include "Game/ServerObjects/Bot/NPC/NPCBot.refl.meta.h"
+#include "Game/ServerEntities/Player/PlayerServerEntity.refl.meta.h"
+#include "Game/ServerEntities/Bot/NPC/NPCBot.refl.meta.h"
 
-#include "Runtime/ServerObject/ServerObjectManager.h"
+#include "Runtime/ServerEntity/ServerEntityManager.h"
 
 #include "LobbyShared/LobbyGameFuncs.h"
 
@@ -332,7 +332,7 @@ void GameController::InitPlayer(GameLogicContainer & game, std::size_t player_in
 {
   auto & obj_manager = game.GetObjectManager();
 
-  auto player_obj = obj_manager.CreateDynamicObject<PlayerServerObject>(player_index, game);
+  auto player_obj = obj_manager.CreateDynamicEntity<PlayerServerEntity>(player_index, game);
   StormReflSefDefault(*player_obj);
 
   SetPlayerToSpawn(game, player_index);
@@ -350,7 +350,7 @@ void GameController::SetPlayerToSpawn(GameLogicContainer & game, std::size_t pla
   auto & spawns = stage.GetPlayerSpawns();
 
   auto & player = game.GetLowFrequencyInstanceData().m_Players[player_index];
-  auto player_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  auto player_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
 
   auto player_team = (int)player.m_Team;
 
@@ -409,7 +409,7 @@ void GameController::CleanupPlayer(GameLogicContainer & game, std::size_t player
 //  }
 
   auto & obj_manager = game.GetObjectManager();
-  auto player_obj = obj_manager.GetReservedSlotObject(player_index);
+  auto player_obj = obj_manager.GetReservedSlotEntity(player_index);
 
   if (player_obj)
   {
@@ -494,7 +494,7 @@ int GameController::GetScoreLimit(GameLogicContainer & game) const
 void GameController::RoundStarted(GameLogicContainer & game) const
 {
   // Vampire
-  VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerObject> player)
+  VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerEntity> player)
   {
     player->PoofToBat(game, false);
   });
@@ -509,7 +509,7 @@ void GameController::RoundEnded(GameLogicContainer & game) const
 
 void GameController::RoundReset(GameLogicContainer & game) const
 {
-  VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerObject> player)
+  VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerEntity> player)
   {
     SetPlayerToSpawn(game, player_index);
 
@@ -615,7 +615,7 @@ bool GameController::ValidateInput(std::size_t player_index, GameLogicContainer 
 
 void GameController::ApplyInput(std::size_t player_index, GameLogicContainer & game, const ClientInput & input)
 {
-  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  auto server_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
   auto player_obj = game.GetLowFrequencyInstanceData().m_Players.TryGet(player_index);
 
   if (player_obj && game.GetInstanceData().m_AIPlayerInfo.HasAt(player_index))
@@ -639,7 +639,7 @@ void GameController::Update(GameLogicContainer & game)
 
   auto & obj_manager = game.GetObjectManager();
 
-  ServerObjectUpdateList update_list;
+  ServerEntityUpdateList update_list;
   obj_manager.IncrementTimeAlive();
   obj_manager.CreateUpdateList(update_list);
   obj_manager.StartUpdateLoop();
@@ -733,7 +733,7 @@ void GameController::Update(GameLogicContainer & game)
   // Vampire
   if(game.GetInstanceData().m_FrameCount == 10)
   {
-    VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerObject> player)
+    VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerEntity> player)
     {
       game.GetEventSender().SendVfxSpriteAttachedEvent(player->GetSlotIndex(),
               GameNetVec2(0, -1), COMPILE_TIME_CRC32_STR("./Sprites/Spells.sprite"), COMPILE_TIME_CRC32_STR("Spell5"));
@@ -824,7 +824,7 @@ void GameController::HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent
 #if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
 void GameController::HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameLogicContainer & game)
 {
-  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerEntity>(player_index);
   if (server_obj)
   {
     server_obj->Jump(game);
@@ -836,7 +836,7 @@ void GameController::HandleJumpEvent(const JumpEvent & ev, std::size_t player_in
 #ifdef NET_USE_AIM_DIRECTION
 void GameController::HandleFireEvent(const FireEvent & ev, std::size_t player_index, GameLogicContainer & game)
 {
-  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  auto server_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
   if (server_obj)
   {
     server_obj->Fire(game);
@@ -846,7 +846,7 @@ void GameController::HandleFireEvent(const FireEvent & ev, std::size_t player_in
 
 void GameController::HandleUseEvent(const UseEvent & ev, std::size_t player_index, GameLogicContainer & game)
 {
-  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  auto server_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
   if (server_obj)
   {
     server_obj->Use(game);
@@ -860,7 +860,7 @@ void GameController::HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t p
     return;
   }
 
-  auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  auto server_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
   if (server_obj)
   {
     server_obj->PurchaseUpgrade((PlayerUpgrade)ev.m_Upgrade);
@@ -870,7 +870,7 @@ void GameController::HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t p
 
 void GameController::RespawnNPCs(GameLogicContainer & game) const
 {
-  game.GetObjectManager().VisitObjects([&](auto index, NotNullPtr<ServerObject> obj)
+  game.GetObjectManager().VisitEntities([&](auto index, NotNullPtr<ServerEntity> obj)
   {
     if(obj->CastTo<NPCBot>())
     {
@@ -888,7 +888,7 @@ void GameController::RespawnNPCs(GameLogicContainer & game) const
     NPCBotInitData init_data;
     init_data.m_NPCIndex = game.GetInstanceData().m_Random.GetRandom() % 4;
 
-    auto bot = game.GetObjectManager().CreateDynamicObject<NPCBot>(game, &init_data);
+    auto bot = game.GetObjectManager().CreateDynamicEntity<NPCBot>(game, &init_data);
     bot->m_Position = GameNetVec2(npc_spawns[spawn].x, npc_spawns[spawn].y);
 
     npc_spawns.erase(npc_spawns.begin() + spawn);
@@ -975,9 +975,9 @@ template <typename Visitor>
 void GameController::VisitPlayers(GameLogicContainer & game, Visitor && visitor) const
 {
   auto & obj_manager = game.GetObjectManager();
-  obj_manager.VisitObjects([&](std::size_t index, NotNullPtr<ServerObject> server_object)
+  obj_manager.VisitEntities([&](std::size_t index, NotNullPtr<ServerEntity> server_object)
   {
-    auto player = server_object->CastTo<PlayerServerObject>();
+    auto player = server_object->CastTo<PlayerServerEntity>();
     if(player)
     {
       visitor(index, player);

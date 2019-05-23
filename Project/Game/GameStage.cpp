@@ -5,7 +5,7 @@
 #include "Foundation/Pathfinding/Pathfinding.h"
 
 #include "Runtime/Map/MapCollision.h"
-#include "Runtime/ServerObject/ServerObjectSystem.h"
+#include "Runtime/ServerEntity/ServerEntitySystem.h"
 
 #include "Game/Data/PlayerSpawn.refl.meta.h"
 #include "Game/Data/KillVolume.refl.meta.h"
@@ -113,26 +113,26 @@ GameStage::GameStage(const Map & map) :
     }
   }
 
-  for (auto layer : map_data->m_ServerObjectLayers)
+  for (auto layer : map_data->m_ServerEntityLayers)
   {
-    for (auto obj : layer.second.m_Objects)
+    for (auto obj : layer.second.m_Entities)
     {
-      auto type_index = g_ServerObjectSystem.GetTypeIndexForInitDataTypeNameHash(
-              obj.second.m_ServerObject.m_InitData.GetTypeNameHash());
+      auto type_index = g_ServerEntitySystem.GetTypeIndexForInitDataTypeNameHash(
+              obj.second.m_ServerEntity.m_InitData.GetTypeNameHash());
 
       if (type_index)
       {
         Vector2 pos = Vector2((int)obj.second.m_XPosition, obj.second.m_YPosition);
-        ServerObjectStaticInitData init_data{ type_index.Value(), obj.second.m_ServerObject.m_InitData, pos };
-        if (obj.second.m_ServerObject.m_IsStatic)
+        ServerEntityStaticInitData init_data{ type_index.Value(), obj.second.m_ServerEntity.m_InitData, pos };
+        if (obj.second.m_ServerEntity.m_IsStatic)
         {
           m_StaticObjLookup.insert(std::make_pair(crc32(obj.second.m_Name.data()),
-                  ServerObjectHandle::ConstructFromStaticIndex((int)m_StaticObjects.size())));
-          m_StaticObjects.emplace_back(std::move(init_data));
+                  ServerEntityHandle::ConstructFromStaticIndex((int)m_StaticEntities.size())));
+          m_StaticEntities.emplace_back(std::move(init_data));
         }
         else
         {
-          m_DynamicObjects.emplace_back(std::move(init_data));
+          m_DynamicEntities.emplace_back(std::move(init_data));
         }
       }
     }
@@ -242,7 +242,7 @@ const std::vector<Box> & GameStage::GetKillVolumes() const
   return m_KillVolumes;
 }
 
-Optional<ServerObjectHandle> GameStage::FindStaticObject(uint32_t obj_name_hash) const
+Optional<ServerEntityHandle> GameStage::FindStaticObject(uint32_t obj_name_hash) const
 {
   auto itr = m_StaticObjLookup.find(obj_name_hash);
   if (itr == m_StaticObjLookup.end())
@@ -304,12 +304,12 @@ std::vector<Vector2> GameStage::QueryCoverPoints(const Vector2 & pos, int min_di
 
 GameFullState GameStage::CreateDefaultGameState() const
 {
-  return GameFullState{ ServerObjectManager(m_StaticObjects, m_DynamicObjects, m_DynamicObjectCount, kMaxPlayers) };
+  return GameFullState{ ServerEntityManager(m_StaticEntities, m_DynamicEntities, m_DynamicObjectCount, kMaxPlayers) };
 }
 
 void GameStage::InitAllObjects(GameLogicContainer & game_container) const
 {
-  game_container.GetObjectManager().InitAllObjects(m_StaticObjects, m_DynamicObjects, game_container);
+  game_container.GetObjectManager().InitAllEntities(m_StaticEntities, m_DynamicEntities, game_container);
 }
 
 

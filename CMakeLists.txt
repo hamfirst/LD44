@@ -387,30 +387,31 @@ if(BUILD_TOOLS)
     clangTooling
   )
 
-	target_link_libraries(stormrefl
-	  LLVMX86AsmParser # MC, MCParser, Support, X86Desc, X86Info
-	  LLVMX86Desc # MC, Support, X86AsmPrinter, X86Info
-	  LLVMX86Info # MC, Support, Target
-	  LLVMX86Utils # Core, Support
-	  LLVMipo
-	  LLVMScalarOpts
-	  LLVMInstCombine
-	  LLVMTransformUtils
-	  LLVMAnalysis
-	  LLVMTarget
-	  LLVMOption # Support
-	  LLVMMCParser # MC, Support
-	  LLVMMC # Object, Support
-	  LLVMObject # BitReader, Core, Support
-	  LLVMBitReader # Core, Support
-	  LLVMCore # Support
-	  LLVMSupport
-	  #LLVMDebugInfoDWARF
-	  LLVMBinaryFormat
-	  LLVMProfileData
+  target_link_libraries(stormrefl
+    LLVMX86AsmParser # MC, MCParser, Support, X86Desc, X86Info
+    LLVMX86Desc # MC, Support, X86AsmPrinter, X86Info
+    LLVMX86Info # MC, Support, Target
+    LLVMX86Utils # Core, Support
+    LLVMipo
+    LLVMScalarOpts
+    LLVMInstCombine
+    LLVMTransformUtils
+    LLVMAnalysis
+    LLVMTarget
+    LLVMOption # Support
+    LLVMMCParser # MC, Support
+    LLVMMC # Object, Support
+    LLVMObject # BitReader, Core, Support
+    LLVMBitReader # Core, Support
+    LLVMCore # Support
+    LLVMSupport
+    #LLVMDebugInfoDWARF
+    LLVMBinaryFormat
+    LLVMProfileData
     LLVMDemangle
     LLVMRemarks
-	)
+    LLVMSupport
+  )
 
   if(MSVC)
     target_include_directories(stormrefl PUBLIC C:\\Dev\\llvm\\tools\\clang\\include C:\\Dev\\llvm-build\\tools\\clang\\include C:\\Dev\\llvm\\include C:\\Dev\\llvm-build\\include)

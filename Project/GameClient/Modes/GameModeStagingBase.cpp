@@ -8,7 +8,7 @@
 #include "GameClient/Modes/GameModeTutorial.h"
 #include "GameClient/Modes/GameModeMapSettings.h"
 #include "GameClient/GameContainer.h"
-#include "GameClient/Components/PlayerComponent.refl.h"
+#include "GameClient/ClientComponents/PlayerComponent.refl.h"
 
 #include "Game/GameNetworkData.refl.h"
 #include "GameShared/GameLevelListAsset.refl.meta.h"

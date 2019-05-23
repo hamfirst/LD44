@@ -28,6 +28,7 @@ set(GENERIC_SRC_Editor
             AtlasTextureImportDialog.ui
             AtlasTextureLoadList.cpp
             AudioViewer.cpp
+            ClientEntityEditor.cpp
             ConfigEditor.cpp
             ConnectingDialog.cpp
             ConnectingDialog.ui
@@ -46,7 +47,6 @@ set(GENERIC_SRC_Editor
             EditorContainer.qrc
             EditorContainer.ui
             EditorGL.cpp
-            EntityEditor.cpp
             FontViewer.cpp
             FrameEditorAnchorEditor.cpp
             FrameEditorAnchorManager.cpp
@@ -69,10 +69,10 @@ set(GENERIC_SRC_Editor
             GeometryEditorBase.cpp
             MapEditor.cpp
             MapEditorAnchor.cpp
+            MapEditorClientEntityLayerManager.cpp
+            MapEditorClientEntityManager.cpp
+            MapEditorClientEntitySelector.cpp
             MapEditorEffectLayer.cpp
-            MapEditorEntityLayerManager.cpp
-            MapEditorEntityManager.cpp
-            MapEditorEntitySelector.cpp
             MapEditorLayerList.cpp
             MapEditorParallaxLayer.cpp
             MapEditorParallaxLayerManager.cpp
@@ -80,8 +80,8 @@ set(GENERIC_SRC_Editor
             MapEditorPath.cpp
             MapEditorPathManager.cpp
             MapEditorSelector.cpp
-            MapEditorServerObjectManager.cpp
-            MapEditorServerObjectSelector.cpp
+            MapEditorServerEntityManager.cpp
+            MapEditorServerEntitySelector.cpp
             MapEditorTileLayerManager.cpp
             MapEditorTileManager.cpp
             MapEditorTileSelector.cpp
@@ -90,8 +90,8 @@ set(GENERIC_SRC_Editor
             MapEditorToolAnchorEditor.cpp
             MapEditorToolAnchorMultiEditor.cpp
             MapEditorToolBase.cpp
-            MapEditorToolEntityLayerDraw.cpp
-            MapEditorToolEntityLayerSelect.cpp
+            MapEditorToolClientEntityLayerDraw.cpp
+            MapEditorToolClientEntityLayerSelect.cpp
             MapEditorToolManualTileLayerDraw.cpp
             MapEditorToolManualTileLayerPreview.cpp
             MapEditorToolManualTileLayerSelect.cpp
@@ -100,8 +100,8 @@ set(GENERIC_SRC_Editor
             MapEditorToolPathCreate.cpp
             MapEditorToolPathEditor.cpp
             MapEditorToolPathMultiEditor.cpp
-            MapEditorToolServerObjectLayerDraw.cpp
-            MapEditorToolServerObjectLayerSelect.cpp
+            MapEditorToolServerEntityLayerDraw.cpp
+            MapEditorToolServerEntityLayerSelect.cpp
             MapEditorToolVolumeCreate.cpp
             MapEditorToolVolumeEditor.cpp
             MapEditorToolVolumeMultiEditor.cpp
@@ -124,7 +124,7 @@ set(GENERIC_SRC_Editor
             ScrollingPanel.cpp
             SelectFromListDialog.cpp
             SelectFromListDialog.ui
-            ServerObjectEditor.cpp
+            ServerEntityEditor.cpp
             SimpleLabelListElement.cpp
             SpriteBaseAnimationEditor.cpp
             SpriteBaseAnimationEventEditorDialog.cpp
@@ -170,6 +170,7 @@ set(GENERIC_HEADER_Editor
             AtlasTextureImportDialog.h
             AtlasTextureLoadList.h
             AudioViewer.h
+            ClientEntityEditor.h
             ConfigEditor.h
             ConnectingDialog.h
             DistributionContainer.h
@@ -185,7 +186,6 @@ set(GENERIC_HEADER_Editor
             DrawUtil.h
             DrawUtilQt.h
             EditorContainer.h
-            EntityEditor.h
             FontViewer.h
             FrameEditorAnchorEditor.h
             FrameEditorAnchorManager.h
@@ -211,10 +211,10 @@ set(GENERIC_HEADER_Editor
             GeometryEditorBase.h
             MapEditor.h
             MapEditorAnchor.h
+            MapEditorClientEntityLayerManager.h
+            MapEditorClientEntityManager.h
+            MapEditorClientEntitySelector.h
             MapEditorEffectLayer.h
-            MapEditorEntityLayerManager.h
-            MapEditorEntityManager.h
-            MapEditorEntitySelector.h
             MapEditorLayer.h
             MapEditorLayerList.h
             MapEditorLayerManager.h
@@ -224,8 +224,8 @@ set(GENERIC_HEADER_Editor
             MapEditorPath.h
             MapEditorPathManager.h
             MapEditorSelector.h
-            MapEditorServerObjectManager.h
-            MapEditorServerObjectSelector.h
+            MapEditorServerEntityManager.h
+            MapEditorServerEntitySelector.h
             MapEditorTileLayerManager.h
             MapEditorTileManager.h
             MapEditorTileSelector.h
@@ -234,8 +234,8 @@ set(GENERIC_HEADER_Editor
             MapEditorToolAnchorEditor.h
             MapEditorToolAnchorMultiEditor.h
             MapEditorToolBase.h
-            MapEditorToolEntityLayerDraw.h
-            MapEditorToolEntityLayerSelect.h
+            MapEditorToolClientEntityLayerDraw.h
+            MapEditorToolClientEntityLayerSelect.h
             MapEditorToolManualTileLayerDraw.h
             MapEditorToolManualTileLayerPreview.h
             MapEditorToolManualTileLayerSelect.h
@@ -244,8 +244,8 @@ set(GENERIC_HEADER_Editor
             MapEditorToolPathCreate.h
             MapEditorToolPathEditor.h
             MapEditorToolPathMultiEditor.h
-            MapEditorToolServerObjectLayerDraw.h
-            MapEditorToolServerObjectLayerSelect.h
+            MapEditorToolServerEntityLayerDraw.h
+            MapEditorToolServerEntityLayerSelect.h
             MapEditorToolVolumeCreate.h
             MapEditorToolVolumeEditor.h
             MapEditorToolVolumeMultiEditor.h
@@ -267,7 +267,7 @@ set(GENERIC_HEADER_Editor
             PropertyEditorWidget.h
             ScrollingPanel.h
             SelectFromListDialog.h
-            ServerObjectEditor.h
+            ServerEntityEditor.h
             SimpleLabelList.h
             SimpleLabelListElement.h
             SpriteBaseAnimationEditor.h

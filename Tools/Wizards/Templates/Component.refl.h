@@ -12,7 +12,7 @@ struct {class_name}InitData : public ComponentInitData
 class {class_name} : public Component
 {{
 public:
-  DECLARE_COMPONENT;
+  DECLARE_CLIENT_COMPONENT;
 
   {class_name}({class_name}InitData && init_data);
   virtual ~{class_name}();

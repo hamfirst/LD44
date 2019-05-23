@@ -9,8 +9,8 @@
 
 #include "Foundation/PropertyMeta/PropertyFieldMetaFuncs.h"
 
-#include "Project/Game/Data/NPCSpawn.refl.h"
-#include "Project/Game/Data/NPCSpawn.refl.meta.h"
+#include "Game/Data/NPCSpawn.refl.h"
+#include "Game/Data/NPCSpawn.refl.meta.h"
 
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(NPCSpawn);
 REGISTER_TYPE(NPCSpawn, AnchorDataBase);

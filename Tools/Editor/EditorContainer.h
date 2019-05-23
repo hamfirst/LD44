@@ -94,7 +94,7 @@ private:
   struct DocumentTypeData
   {
     std::string m_Name;
-    std::string m_FileExension;
+    std::string m_FileExtension;
     std::string m_DefaultDirectory;
   };
 

@@ -4,8 +4,8 @@ struct GameInstanceData;
 struct GameInstanceLowFrequencyData;
 struct GameInitSettings;
 class GameController;
-class ServerObjectManager;
-class ServerObjectEventSystem;
+class ServerEntityManager;
+class ServerEntityEventSystem;
 class GameServerEventSender;
 class GameSimulationEventCallbacks;
 class GameLogicSystems;
@@ -19,8 +19,8 @@ public:
     const GameInitSettings & init_settings,
     GameInstanceData & global_data,
     GameInstanceLowFrequencyData & low_freq_data,
-    ServerObjectManager & object_manager,
-    ServerObjectEventSystem & server_object_event_system,
+    ServerEntityManager & object_manager,
+    ServerEntityEventSystem & server_object_event_system,
     GameServerEventSender & server_event_sender,
     GameSimulationEventCallbacks & sim_event_sender,
     GameLogicSystems & systems,
@@ -32,16 +32,13 @@ public:
   GameLogicContainer(const GameLogicContainer & rhs) = default;
   GameLogicContainer(GameLogicContainer && rhs) = default;
 
-  GameLogicContainer & operator = (const GameLogicContainer & rhs) = default;
-  GameLogicContainer & operator = (GameLogicContainer && rhs) = default;
-
   GameController & GetGameController();
   const GameInitSettings & GetGameInitSettings();
   GameInstanceData & GetInstanceData();
   const GameInstanceLowFrequencyData & GetLowFrequencyInstanceData() const;
   GameInstanceLowFrequencyData & GetLowFrequencyInstanceDataForModify();
-  ServerObjectManager & GetObjectManager();
-  ServerObjectEventSystem & GetServerObjectEventSystem();
+  ServerEntityManager & GetObjectManager();
+  ServerEntityEventSystem & GetServerObjectEventSystem();
   GameServerEventSender & GetEventSender();
   GameSimulationEventCallbacks & GetSimEventCallbacks();
   GameLogicSystems & GetSystems();
@@ -56,8 +53,8 @@ private:
   const GameInitSettings & m_InitSettings;
   GameInstanceData & m_InstanceData;
   GameInstanceLowFrequencyData & m_LowFrequencyData;
-  ServerObjectManager & m_ObjectManager;
-  ServerObjectEventSystem & m_ObjectEventSystem;
+  ServerEntityManager & m_ObjectManager;
+  ServerEntityEventSystem & m_ObjectEventSystem;
   GameServerEventSender & m_ServerEventSender;
   GameSimulationEventCallbacks & m_SimEventSender;
   GameLogicSystems & m_Systems;

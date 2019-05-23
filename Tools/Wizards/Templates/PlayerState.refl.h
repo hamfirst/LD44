@@ -10,9 +10,9 @@ class {class_name} : public PlayerStateBase, public PlayerStateEventHandler<{cla
 public:
   DECLARE_PLAYER_STATE;
 
-  virtual void Move(PlayerServerObject & player, GameLogicContainer & game_container) override;
-  virtual void Transition(PlayerServerObject & player, GameLogicContainer & game_container) override;
-  virtual void Animate(PlayerServerObject & player, GameLogicContainer & game_container) override;
+  virtual void Move(PlayerServerEntity & player, GameLogicContainer & game_container) override;
+  virtual void Transition(PlayerServerEntity & player, GameLogicContainer & game_container) override;
+  virtual void Animate(PlayerServerEntity & player, GameLogicContainer & game_container) override;
 
 public:
   // Serialized variables

@@ -71,7 +71,7 @@ namespace glm
 
 		T x, y, z, w;
 
-		// -- Component accesses --
+		// -- ClientComponent accesses --
 
 		typedef length_t length_type;
 		/// Return the count of components of a quaternion

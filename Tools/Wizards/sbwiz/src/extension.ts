@@ -32,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        let pick = vscode.window.showQuickPick(["Class", "Refl", "Component", "ServerObject", "PlayerState", "BotState", "Config", "EffectLayer", "Anchor", "Path", "Volume"]);
+        let pick = vscode.window.showQuickPick(["Class", "Refl", "ClientComponent", "ServerEntity", "PlayerState", "BotState", "Config", "EffectLayer", "Anchor", "Path", "Volume"]);
         pick.then(function (selection) {
             if(selection === undefined) {
                 return;

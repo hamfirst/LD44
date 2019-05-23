@@ -21,7 +21,7 @@
 #include "Foundation/HistoryList/HistoryList.h"
 #include "Foundation/CircularBuffer/CircularBuffer.h"
 
-#include "Runtime/ServerObject/ServerObjectEventSystem.h"
+#include "Runtime/ServerEntity/ServerEntityEventSystem.h"
 
 extern int s_BogusSendTimer;
 
@@ -148,7 +148,7 @@ private:
   GameClientLevelLoader m_LevelLoader;
   GameClientEntitySync m_EntitySync;
   GameServerEventResponder m_ServerEventResponder;
-  ServerObjectEventSystem m_ServerObjectEventSystem;
+  ServerEntityEventSystem m_ServerObjectEventSystem;
   bool m_Loaded;
   bool m_Authority;
   bool m_ModifiedLowFreq;

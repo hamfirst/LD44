@@ -4,7 +4,7 @@
 #include "Engine/Asset/AudioAsset.h"
 
 #include "Runtime/VisualEffect/VisualEffectResource.h"
-#include "Runtime/Entity/EntityResource.h"
+#include "Runtime/ClientEntity/ClientEntityResource.h"
 
 EngineClientAssetLoader g_EngineClientAssetLoader;
 
@@ -19,7 +19,7 @@ void EngineClientAssetLoader::BeginLoad(Any & asset, czstr path, ClientAssetType
     asset = Any(VisualEffectResource::Load(path));
     break;
   case ClientAssetType::kEntity:
-    asset = Any(EntityResource::Load(path));
+    asset = Any(ClientEntityResource::Load(path));
     break;
   default:
     break;
@@ -59,7 +59,7 @@ bool EngineClientAssetLoader::IsLoaded(Any & asset, ClientAssetType type)
     break;
   case ClientAssetType::kEntity:
     {
-      auto asset_ptr = asset.Get<EntityResourcePtr>();
+      auto asset_ptr = asset.Get<ClientEntityResourcePtr>();
       if (asset_ptr)
       {
         return asset_ptr->IsLoaded();
@@ -103,7 +103,7 @@ bool EngineClientAssetLoader::IsError(Any & asset, ClientAssetType type)
     break;
   case ClientAssetType::kEntity:
     {
-      auto asset_ptr = asset.Get<EntityResourcePtr>();
+      auto asset_ptr = asset.Get<ClientEntityResourcePtr>();
       if (asset_ptr)
       {
         return asset_ptr->IsError();
@@ -147,7 +147,7 @@ bool EngineClientAssetLoader::LoadingFinished(Any & asset, ClientAssetType type)
     break;
   case ClientAssetType::kEntity:
     {
-      auto asset_ptr = asset.Get<EntityResourcePtr>();
+      auto asset_ptr = asset.Get<ClientEntityResourcePtr>();
       if (asset_ptr)
       {
         return asset_ptr->LoadingFinished();

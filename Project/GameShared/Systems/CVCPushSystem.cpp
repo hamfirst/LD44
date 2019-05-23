@@ -1,19 +1,19 @@
 
 #include "GameShared/GameSharedCommon.h"
 #include "GameShared/Systems/CVCPushSystem.h"
-#include "Game/ServerObjects/GameServerObjectBase.refl.h"
+#include "Game/ServerEntities/GameServerEntityBase.refl.h"
 
 
-void CVCPushSystem::SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServerObjectBase> obj)
+void CVCPushSystem::SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServerEntityBase> obj)
 {
-  m_Data.push_back(CVCData{ obj->GetObjectHandle(), box });
+  m_Data.push_back(CVCData{ obj->GetEntityHandle(), box });
 }
 
 void CVCPushSystem::ProcessCVC(GameLogicContainer & game_container)
 {
   for (std::size_t index1 = 0, end = m_Data.size(); index1 < end; ++index1)
   {
-    auto obj1 = m_Data[index1].m_Handle.ResolveTo<GameServerObjectBase>(game_container.GetObjectManager());
+    auto obj1 = m_Data[index1].m_Handle.ResolveTo<GameServerEntityBase>(game_container.GetObjectManager());
     if (obj1 == nullptr)
     {
       continue;
@@ -24,7 +24,7 @@ void CVCPushSystem::ProcessCVC(GameLogicContainer & game_container)
 
     for (std::size_t index2 = index1 + 1; index2 < end; ++index2)
     {
-      auto obj2 = m_Data[index2].m_Handle.ResolveTo<GameServerObjectBase>(game_container.GetObjectManager());
+      auto obj2 = m_Data[index2].m_Handle.ResolveTo<GameServerEntityBase>(game_container.GetObjectManager());
       if (obj2 == nullptr)
       {
         continue;

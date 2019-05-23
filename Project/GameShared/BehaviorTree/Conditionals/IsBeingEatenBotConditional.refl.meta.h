@@ -4,7 +4,7 @@
 
 #include "IsBeingEatenBotConditional.refl.h"
 #include "Game/GameFullState.refl.meta.h"
-#include "Game/ServerObjects/Bot/BotServerObject.refl.meta.h"
+#include "Game/ServerEntities/Bot/BotServerObject.refl.meta.h"
 
 
 template <>

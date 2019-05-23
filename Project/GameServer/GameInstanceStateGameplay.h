@@ -13,7 +13,7 @@
 
 #include "GameServer/GameInstanceStateBase.h"
 
-#include "Runtime/ServerObject/ServerObjectEventSystem.h"
+#include "Runtime/ServerEntity/ServerEntityEventSystem.h"
 
 struct GameInstanceStateGameplayPlayer
 {
@@ -139,7 +139,7 @@ private:
   int m_FurthestRewind;
   int m_LastAuthCommit;
   GameEventReconciler m_Reconciler;
-  ServerObjectEventSystem m_ServerObjectEventSystem;
+  ServerEntityEventSystem m_ServerObjectEventSystem;
 
   CircularBuffer<std::shared_ptr<GameFullState>, kMaxHistoryFrames> m_SimHistory;
   CircularBuffer<std::shared_ptr<GameInstanceLowFrequencyData>, kMaxHistoryFrames> m_LowFrequencyHistory;

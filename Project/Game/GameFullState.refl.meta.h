@@ -53,16 +53,16 @@ struct StormReflTypeInfo<GameFullState>
 template <>
 struct StormReflTypeInfo<GameFullState>::field_data_static<0>
 {
-  using member_type = ServerObjectManager; // ServerObjectManager
-  static constexpr auto GetName() { return "m_ServerObjectManager"; }
-  static constexpr auto GetType() { return "ServerObjectManager"; }
-  static constexpr unsigned GetFieldNameHash() { return 0xA597FEC7; }
-  static constexpr unsigned GetTypeNameHash() { return 0x5CC26F4B; }
+  using member_type = ServerEntityManager; // ServerEntityManager
+  static constexpr auto GetName() { return "m_ServerEntityManager"; }
+  static constexpr auto GetType() { return "ServerEntityManager"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x2FDAE04A; }
+  static constexpr unsigned GetTypeNameHash() { return 0xD68F71C6; }
   static constexpr bool HasDefault() { return false; }
   static constexpr auto GetFieldIndex() { return 0; }
-  static constexpr auto GetMemberPtr() { return &GameFullState::m_ServerObjectManager; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<GameFullState *>(obj); return &ptr->m_ServerObjectManager; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const GameFullState *>(obj); return &ptr->m_ServerObjectManager; }
+  static constexpr auto GetMemberPtr() { return &GameFullState::m_ServerEntityManager; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<GameFullState *>(obj); return &ptr->m_ServerEntityManager; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const GameFullState *>(obj); return &ptr->m_ServerEntityManager; }
 };
 
 template <typename Self>
@@ -70,8 +70,8 @@ struct StormReflTypeInfo<GameFullState>::field_data<0, Self> : public StormReflT
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, ServerObjectManager> & Get() { return self.m_ServerObjectManager; }
-  std::add_const_t<std::remove_reference_t<ServerObjectManager>> & Get() const { return self.m_ServerObjectManager; }
+  match_const_t<Self, ServerEntityManager> & Get() { return self.m_ServerEntityManager; }
+  std::add_const_t<std::remove_reference_t<ServerEntityManager>> & Get() const { return self.m_ServerEntityManager; }
 };
 
 template <>

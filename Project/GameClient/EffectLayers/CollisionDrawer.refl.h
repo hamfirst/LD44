@@ -4,7 +4,7 @@
 #include "Foundation/Common.h"
 #include "Runtime/Map/MapEffectLayerDef.refl.h"
 #include "Engine/Map/MapEffectLayerRenderer.h"
-#include "Engine/Entity/EntityHandle.h"
+#include "Engine/Entity/ClientEntityHandle.h"
 
 struct CollisionDrawerInitData : public MapEffectLayerInitData
 {

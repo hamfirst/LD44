@@ -7,8 +7,8 @@ GameLogicContainer::GameLogicContainer(
   const GameInitSettings & init_settings,
   GameInstanceData & global_data,
   GameInstanceLowFrequencyData & low_freq_data,
-  ServerObjectManager & object_manager,
-  ServerObjectEventSystem & server_object_event_system,
+  ServerEntityManager & object_manager,
+  ServerEntityEventSystem & server_object_event_system,
   GameServerEventSender & server_event_sender,
   GameSimulationEventCallbacks & sim_event_sender,
   GameLogicSystems & systems,
@@ -62,12 +62,12 @@ GameInstanceLowFrequencyData & GameLogicContainer::GetLowFrequencyInstanceDataFo
   return m_LowFrequencyData;
 }
 
-ServerObjectManager & GameLogicContainer::GetObjectManager()
+ServerEntityManager & GameLogicContainer::GetObjectManager()
 {
   return m_ObjectManager;
 }
 
-ServerObjectEventSystem & GameLogicContainer::GetServerObjectEventSystem()
+ServerEntityEventSystem & GameLogicContainer::GetServerObjectEventSystem()
 {
   return m_ObjectEventSystem;
 }

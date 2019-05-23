@@ -188,7 +188,7 @@ struct StormReflTypeInfo<MapEffectLayerHandle>
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObjectHandle>
+struct StormReflTypeInfo<MapServerEntityHandle>
 {
   using MyBase = MapHandleBase;
   static constexpr int fields_n = 0 + StormReflTypeInfo<MyBase>::fields_n;
@@ -198,14 +198,14 @@ struct StormReflTypeInfo<MapServerObjectHandle>
     field_data(Self & self) : StormReflTypeInfo<MyBase>::field_data<N, match_const_t<Self, MyBase>>(self) {}
   };
   template <int N> struct annotations : public StormReflTypeInfo<MyBase>::annotations<N> {};
-  static constexpr auto GetName() { return "MapServerObjectHandle"; }
-  static constexpr auto GetNameHash() { return 0x831F1675; }
+  static constexpr auto GetName() { return "MapServerEntityHandle"; }
+  static constexpr auto GetNameHash() { return 0xABC8776E; }
   static constexpr bool HasDefault() { return true; }
-  static MapServerObjectHandle & GetDefault() { static MapServerObjectHandle def; return def; }
+  static MapServerEntityHandle & GetDefault() { static MapServerEntityHandle def; return def; }
 
   static void * CastFromTypeNameHash(uint32_t type_name_hash, void * ptr)
   {
-    auto c = static_cast<MapServerObjectHandle *>(ptr);
+    auto c = static_cast<MapServerEntityHandle *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     if(0xABCB7450 == type_name_hash) return static_cast<MapHandleBase *>(c);
     return nullptr;
@@ -213,7 +213,7 @@ struct StormReflTypeInfo<MapServerObjectHandle>
 
   static const void * CastFromTypeNameHash(uint32_t type_name_hash, const void * ptr)
   {
-    auto c = static_cast<const MapServerObjectHandle *>(ptr);
+    auto c = static_cast<const MapServerEntityHandle *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     if(0xABCB7450 == type_name_hash) return static_cast<const MapHandleBase *>(c);
     return nullptr;
@@ -221,16 +221,16 @@ struct StormReflTypeInfo<MapServerObjectHandle>
 
   static void * CastFromTypeIdHash(std::size_t type_id_hash, void * ptr)
   {
-    auto c = static_cast<MapServerObjectHandle *>(ptr);
-    if(typeid(MapServerObjectHandle).hash_code() == type_id_hash) return c;
+    auto c = static_cast<MapServerEntityHandle *>(ptr);
+    if(typeid(MapServerEntityHandle).hash_code() == type_id_hash) return c;
     if(typeid(MapHandleBase).hash_code() == type_id_hash) return static_cast<MapHandleBase *>(c);
     return nullptr;
   }
 
   static const void * CastFromTypeIdHash(std::size_t type_id_hash, const void * ptr)
   {
-    auto c = static_cast<const MapServerObjectHandle *>(ptr);
-    if(typeid(MapServerObjectHandle).hash_code() == type_id_hash) return c;
+    auto c = static_cast<const MapServerEntityHandle *>(ptr);
+    if(typeid(MapServerEntityHandle).hash_code() == type_id_hash) return c;
     if(typeid(MapHandleBase).hash_code() == type_id_hash) return static_cast<const MapHandleBase *>(c);
     return nullptr;
   }
@@ -416,7 +416,7 @@ namespace StormReflFileInfo
   template <>
   struct MapHandles::type_info<3>
   {
-    using type = ::MapServerObjectHandle;
+    using type = ::MapServerEntityHandle;
   };
 
   template <>

@@ -15,8 +15,8 @@
 #include "MapEditorViewer.h"
 #include "MapEditorSelector.h"
 #include "MapEditorLayerManager.h"
-#include "MapEditorEntityManager.h"
-#include "MapEditorServerObjectManager.h"
+#include "MapEditorClientEntityManager.h"
+#include "MapEditorServerEntityManager.h"
 #include "MapEditorTileManager.h"
 #include "MapEditorParallaxLayer.h"
 #include "MapEditorEffectLayer.h"
@@ -47,8 +47,8 @@ public:
   void ClearPathfindingInfo();
 
   MapEditorLayerManager<MapManualTileLayer, MapEditorTileManager> & GetManualTileManager();
-  MapEditorLayerManager<MapEntityLayer, MapEditorEntityManager> & GetEntityManager();
-  MapEditorLayerManager<MapServerObjectLayer, MapEditorServerObjectManager> & GetServerObjectManager();
+  MapEditorLayerManager<MapClientEntityLayer, MapEditorClientEntityManager> & GetClientEntityManager();
+  MapEditorLayerManager<MapServerEntityLayer, MapEditorServerEntityManager> & GetServerEntityManager();
   MapEditorLayerManager<MapParallaxLayer, MapEditorParallaxLayer> & GetParallaxManager();
   MapEditorLayerManager<MapEffectLayer, MapEditorEffectLayer> & GetEffectManager();
   MapEditorLayerManager<MapVolume, MapEditorVolume> & GetVolumeManager();
@@ -62,8 +62,8 @@ public:
 
   void SelectManualTile(int layer_index, uint64_t frame_id);
   void SelectManualAnimation(int layer_index, uint64_t frame_id);
-  void SetSelectedEntity(int layer_index, czstr entity_file);
-  void SetSelectedServerObject(int layer_index, czstr server_object_file);
+  void SetSelectedClientEntity(int layer_index, czstr client_entity_file);
+  void SetSelectedServerEntity(int layer_index, czstr server_object_file);
   void SetSelectedParallaxObject(int layer_index, const MapParallaxLayerObject & parallax_object_data);
 
   void ClearPropertyPanel();
@@ -93,8 +93,8 @@ public:
 private:
   MapDef & m_Map;
   MapEditorLayerManager<MapManualTileLayer, MapEditorTileManager> m_ManualTileLayers;
-  MapEditorLayerManager<MapEntityLayer, MapEditorEntityManager> m_EntityLayers;
-  MapEditorLayerManager<MapServerObjectLayer, MapEditorServerObjectManager> m_ServerObjectLayers;
+  MapEditorLayerManager<MapClientEntityLayer, MapEditorClientEntityManager> m_ClientEntityLayers;
+  MapEditorLayerManager<MapServerEntityLayer, MapEditorServerEntityManager> m_ServerEntityLayers;
   MapEditorLayerManager<MapParallaxLayer, MapEditorParallaxLayer> m_ParallaxLayers;
   MapEditorLayerManager<MapEffectLayer, MapEditorEffectLayer> m_EffectLayers;
   MapEditorLayerManager<MapVolume, MapEditorVolume> m_Volumes;

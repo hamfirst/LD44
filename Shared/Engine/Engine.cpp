@@ -21,8 +21,8 @@
 #include "Engine/Window/WindowManager.h"
 #include "Engine/Shader/ShaderManager.h"
 #include "Engine/Input/GamepadState.h"
-#include "Engine/Entity/Entity.h"
-#include "Engine/Component/ComponentSystem.h"
+#include "Engine/Entity/ClientEntity.h"
+#include "Engine/ClientComponent/ClientComponentSystem.h"
 
 static bool s_Quit = false;
 static bool s_EGLMode = false;
@@ -35,10 +35,10 @@ bool EngineInit(bool egl_mode, bool init_sdl_video)
   NetworkInit();
   RuntimeInit();
 
-  g_ComponentRegisterCallList.CallAll();
-  g_ComponentUpdateDepRegisterCallList.CallAll();
+  g_ClientComponentRegisterCallList.CallAll();
+  g_ClientComponentUpdateDepRegisterCallList.CallAll();
 
-  g_ComponentTypeSystem.FinalizeComponentSystem();
+  g_ClientComponentTypeSystem.FinalizeComponentSystem();
 
   auto sdl_flags = SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS;
   if(init_sdl_video)

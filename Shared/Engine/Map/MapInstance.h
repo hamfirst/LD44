@@ -9,7 +9,7 @@
 #include "Engine/Map/MapEffectLayerInstance.h"
 #include "Engine/Map/MapParallaxLayerInstance.h"
 #include "Engine/DrawList/DrawList.h"
-#include "Engine/Entity/EntityHandle.h"
+#include "Engine/Entity/ClientEntityHandle.h"
 #include "Engine/Rendering/RenderSettings.h"
 
 class GameContainer;
@@ -31,7 +31,7 @@ private:
   std::vector<MapManualTileLayerInstance> m_ManualTileLayers;
   std::vector<MapParallaxLayerInstance> m_ParallaxLayers;
   std::vector<MapEffectLayerInstance> m_EffectLayers;
-  std::vector<EntityHandle> m_MapEntities;
+  std::vector<ClientEntityHandle> m_MapEntities;
 
   std::size_t m_MapId;
   Vector2 m_Offset;

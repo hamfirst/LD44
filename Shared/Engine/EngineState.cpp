@@ -2,8 +2,8 @@
 #include "Engine/EngineCommon.h"
 #include "Engine/EngineState.h"
 
-#include "Engine/Entity/EntitySystem.h"
-#include "Engine/Component/ComponentSystem.h"
+#include "Engine/Entity/ClientEntitySystem.h"
+#include "Engine/ClientComponent/ClientComponentSystem.h"
 #include "Engine/Map/MapSystem.h"
 #include "Engine/VisualEffect/VisualEffectManager.h"
 #include "Engine/UI/UIManager.h"
@@ -11,8 +11,8 @@
 #include "Runtime/Map/MapResource.h"
 
 EngineState::EngineState(NotNullPtr<GameContainer> game, Window & window) :
-  m_EntitySystem(std::make_unique<EntitySystem>(this, game)),
-  m_ComponentSystem(std::make_unique<ComponentSystem>()),
+  m_EntitySystem(std::make_unique<ClientEntitySystem>(this, game)),
+  m_ComponentSystem(std::make_unique<ClientComponentSystem>()),
   m_MapSystem(std::make_unique<MapSystem>(this)),
   m_VisualEffectManager(std::make_unique<VisualEffectManager>()),
   m_UIManager(std::make_unique<UIManager>(window))
@@ -25,13 +25,13 @@ EngineState::~EngineState()
   m_MapSystem->UnloadAllMaps();
 }
 
-NotNullPtr<Entity> EngineState::CreateEntity()
+NotNullPtr<ClientEntity> EngineState::CreateEntity()
 {
   return m_EntitySystem->CreateEntity(true);
 }
 
-NotNullPtr<Entity> EngineState::CreateEntity(NotNullPtr<EntityResource> resource,
-        NullOptPtr<const ServerObject> server_object, NullOptPtr<const ServerObjectManager> obj_manager, bool activate)
+NotNullPtr<ClientEntity> EngineState::CreateEntity(NotNullPtr<ClientEntityResource> resource,
+        NullOptPtr<const ServerEntity> server_object, NullOptPtr<const ServerEntityManager> obj_manager, bool activate)
 {
   return m_EntitySystem->CreateEntity(resource, server_object, obj_manager, activate);
 }
@@ -63,12 +63,12 @@ void EngineState::UnloadMap(std::size_t map_id)
   m_MapSystem->UnloadMap(map_id);
 }
 
-NotNullPtr<EntitySystem> EngineState::GetEntitySystem()
+NotNullPtr<ClientEntitySystem> EngineState::GetEntitySystem()
 {
   return m_EntitySystem.get();
 }
 
-NotNullPtr<ComponentSystem> EngineState::GetComponentSystem()
+NotNullPtr<ClientComponentSystem> EngineState::GetComponentSystem()
 {
   return m_ComponentSystem.get();
 }

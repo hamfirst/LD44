@@ -5,21 +5,21 @@
 #include "Foundation/Optional/NullOpt.h"
 #include "Foundation/Any/Any.h"
 
-#include "Runtime/ServerObject/ServerObjectHandle.h"
+#include "Runtime/ServerEntity/ServerEntityHandle.h"
 
 class CollisionSystem;
-class EntitySystem;
-class Entity;
-class EntityResource;
-class ComponentSystem;
-class Component;
+class ClientEntitySystem;
+class ClientEntity;
+class ClientEntityResource;
+class ClientComponentSystem;
+class ClientComponent;
 class MapSystem;
 class MapResource;
 class MapInstance;
 class VisualEffectManager;
 
-class ComponentUpdateBucketList;
-class ServerObject;
+class ClientComponentUpdateBucketList;
+class ServerEntity;
 class GameContainer;
 class UIManager;
 class Window;
@@ -31,10 +31,10 @@ public:
   EngineState(NotNullPtr<GameContainer> game, Window & window);
   ~EngineState();
 
-  NotNullPtr<Entity> CreateEntity();
-  NotNullPtr<Entity> CreateEntity(NotNullPtr<EntityResource> resource,
-          NullOptPtr<const ServerObject> server_object = nullptr,
-          NullOptPtr<const ServerObjectManager> obj_manager = nullptr, bool activate = true);
+  NotNullPtr<ClientEntity> CreateEntity();
+  NotNullPtr<ClientEntity> CreateEntity(NotNullPtr<ClientEntityResource> resource,
+          NullOptPtr<const ServerEntity> server_object = nullptr,
+          NullOptPtr<const ServerEntityManager> obj_manager = nullptr, bool activate = true);
 
   void DestroyAllEntities();
   void DestroyAllGameplayObjects();
@@ -46,23 +46,22 @@ public:
   template <typename T>
   void VisitComponents(Delegate<void, NotNullPtr<T>> & cb);
 
-  NotNullPtr<EntitySystem> GetEntitySystem();
-  NotNullPtr<ComponentSystem> GetComponentSystem();
+  NotNullPtr<ClientEntitySystem> GetEntitySystem();
+  NotNullPtr<ClientComponentSystem> GetComponentSystem();
   NotNullPtr<MapSystem> GetMapSystem();
   NotNullPtr<VisualEffectManager> GetVisualEffectManager();
   NotNullPtr<UIManager> GetUIManager();
 
 private:
 
-  friend class Entity;
-  friend class EntitySystem;
-  friend class EntityRenderer;
+  friend class ClientEntity;
+  friend class ClientEntitySystem;
   friend class MapRenderer;
   friend class MapInstance;
   friend class Camera;
 
-  std::unique_ptr<EntitySystem> m_EntitySystem;
-  std::unique_ptr<ComponentSystem> m_ComponentSystem;
+  std::unique_ptr<ClientEntitySystem> m_EntitySystem;
+  std::unique_ptr<ClientComponentSystem> m_ComponentSystem;
   std::unique_ptr<MapSystem> m_MapSystem;
   std::unique_ptr<VisualEffectManager> m_VisualEffectManager;
   std::unique_ptr<UIManager> m_UIManager;

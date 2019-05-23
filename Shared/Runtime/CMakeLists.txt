@@ -22,17 +22,17 @@ set(GENERIC_SRC_Runtime
             BinaryResource/BinaryResourceManager.cpp
             BinaryResource/BinaryResourceReferenceBase.cpp
             BinaryResource/GenericBinaryResource.cpp
+            ClientComponent/ClientComponentInitData.refl.cpp
+            ClientComponent/ClientComponentInitDataTypeDatabase.cpp
+            ClientEntity/ClientEntityDef.refl.cpp
+            ClientEntity/ClientEntityResource.cpp
             Collision/CollisionDatabase.cpp
             Collision/DynamicCollisionDatabase.cpp
             Collision/StaticCollisionDatabase.cpp
-            Component/ComponentInitData.refl.cpp
-            Component/ComponentInitDataTypeDatabase.cpp
             Config/ConfigManager.cpp
             DocumentResource/DocumentResourceBase.cpp
             DocumentResource/DocumentResourceManager.cpp
             DocumentResource/DocumentResourceReferenceBase.cpp
-            Entity/EntityDef.refl.cpp
-            Entity/EntityResource.cpp
             FrameData/FrameData.refl.cpp
             FrameData/FrameDataExtract.cpp
             Map/MapCollision.cpp
@@ -49,18 +49,18 @@ set(GENERIC_SRC_Runtime
             Runtime.cpp
             RuntimeCommon.cpp
             Script/ScriptResource.cpp
-            ServerObject/ServerObject.cpp
-            ServerObject/ServerObjectDef.refl.cpp
-            ServerObject/ServerObjectEventDispatch.cpp
-            ServerObject/ServerObjectEventSystem.cpp
-            ServerObject/ServerObjectHandle.cpp
-            ServerObject/ServerObjectInitData.refl.cpp
-            ServerObject/ServerObjectInitDataTypeDatabase.cpp
-            ServerObject/ServerObjectManager.cpp
-            ServerObject/ServerObjectResource.cpp
-            ServerObject/ServerObjectSerialize.cpp
-            ServerObject/ServerObjectSystem.cpp
-            ServerObject/ServerObjectUpdate.cpp
+            ServerEntity/ServerEntity.cpp
+            ServerEntity/ServerEntityDef.refl.cpp
+            ServerEntity/ServerEntityEventDispatch.cpp
+            ServerEntity/ServerEntityEventSystem.cpp
+            ServerEntity/ServerEntityHandle.cpp
+            ServerEntity/ServerEntityInitData.refl.cpp
+            ServerEntity/ServerEntityInitDataTypeDatabase.cpp
+            ServerEntity/ServerEntityManager.cpp
+            ServerEntity/ServerEntityResource.cpp
+            ServerEntity/ServerEntitySerialize.cpp
+            ServerEntity/ServerEntitySystem.cpp
+            ServerEntity/ServerObjectUpdate.cpp
             Sprite/SpriteDef.refl.cpp
             Sprite/SpriteResource.cpp
             SpriteBase/SpriteAnimationEventDef.refl.cpp
@@ -94,15 +94,18 @@ set(GENERIC_HEADER_Runtime
             BinaryResource/BinaryResourceReference.h
             BinaryResource/BinaryResourceReferenceBase.h
             BinaryResource/GenericBinaryResource.h
+            ClientComponent/ClientComponentInitData.refl.h
+            ClientComponent/ClientComponentInitData.refl.meta.h
+            ClientComponent/ClientComponentInitDataTypeDatabase.h
+            ClientComponent/ClientComponentInitDataTypeDatabaseRegister.h
+            ClientEntity/ClientEntityDef.refl.h
+            ClientEntity/ClientEntityDef.refl.meta.h
+            ClientEntity/ClientEntityResource.h
             Collision/CollisionDatabase.h
             Collision/CollisionDatabaseResult.h
             Collision/DynamicCollisionDatabase.h
             Collision/IntersectionDatabase.h
             Collision/StaticCollisionDatabase.h
-            Component/ComponentInitData.refl.h
-            Component/ComponentInitData.refl.meta.h
-            Component/ComponentInitDataTypeDatabase.h
-            Component/ComponentInitDataTypeDatabaseRegister.h
             Config/ConfigList.h
             Config/ConfigManager.h
             Config/ConfigRegistrationMacros.h
@@ -113,9 +116,6 @@ set(GENERIC_HEADER_Runtime
             DocumentResource/DocumentResourcePtr.h
             DocumentResource/DocumentResourceReference.h
             DocumentResource/DocumentResourceReferenceBase.h
-            Entity/EntityDef.refl.h
-            Entity/EntityDef.refl.meta.h
-            Entity/EntityResource.h
             Event/Event.h
             Event/EventDispatcher.h
             Event/EventHandler.h
@@ -149,30 +149,30 @@ set(GENERIC_HEADER_Runtime
             Runtime.h
             RuntimeCommon.h
             Script/ScriptResource.h
-            ServerObject/ServerObject.h
-            ServerObject/ServerObjectComponent.h
-            ServerObject/ServerObjectComponentFuncs.h
-            ServerObject/ServerObjectComponentSerialize.h
-            ServerObject/ServerObjectDef.refl.h
-            ServerObject/ServerObjectDef.refl.meta.h
-            ServerObject/ServerObjectEventDispatch.h
-            ServerObject/ServerObjectEventRegister.h
-            ServerObject/ServerObjectEventSystem.h
-            ServerObject/ServerObjectHandle.h
-            ServerObject/ServerObjectInitData.refl.h
-            ServerObject/ServerObjectInitData.refl.meta.h
-            ServerObject/ServerObjectInitDataTypeDatabase.h
-            ServerObject/ServerObjectManager.h
-            ServerObject/ServerObjectMetaFuncs.h
-            ServerObject/ServerObjectOverlapRegistrationMacros.h
-            ServerObject/ServerObjectRegistrationMacros.h
-            ServerObject/ServerObjectResource.h
-            ServerObject/ServerObjectSerialize.h
-            ServerObject/ServerObjectSystem.h
-            ServerObject/ServerObjectTypeInfo.h
-            ServerObject/ServerObjectUpdate.h
-            ServerObject/ServerTypesJson.h
-            ServerObject/ServerTypesNet.h
+            ServerEntity/ServerEntity.h
+            ServerEntity/ServerEntityComponent.h
+            ServerEntity/ServerEntityComponentFuncs.h
+            ServerEntity/ServerEntityComponentSerialize.h
+            ServerEntity/ServerEntityDef.refl.h
+            ServerEntity/ServerEntityDef.refl.meta.h
+            ServerEntity/ServerEntityEventDispatch.h
+            ServerEntity/ServerEntityEventRegister.h
+            ServerEntity/ServerEntityEventSystem.h
+            ServerEntity/ServerEntityHandle.h
+            ServerEntity/ServerEntityInitData.refl.h
+            ServerEntity/ServerEntityInitData.refl.meta.h
+            ServerEntity/ServerEntityInitDataTypeDatabase.h
+            ServerEntity/ServerEntityManager.h
+            ServerEntity/ServerEntityMetaFuncs.h
+            ServerEntity/ServerEntityOverlapRegistrationMacros.h
+            ServerEntity/ServerEntityRegistrationMacros.h
+            ServerEntity/ServerEntityResource.h
+            ServerEntity/ServerEntitySerialize.h
+            ServerEntity/ServerEntitySystem.h
+            ServerEntity/ServerEntityTypeInfo.h
+            ServerEntity/ServerObjectUpdate.h
+            ServerEntity/ServerTypesJson.h
+            ServerEntity/ServerTypesNet.h
             Sprite/SpriteDef.refl.h
             Sprite/SpriteDef.refl.meta.h
             Sprite/SpriteResource.h
@@ -201,16 +201,16 @@ set(GENERIC_HEADER_Runtime
 set(GENERIC_REFL_Runtime 
             Anchor/AnchorDef.refl.h
             Atlas/AtlasDef.refl.h
-            Component/ComponentInitData.refl.h
-            Entity/EntityDef.refl.h
+            ClientComponent/ClientComponentInitData.refl.h
+            ClientEntity/ClientEntityDef.refl.h
             FrameData/FrameData.refl.h
             Map/MapDef.refl.h
             Map/MapEffectLayerDef.refl.h
             Map/MapHandles.refl.h
             Map/MapPropertiesDef.refl.h
             Path/PathDef.refl.h
-            ServerObject/ServerObjectDef.refl.h
-            ServerObject/ServerObjectInitData.refl.h
+            ServerEntity/ServerEntityDef.refl.h
+            ServerEntity/ServerEntityInitData.refl.h
             Sprite/SpriteDef.refl.h
             SpriteBase/SpriteAnimationEventDef.refl.h
             SpriteBase/SpriteBaseDef.refl.h

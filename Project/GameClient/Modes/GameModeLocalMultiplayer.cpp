@@ -8,9 +8,9 @@
 
 #include "Engine/Asset/TextureAsset.h"
 #include "Engine/Text/TextManager.h"
-#include "Engine/Entity/EntitySystem.h"
-#include "Engine/Component/ComponentSystem.h"
-#include "Engine/Component/ComponentUpdateBucketList.h"
+#include "Engine/Entity/ClientEntitySystem.h"
+#include "Engine/ClientComponent/ClientComponentSystem.h"
+#include "Engine/ClientComponent/ClientComponentUpdateBucketList.h"
 #include "Engine/Map/MapSystem.h"
 #include "Engine/VisualEffect/VisualEffectManager.h"
 #include "Engine/DrawList/DrawList.h"
@@ -147,7 +147,7 @@ void GameModeLocalMultiplayer::Update()
 
     map_system->UpdateAllMaps(container);
 
-    ComponentUpdateBucketList update_list;
+    ClientComponentUpdateBucketList update_list;
     comp_system->CreateUpdateBucketList(update_list);
 
     for (int index = 0, end = update_list.GetNumBuckets(); index < end; ++index)

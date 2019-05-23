@@ -29,7 +29,7 @@ public:
 
   void HandleGlobalEvent(std::size_t event_class_id, const void * event_ptr);
   void HandleAuthEvent(std::size_t event_class_id, const void * event_ptr);
-  void HandleEntityEvent(const ServerObjectHandle & handle, std::size_t event_class_id, const void * event_ptr);
+  void HandleEntityEvent(const ServerEntityHandle & handle, std::size_t event_class_id, const void * event_ptr);
 
   void STORM_REFL_FUNC HandleCreateEntityGlobalEvent(const CreateEntityGlobalEvent & ev);
   void STORM_REFL_FUNC HandleCameraShakeEvent(const CameraShakeEvent & ev);

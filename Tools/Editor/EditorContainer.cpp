@@ -31,7 +31,7 @@
 
 #include "Engine/Engine.h"
 #include "Engine/Text/TextManager.h"
-#include "Engine/Component/ComponentSystem.h"
+#include "Engine/ClientComponent/ClientComponentSystem.h"
 
 #include "Runtime/Runtime.h"
 #include "Runtime/Config/ConfigManager.h"
@@ -195,7 +195,7 @@ EditorContainer::EditorContainer(QWidget *parent) :
   EngineRenderInit();
   RegisterGameplayShaders();
 
-  g_ComponentTypeSystem.LoadPropertyDatabase(m_PropertyDatabase);
+  g_ClientComponentTypeSystem.LoadPropertyDatabase(m_PropertyDatabase);
   RuntimeRegisterTypes(m_PropertyDatabase);
 
   GetProperyMetaData<MapEditorAnchorInitData>(m_PropertyDatabase);
@@ -528,7 +528,7 @@ void EditorContainer::newFile()
     }
 
     auto caption = tr("New ") + document_type + tr(" File");
-    auto filter = document_type + tr(" (*") + doc_type_data->m_FileExension.c_str() + ")";
+    auto filter = document_type + tr(" (*") + doc_type_data->m_FileExtension.c_str() + ")";
     auto dir = GetCanonicalRootPath() + doc_type_data->m_DefaultDirectory + "/";
     auto filename = QFileDialog::getSaveFileName(this, caption, dir.data(), filter);
 

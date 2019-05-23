@@ -202,7 +202,7 @@ void MapEditorViewer::ClearLayerSelection()
 
 void MapEditorViewer::ZoomToEntity(std::size_t layer_index, std::size_t entity_index)
 {
-  auto layer = m_Map.m_EntityLayers.TryGet(layer_index);
+  auto layer = m_Map.m_ClientEntityLayers.TryGet(layer_index);
   if (layer)
   {
     auto entity = layer->m_Entities.TryGet(entity_index);
@@ -215,10 +215,10 @@ void MapEditorViewer::ZoomToEntity(std::size_t layer_index, std::size_t entity_i
 
 void MapEditorViewer::ZoomToServerObject(std::size_t layer_index, std::size_t object_index)
 {
-  auto layer = m_Map.m_ServerObjectLayers.TryGet(layer_index);
+  auto layer = m_Map.m_ServerEntityLayers.TryGet(layer_index);
   if (layer)
   {
-    auto obj = layer->m_Objects.TryGet(object_index);
+    auto obj = layer->m_Entities.TryGet(object_index);
     if (obj)
     {
       m_Center = RenderVec2{ obj->m_XPosition, obj->m_YPosition };
@@ -595,8 +595,8 @@ void MapEditorViewer::paintGL()
 
   auto & parallax_manager = m_Editor->GetParallaxManager();
   auto & tile_manager = m_Editor->GetManualTileManager();
-  auto & entity_manager = m_Editor->GetEntityManager();
-  auto & server_object_manager = m_Editor->GetServerObjectManager();
+  auto & client_entity_manager = m_Editor->GetClientEntityManager();
+  auto & server_entity_manager = m_Editor->GetServerEntityManager();
   auto & volume_manager = m_Editor->GetVolumeManager();
   auto & path_manager = m_Editor->GetPathManager();
   auto & anchor_manager = m_Editor->GetAnchorManager();
@@ -651,9 +651,9 @@ void MapEditorViewer::paintGL()
     list_itr->second.emplace_back([&, l = layer] { l->Draw(viewport_bounds, screen_center, m_RenderState); });
   }
 
-  for (auto elem : m_Map.m_EntityLayers)
+  for (auto elem : m_Map.m_ClientEntityLayers)
   {
-    auto layer = entity_manager.GetLayerManager(elem.first);
+    auto layer = client_entity_manager.GetLayerManager(elem.first);
     if (layer == nullptr)
     {
       continue;
@@ -674,9 +674,9 @@ void MapEditorViewer::paintGL()
     list_itr->second.emplace_back([&, l = layer] { l->Draw(viewport_bounds, screen_center, m_RenderState); });
   }
 
-  for (auto elem : m_Map.m_ServerObjectLayers)
+  for (auto elem : m_Map.m_ServerEntityLayers)
   {
-    auto layer = server_object_manager.GetLayerManager(elem.first);
+    auto layer = server_entity_manager.GetLayerManager(elem.first);
     if (layer == nullptr)
     {
       continue;
@@ -742,9 +742,9 @@ void MapEditorViewer::paintGL()
     }
   }
 
-  for (auto elem : m_Map.m_EntityLayers)
+  for (auto elem : m_Map.m_ClientEntityLayers)
   {
-    auto layer = entity_manager.GetLayerManager(elem.first);
+    auto layer = client_entity_manager.GetLayerManager(elem.first);
     if (layer == nullptr)
     {
       continue;
@@ -759,9 +759,9 @@ void MapEditorViewer::paintGL()
     layer->DrawSelection(m_DrawBuffer, viewport_bounds, screen_center, m_RenderState);
   }
 
-  for (auto elem : m_Map.m_ServerObjectLayers)
+  for (auto elem : m_Map.m_ServerEntityLayers)
   {
-    auto layer = server_object_manager.GetLayerManager(elem.first);
+    auto layer = server_entity_manager.GetLayerManager(elem.first);
     if (layer == nullptr)
     {
       continue;
@@ -772,7 +772,7 @@ void MapEditorViewer::paintGL()
       continue;
     }
 
-    layer->DrawPreviewServerObject(screen_center, m_RenderState);
+    layer->DrawPreviewServerEntity(screen_center, m_RenderState);
     layer->DrawSelection(m_DrawBuffer, viewport_bounds, screen_center, m_RenderState);
   }
 

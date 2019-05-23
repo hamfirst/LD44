@@ -120,7 +120,7 @@ namespace glm
 		, y(static_cast<T>(v.y))
 	{}
 
-	// -- Component accesses --
+	// -- ClientComponent accesses --
 
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER GLM_CONSTEXPR typename tvec2<T, P>::length_type tvec2<T, P>::length() const

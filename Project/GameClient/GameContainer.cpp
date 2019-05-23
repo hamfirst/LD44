@@ -5,7 +5,7 @@
 #include "GameClient/GameCamera.h"
 
 #include "Engine/Text/TextManager.h"
-#include "Engine/Component/ComponentSystem.h"
+#include "Engine/ClientComponent/ClientComponentSystem.h"
 #include "Engine/Rendering/VertexArray.h"
 #include "Engine/Shader/ShaderManager.h"
 #include "Engine/Asset/ClientAssetLoader.h"
@@ -13,16 +13,16 @@
 #include "Runtime/Asset/Asset.h"
 
 
-NullOptPtr<ServerObjectManager> GetServerObjectManager(NotNullPtr<GameContainer> game)
+NullOptPtr<ServerEntityManager> GetServerEntityManager(NotNullPtr<GameContainer> game)
 {
   auto instance_data = game->GetInstanceData();
-  return instance_data ? &instance_data->GetFullState().m_ServerObjectManager : nullptr;
+  return instance_data ? &instance_data->GetFullState().m_ServerEntityManager : nullptr;
 }
 
-NullOptPtr<ServerObjectManager> GetServerObjectManager(NotNullPtr<GameContainer> game, int history_index)
+NullOptPtr<ServerEntityManager> GetServerEntityManager(NotNullPtr<GameContainer> game, int history_index)
 {
   auto instance_data = game->GetInstanceData();
-  return instance_data ? &instance_data->GetHistoryState(history_index).m_ServerObjectManager : nullptr;
+  return instance_data ? &instance_data->GetHistoryState(history_index).m_ServerEntityManager : nullptr;
 }
 
 GameContainer::GameContainer(Window & window, std::unique_ptr<GameContainerInitSettings> && init_settings) :

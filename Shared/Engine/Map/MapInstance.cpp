@@ -5,9 +5,9 @@
 
 #include "Engine/EngineState.h"
 #include "Engine/Map/MapInstance.h"
-#include "Engine/Entity/Entity.h"
-#include "Engine/Entity/EntityHandle.h"
-#include "Engine/Entity/EntitySystem.h"
+#include "Engine/Entity/ClientEntity.h"
+#include "Engine/Entity/ClientEntityHandle.h"
+#include "Engine/Entity/ClientEntitySystem.h"
 #include "Engine/Rendering/RenderSettings.h"
 
 MapInstance::MapInstance(NotNullPtr<EngineState> engine_state, MapDef & map_def, std::size_t map_id, const Vector2 & offset) :
@@ -29,8 +29,8 @@ MapInstance::MapInstance(NotNullPtr<EngineState> engine_state, MapDef & map_def,
     m_ParallaxLayers.emplace_back(map_def, elem.first, engine_state->GetVisualEffectManager());
   }
 
-  std::vector<Entity *> entities;
-  for (auto elem : map_def.m_EntityLayers)
+  std::vector<ClientEntity *> entities;
+  for (auto elem : map_def.m_ClientEntityLayers)
   {
     for (auto entity : elem.second.m_Entities)
     {

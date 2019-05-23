@@ -70,7 +70,7 @@ namespace glm
 
 		glm::tquat<T, P> real, dual;
 
-		// -- Component accesses --
+		// -- ClientComponent accesses --
 
 		typedef length_t length_type;
 		/// Return the count of components of a dual quaternion

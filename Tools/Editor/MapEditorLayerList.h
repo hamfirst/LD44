@@ -50,10 +50,10 @@ public slots:
   void clearPathfinding();
   void addManualTileLayer();
   void removeManualTileLayer();
-  void addEntityLayer();
-  void removeEntityLayer();
-  void addServerObjectLayer();
-  void removeServerObjectLayer();
+  void addClientEntityLayer();
+  void removeClientEntityLayer();
+  void addServerEntityLayer();
+  void removeServerEntityLayer();
   void addParallaxLayer();
   void removeParallaxLayer();
   void addEffectLayer();

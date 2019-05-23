@@ -20,10 +20,10 @@
 
 #include "MapEditorToolManualTileLayerDraw.h"
 #include "MapEditorToolManualTileLayerSelect.h"
-#include "MapEditorToolEntityLayerDraw.h"
-#include "MapEditorToolEntityLayerSelect.h"
-#include "MapEditorToolServerObjectLayerDraw.h"
-#include "MapEditorToolServerObjectLayerSelect.h"
+#include "MapEditorToolClientEntityLayerDraw.h"
+#include "MapEditorToolClientEntityLayerSelect.h"
+#include "MapEditorToolServerEntityLayerDraw.h"
+#include "MapEditorToolServerEntityLayerSelect.h"
 #include "MapEditorToolParallaxObjectLayerDraw.h"
 #include "MapEditorToolParallaxObjectLayerSelect.h"
 #include "MapEditorToolVolumeCreate.h"
@@ -45,8 +45,8 @@ MapEditor::MapEditor(EditorContainer & editor_container, PropertyFieldDatabase &
   DocumentEditorWidgetBase(editor_container, property_db, root_path, std::move(change_link_callback), std::move(begin_transaction_callback), std::move(commit_change_callback), parent),
   m_Map(map),
   m_ManualTileLayers(".m_ManualTileLayers", this, m_Map, m_Map.m_ManualTileLayers),
-  m_EntityLayers(".m_EntityLayers", this, m_Map, m_Map.m_EntityLayers),
-  m_ServerObjectLayers(".m_ServerObjectLayers", this, m_Map, m_Map.m_ServerObjectLayers),
+  m_ClientEntityLayers(".m_ClientEntityLayers", this, m_Map, m_Map.m_ClientEntityLayers),
+  m_ServerEntityLayers(".m_ServerObjectLayers", this, m_Map, m_Map.m_ServerEntityLayers),
   m_ParallaxLayers(".m_ParallaxLayers", this, m_Map, m_Map.m_ParallaxLayers),
   m_EffectLayers(".m_EffectLayers", this, m_Map, m_Map.m_EffectLayers),
   m_Volumes(".m_Volumes", this, m_Map, m_Map.m_Volumes),
@@ -123,8 +123,8 @@ void MapEditor::ChangeLayerSelection(const MapEditorLayerSelection & layer, bool
       [this, index = layer.m_Index]() -> void * { return &m_Map.m_PathfindingInfo; }, true);
     break;
   case MapEditorLayerItemType::kManualTileLayerParent:
-  case MapEditorLayerItemType::kEntityLayerParent:
-  case MapEditorLayerItemType::kServerObjectLayerParent:
+  case MapEditorLayerItemType::kClientEntityLayerParent:
+  case MapEditorLayerItemType::kServerEntityLayerParent:
   case MapEditorLayerItemType::kVolumeParent:
   case MapEditorLayerItemType::kPathParent:
   case MapEditorLayerItemType::kAnchorParent:
@@ -145,7 +145,7 @@ void MapEditor::ChangeLayerSelection(const MapEditorLayerSelection & layer, bool
 
     m_Selector->GetTileSelector()->LoadManualTileLayer(layer.m_Index);
     break;
-  case MapEditorLayerItemType::kEntityLayer:
+  case MapEditorLayerItemType::kClientEntityLayer:
 
     m_Selector->GetTileSelector()->hide();
     m_Selector->GetTileSelector()->Clear();
@@ -155,10 +155,10 @@ void MapEditor::ChangeLayerSelection(const MapEditorLayerSelection & layer, bool
     m_Selector->GetServerObjectSelector()->hide();
     m_Selector->GetParallaxObjectSelector()->Clear();
     m_Selector->GetParallaxObjectSelector()->hide();
-    m_PropertyEditor->LoadStruct(this, m_Map.m_EntityLayers[layer.m_Index], 
-      [this, index = layer.m_Index]() -> void * { return m_Map.m_EntityLayers.TryGet(static_cast<int>(index)); }, true);
+    m_PropertyEditor->LoadStruct(this, m_Map.m_ClientEntityLayers[layer.m_Index],
+      [this, index = layer.m_Index]() -> void * { return m_Map.m_ClientEntityLayers.TryGet(static_cast<int>(index)); }, true);
     break;
-  case MapEditorLayerItemType::kServerObjectLayer:
+  case MapEditorLayerItemType::kServerEntityLayer:
 
     m_Selector->GetTileSelector()->hide();
     m_Selector->GetTileSelector()->Clear();
@@ -168,17 +168,17 @@ void MapEditor::ChangeLayerSelection(const MapEditorLayerSelection & layer, bool
     m_Selector->GetServerObjectSelector()->SetLayer((int)layer.m_Index);
     m_Selector->GetParallaxObjectSelector()->Clear();
     m_Selector->GetParallaxObjectSelector()->hide();
-    m_PropertyEditor->LoadStruct(this, m_Map.m_ServerObjectLayers[layer.m_Index],
-      [this, index = layer.m_Index]() -> void * { return m_Map.m_ServerObjectLayers.TryGet(static_cast<int>(index)); }, true);
+    m_PropertyEditor->LoadStruct(this, m_Map.m_ServerEntityLayers[layer.m_Index],
+      [this, index = layer.m_Index]() -> void * { return m_Map.m_ServerEntityLayers.TryGet(static_cast<int>(index)); }, true);
     break;
-  case MapEditorLayerItemType::kEntity:
+  case MapEditorLayerItemType::kClientEntity:
 
     ClearSelectors();
     
-    m_PropertyEditor->LoadStruct(this, m_Map.m_EntityLayers[layer.m_Index].m_Entities[layer.m_SubIndex], 
+    m_PropertyEditor->LoadStruct(this, m_Map.m_ClientEntityLayers[layer.m_Index].m_Entities[layer.m_SubIndex],
       [this, index = layer.m_Index, subindex = layer.m_SubIndex]() -> void * 
       { 
-        auto layer = m_Map.m_EntityLayers.TryGet(static_cast<int>(index));
+        auto layer = m_Map.m_ClientEntityLayers.TryGet(static_cast<int>(index));
         auto entity = layer ? layer->m_Entities.TryGet(static_cast<int>(subindex)) : nullptr;
         return entity;
       }, true
@@ -189,15 +189,15 @@ void MapEditor::ChangeLayerSelection(const MapEditorLayerSelection & layer, bool
       m_Viewer->ZoomToEntity(layer.m_Index, layer.m_SubIndex);
     }
     break;
-  case MapEditorLayerItemType::kServerObject:
+  case MapEditorLayerItemType::kServerEntity:
 
     ClearSelectors();
     
-    m_PropertyEditor->LoadStruct(this, m_Map.m_ServerObjectLayers[layer.m_Index].m_Objects[layer.m_SubIndex], 
+    m_PropertyEditor->LoadStruct(this, m_Map.m_ServerEntityLayers[layer.m_Index].m_Entities[layer.m_SubIndex],
       [this, index = layer.m_Index, subindex = layer.m_SubIndex]() -> void * 
       { 
-        auto layer = m_Map.m_ServerObjectLayers.TryGet(static_cast<int>(index));
-        auto server_object = layer ? layer->m_Objects.TryGet(subindex) : nullptr; 
+        auto layer = m_Map.m_ServerEntityLayers.TryGet(static_cast<int>(index));
+        auto server_object = layer ? layer->m_Entities.TryGet(subindex) : nullptr;
         return server_object;
       }, true
     );
@@ -352,19 +352,19 @@ void MapEditor::ChangeLayerSelection(const MapEditorLayerSelection & layer, bool
   case MapEditorLayerItemType::kManualTileLayer:
     m_Viewer->SetTool(MapEditorTool<MapEditorToolManualTileLayerSelect>{}, (int)layer.m_Index);
     break;
-  case MapEditorLayerItemType::kEntity:
-    m_EntityLayers.GetLayerManager(layer.m_Index)->SetSingleSelection(layer.m_SubIndex);
-    m_Viewer->SetTool(MapEditorTool<MapEditorToolEntityLayerSelect>{}, (int)layer.m_Index);
+  case MapEditorLayerItemType::kClientEntity:
+    m_ClientEntityLayers.GetLayerManager(layer.m_Index)->SetSingleSelection(layer.m_SubIndex);
+    m_Viewer->SetTool(MapEditorTool<MapEditorToolClientEntityLayerSelect>{}, (int)layer.m_Index);
     break;
-  case MapEditorLayerItemType::kEntityLayer:
-    m_Viewer->SetTool(MapEditorTool<MapEditorToolEntityLayerSelect>{}, (int)layer.m_Index);
+  case MapEditorLayerItemType::kClientEntityLayer:
+    m_Viewer->SetTool(MapEditorTool<MapEditorToolClientEntityLayerSelect>{}, (int)layer.m_Index);
     break;
-  case MapEditorLayerItemType::kServerObject:
-    m_ServerObjectLayers.GetLayerManager(layer.m_Index)->SetSingleSelection(layer.m_SubIndex);
-    m_Viewer->SetTool(MapEditorTool<MapEditorToolServerObjectLayerSelect>{}, (int)layer.m_Index);
+  case MapEditorLayerItemType::kServerEntity:
+    m_ServerEntityLayers.GetLayerManager(layer.m_Index)->SetSingleSelection(layer.m_SubIndex);
+    m_Viewer->SetTool(MapEditorTool<MapEditorToolServerEntityLayerSelect>{}, (int)layer.m_Index);
     break;
-  case MapEditorLayerItemType::kServerObjectLayer:
-    m_Viewer->SetTool(MapEditorTool<MapEditorToolServerObjectLayerSelect>{}, (int)layer.m_Index);
+  case MapEditorLayerItemType::kServerEntityLayer:
+    m_Viewer->SetTool(MapEditorTool<MapEditorToolServerEntityLayerSelect>{}, (int)layer.m_Index);
     break;
   case MapEditorLayerItemType::kParallaxLayer:
   case MapEditorLayerItemType::kCreateParallaxObject:
@@ -741,14 +741,14 @@ MapEditorLayerManager<MapManualTileLayer, MapEditorTileManager> & MapEditor::Get
   return m_ManualTileLayers;
 }
 
-MapEditorLayerManager<MapEntityLayer, MapEditorEntityManager> & MapEditor::GetEntityManager()
+MapEditorLayerManager<MapClientEntityLayer, MapEditorClientEntityManager> & MapEditor::GetClientEntityManager()
 {
-  return m_EntityLayers;
+  return m_ClientEntityLayers;
 }
 
-MapEditorLayerManager<MapServerObjectLayer, MapEditorServerObjectManager> & MapEditor::GetServerObjectManager()
+MapEditorLayerManager<MapServerEntityLayer, MapEditorServerEntityManager> & MapEditor::GetServerEntityManager()
 {
-  return m_ServerObjectLayers;
+  return m_ServerEntityLayers;
 }
 
 MapEditorLayerManager<MapParallaxLayer, MapEditorParallaxLayer> & MapEditor::GetParallaxManager()
@@ -808,16 +808,16 @@ void MapEditor::SelectManualAnimation(int layer_index, uint64_t frame_id)
   m_Selector->GetTileSelector()->SetSelectedAnimation(frame_id);
 }
 
-void MapEditor::SetSelectedEntity(int layer_index, czstr entity_file)
+void MapEditor::SetSelectedClientEntity(int layer_index, czstr client_entity_file)
 {
-  m_Viewer->SetTool(MapEditorTool<MapEditorToolEntityLayerDraw>{}, layer_index, entity_file);
-  m_Selector->GetEntitySelector()->SetSelectedEntity(entity_file);
+  m_Viewer->SetTool(MapEditorTool<MapEditorToolClientEntityLayerDraw>{}, layer_index, client_entity_file);
+  m_Selector->GetEntitySelector()->SetSelectedEntity(client_entity_file);
 }
 
-void MapEditor::SetSelectedServerObject(int layer_index, czstr server_object_file)
+void MapEditor::SetSelectedServerEntity(int layer_index, czstr server_object_file)
 {
-  m_Viewer->SetTool(MapEditorTool<MapEditorToolServerObjectLayerDraw>{}, layer_index, server_object_file);
-  m_Selector->GetServerObjectSelector()->SetSelectedServerObject(server_object_file);
+  m_Viewer->SetTool(MapEditorTool<MapEditorToolServerEntityLayerDraw>{}, layer_index, server_object_file);
+  m_Selector->GetServerObjectSelector()->SetSelectedServerEntity(server_object_file);
 }
 
 void MapEditor::SetSelectedParallaxObject(int layer_index, const MapParallaxLayerObject & parallax_object_data)

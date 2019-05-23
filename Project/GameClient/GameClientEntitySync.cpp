@@ -1,10 +1,10 @@
 #include "GameClient/GameClientCommon.h"
 
-#include "Engine/Entity/Entity.h"
+#include "Engine/Entity/ClientEntity.h"
 #include "Engine/EngineState.h"
 
-#include "Runtime/Entity/EntityResource.h"
-#include "Runtime/ServerObject/ServerObject.h"
+#include "Runtime/ClientEntity/ClientEntityResource.h"
+#include "Runtime/ServerEntity/ServerEntity.h"
 
 #include "GameClient/GameClientEntitySync.h"
 #include "GameClient/GameContainer.h"
@@ -44,9 +44,9 @@ void GameClientEntitySync::ActivateEntities()
   m_ActivateEntities = true;
 }
 
-bool GameClientEntitySync::IsLocal(NotNullPtr<ServerObject> server_obj, GameLogicContainer & game_container)
+bool GameClientEntitySync::IsLocal(NotNullPtr<ServerEntity> server_ent, GameLogicContainer & game_container)
 {
-  auto associated_player = server_obj->GetAssociatedPlayer(game_container);
+  auto associated_player = server_ent->GetAssociatedPlayer(game_container);
 
   if (associated_player)
   {
@@ -69,13 +69,13 @@ bool GameClientEntitySync::IsLocal(NotNullPtr<ServerObject> server_obj, GameLogi
   return false;
 }
 
-void GameClientEntitySync::SyncEntityList(SparseList<EntityHandle> & entity_list,
-        ServerObjectManager & obj_manager, GameLogicContainer & game_container, bool process_local, bool process_nonlocal)
+void GameClientEntitySync::SyncEntityList(SparseList<ClientEntityHandle> & entity_list,
+        ServerEntityManager & ent_manager, GameLogicContainer & game_container, bool process_local, bool process_nonlocal)
 {
   auto & engine_state = m_GameContainer.GetEngineState();
 
   std::size_t last_index = 0;
-  auto visitor = [&] (std::size_t index, NotNullPtr<ServerObject> obj)
+  auto visitor = [&] (std::size_t index, NotNullPtr<ServerEntity> obj)
   {
     auto is_local = IsLocal(obj, game_container);
     if(is_local && !process_local)
@@ -88,7 +88,7 @@ void GameClientEntitySync::SyncEntityList(SparseList<EntityHandle> & entity_list
       return;
     }
 
-    EntityHandle cur_handle;
+    ClientEntityHandle cur_handle;
     if (entity_list.HasAt(index))
     {
       cur_handle = entity_list[index];
@@ -121,7 +121,7 @@ void GameClientEntitySync::SyncEntityList(SparseList<EntityHandle> & entity_list
         auto asset_hash = crc32lowercase(entity_asset);
         if (asset_hash == entity->GetAssetNameHash())
         {
-          entity->m_ServerObjectManager = &obj_manager;
+          entity->m_ServerEntityManager = &ent_manager;
           entity->ServerUpdate();
           return;
         }
@@ -130,14 +130,14 @@ void GameClientEntitySync::SyncEntityList(SparseList<EntityHandle> & entity_list
         entity->Destroy();
       }
 
-      auto entity_resource = EntityResource::Load(entity_asset);
+      auto entity_resource = ClientEntityResource::Load(entity_asset);
       if (entity_resource.GetResource()->IsLoaded() == false)
       {
         ASSERT(false, "Sync object bound asset must be preloaded");
         return;
       }
 
-      auto new_entity = engine_state.CreateEntity(entity_resource.GetResource(), obj, &obj_manager, m_ActivateEntities);
+      auto new_entity = engine_state.CreateEntity(entity_resource.GetResource(), obj, &ent_manager, m_ActivateEntities);
       entity_list.InsertAt(index, new_entity->GetHandle());
       new_entity->ServerUpdate();
     }
@@ -151,7 +151,7 @@ void GameClientEntitySync::SyncEntityList(SparseList<EntityHandle> & entity_list
     }
   };
 
-  obj_manager.VisitObjects(visitor);
+  ent_manager.VisitEntities(visitor);
 
   while ((int)last_index <= entity_list.HighestIndex())
   {
@@ -199,7 +199,7 @@ void GameClientEntitySync::DestroyAll()
   m_CurrentEntities.Clear();
 }
 
-NullOptPtr<Entity> GameClientEntitySync::FindEntity(int object_index, GameClientInstanceContainer & instance_container)
+NullOptPtr<ClientEntity> GameClientEntitySync::FindEntity(int object_index, GameClientInstanceContainer & instance_container)
 {
   auto history_container = instance_container.GetLogicContainer(NET_SYNC_HISTORY_FRAMES);
   auto current_container = instance_container.GetLogicContainer();
@@ -207,7 +207,7 @@ NullOptPtr<Entity> GameClientEntitySync::FindEntity(int object_index, GameClient
   auto & history_obj_manager = history_container.GetObjectManager();
   auto & current_obj_manager = current_container.GetObjectManager();
 
-  auto object_handle = ServerObjectHandle::ConstructFromStaticIndex(object_index);
+  auto object_handle = ServerEntityHandle::ConstructFromStaticIndex(object_index);
   auto current_obj = object_handle.Resolve(current_obj_manager);
 
   if(current_obj && IsLocal(current_obj, current_container))
@@ -234,7 +234,7 @@ NullOptPtr<Entity> GameClientEntitySync::FindEntity(int object_index, GameClient
   return nullptr;
 }
 
-void GameClientEntitySync::SendEntityEvent(ServerObjectHandle server_object_handle, uint32_t type_name_hash, const void * ev)
+void GameClientEntitySync::SendEntityEvent(ServerEntityHandle server_object_handle, uint32_t type_name_hash, const void * ev)
 {
 //  if(server_object_handle.GetRawSlotIndex() >= m_CurrentEntities.size())
 //  {

@@ -83,7 +83,7 @@ namespace glm
 #			endif//GLM_SWIZZLE
 #		endif
 
-		// -- Component accesses --
+		// -- ClientComponent accesses --
 
 		/// Return the count of components of the vector
 		typedef length_t length_type;

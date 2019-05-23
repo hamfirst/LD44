@@ -1,0 +1,11 @@
+[]
+
+{
+    "m_Components": {
+        "0": {
+            "T": 658572242,
+            "D": { }
+        }
+    },
+    "m_Sprite": ".\/Gameplay\/Player.sprite"
+}

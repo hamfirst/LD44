@@ -12,15 +12,15 @@ set(CMAKE_CXX_STANDARD 17)
 
 include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
 
-set(GENERIC_SRC_GameClient 
-            Components/PlayerComponent.refl.cpp
-            Components/PlayerComponent.refl.reg.cpp
-            Components/Reusable/AttachVfxComponent.refl.cpp
-            Components/Reusable/AttachVfxComponent.refl.reg.cpp
-            Components/Reusable/PlayAnimationComponent.refl.cpp
-            Components/Reusable/PlayAnimationComponent.refl.reg.cpp
-            Components/Reusable/SyncServerObjectComponent.refl.cpp
-            Components/Reusable/SyncServerObjectComponent.refl.reg.cpp
+set(GENERIC_SRC_GameClient
+  ClientComponents/PlayerComponent.refl.cpp
+  ClientComponents/PlayerComponent.refl.reg.cpp
+  ClientComponents/Reusable/AttachVfxComponent.refl.cpp
+  ClientComponents/Reusable/AttachVfxComponent.refl.reg.cpp
+  ClientComponents/Reusable/PlayAnimationComponent.refl.cpp
+  ClientComponents/Reusable/PlayAnimationComponent.refl.reg.cpp
+  ClientComponents/Reusable/SyncServerObjectComponent.refl.cpp
+  ClientComponents/Reusable/SyncServerObjectComponent.refl.reg.cpp
             EffectLayers/CollisionDrawer.refl.cpp
             EffectLayers/CollisionDrawer.refl.reg.cpp
             GameCamera.cpp
@@ -63,15 +63,15 @@ set(GENERIC_SRC_GameClient
             #CPP_PLACEHOLDER
             )
 
-set(GENERIC_HEADER_GameClient 
-            Components/PlayerComponent.refl.h
-            Components/PlayerComponent.refl.meta.h
-            Components/Reusable/AttachVfxComponent.refl.h
-            Components/Reusable/AttachVfxComponent.refl.meta.h
-            Components/Reusable/PlayAnimationComponent.refl.h
-            Components/Reusable/PlayAnimationComponent.refl.meta.h
-            Components/Reusable/SyncServerObjectComponent.refl.h
-            Components/Reusable/SyncServerObjectComponent.refl.meta.h
+set(GENERIC_HEADER_GameClient
+  ClientComponents/PlayerComponent.refl.h
+  ClientComponents/PlayerComponent.refl.meta.h
+  ClientComponents/Reusable/AttachVfxComponent.refl.h
+  ClientComponents/Reusable/AttachVfxComponent.refl.meta.h
+  ClientComponents/Reusable/PlayAnimationComponent.refl.h
+  ClientComponents/Reusable/PlayAnimationComponent.refl.meta.h
+  ClientComponents/Reusable/SyncServerObjectComponent.refl.h
+  ClientComponents/Reusable/SyncServerObjectComponent.refl.meta.h
             EffectLayers/CollisionDrawer.refl.h
             EffectLayers/CollisionDrawer.refl.meta.h
             GameCamera.h
@@ -120,11 +120,11 @@ set(GENERIC_HEADER_GameClient
             #HEADER_PLACEHOLDER
             )
 
-set(GENERIC_REFL_GameClient 
-            Components/PlayerComponent.refl.h
-            Components/Reusable/AttachVfxComponent.refl.h
-            Components/Reusable/PlayAnimationComponent.refl.h
-            Components/Reusable/SyncServerObjectComponent.refl.h
+set(GENERIC_REFL_GameClient
+  ClientComponents/PlayerComponent.refl.h
+  ClientComponents/Reusable/AttachVfxComponent.refl.h
+  ClientComponents/Reusable/PlayAnimationComponent.refl.h
+  ClientComponents/Reusable/SyncServerObjectComponent.refl.h
             EffectLayers/CollisionDrawer.refl.h
             GameClientController.refl.h
             GameClientSaveFileData.refl.h

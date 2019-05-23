@@ -5,18 +5,18 @@
 
 #include "Game/GameServerTypes.h"
 
-#include "Runtime/ServerObject/ServerObject.h"
+#include "Runtime/ServerEntity/ServerEntity.h"
 
-class GameServerObjectBase;
+class GameServerEntityBase;
 class CollisionDatabase;
 
 class TargetDatabase
 {
 public:
 
-  void PushTarget(NotNullPtr<GameServerObjectBase> obj, GameLogicContainer & game_container);
+  void PushTarget(NotNullPtr<GameServerEntityBase> obj, GameLogicContainer & game_container);
 
-  std::vector<ServerObjectHandle> QueryForTargets(NotNullPtr<GameServerObjectBase> src, GameNetVal vision_cone_angle,
+  std::vector<ServerEntityHandle> QueryForTargets(NotNullPtr<GameServerEntityBase> src, GameNetVal vision_cone_angle,
           GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
           NullOptPtr<CollisionDatabase> collision_database, GameLogicContainer & game_container);
 
@@ -26,7 +26,7 @@ private:
 
   struct TargetData
   {
-    ServerObjectHandle m_Handle;
+    ServerEntityHandle m_Handle;
     GameNetVec2 m_Position;
     int m_Team;
   };

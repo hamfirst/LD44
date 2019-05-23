@@ -6,7 +6,7 @@
 #include "Game/GameNetworkEvents.refl.h"
 #include "Game/Systems/GameDeliberateSyncSystemList.h"
 
-#include "Runtime/ServerObject/ServerObjectHandle.h"
+#include "Runtime/ServerEntity/ServerEntityHandle.h"
 
 class GameDeliberateSyncSystemBase;
 
@@ -35,7 +35,7 @@ public:
   }
 
   template <typename T>
-  void BroadcastEntityEvent(const T & event, ServerObjectHandle object_handle)
+  void BroadcastEntityEvent(const T & event, ServerEntityHandle object_handle)
   {
     static_assert(std::is_base_of<GlobalNetworkEvent, T>::value, "Sending global event of the wrong class");
 
@@ -45,7 +45,7 @@ public:
   }
 
   template <typename T>
-  void SendEntityEventToTarget(const T & event, ServerObjectHandle object_handle, std::size_t connection)
+  void SendEntityEventToTarget(const T & event, ServerEntityHandle object_handle, std::size_t connection)
   {
     static_assert(std::is_base_of<GlobalNetworkEvent, T>::value, "Sending global event of the wrong class");
 
@@ -116,8 +116,8 @@ public:
 protected:
   virtual void SendGlobalEvent(std::size_t class_id, const void * event_ptr) {}
   virtual void SendGlobalEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id) {}
-  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, ServerObjectHandle object_handle) {}
-  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id, ServerObjectHandle object_handle) {}
+  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, ServerEntityHandle object_handle) {}
+  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id, ServerEntityHandle object_handle) {}
   virtual void SendAuthEvent(std::size_t class_id, const void * event_ptr) {}
   virtual bool ReconcileEvent(std::size_t event_type_name_hash, uint64_t event_id, const GameNetVec2 & pos) { return true; }
 

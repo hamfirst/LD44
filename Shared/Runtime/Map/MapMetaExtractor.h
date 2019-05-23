@@ -13,7 +13,7 @@ template <typename Component, typename InitData>
 void MapExtractComponentInitData(MapDef & map, std::vector<std::pair<MapComponentInitDataInfo, NotNullPtr<InitData>>> & outp_data)
 {
   auto component_type_name = Component::TypeNameHash;
-  for (auto & layer : map.m_EntityLayers)
+  for (auto & layer : map.m_ClientEntityLayers)
   {
     for (auto & entity : layer.second.m_Entities)
     {

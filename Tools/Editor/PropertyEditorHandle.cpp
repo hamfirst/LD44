@@ -41,13 +41,13 @@ PropertyEditorHandle::PropertyEditorHandle(DocumentEditorWidgetBase * editor, Pr
     switch (GetMapHandleForTypeNameHash(m_Property->m_Struct.m_StructData->m_TypeNameHash))
     {
       case MapHandleType::kEntity:
-        m_ListPathHash = crc64(StormDataGetPath(map->m_EntityLayers));
+        m_ListPathHash = crc64(StormDataGetPath(map->m_ClientEntityLayers));
+        break;
+      case MapHandleType::kServerObject:
+        m_ListPathHash = crc64(StormDataGetPath(map->m_ServerEntityLayers));
         break;
       case MapHandleType::kEffectLayer:
         m_ListPathHash = crc64(StormDataGetPath(map->m_EffectLayers));
-        break;
-      case MapHandleType::kServerObject:
-        m_ListPathHash = crc64(StormDataGetPath(map->m_ServerObjectLayers));
         break;
       case MapHandleType::kAnchor:
         m_ListPathHash = crc64(StormDataGetPath(map->m_Anchors));
@@ -149,7 +149,7 @@ void PropertyEditorHandle::UpdateOptions()
   switch(GetMapHandleForTypeNameHash(m_Property->m_Struct.m_StructData->m_TypeNameHash))
   {
     case MapHandleType::kEntity:
-      for(auto layer : map->m_EntityLayers)
+      for(auto layer : map->m_ClientEntityLayers)
       {
         for(auto elem : layer.second.m_Entities)
         {
@@ -166,9 +166,9 @@ void PropertyEditorHandle::UpdateOptions()
       }
       break;
     case MapHandleType::kServerObject:
-      for(auto layer : map->m_ServerObjectLayers)
+      for(auto layer : map->m_ServerEntityLayers)
       {
-        for(auto elem : layer.second.m_Objects)
+        for(auto elem : layer.second.m_Entities)
         {
           m_ItemGUIDS.push_back(elem.second.m_GUID);
           m_ItemNames.push_back(elem.second.m_Name);

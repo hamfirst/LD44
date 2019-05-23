@@ -35,7 +35,7 @@
 
 namespace glm
 {
-	// -- Component accesses --
+	// -- ClientComponent accesses --
 
 	template <typename T, precision P>
 	GLM_FUNC_QUALIFIER GLM_CONSTEXPR typename tdualquat<T, P>::length_type tdualquat<T, P>::length() const

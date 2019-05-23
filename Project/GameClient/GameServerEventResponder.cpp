@@ -31,7 +31,7 @@ void GameServerEventResponder::SendGlobalEvent(std::size_t class_id, const void 
   }
 }
 
-void GameServerEventResponder::SendEntityEvent(std::size_t class_id, const void * event_ptr, ServerObjectHandle object_handle)
+void GameServerEventResponder::SendEntityEvent(std::size_t class_id, const void * event_ptr, ServerEntityHandle object_handle)
 {
   if (m_ClientController)
   {
@@ -39,7 +39,7 @@ void GameServerEventResponder::SendEntityEvent(std::size_t class_id, const void 
   }
 }
 
-void GameServerEventResponder::SendEntityEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id, ServerObjectHandle object_handle)
+void GameServerEventResponder::SendEntityEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id, ServerEntityHandle object_handle)
 {
 
 }

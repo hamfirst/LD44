@@ -1540,7 +1540,7 @@ template <>
 struct StormReflTypeInfo<DDSDataObjectListSync>::field_data_static<5>
 {
   using member_type = std::vector<DDSExportedObject>; // std::vector<DDSExportedObject, std::allocator<DDSExportedObject> >
-  static constexpr auto GetName() { return "m_Objects"; }
+  static constexpr auto GetName() { return "m_Entities"; }
   static constexpr auto GetType() { return "std::vector<DDSExportedObject, std::allocator<DDSExportedObject> >"; }
   static constexpr unsigned GetFieldNameHash() { return 0x27E8B926; }
   static constexpr unsigned GetTypeNameHash() { return 0x88B81936; }

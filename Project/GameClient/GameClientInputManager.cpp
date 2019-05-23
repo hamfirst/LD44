@@ -3,7 +3,7 @@
 #include "GameClient/GameContainer.h"
 #include "GameClient/GameClientEventSender.h"
 
-#include "Game/ServerObjects/Player/PlayerServerObject.refl.h"
+#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
 
 #include "Engine/Window/Window.h"
 #include "Engine/Input/ControlId.h"

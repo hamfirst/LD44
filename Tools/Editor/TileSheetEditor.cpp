@@ -37,5 +37,5 @@ TileSheetEditor::TileSheetEditor(EditorContainer & editor_container, PropertyFie
   });
 }
 
-REGISTER_EDITOR("Tile Sheet", TileSheetEditor, TileSheetDef, ".tilesheet", "TileSheets");
+REGISTER_EDITOR("Tile Sheet", TileSheetEditor, TileSheetDef, ".tilesheet", "Maps");
 

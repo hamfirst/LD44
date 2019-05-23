@@ -4,7 +4,7 @@
 #include "Game/GameCommon.h"
 #include "Game/GameplayEvents/DamageType.refl.h"
 
-#include "Game/ServerObjects/CharacterFacing.refl.h"
+#include "Game/ServerEntities/CharacterFacing.refl.h"
 
 #include "Runtime/SpriteBase/SpriteAnimationEventDef.refl.h"
 

@@ -11,7 +11,7 @@
 
 #include ""Runtime/Entity/EntityResource.h""
 
-GLOBAL_ASSET(EntityResourcePtr, ""./Entities/{class_name}.entity"", g_{class_name}Entity);
+GLOBAL_ASSET(EntityResourcePtr, ""./Gameplay/{class_name}.entity"", g_{class_name}Entity);
 
 static StormBehaviorTreeTemplate<BotServerObject, GameLogicContainer> BehaviorTreeTemplate =
   SELECT()
@@ -42,7 +42,7 @@ void {class_name}::UpdateMiddle(GameLogicContainer & game_container)
 
 czstr {class_name}::GetDefaultEntityBinding() const
 {{
-  return ""./Entities/{class_name}.entity"";
+  return ""./Gameplay/{class_name}.entity"";
 }}
 
 const SpritePtr & {class_name}::GetSprite() const

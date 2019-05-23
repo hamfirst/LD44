@@ -9,8 +9,8 @@
 
 #include "Foundation/PropertyMeta/PropertyFieldMetaFuncs.h"
 
-#include "Project/Game/Data/CoverPoint.refl.h"
-#include "Project/Game/Data/CoverPoint.refl.meta.h"
+#include "Game/Data/CoverPoint.refl.h"
+#include "Game/Data/CoverPoint.refl.meta.h"
 
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(CoverPoint);
 REGISTER_TYPE(CoverPoint, AnchorDataBase);

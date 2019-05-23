@@ -32,18 +32,18 @@ set(GENERIC_SRC_Engine
             Audio/MusicManager.cpp
             Audio/MusicSpec.cpp
             Camera/Camera.cpp
-            Component/Component.cpp
-            Component/ComponentHandle.cpp
-            Component/ComponentSystem.cpp
-            Component/ComponentUpdateBucketList.cpp
+            ClientComponent/ClientComponent.cpp
+            ClientComponent/ClientComponentHandle.cpp
+            ClientComponent/ClientComponentSystem.cpp
+            ClientComponent/ClientComponentUpdateBucketList.cpp
             DrawList/DrawList.cpp
             Engine.cpp
             EngineCommon.cpp
             EngineCommonPCH.cpp
             EngineState.cpp
-            Entity/Entity.cpp
-            Entity/EntityHandle.cpp
-            Entity/EntitySystem.cpp
+            Entity/ClientEntity.cpp
+            Entity/ClientEntityHandle.cpp
+            Entity/ClientEntitySystem.cpp
             Input/BinaryControlBinding.cpp
             Input/ControlBindingHandleList.cpp
             Input/ControlBindingSet.cpp
@@ -130,22 +130,22 @@ set(GENERIC_HEADER_Engine
             Audio/MusicSpec.h
             Audio/VolumeCategory.h
             Camera/Camera.h
-            Component/Component.h
-            Component/ComponentHandle.h
-            Component/ComponentIterator.h
-            Component/ComponentList.h
-            Component/ComponentRegistrationMacros.h
-            Component/ComponentSystem.h
-            Component/ComponentUpdateBucketList.h
-            Component/ComponentUpdateRegistrationTemplates.h
+            ClientComponent/ClientComponent.h
+            ClientComponent/ClientComponentHandle.h
+            ClientComponent/ClientComponentIterator.h
+            ClientComponent/ClientComponentList.h
+            ClientComponent/ClientComponentRegistrationMacros.h
+            ClientComponent/ClientComponentSystem.h
+            ClientComponent/ClientComponentUpdateBucketList.h
+            ClientComponent/ClientComponentUpdateRegistrationTemplates.h
             DrawList/DrawList.h
             Engine.h
             EngineCommon.h
             EngineState.h
             EngineStateFuncs.h
-            Entity/Entity.h
-            Entity/EntityHandle.h
-            Entity/EntitySystem.h
+            Entity/ClientEntity.h
+            Entity/ClientEntityHandle.h
+            Entity/ClientEntitySystem.h
             Input/BinaryControlBinding.h
             Input/ControlBinding.h
             Input/ControlBindingHandleList.h

@@ -12,7 +12,7 @@
 #include "Engine/Window/FakeWindow.h"
 
 #include "Runtime/Map/MapDef.refl.h"
-#include "Runtime/Entity/EntityResource.h"
+#include "Runtime/ClientEntity/ClientEntityResource.h"
 
 #include "QTUtil/QtLerpVar.h"
 

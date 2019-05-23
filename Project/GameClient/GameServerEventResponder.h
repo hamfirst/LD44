@@ -16,8 +16,8 @@ public:
 
   virtual void SendGlobalEvent(std::size_t class_id, const void * event_ptr) override;
   virtual void SendGlobalEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id) override;
-  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, ServerObjectHandle object_handle) override;
-  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id, ServerObjectHandle object_handle) override;
+  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, ServerEntityHandle object_handle) override;
+  virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id, ServerEntityHandle object_handle) override;
   virtual void SendAuthEvent(std::size_t class_id, const void * event_ptr) override;
   virtual bool ReconcileEvent(std::size_t event_type_name_hash, uint64_t event_id, const GameNetVec2 & pos) override;
 

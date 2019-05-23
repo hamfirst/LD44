@@ -41,5 +41,5 @@ SpriteEditor::SpriteEditor(EditorContainer & editor_container, PropertyFieldData
   });
 }
 
-REGISTER_EDITOR("Sprite", SpriteEditor, SpriteDef, ".sprite", "Sprites");
+REGISTER_EDITOR("Sprite", SpriteEditor, SpriteDef, ".sprite", "Gameplay");
 

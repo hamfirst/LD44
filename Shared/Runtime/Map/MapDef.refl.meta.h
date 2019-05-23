@@ -4,8 +4,8 @@
 
 #include "MapDef.refl.h"
 #include "Foundation/BasicTypes/BasicTypes.refl.meta.h"
-#include "Runtime/Entity/EntityDef.refl.meta.h"
-#include "Runtime/ServerObject/ServerObjectDef.refl.meta.h"
+#include "Runtime/ClientEntity/ClientEntityDef.refl.meta.h"
+#include "Runtime/ServerEntity/ServerEntityDef.refl.meta.h"
 #include "Runtime/Anchor/AnchorDef.refl.meta.h"
 #include "Runtime/Path/PathDef.refl.meta.h"
 #include "Runtime/Volume/VolumeDef.refl.meta.h"
@@ -350,50 +350,50 @@ struct StormReflTypeInfo<MapManualTileLayer>::annotations<5>::annoation<0>
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>
+struct StormReflTypeInfo<MapClientEntity>
 {
   using MyBase = void;
   static constexpr int fields_n = 5;
   template <int N> struct field_data_static {};
   template <int N, typename Self> struct field_data {};
   template <int N> struct annotations { static constexpr int annotations_n = 0; template <int A> struct annoation { }; };
-  static constexpr auto GetName() { return "MapEntity"; }
-  static constexpr auto GetNameHash() { return 0x81BB600D; }
+  static constexpr auto GetName() { return "MapClientEntity"; }
+  static constexpr auto GetNameHash() { return 0x093534AF; }
   static constexpr bool HasDefault() { return true; }
-  static MapEntity & GetDefault() { static MapEntity def; return def; }
+  static MapClientEntity & GetDefault() { static MapClientEntity def; return def; }
 
   static void * CastFromTypeNameHash(uint32_t type_name_hash, void * ptr)
   {
-    auto c = static_cast<MapEntity *>(ptr);
+    auto c = static_cast<MapClientEntity *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeNameHash(uint32_t type_name_hash, const void * ptr)
   {
-    auto c = static_cast<const MapEntity *>(ptr);
+    auto c = static_cast<const MapClientEntity *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static void * CastFromTypeIdHash(std::size_t type_id_hash, void * ptr)
   {
-    auto c = static_cast<MapEntity *>(ptr);
-    if(typeid(MapEntity).hash_code() == type_id_hash) return c;
+    auto c = static_cast<MapClientEntity *>(ptr);
+    if(typeid(MapClientEntity).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeIdHash(std::size_t type_id_hash, const void * ptr)
   {
-    auto c = static_cast<const MapEntity *>(ptr);
-    if(typeid(MapEntity).hash_code() == type_id_hash) return c;
+    auto c = static_cast<const MapClientEntity *>(ptr);
+    if(typeid(MapClientEntity).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>::field_data_static<0>
+struct StormReflTypeInfo<MapClientEntity>::field_data_static<0>
 {
   using member_type = RString; // RString
   static constexpr auto GetName() { return "m_Name"; }
@@ -402,23 +402,23 @@ struct StormReflTypeInfo<MapEntity>::field_data_static<0>
   static constexpr unsigned GetTypeNameHash() { return 0x01F631DC; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 0; }
-  static constexpr auto GetMemberPtr() { return &MapEntity::m_Name; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntity *>(obj); return &ptr->m_Name; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntity *>(obj); return &ptr->m_Name; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntity::m_Name; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntity *>(obj); return &ptr->m_Name; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntity *>(obj); return &ptr->m_Name; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntity>::field_data<0, Self> : public StormReflTypeInfo<MapEntity>::field_data_static<0>
+struct StormReflTypeInfo<MapClientEntity>::field_data<0, Self> : public StormReflTypeInfo<MapClientEntity>::field_data_static<0>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RString> & Get() { return self.m_Name; }
   std::add_const_t<std::remove_reference_t<RString>> & Get() const { return self.m_Name; }
-  void SetDefault() { self.m_Name = StormReflTypeInfo<MapEntity>::GetDefault().m_Name; }
+  void SetDefault() { self.m_Name = StormReflTypeInfo<MapClientEntity>::GetDefault().m_Name; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>::field_data_static<1>
+struct StormReflTypeInfo<MapClientEntity>::field_data_static<1>
 {
   using member_type = RUInt; // RNumber<unsigned int>
   static constexpr auto GetName() { return "m_GUID"; }
@@ -427,37 +427,37 @@ struct StormReflTypeInfo<MapEntity>::field_data_static<1>
   static constexpr unsigned GetTypeNameHash() { return 0x7B4FB98C; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 1; }
-  static constexpr auto GetMemberPtr() { return &MapEntity::m_GUID; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntity *>(obj); return &ptr->m_GUID; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntity *>(obj); return &ptr->m_GUID; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntity::m_GUID; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntity *>(obj); return &ptr->m_GUID; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntity *>(obj); return &ptr->m_GUID; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntity>::field_data<1, Self> : public StormReflTypeInfo<MapEntity>::field_data_static<1>
+struct StormReflTypeInfo<MapClientEntity>::field_data<1, Self> : public StormReflTypeInfo<MapClientEntity>::field_data_static<1>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RUInt> & Get() { return self.m_GUID; }
   std::add_const_t<std::remove_reference_t<RUInt>> & Get() const { return self.m_GUID; }
-  void SetDefault() { self.m_GUID = StormReflTypeInfo<MapEntity>::GetDefault().m_GUID; }
+  void SetDefault() { self.m_GUID = StormReflTypeInfo<MapClientEntity>::GetDefault().m_GUID; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>::annotations<1>
+struct StormReflTypeInfo<MapClientEntity>::annotations<1>
 {
   static constexpr int annotations_n = 1;
   template <int A> struct annoation { };
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>::annotations<1>::annoation<0>
+struct StormReflTypeInfo<MapClientEntity>::annotations<1>::annoation<0>
 {
   static constexpr const char * GetAnnotation() { return "noui"; }
   static constexpr uint32_t GetAnnotationHash() { return 0xDF10877E; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>::field_data_static<2>
+struct StormReflTypeInfo<MapClientEntity>::field_data_static<2>
 {
   using member_type = RInt; // RNumber<int>
   static constexpr auto GetName() { return "m_XPosition"; }
@@ -466,23 +466,23 @@ struct StormReflTypeInfo<MapEntity>::field_data_static<2>
   static constexpr unsigned GetTypeNameHash() { return 0x75C9DA09; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 2; }
-  static constexpr auto GetMemberPtr() { return &MapEntity::m_XPosition; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntity *>(obj); return &ptr->m_XPosition; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntity *>(obj); return &ptr->m_XPosition; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntity::m_XPosition; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntity *>(obj); return &ptr->m_XPosition; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntity *>(obj); return &ptr->m_XPosition; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntity>::field_data<2, Self> : public StormReflTypeInfo<MapEntity>::field_data_static<2>
+struct StormReflTypeInfo<MapClientEntity>::field_data<2, Self> : public StormReflTypeInfo<MapClientEntity>::field_data_static<2>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RInt> & Get() { return self.m_XPosition; }
   std::add_const_t<std::remove_reference_t<RInt>> & Get() const { return self.m_XPosition; }
-  void SetDefault() { self.m_XPosition = StormReflTypeInfo<MapEntity>::GetDefault().m_XPosition; }
+  void SetDefault() { self.m_XPosition = StormReflTypeInfo<MapClientEntity>::GetDefault().m_XPosition; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>::field_data_static<3>
+struct StormReflTypeInfo<MapClientEntity>::field_data_static<3>
 {
   using member_type = RInt; // RNumber<int>
   static constexpr auto GetName() { return "m_YPosition"; }
@@ -491,91 +491,91 @@ struct StormReflTypeInfo<MapEntity>::field_data_static<3>
   static constexpr unsigned GetTypeNameHash() { return 0x75C9DA09; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 3; }
-  static constexpr auto GetMemberPtr() { return &MapEntity::m_YPosition; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntity *>(obj); return &ptr->m_YPosition; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntity *>(obj); return &ptr->m_YPosition; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntity::m_YPosition; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntity *>(obj); return &ptr->m_YPosition; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntity *>(obj); return &ptr->m_YPosition; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntity>::field_data<3, Self> : public StormReflTypeInfo<MapEntity>::field_data_static<3>
+struct StormReflTypeInfo<MapClientEntity>::field_data<3, Self> : public StormReflTypeInfo<MapClientEntity>::field_data_static<3>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RInt> & Get() { return self.m_YPosition; }
   std::add_const_t<std::remove_reference_t<RInt>> & Get() const { return self.m_YPosition; }
-  void SetDefault() { self.m_YPosition = StormReflTypeInfo<MapEntity>::GetDefault().m_YPosition; }
+  void SetDefault() { self.m_YPosition = StormReflTypeInfo<MapClientEntity>::GetDefault().m_YPosition; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntity>::field_data_static<4>
+struct StormReflTypeInfo<MapClientEntity>::field_data_static<4>
 {
-  using member_type = EntityDef; // EntityDef
+  using member_type = ClientEntityDef; // ClientEntityDef
   static constexpr auto GetName() { return "m_EntityDef"; }
-  static constexpr auto GetType() { return "EntityDef"; }
+  static constexpr auto GetType() { return "ClientEntityDef"; }
   static constexpr unsigned GetFieldNameHash() { return 0x0FCD3EF7; }
-  static constexpr unsigned GetTypeNameHash() { return 0x511C9D4F; }
+  static constexpr unsigned GetTypeNameHash() { return 0xD9FFD674; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 4; }
-  static constexpr auto GetMemberPtr() { return &MapEntity::m_EntityDef; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntity *>(obj); return &ptr->m_EntityDef; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntity *>(obj); return &ptr->m_EntityDef; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntity::m_EntityDef; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntity *>(obj); return &ptr->m_EntityDef; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntity *>(obj); return &ptr->m_EntityDef; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntity>::field_data<4, Self> : public StormReflTypeInfo<MapEntity>::field_data_static<4>
+struct StormReflTypeInfo<MapClientEntity>::field_data<4, Self> : public StormReflTypeInfo<MapClientEntity>::field_data_static<4>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, EntityDef> & Get() { return self.m_EntityDef; }
-  std::add_const_t<std::remove_reference_t<EntityDef>> & Get() const { return self.m_EntityDef; }
-  void SetDefault() { self.m_EntityDef = StormReflTypeInfo<MapEntity>::GetDefault().m_EntityDef; }
+  match_const_t<Self, ClientEntityDef> & Get() { return self.m_EntityDef; }
+  std::add_const_t<std::remove_reference_t<ClientEntityDef>> & Get() const { return self.m_EntityDef; }
+  void SetDefault() { self.m_EntityDef = StormReflTypeInfo<MapClientEntity>::GetDefault().m_EntityDef; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntityLayer>
+struct StormReflTypeInfo<MapClientEntityLayer>
 {
   using MyBase = void;
   static constexpr int fields_n = 3;
   template <int N> struct field_data_static {};
   template <int N, typename Self> struct field_data {};
   template <int N> struct annotations { static constexpr int annotations_n = 0; template <int A> struct annoation { }; };
-  static constexpr auto GetName() { return "MapEntityLayer"; }
-  static constexpr auto GetNameHash() { return 0x0D3F8557; }
+  static constexpr auto GetName() { return "MapClientEntityLayer"; }
+  static constexpr auto GetNameHash() { return 0x5B46F59D; }
   static constexpr bool HasDefault() { return true; }
-  static MapEntityLayer & GetDefault() { static MapEntityLayer def; return def; }
+  static MapClientEntityLayer & GetDefault() { static MapClientEntityLayer def; return def; }
 
   static void * CastFromTypeNameHash(uint32_t type_name_hash, void * ptr)
   {
-    auto c = static_cast<MapEntityLayer *>(ptr);
+    auto c = static_cast<MapClientEntityLayer *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeNameHash(uint32_t type_name_hash, const void * ptr)
   {
-    auto c = static_cast<const MapEntityLayer *>(ptr);
+    auto c = static_cast<const MapClientEntityLayer *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static void * CastFromTypeIdHash(std::size_t type_id_hash, void * ptr)
   {
-    auto c = static_cast<MapEntityLayer *>(ptr);
-    if(typeid(MapEntityLayer).hash_code() == type_id_hash) return c;
+    auto c = static_cast<MapClientEntityLayer *>(ptr);
+    if(typeid(MapClientEntityLayer).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeIdHash(std::size_t type_id_hash, const void * ptr)
   {
-    auto c = static_cast<const MapEntityLayer *>(ptr);
-    if(typeid(MapEntityLayer).hash_code() == type_id_hash) return c;
+    auto c = static_cast<const MapClientEntityLayer *>(ptr);
+    if(typeid(MapClientEntityLayer).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
 };
 
 template <>
-struct StormReflTypeInfo<MapEntityLayer>::field_data_static<0>
+struct StormReflTypeInfo<MapClientEntityLayer>::field_data_static<0>
 {
   using member_type = RString; // RString
   static constexpr auto GetName() { return "m_Name"; }
@@ -584,23 +584,23 @@ struct StormReflTypeInfo<MapEntityLayer>::field_data_static<0>
   static constexpr unsigned GetTypeNameHash() { return 0x01F631DC; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 0; }
-  static constexpr auto GetMemberPtr() { return &MapEntityLayer::m_Name; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntityLayer *>(obj); return &ptr->m_Name; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntityLayer *>(obj); return &ptr->m_Name; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntityLayer::m_Name; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntityLayer *>(obj); return &ptr->m_Name; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntityLayer *>(obj); return &ptr->m_Name; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntityLayer>::field_data<0, Self> : public StormReflTypeInfo<MapEntityLayer>::field_data_static<0>
+struct StormReflTypeInfo<MapClientEntityLayer>::field_data<0, Self> : public StormReflTypeInfo<MapClientEntityLayer>::field_data_static<0>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RString> & Get() { return self.m_Name; }
   std::add_const_t<std::remove_reference_t<RString>> & Get() const { return self.m_Name; }
-  void SetDefault() { self.m_Name = StormReflTypeInfo<MapEntityLayer>::GetDefault().m_Name; }
+  void SetDefault() { self.m_Name = StormReflTypeInfo<MapClientEntityLayer>::GetDefault().m_Name; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntityLayer>::field_data_static<1>
+struct StormReflTypeInfo<MapClientEntityLayer>::field_data_static<1>
 {
   using member_type = RInt; // RNumber<int>
   static constexpr auto GetName() { return "m_LayerOrder"; }
@@ -609,105 +609,105 @@ struct StormReflTypeInfo<MapEntityLayer>::field_data_static<1>
   static constexpr unsigned GetTypeNameHash() { return 0x75C9DA09; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 1; }
-  static constexpr auto GetMemberPtr() { return &MapEntityLayer::m_LayerOrder; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntityLayer *>(obj); return &ptr->m_LayerOrder; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntityLayer *>(obj); return &ptr->m_LayerOrder; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntityLayer::m_LayerOrder; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntityLayer *>(obj); return &ptr->m_LayerOrder; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntityLayer *>(obj); return &ptr->m_LayerOrder; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntityLayer>::field_data<1, Self> : public StormReflTypeInfo<MapEntityLayer>::field_data_static<1>
+struct StormReflTypeInfo<MapClientEntityLayer>::field_data<1, Self> : public StormReflTypeInfo<MapClientEntityLayer>::field_data_static<1>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RInt> & Get() { return self.m_LayerOrder; }
   std::add_const_t<std::remove_reference_t<RInt>> & Get() const { return self.m_LayerOrder; }
-  void SetDefault() { self.m_LayerOrder = StormReflTypeInfo<MapEntityLayer>::GetDefault().m_LayerOrder; }
+  void SetDefault() { self.m_LayerOrder = StormReflTypeInfo<MapClientEntityLayer>::GetDefault().m_LayerOrder; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntityLayer>::field_data_static<2>
+struct StormReflTypeInfo<MapClientEntityLayer>::field_data_static<2>
 {
-  using member_type = RMergeList<MapEntity>; // RMergeList<MapEntity>
+  using member_type = RMergeList<MapClientEntity>; // RMergeList<MapClientEntity>
   static constexpr auto GetName() { return "m_Entities"; }
-  static constexpr auto GetType() { return "RMergeList<MapEntity>"; }
+  static constexpr auto GetType() { return "RMergeList<MapClientEntity>"; }
   static constexpr unsigned GetFieldNameHash() { return 0xA6C0B0CB; }
-  static constexpr unsigned GetTypeNameHash() { return 0x31E722AE; }
+  static constexpr unsigned GetTypeNameHash() { return 0x2C36A5A4; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 2; }
-  static constexpr auto GetMemberPtr() { return &MapEntityLayer::m_Entities; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapEntityLayer *>(obj); return &ptr->m_Entities; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapEntityLayer *>(obj); return &ptr->m_Entities; }
+  static constexpr auto GetMemberPtr() { return &MapClientEntityLayer::m_Entities; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapClientEntityLayer *>(obj); return &ptr->m_Entities; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapClientEntityLayer *>(obj); return &ptr->m_Entities; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapEntityLayer>::field_data<2, Self> : public StormReflTypeInfo<MapEntityLayer>::field_data_static<2>
+struct StormReflTypeInfo<MapClientEntityLayer>::field_data<2, Self> : public StormReflTypeInfo<MapClientEntityLayer>::field_data_static<2>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, RMergeList<MapEntity>> & Get() { return self.m_Entities; }
-  std::add_const_t<std::remove_reference_t<RMergeList<MapEntity>>> & Get() const { return self.m_Entities; }
-  void SetDefault() { self.m_Entities = StormReflTypeInfo<MapEntityLayer>::GetDefault().m_Entities; }
+  match_const_t<Self, RMergeList<MapClientEntity>> & Get() { return self.m_Entities; }
+  std::add_const_t<std::remove_reference_t<RMergeList<MapClientEntity>>> & Get() const { return self.m_Entities; }
+  void SetDefault() { self.m_Entities = StormReflTypeInfo<MapClientEntityLayer>::GetDefault().m_Entities; }
 };
 
 template <>
-struct StormReflTypeInfo<MapEntityLayer>::annotations<2>
+struct StormReflTypeInfo<MapClientEntityLayer>::annotations<2>
 {
   static constexpr int annotations_n = 1;
   template <int A> struct annoation { };
 };
 
 template <>
-struct StormReflTypeInfo<MapEntityLayer>::annotations<2>::annoation<0>
+struct StormReflTypeInfo<MapClientEntityLayer>::annotations<2>::annoation<0>
 {
   static constexpr const char * GetAnnotation() { return "noui"; }
   static constexpr uint32_t GetAnnotationHash() { return 0xDF10877E; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>
+struct StormReflTypeInfo<MapServerEntity>
 {
   using MyBase = void;
   static constexpr int fields_n = 5;
   template <int N> struct field_data_static {};
   template <int N, typename Self> struct field_data {};
   template <int N> struct annotations { static constexpr int annotations_n = 0; template <int A> struct annoation { }; };
-  static constexpr auto GetName() { return "MapServerObject"; }
-  static constexpr auto GetNameHash() { return 0xAC5C2595; }
+  static constexpr auto GetName() { return "MapServerEntity"; }
+  static constexpr auto GetNameHash() { return 0x0AD9CA11; }
   static constexpr bool HasDefault() { return true; }
-  static MapServerObject & GetDefault() { static MapServerObject def; return def; }
+  static MapServerEntity & GetDefault() { static MapServerEntity def; return def; }
 
   static void * CastFromTypeNameHash(uint32_t type_name_hash, void * ptr)
   {
-    auto c = static_cast<MapServerObject *>(ptr);
+    auto c = static_cast<MapServerEntity *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeNameHash(uint32_t type_name_hash, const void * ptr)
   {
-    auto c = static_cast<const MapServerObject *>(ptr);
+    auto c = static_cast<const MapServerEntity *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static void * CastFromTypeIdHash(std::size_t type_id_hash, void * ptr)
   {
-    auto c = static_cast<MapServerObject *>(ptr);
-    if(typeid(MapServerObject).hash_code() == type_id_hash) return c;
+    auto c = static_cast<MapServerEntity *>(ptr);
+    if(typeid(MapServerEntity).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeIdHash(std::size_t type_id_hash, const void * ptr)
   {
-    auto c = static_cast<const MapServerObject *>(ptr);
-    if(typeid(MapServerObject).hash_code() == type_id_hash) return c;
+    auto c = static_cast<const MapServerEntity *>(ptr);
+    if(typeid(MapServerEntity).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>::field_data_static<0>
+struct StormReflTypeInfo<MapServerEntity>::field_data_static<0>
 {
   using member_type = RString; // RString
   static constexpr auto GetName() { return "m_Name"; }
@@ -716,23 +716,23 @@ struct StormReflTypeInfo<MapServerObject>::field_data_static<0>
   static constexpr unsigned GetTypeNameHash() { return 0x01F631DC; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 0; }
-  static constexpr auto GetMemberPtr() { return &MapServerObject::m_Name; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerObject *>(obj); return &ptr->m_Name; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerObject *>(obj); return &ptr->m_Name; }
+  static constexpr auto GetMemberPtr() { return &MapServerEntity::m_Name; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerEntity *>(obj); return &ptr->m_Name; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerEntity *>(obj); return &ptr->m_Name; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapServerObject>::field_data<0, Self> : public StormReflTypeInfo<MapServerObject>::field_data_static<0>
+struct StormReflTypeInfo<MapServerEntity>::field_data<0, Self> : public StormReflTypeInfo<MapServerEntity>::field_data_static<0>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RString> & Get() { return self.m_Name; }
   std::add_const_t<std::remove_reference_t<RString>> & Get() const { return self.m_Name; }
-  void SetDefault() { self.m_Name = StormReflTypeInfo<MapServerObject>::GetDefault().m_Name; }
+  void SetDefault() { self.m_Name = StormReflTypeInfo<MapServerEntity>::GetDefault().m_Name; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>::field_data_static<1>
+struct StormReflTypeInfo<MapServerEntity>::field_data_static<1>
 {
   using member_type = RUInt; // RNumber<unsigned int>
   static constexpr auto GetName() { return "m_GUID"; }
@@ -741,37 +741,37 @@ struct StormReflTypeInfo<MapServerObject>::field_data_static<1>
   static constexpr unsigned GetTypeNameHash() { return 0x7B4FB98C; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 1; }
-  static constexpr auto GetMemberPtr() { return &MapServerObject::m_GUID; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerObject *>(obj); return &ptr->m_GUID; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerObject *>(obj); return &ptr->m_GUID; }
+  static constexpr auto GetMemberPtr() { return &MapServerEntity::m_GUID; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerEntity *>(obj); return &ptr->m_GUID; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerEntity *>(obj); return &ptr->m_GUID; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapServerObject>::field_data<1, Self> : public StormReflTypeInfo<MapServerObject>::field_data_static<1>
+struct StormReflTypeInfo<MapServerEntity>::field_data<1, Self> : public StormReflTypeInfo<MapServerEntity>::field_data_static<1>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RUInt> & Get() { return self.m_GUID; }
   std::add_const_t<std::remove_reference_t<RUInt>> & Get() const { return self.m_GUID; }
-  void SetDefault() { self.m_GUID = StormReflTypeInfo<MapServerObject>::GetDefault().m_GUID; }
+  void SetDefault() { self.m_GUID = StormReflTypeInfo<MapServerEntity>::GetDefault().m_GUID; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>::annotations<1>
+struct StormReflTypeInfo<MapServerEntity>::annotations<1>
 {
   static constexpr int annotations_n = 1;
   template <int A> struct annoation { };
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>::annotations<1>::annoation<0>
+struct StormReflTypeInfo<MapServerEntity>::annotations<1>::annoation<0>
 {
   static constexpr const char * GetAnnotation() { return "noui"; }
   static constexpr uint32_t GetAnnotationHash() { return 0xDF10877E; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>::field_data_static<2>
+struct StormReflTypeInfo<MapServerEntity>::field_data_static<2>
 {
   using member_type = RInt; // RNumber<int>
   static constexpr auto GetName() { return "m_XPosition"; }
@@ -780,23 +780,23 @@ struct StormReflTypeInfo<MapServerObject>::field_data_static<2>
   static constexpr unsigned GetTypeNameHash() { return 0x75C9DA09; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 2; }
-  static constexpr auto GetMemberPtr() { return &MapServerObject::m_XPosition; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerObject *>(obj); return &ptr->m_XPosition; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerObject *>(obj); return &ptr->m_XPosition; }
+  static constexpr auto GetMemberPtr() { return &MapServerEntity::m_XPosition; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerEntity *>(obj); return &ptr->m_XPosition; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerEntity *>(obj); return &ptr->m_XPosition; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapServerObject>::field_data<2, Self> : public StormReflTypeInfo<MapServerObject>::field_data_static<2>
+struct StormReflTypeInfo<MapServerEntity>::field_data<2, Self> : public StormReflTypeInfo<MapServerEntity>::field_data_static<2>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RInt> & Get() { return self.m_XPosition; }
   std::add_const_t<std::remove_reference_t<RInt>> & Get() const { return self.m_XPosition; }
-  void SetDefault() { self.m_XPosition = StormReflTypeInfo<MapServerObject>::GetDefault().m_XPosition; }
+  void SetDefault() { self.m_XPosition = StormReflTypeInfo<MapServerEntity>::GetDefault().m_XPosition; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>::field_data_static<3>
+struct StormReflTypeInfo<MapServerEntity>::field_data_static<3>
 {
   using member_type = RInt; // RNumber<int>
   static constexpr auto GetName() { return "m_YPosition"; }
@@ -805,91 +805,91 @@ struct StormReflTypeInfo<MapServerObject>::field_data_static<3>
   static constexpr unsigned GetTypeNameHash() { return 0x75C9DA09; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 3; }
-  static constexpr auto GetMemberPtr() { return &MapServerObject::m_YPosition; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerObject *>(obj); return &ptr->m_YPosition; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerObject *>(obj); return &ptr->m_YPosition; }
+  static constexpr auto GetMemberPtr() { return &MapServerEntity::m_YPosition; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerEntity *>(obj); return &ptr->m_YPosition; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerEntity *>(obj); return &ptr->m_YPosition; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapServerObject>::field_data<3, Self> : public StormReflTypeInfo<MapServerObject>::field_data_static<3>
+struct StormReflTypeInfo<MapServerEntity>::field_data<3, Self> : public StormReflTypeInfo<MapServerEntity>::field_data_static<3>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RInt> & Get() { return self.m_YPosition; }
   std::add_const_t<std::remove_reference_t<RInt>> & Get() const { return self.m_YPosition; }
-  void SetDefault() { self.m_YPosition = StormReflTypeInfo<MapServerObject>::GetDefault().m_YPosition; }
+  void SetDefault() { self.m_YPosition = StormReflTypeInfo<MapServerEntity>::GetDefault().m_YPosition; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObject>::field_data_static<4>
+struct StormReflTypeInfo<MapServerEntity>::field_data_static<4>
 {
-  using member_type = ServerObjectDef; // ServerObjectDef
-  static constexpr auto GetName() { return "m_ServerObject"; }
-  static constexpr auto GetType() { return "ServerObjectDef"; }
-  static constexpr unsigned GetFieldNameHash() { return 0x223A5929; }
-  static constexpr unsigned GetTypeNameHash() { return 0x97B44C7B; }
+  using member_type = ServerEntityDef; // ServerEntityDef
+  static constexpr auto GetName() { return "m_ServerEntity"; }
+  static constexpr auto GetType() { return "ServerEntityDef"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x84BFB6AD; }
+  static constexpr unsigned GetTypeNameHash() { return 0x35BC670D; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 4; }
-  static constexpr auto GetMemberPtr() { return &MapServerObject::m_ServerObject; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerObject *>(obj); return &ptr->m_ServerObject; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerObject *>(obj); return &ptr->m_ServerObject; }
+  static constexpr auto GetMemberPtr() { return &MapServerEntity::m_ServerEntity; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerEntity *>(obj); return &ptr->m_ServerEntity; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerEntity *>(obj); return &ptr->m_ServerEntity; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapServerObject>::field_data<4, Self> : public StormReflTypeInfo<MapServerObject>::field_data_static<4>
+struct StormReflTypeInfo<MapServerEntity>::field_data<4, Self> : public StormReflTypeInfo<MapServerEntity>::field_data_static<4>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, ServerObjectDef> & Get() { return self.m_ServerObject; }
-  std::add_const_t<std::remove_reference_t<ServerObjectDef>> & Get() const { return self.m_ServerObject; }
-  void SetDefault() { self.m_ServerObject = StormReflTypeInfo<MapServerObject>::GetDefault().m_ServerObject; }
+  match_const_t<Self, ServerEntityDef> & Get() { return self.m_ServerEntity; }
+  std::add_const_t<std::remove_reference_t<ServerEntityDef>> & Get() const { return self.m_ServerEntity; }
+  void SetDefault() { self.m_ServerEntity = StormReflTypeInfo<MapServerEntity>::GetDefault().m_ServerEntity; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObjectLayer>
+struct StormReflTypeInfo<MapServerEntityLayer>
 {
   using MyBase = void;
   static constexpr int fields_n = 2;
   template <int N> struct field_data_static {};
   template <int N, typename Self> struct field_data {};
   template <int N> struct annotations { static constexpr int annotations_n = 0; template <int A> struct annoation { }; };
-  static constexpr auto GetName() { return "MapServerObjectLayer"; }
-  static constexpr auto GetNameHash() { return 0xCC04DD43; }
+  static constexpr auto GetName() { return "MapServerEntityLayer"; }
+  static constexpr auto GetNameHash() { return 0x19DD587B; }
   static constexpr bool HasDefault() { return true; }
-  static MapServerObjectLayer & GetDefault() { static MapServerObjectLayer def; return def; }
+  static MapServerEntityLayer & GetDefault() { static MapServerEntityLayer def; return def; }
 
   static void * CastFromTypeNameHash(uint32_t type_name_hash, void * ptr)
   {
-    auto c = static_cast<MapServerObjectLayer *>(ptr);
+    auto c = static_cast<MapServerEntityLayer *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeNameHash(uint32_t type_name_hash, const void * ptr)
   {
-    auto c = static_cast<const MapServerObjectLayer *>(ptr);
+    auto c = static_cast<const MapServerEntityLayer *>(ptr);
     if(GetNameHash() == type_name_hash) return c;
     return nullptr;
   }
 
   static void * CastFromTypeIdHash(std::size_t type_id_hash, void * ptr)
   {
-    auto c = static_cast<MapServerObjectLayer *>(ptr);
-    if(typeid(MapServerObjectLayer).hash_code() == type_id_hash) return c;
+    auto c = static_cast<MapServerEntityLayer *>(ptr);
+    if(typeid(MapServerEntityLayer).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
   static const void * CastFromTypeIdHash(std::size_t type_id_hash, const void * ptr)
   {
-    auto c = static_cast<const MapServerObjectLayer *>(ptr);
-    if(typeid(MapServerObjectLayer).hash_code() == type_id_hash) return c;
+    auto c = static_cast<const MapServerEntityLayer *>(ptr);
+    if(typeid(MapServerEntityLayer).hash_code() == type_id_hash) return c;
     return nullptr;
   }
 
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObjectLayer>::field_data_static<0>
+struct StormReflTypeInfo<MapServerEntityLayer>::field_data_static<0>
 {
   using member_type = RString; // RString
   static constexpr auto GetName() { return "m_Name"; }
@@ -898,55 +898,55 @@ struct StormReflTypeInfo<MapServerObjectLayer>::field_data_static<0>
   static constexpr unsigned GetTypeNameHash() { return 0x01F631DC; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 0; }
-  static constexpr auto GetMemberPtr() { return &MapServerObjectLayer::m_Name; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerObjectLayer *>(obj); return &ptr->m_Name; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerObjectLayer *>(obj); return &ptr->m_Name; }
+  static constexpr auto GetMemberPtr() { return &MapServerEntityLayer::m_Name; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerEntityLayer *>(obj); return &ptr->m_Name; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerEntityLayer *>(obj); return &ptr->m_Name; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapServerObjectLayer>::field_data<0, Self> : public StormReflTypeInfo<MapServerObjectLayer>::field_data_static<0>
+struct StormReflTypeInfo<MapServerEntityLayer>::field_data<0, Self> : public StormReflTypeInfo<MapServerEntityLayer>::field_data_static<0>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
   match_const_t<Self, RString> & Get() { return self.m_Name; }
   std::add_const_t<std::remove_reference_t<RString>> & Get() const { return self.m_Name; }
-  void SetDefault() { self.m_Name = StormReflTypeInfo<MapServerObjectLayer>::GetDefault().m_Name; }
+  void SetDefault() { self.m_Name = StormReflTypeInfo<MapServerEntityLayer>::GetDefault().m_Name; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObjectLayer>::field_data_static<1>
+struct StormReflTypeInfo<MapServerEntityLayer>::field_data_static<1>
 {
-  using member_type = RMergeList<MapServerObject>; // RMergeList<MapServerObject>
-  static constexpr auto GetName() { return "m_Objects"; }
-  static constexpr auto GetType() { return "RMergeList<MapServerObject>"; }
-  static constexpr unsigned GetFieldNameHash() { return 0x27E8B926; }
-  static constexpr unsigned GetTypeNameHash() { return 0xEA9F1507; }
+  using member_type = RMergeList<MapServerEntity>; // RMergeList<MapServerEntity>
+  static constexpr auto GetName() { return "m_Entities"; }
+  static constexpr auto GetType() { return "RMergeList<MapServerEntity>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0xA6C0B0CB; }
+  static constexpr unsigned GetTypeNameHash() { return 0x00ECD7D1; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 1; }
-  static constexpr auto GetMemberPtr() { return &MapServerObjectLayer::m_Objects; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerObjectLayer *>(obj); return &ptr->m_Objects; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerObjectLayer *>(obj); return &ptr->m_Objects; }
+  static constexpr auto GetMemberPtr() { return &MapServerEntityLayer::m_Entities; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapServerEntityLayer *>(obj); return &ptr->m_Entities; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapServerEntityLayer *>(obj); return &ptr->m_Entities; }
 };
 
 template <typename Self>
-struct StormReflTypeInfo<MapServerObjectLayer>::field_data<1, Self> : public StormReflTypeInfo<MapServerObjectLayer>::field_data_static<1>
+struct StormReflTypeInfo<MapServerEntityLayer>::field_data<1, Self> : public StormReflTypeInfo<MapServerEntityLayer>::field_data_static<1>
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, RMergeList<MapServerObject>> & Get() { return self.m_Objects; }
-  std::add_const_t<std::remove_reference_t<RMergeList<MapServerObject>>> & Get() const { return self.m_Objects; }
-  void SetDefault() { self.m_Objects = StormReflTypeInfo<MapServerObjectLayer>::GetDefault().m_Objects; }
+  match_const_t<Self, RMergeList<MapServerEntity>> & Get() { return self.m_Entities; }
+  std::add_const_t<std::remove_reference_t<RMergeList<MapServerEntity>>> & Get() const { return self.m_Entities; }
+  void SetDefault() { self.m_Entities = StormReflTypeInfo<MapServerEntityLayer>::GetDefault().m_Entities; }
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObjectLayer>::annotations<1>
+struct StormReflTypeInfo<MapServerEntityLayer>::annotations<1>
 {
   static constexpr int annotations_n = 1;
   template <int A> struct annoation { };
 };
 
 template <>
-struct StormReflTypeInfo<MapServerObjectLayer>::annotations<1>::annoation<0>
+struct StormReflTypeInfo<MapServerEntityLayer>::annotations<1>::annoation<0>
 {
   static constexpr const char * GetAnnotation() { return "noui"; }
   static constexpr uint32_t GetAnnotationHash() { return 0xDF10877E; }
@@ -3336,16 +3336,16 @@ struct StormReflTypeInfo<MapDef>::field_data<2, Self> : public StormReflTypeInfo
 template <>
 struct StormReflTypeInfo<MapDef>::field_data_static<3>
 {
-  using member_type = RMergeList<MapServerObjectLayer>; // RMergeList<MapServerObjectLayer>
-  static constexpr auto GetName() { return "m_ServerObjectLayers"; }
-  static constexpr auto GetType() { return "RMergeList<MapServerObjectLayer>"; }
-  static constexpr unsigned GetFieldNameHash() { return 0x50DB9B69; }
-  static constexpr unsigned GetTypeNameHash() { return 0x27E07A3E; }
+  using member_type = RMergeList<MapServerEntityLayer>; // RMergeList<MapServerEntityLayer>
+  static constexpr auto GetName() { return "m_ServerEntityLayers"; }
+  static constexpr auto GetType() { return "RMergeList<MapServerEntityLayer>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x780CFA72; }
+  static constexpr unsigned GetTypeNameHash() { return 0x0F371B25; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 3; }
-  static constexpr auto GetMemberPtr() { return &MapDef::m_ServerObjectLayers; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapDef *>(obj); return &ptr->m_ServerObjectLayers; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapDef *>(obj); return &ptr->m_ServerObjectLayers; }
+  static constexpr auto GetMemberPtr() { return &MapDef::m_ServerEntityLayers; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapDef *>(obj); return &ptr->m_ServerEntityLayers; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapDef *>(obj); return &ptr->m_ServerEntityLayers; }
 };
 
 template <typename Self>
@@ -3353,24 +3353,24 @@ struct StormReflTypeInfo<MapDef>::field_data<3, Self> : public StormReflTypeInfo
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, RMergeList<MapServerObjectLayer>> & Get() { return self.m_ServerObjectLayers; }
-  std::add_const_t<std::remove_reference_t<RMergeList<MapServerObjectLayer>>> & Get() const { return self.m_ServerObjectLayers; }
-  void SetDefault() { self.m_ServerObjectLayers = StormReflTypeInfo<MapDef>::GetDefault().m_ServerObjectLayers; }
+  match_const_t<Self, RMergeList<MapServerEntityLayer>> & Get() { return self.m_ServerEntityLayers; }
+  std::add_const_t<std::remove_reference_t<RMergeList<MapServerEntityLayer>>> & Get() const { return self.m_ServerEntityLayers; }
+  void SetDefault() { self.m_ServerEntityLayers = StormReflTypeInfo<MapDef>::GetDefault().m_ServerEntityLayers; }
 };
 
 template <>
 struct StormReflTypeInfo<MapDef>::field_data_static<4>
 {
-  using member_type = RMergeList<MapEntityLayer>; // RMergeList<MapEntityLayer>
-  static constexpr auto GetName() { return "m_EntityLayers"; }
-  static constexpr auto GetType() { return "RMergeList<MapEntityLayer>"; }
-  static constexpr unsigned GetFieldNameHash() { return 0x606A4865; }
-  static constexpr unsigned GetTypeNameHash() { return 0x0F0562FD; }
+  using member_type = RMergeList<MapClientEntityLayer>; // RMergeList<MapClientEntityLayer>
+  static constexpr auto GetName() { return "m_ClientEntityLayers"; }
+  static constexpr auto GetType() { return "RMergeList<MapClientEntityLayer>"; }
+  static constexpr unsigned GetFieldNameHash() { return 0x31272692; }
+  static constexpr unsigned GetTypeNameHash() { return 0x461CC7C5; }
   static constexpr bool HasDefault() { return true; }
   static constexpr auto GetFieldIndex() { return 4; }
-  static constexpr auto GetMemberPtr() { return &MapDef::m_EntityLayers; }
-  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapDef *>(obj); return &ptr->m_EntityLayers; }
-  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapDef *>(obj); return &ptr->m_EntityLayers; }
+  static constexpr auto GetMemberPtr() { return &MapDef::m_ClientEntityLayers; }
+  static void * GetFromParent(void * obj) { auto ptr = static_cast<MapDef *>(obj); return &ptr->m_ClientEntityLayers; }
+  static const void * GetFromParentConst(const void * obj) { auto ptr = static_cast<const MapDef *>(obj); return &ptr->m_ClientEntityLayers; }
 };
 
 template <typename Self>
@@ -3378,9 +3378,9 @@ struct StormReflTypeInfo<MapDef>::field_data<4, Self> : public StormReflTypeInfo
 {
   Self & self;
   field_data(Self & self) : self(self) {}
-  match_const_t<Self, RMergeList<MapEntityLayer>> & Get() { return self.m_EntityLayers; }
-  std::add_const_t<std::remove_reference_t<RMergeList<MapEntityLayer>>> & Get() const { return self.m_EntityLayers; }
-  void SetDefault() { self.m_EntityLayers = StormReflTypeInfo<MapDef>::GetDefault().m_EntityLayers; }
+  match_const_t<Self, RMergeList<MapClientEntityLayer>> & Get() { return self.m_ClientEntityLayers; }
+  std::add_const_t<std::remove_reference_t<RMergeList<MapClientEntityLayer>>> & Get() const { return self.m_ClientEntityLayers; }
+  void SetDefault() { self.m_ClientEntityLayers = StormReflTypeInfo<MapDef>::GetDefault().m_ClientEntityLayers; }
 };
 
 template <>
@@ -3599,25 +3599,25 @@ namespace StormReflFileInfo
   template <>
   struct MapDef::type_info<2>
   {
-    using type = ::MapEntity;
+    using type = ::MapClientEntity;
   };
 
   template <>
   struct MapDef::type_info<3>
   {
-    using type = ::MapEntityLayer;
+    using type = ::MapClientEntityLayer;
   };
 
   template <>
   struct MapDef::type_info<4>
   {
-    using type = ::MapServerObject;
+    using type = ::MapServerEntity;
   };
 
   template <>
   struct MapDef::type_info<5>
   {
-    using type = ::MapServerObjectLayer;
+    using type = ::MapServerEntityLayer;
   };
 
   template <>

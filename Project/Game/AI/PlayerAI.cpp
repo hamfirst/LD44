@@ -4,9 +4,9 @@
 #include "Game/GameStage.h"
 #include "GameShared/Systems/GameLogicSystems.h"
 #include "GameShared/Systems/TargetDatabase.h"
-#include "Game/ServerObjects/Player/PlayerServerObject.refl.h"
+#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
 
-#include "Runtime/ServerObject/ServerObjectManager.h"
+#include "Runtime/ServerEntity/ServerEntityManager.h"
 
 static GameNetVal kBallRadius = GameNetVal("7");
 
@@ -16,8 +16,7 @@ auto kRandDashAngleMin = GameNetVal(-kRandDashAngleMax);
 void PlayerAI::InitAI(GameLogicContainer & game, std::size_t player_index)
 {
   auto & ai_info = game.GetInstanceData().m_AIPlayerInfo[player_index];
-  auto player_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
-
+  auto player_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
 }
 
 void PlayerAI::UpdateAI(GameLogicContainer & game, std::size_t player_index)
@@ -27,7 +26,7 @@ void PlayerAI::UpdateAI(GameLogicContainer & game, std::size_t player_index)
   auto & stage = game.GetStage();
   auto & targeting = game.GetSystems().GetTargetDatabase();
   auto & collision = game.GetSystems().GetCollisionDatabase();
-  auto player_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(player_index);
+  auto player_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
 
   if (player_obj == nullptr)
   {
@@ -80,7 +79,7 @@ void PlayerAI::UpdateAI(GameLogicContainer & game, std::size_t player_index)
 
       for(auto & target : targets)
       {
-        auto target_obj = target.ResolveTo<PlayerServerObject>(game.GetObjectManager());
+        auto target_obj = target.ResolveTo<PlayerServerEntity>(game.GetObjectManager());
         if(target_obj)
         {
           ai_info.m_LastSeenPlayer = target_obj->GetSlotIndex();
@@ -95,7 +94,7 @@ void PlayerAI::UpdateAI(GameLogicContainer & game, std::size_t player_index)
 
     if(ai_info.m_State == PlayerAIState::kSearchForCover)
     {
-      auto target_player = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerObject>(ai_info.m_LastSeenPlayer);
+      auto target_player = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(ai_info.m_LastSeenPlayer);
       if(target_player == nullptr)
       {
         ai_info.m_State = PlayerAIState::kSearchForNPCs;

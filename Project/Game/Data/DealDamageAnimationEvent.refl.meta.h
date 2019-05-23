@@ -4,7 +4,7 @@
 
 #include "DealDamageAnimationEvent.refl.h"
 #include "Game/GameplayEvents/DamageType.refl.meta.h"
-#include "Game/ServerObjects/CharacterFacing.refl.meta.h"
+#include "Game/ServerEntities/CharacterFacing.refl.meta.h"
 #include "Runtime/SpriteBase/SpriteAnimationEventDef.refl.meta.h"
 
 

@@ -2,9 +2,9 @@
 
 #include "Foundation/Common.h"
 
-#include "Engine/Entity/EntityHandle.h"
+#include "Engine/Entity/ClientEntityHandle.h"
 
-#include "Runtime/ServerObject/ServerObjectManager.h"
+#include "Runtime/ServerEntity/ServerEntityManager.h"
 
 class GameContainer;
 class GameClientInstanceContainer;
@@ -19,19 +19,19 @@ public:
   void Sync(GameClientInstanceContainer & instance_container);
   void DestroyAll();
 
-  NullOptPtr<Entity> FindEntity(int object_index, GameClientInstanceContainer & instance_container);
-  void SendEntityEvent(ServerObjectHandle server_object_handle, uint32_t type_name_hash, const void * ev);
+  NullOptPtr<ClientEntity> FindEntity(int object_index, GameClientInstanceContainer & instance_container);
+  void SendEntityEvent(ServerEntityHandle server_object_handle, uint32_t type_name_hash, const void * ev);
 
 private:
 
-  bool IsLocal(NotNullPtr<ServerObject> server_obj, GameLogicContainer & game_container);
-  void SyncEntityList(SparseList<EntityHandle> & entity_list, ServerObjectManager & obj_manager,
+  bool IsLocal(NotNullPtr<ServerEntity> server_ent, GameLogicContainer & game_container);
+  void SyncEntityList(SparseList<ClientEntityHandle> & entity_list, ServerEntityManager & ent_manager,
                       GameLogicContainer & game_container, bool process_local, bool process_nonlocal);
 
 private:
   GameContainer & m_GameContainer;
-  SparseList<EntityHandle> m_HistoryEntities;
-  SparseList<EntityHandle> m_CurrentEntities;
+  SparseList<ClientEntityHandle> m_HistoryEntities;
+  SparseList<ClientEntityHandle> m_CurrentEntities;
 
   bool m_ActivateEntities = false;
 };

@@ -4,7 +4,7 @@
 BehaviorTreeTypeDatabase g_BehaviorTreeTypeDatabase;
 PreMainCallList g_BehaviorTreeRegisterCallList;
 
-bool BehaviorTreeTypeDatabase::SerializeType(void * ptr, std::size_t hash_code, bool active, ServerObjectNetBitWriter & writer)
+bool BehaviorTreeTypeDatabase::SerializeType(void * ptr, std::size_t hash_code, bool active, ServerEntityNetBitWriter & writer)
 {
     auto itr = m_TypeInfo.find(hash_code);
     if(itr == m_TypeInfo.end())
@@ -21,7 +21,7 @@ bool BehaviorTreeTypeDatabase::SerializeType(void * ptr, std::size_t hash_code, 
     return true;
 }
 
-bool BehaviorTreeTypeDatabase::DeserializeType(void * ptr, std::size_t hash_code, bool active, ServerObjectNetBitReader & reader)
+bool BehaviorTreeTypeDatabase::DeserializeType(void * ptr, std::size_t hash_code, bool active, ServerEntityNetBitReader & reader)
 {
     auto itr = m_TypeInfo.find(hash_code);
     if(itr == m_TypeInfo.end())

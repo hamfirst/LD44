@@ -23,11 +23,11 @@
 #include "Engine/Window/WindowManager.h"
 #include "Engine/Shader/ShaderManager.h"
 #include "Engine/Camera/Camera.h"
-#include "Engine/Entity/Entity.h"
+#include "Engine/Entity/ClientEntity.h"
 #include "Engine/EngineState.h"
 #include "Engine/Profiler/Profiler.h"
 
-#include "Runtime/Entity/EntityResource.h"
+#include "Runtime/ClientEntity/ClientEntityResource.h"
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/Map/MapResource.h"
 

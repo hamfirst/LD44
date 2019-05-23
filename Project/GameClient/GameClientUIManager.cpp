@@ -7,7 +7,7 @@
 #include "GameClient/GameClientUIData.refl.meta.h"
 
 #include "Game/GameNetworkEvents.refl.h"
-#include "Game/ServerObjects/Player/PlayerServerObject.refl.h"
+#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
 #include "Game/GameConfig.refl.h"
 
 #include "Engine/Window/Window.h"
@@ -91,7 +91,7 @@ void GameClientUIManager::Update()
 
   if(client_local.m_PlayerIndex != -1)
   {
-    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(client_local.m_PlayerIndex);
+    auto player_obj = game_state.m_ServerEntityManager.GetReservedSlotEntityAs<PlayerServerEntity>(client_local.m_PlayerIndex);
     if(player_obj)
     {
       UpgradeInfo upgrade_info;
@@ -303,7 +303,7 @@ GameClientUIData GameClientUIManager::GetScriptData()
 
   if(client_local.m_PlayerIndex != -1)
   {
-    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+    auto player_obj = game_state.m_ServerEntityManager.GetReservedSlotEntityAs<PlayerServerEntity>(
             client_local.m_PlayerIndex);
     if (player_obj)
     {
@@ -340,7 +340,7 @@ void GameClientUIManager::BuyDamage()
 
   if(client_local.m_PlayerIndex != -1)
   {
-    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+    auto player_obj = game_state.m_ServerEntityManager.GetReservedSlotEntityAs<PlayerServerEntity>(
             client_local.m_PlayerIndex);
     if (player_obj)
     {
@@ -368,7 +368,7 @@ void GameClientUIManager::BuyAmmo()
 
   if(client_local.m_PlayerIndex != -1)
   {
-    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+    auto player_obj = game_state.m_ServerEntityManager.GetReservedSlotEntityAs<PlayerServerEntity>(
             client_local.m_PlayerIndex);
     if (player_obj)
     {
@@ -396,7 +396,7 @@ void GameClientUIManager::BuyHealth()
 
   if(client_local.m_PlayerIndex != -1)
   {
-    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+    auto player_obj = game_state.m_ServerEntityManager.GetReservedSlotEntityAs<PlayerServerEntity>(
             client_local.m_PlayerIndex);
     if (player_obj)
     {
@@ -428,7 +428,7 @@ void GameClientUIManager::BuyLife()
 
   if(client_local.m_PlayerIndex != -1)
   {
-    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+    auto player_obj = game_state.m_ServerEntityManager.GetReservedSlotEntityAs<PlayerServerEntity>(
             client_local.m_PlayerIndex);
     if (player_obj)
     {
@@ -459,7 +459,7 @@ void GameClientUIManager::BuyRate()
 
   if(client_local.m_PlayerIndex != -1)
   {
-    auto player_obj = game_state.m_ServerObjectManager.GetReservedSlotObjectAs<PlayerServerObject>(
+    auto player_obj = game_state.m_ServerEntityManager.GetReservedSlotEntityAs<PlayerServerEntity>(
             client_local.m_PlayerIndex);
     if (player_obj)
     {

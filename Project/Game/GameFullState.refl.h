@@ -11,15 +11,15 @@
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 
-#include "Runtime/ServerObject/ServerObjectManager.h"
-#include "Runtime/ServerObject/ServerObjectSerialize.h"
+#include "Runtime/ServerEntity/ServerEntityManager.h"
+#include "Runtime/ServerEntity/ServerEntitySerialize.h"
 
 struct GameFullState
 {
   NET_REFL;
   STORM_REFL_NODEFAULT;
 
-  ServerObjectManager m_ServerObjectManager;
+  ServerEntityManager m_ServerEntityManager;
   GameInstanceData m_InstanceData;
 };
 

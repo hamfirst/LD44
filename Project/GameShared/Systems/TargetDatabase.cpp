@@ -2,19 +2,19 @@
 #include "GameShared/GameSharedCommon.h"
 #include "GameShared/Systems/TargetDatabase.h"
 
-#include "Game/ServerObjects/GameServerObjectBase.refl.h"
-#include "Game/ServerObjects/Player/PlayerServerObject.refl.h"
+#include "Game/ServerEntities/GameServerEntityBase.refl.h"
+#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
 
 #include "Runtime/Collision/CollisionDatabase.h"
 
-void TargetDatabase::PushTarget(NotNullPtr<GameServerObjectBase> obj, GameLogicContainer & game_container)
+void TargetDatabase::PushTarget(NotNullPtr<GameServerEntityBase> obj, GameLogicContainer & game_container)
 {
   TargetData target_data;
-  target_data.m_Handle = obj->GetObjectHandle();
+  target_data.m_Handle = obj->GetEntityHandle();
   target_data.m_Position = obj->m_Position;
   target_data.m_Team = -1;
 
-  auto player = obj->CastTo<PlayerServerObject>();
+  auto player = obj->CastTo<PlayerServerEntity>();
   if(player)
   {
     auto player_info = game_container.GetLowFrequencyInstanceData().m_Players.TryGet(player->GetSlotIndex());
@@ -27,14 +27,14 @@ void TargetDatabase::PushTarget(NotNullPtr<GameServerObjectBase> obj, GameLogicC
   m_Data.emplace_back(target_data);
 }
 
-std::vector<ServerObjectHandle> TargetDatabase::QueryForTargets(NotNullPtr<GameServerObjectBase> src, GameNetVal vision_cone_angle,
+std::vector<ServerEntityHandle> TargetDatabase::QueryForTargets(NotNullPtr<GameServerEntityBase> src, GameNetVal vision_cone_angle,
         GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
         NullOptPtr<CollisionDatabase> collision_database, GameLogicContainer & game_container)
 {
-  std::vector<ServerObjectHandle> targets;
+  std::vector<ServerEntityHandle> targets;
 
   int team = -1;
-  auto player = src->CastTo<PlayerServerObject>();
+  auto player = src->CastTo<PlayerServerEntity>();
   if(player)
   {
     auto player_info = game_container.GetLowFrequencyInstanceData().m_Players.TryGet(player->GetSlotIndex());

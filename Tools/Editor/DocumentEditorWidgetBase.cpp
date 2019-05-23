@@ -383,15 +383,15 @@ Optional<std::string> DocumentEditorWidgetBase::GetFileNameForAssetType(czstr as
     auto path = GetRootPath() + "TileSheets";
     file_name = QFileDialog::getOpenFileName(this, tr("Open Tile Sheet"), path.data(), tr("Tile Sheet Files (*.tilesheet)")).toStdString();
   }
-  else if (!strcmp(asset_type, "entity"))
+  else if (!strcmp(asset_type, "clntent"))
   {
     auto path = GetRootPath() + "Entities";
-    file_name = QFileDialog::getOpenFileName(this, tr("Open Entity"), path.data(), tr("Entity Files (*.entity)")).toStdString();
+    file_name = QFileDialog::getOpenFileName(this, tr("Open Client Entity"), path.data(), tr("ClientEntity Files (*.entity)")).toStdString();
   }
-  else if (!strcmp(asset_type, "serverobject"))
+  else if (!strcmp(asset_type, "svrent"))
   {
-    auto path = GetRootPath() + "ServerObjects";
-    file_name = QFileDialog::getOpenFileName(this, tr("Open Server Object"), path.data(), tr("Server Object Files (*.serverobject)")).toStdString();
+    auto path = GetRootPath() + "ServerEntities";
+    file_name = QFileDialog::getOpenFileName(this, tr("Open Server Entity"), path.data(), tr("Server Object Files (*.serverobject)")).toStdString();
   }
   else if (!strcmp(asset_type, "ui"))
   {

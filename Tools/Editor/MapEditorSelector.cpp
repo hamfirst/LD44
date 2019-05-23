@@ -3,8 +3,8 @@
 
 MapEditorSelector::MapEditorSelector(NotNullPtr<MapEditor> editor, MapDef & map, QWidget * parent) :
   m_TileSelector(std::make_unique<MapEditorTileSelector>(editor, map, this)),
-  m_EntitySelector(std::make_unique<MapEditorEntitySelector>(editor, map, this)),
-  m_ServerObjectSelector(std::make_unique<MapEditorServerObjectSelector>(editor, map, this)),
+  m_EntitySelector(std::make_unique<MapEditorClientEntitySelector>(editor, map, this)),
+  m_ServerObjectSelector(std::make_unique<MapEditorServerEntitySelector>(editor, map, this)),
   m_ParallaxObjectSelector(std::make_unique<MapEditorParallaxObjectSelector>(editor, map, this))
 {
   m_TileSelector->hide();
@@ -18,12 +18,12 @@ NotNullPtr<MapEditorTileSelector> MapEditorSelector::GetTileSelector()
   return m_TileSelector.get();
 }
 
-NotNullPtr<MapEditorEntitySelector> MapEditorSelector::GetEntitySelector()
+NotNullPtr<MapEditorClientEntitySelector> MapEditorSelector::GetEntitySelector()
 {
   return m_EntitySelector.get();
 }
 
-NotNullPtr<MapEditorServerObjectSelector> MapEditorSelector::GetServerObjectSelector()
+NotNullPtr<MapEditorServerEntitySelector> MapEditorSelector::GetServerObjectSelector()
 {
   return m_ServerObjectSelector.get();
 }

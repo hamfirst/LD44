@@ -4,7 +4,7 @@
 
 #include ""Game/GameServerEventSender.h""
 #include ""Game/GameStage.h""
-#include ""Game/ServerObjects/GameServerObjectBase.refl.h""
+#include ""Game/ServerObjects/GameServerEntityBase.refl.h""
 
 #include ""GameShared/Systems/GameLogicSystems.h""
 #include ""GameShared/GameLogicContainer.h""
@@ -13,12 +13,12 @@
 #include ""Runtime/ServerObject/ServerObjectInitData.refl.h""
 #include ""Runtime/ServerObject/ServerObjectRegistrationMacros.h""
 
-struct {class_name}InitData : public GameServerObjectBaseInitData
+struct {class_name}InitData : public GameServerEntityBaseInitData
 {{
   STORM_DATA_DEFAULT_CONSTRUCTION_DERIVED({class_name}InitData);
 }};
 
-class {class_name} : public GameServerObjectBase
+class {class_name} : public GameServerEntityBase
 {{
 public:
   DECLARE_SERVER_OBJECT;

@@ -30,12 +30,12 @@ struct MapEditorLayerListElement
   }
 };
 
-struct MapEditorLayerListEntityData : public MapEditorLayerListElement
+struct MapEditorLayerListClientEntityData : public MapEditorLayerListElement
 {
   Optional<DocumentSubValueListMirror> m_SubValueList;
 };
 
-struct MapEditorLayerListServerObjectData : public MapEditorLayerListElement
+struct MapEditorLayerListServerEntityData : public MapEditorLayerListElement
 {
   Optional<DocumentSubValueListMirror> m_SubValueList;
 };
@@ -86,30 +86,30 @@ MapEditorLayerList::MapEditorLayerList(NotNullPtr<MapEditor> editor, MapDef & ma
     this
   );
 
-  CreateMirrorList<RMergeList, MapEntityLayer, RString, MapEditorLayerListEntityData, MapEditorLayerList>(
+  CreateMirrorList<RMergeList, MapClientEntityLayer, RString, MapEditorLayerListClientEntityData, MapEditorLayerList>(
     m_EntityLayerMirror,
-    m_Map.m_EntityLayers,
+    m_Map.m_ClientEntityLayers,
     ".m_Name",
-    [](MapEntityLayer & elem, NotNullPtr<MapEditorLayerList>) -> RString & { return elem.m_Name; },
-    [](RString & filename, MapEditorLayerListEntityData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr)
+    [](MapClientEntityLayer & elem, NotNullPtr<MapEditorLayerList>) -> RString & { return elem.m_Name; },
+    [](RString & filename, MapEditorLayerListClientEntityData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr)
         { 
           data.m_LayerList = ptr;
-          data.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kEntityLayer, index };
+          data.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kClientEntityLayer, index };
 
           data.m_SubValueList.Emplace(ptr->m_Editor);
-          CreateMirrorList<RMergeList, MapEntity, RString, MapEditorLayerListElement, MapEditorLayerListEntityData>(
+          CreateMirrorList<RMergeList, MapClientEntity, RString, MapEditorLayerListElement, MapEditorLayerListClientEntityData>(
             data.m_SubValueList.Value(),
-            ptr->m_Map.m_EntityLayers[index].m_Entities,
-            [=]() -> void * { auto list = ptr->m_Map.m_EntityLayers.TryGet(index); return list ? &list->m_Entities : nullptr; },
+            ptr->m_Map.m_ClientEntityLayers[index].m_Entities,
+            [=]() -> void * { auto list = ptr->m_Map.m_ClientEntityLayers.TryGet(index); return list ? &list->m_Entities : nullptr; },
             ".m_Name",
-            [](MapEntity & elem, NotNullPtr<MapEditorLayerListEntityData>) -> RString & { return elem.m_Name; },
-            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListEntityData> ptr)
+            [](MapClientEntity & elem, NotNullPtr<MapEditorLayerListClientEntityData>) -> RString & { return elem.m_Name; },
+            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListClientEntityData> ptr)
                 { 
                   label.m_LayerList = ptr->m_LayerList;
-                  label.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kEntity, ptr->m_LayerInfo.m_Index, index };
+                  label.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kClientEntity, ptr->m_LayerInfo.m_Index, index };
                   ptr->m_LayerList->UpdateScroll();
                 },
-            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListEntityData> ptr) { ptr->m_LayerList->repaint(); },
+            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListClientEntityData> ptr) { ptr->m_LayerList->repaint(); },
             &data
           );
 
@@ -120,34 +120,34 @@ MapEditorLayerList::MapEditorLayerList(NotNullPtr<MapEditor> editor, MapDef & ma
             ptr->m_Editor->ChangeLayerSelection(data.m_LayerInfo, false);
           }
         },
-    [](RString & name, MapEditorLayerListEntityData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr) { ptr->repaint(); },
+    [](RString & name, MapEditorLayerListClientEntityData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr) { ptr->repaint(); },
     this
   );
 
-  CreateMirrorList<RMergeList, MapServerObjectLayer, RString, MapEditorLayerListServerObjectData, MapEditorLayerList>(
+  CreateMirrorList<RMergeList, MapServerEntityLayer, RString, MapEditorLayerListServerEntityData, MapEditorLayerList>(
     m_ServerObjectLayerMirror,
-    m_Map.m_ServerObjectLayers,
+    m_Map.m_ServerEntityLayers,
     ".m_Name",
-    [](MapServerObjectLayer & elem, NotNullPtr<MapEditorLayerList>) -> RString & { return elem.m_Name; },
-    [](RString & filename, MapEditorLayerListServerObjectData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr)
+    [](MapServerEntityLayer & elem, NotNullPtr<MapEditorLayerList>) -> RString & { return elem.m_Name; },
+    [](RString & filename, MapEditorLayerListServerEntityData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr)
         { 
           data.m_LayerList = ptr;
-          data.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kServerObjectLayer, index };
+          data.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kServerEntityLayer, index };
 
           data.m_SubValueList.Emplace(ptr->m_Editor);
-          CreateMirrorList<RMergeList, MapServerObject, RString, MapEditorLayerListElement, MapEditorLayerListServerObjectData>(
+          CreateMirrorList<RMergeList, MapServerEntity, RString, MapEditorLayerListElement, MapEditorLayerListServerEntityData>(
             data.m_SubValueList.Value(),
-            ptr->m_Map.m_ServerObjectLayers[index].m_Objects,
-            [=]() -> void * { auto list = ptr->m_Map.m_ServerObjectLayers.TryGet(index); return list ? &list->m_Objects : nullptr; },
+            ptr->m_Map.m_ServerEntityLayers[index].m_Entities,
+            [=]() -> void * { auto list = ptr->m_Map.m_ServerEntityLayers.TryGet(index); return list ? &list->m_Entities : nullptr; },
             ".m_Name",
-            [](MapServerObject & elem, NotNullPtr<MapEditorLayerListServerObjectData>) -> RString & { return elem.m_Name; },
-            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListServerObjectData> ptr)
+            [](MapServerEntity & elem, NotNullPtr<MapEditorLayerListServerEntityData>) -> RString & { return elem.m_Name; },
+            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListServerEntityData> ptr)
                 { 
                   label.m_LayerList = ptr->m_LayerList;
-                  label.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kServerObject, ptr->m_LayerInfo.m_Index, index };
+                  label.m_LayerInfo = MapEditorLayerSelection{ MapEditorLayerItemType::kServerEntity, ptr->m_LayerInfo.m_Index, index };
                   ptr->m_LayerList->UpdateScroll();
                 },
-            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListServerObjectData> ptr) { ptr->m_LayerList->repaint(); },
+            [](RString & name, MapEditorLayerListElement & label, std::size_t index, NotNullPtr<MapEditorLayerListServerEntityData> ptr) { ptr->m_LayerList->repaint(); },
             &data
           );
 
@@ -158,7 +158,7 @@ MapEditorLayerList::MapEditorLayerList(NotNullPtr<MapEditor> editor, MapDef & ma
             ptr->m_Editor->ChangeLayerSelection(data.m_LayerInfo, false);
           }
         },
-    [](RString & name, MapEditorLayerListServerObjectData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr) { ptr->repaint(); },
+    [](RString & name, MapEditorLayerListServerEntityData & data, std::size_t index, NotNullPtr<MapEditorLayerList> ptr) { ptr->repaint(); },
     this
   );
 
@@ -315,14 +315,14 @@ bool MapEditorLayerList::IsLayerHidden(const MapEditorLayerSelection & layer)
       auto layer_ptr = m_Editor->GetManualTileManager().GetLayerManager(layer.m_Index);
       return layer_ptr ? layer_ptr->IsHidden() : false;
     }
-  case MapEditorLayerItemType::kEntityLayer:
+  case MapEditorLayerItemType::kClientEntityLayer:
     {
-      auto layer_ptr = m_Editor->GetEntityManager().GetLayerManager(layer.m_Index);
+      auto layer_ptr = m_Editor->GetClientEntityManager().GetLayerManager(layer.m_Index);
       return layer_ptr ? layer_ptr->IsHidden() : false;
     }
-  case MapEditorLayerItemType::kServerObjectLayer:
+  case MapEditorLayerItemType::kServerEntityLayer:
     {
-      auto layer_ptr = m_Editor->GetServerObjectManager().GetLayerManager(layer.m_Index);
+      auto layer_ptr = m_Editor->GetServerEntityManager().GetLayerManager(layer.m_Index);
       return layer_ptr ? layer_ptr->IsHidden() : false;
     }
   case MapEditorLayerItemType::kParallaxLayer:
@@ -351,15 +351,15 @@ void MapEditorLayerList::SetHideLayer(const MapEditorLayerSelection & layer, boo
       if (layer_ptr) layer_ptr->SetHidden(hidden);
       break;
     }
-  case MapEditorLayerItemType::kEntityLayer:
+  case MapEditorLayerItemType::kClientEntityLayer:
     {
-      auto layer_ptr = m_Editor->GetEntityManager().GetLayerManager(layer.m_Index);
+      auto layer_ptr = m_Editor->GetClientEntityManager().GetLayerManager(layer.m_Index);
       if (layer_ptr) layer_ptr->SetHidden(hidden);
       break;
     }
-  case MapEditorLayerItemType::kServerObjectLayer:
+  case MapEditorLayerItemType::kServerEntityLayer:
     {
-      auto layer_ptr = m_Editor->GetServerObjectManager().GetLayerManager(layer.m_Index);
+      auto layer_ptr = m_Editor->GetServerEntityManager().GetLayerManager(layer.m_Index);
       if (layer_ptr) layer_ptr->SetHidden(hidden);
       break;
     }
@@ -387,29 +387,29 @@ void MapEditorLayerList::DeleteLayer(const MapEditorLayerSelection & layer)
       m_Map.m_ManualTileLayers.RemoveAt(layer.m_Index);
       break;
     }
-  case MapEditorLayerItemType::kEntityLayer:
+  case MapEditorLayerItemType::kClientEntityLayer:
     {
-      m_Map.m_EntityLayers.RemoveAt(layer.m_Index);
+      m_Map.m_ClientEntityLayers.RemoveAt(layer.m_Index);
       break;
     }
-  case MapEditorLayerItemType::kServerObjectLayer:
+  case MapEditorLayerItemType::kServerEntityLayer:
     {
-      m_Map.m_ServerObjectLayers.RemoveAt(layer.m_Index);
+      m_Map.m_ServerEntityLayers.RemoveAt(layer.m_Index);
       break;
     }
-  case MapEditorLayerItemType::kEntity:
+  case MapEditorLayerItemType::kClientEntity:
     {
-      if(m_Map.m_EntityLayers.HasAt(layer.m_Index))
+      if(m_Map.m_ClientEntityLayers.HasAt(layer.m_Index))
       {
-        m_Map.m_EntityLayers[layer.m_Index].m_Entities.RemoveAt(layer.m_SubIndex);
+        m_Map.m_ClientEntityLayers[layer.m_Index].m_Entities.RemoveAt(layer.m_SubIndex);
       }
       break;
     }
-  case MapEditorLayerItemType::kServerObject:
+  case MapEditorLayerItemType::kServerEntity:
     {
-      if(m_Map.m_ServerObjectLayers.HasAt(layer.m_Index))
+      if(m_Map.m_ServerEntityLayers.HasAt(layer.m_Index))
       {
-        m_Map.m_ServerObjectLayers[layer.m_Index].m_Objects.RemoveAt(layer.m_SubIndex);
+        m_Map.m_ServerEntityLayers[layer.m_Index].m_Entities.RemoveAt(layer.m_SubIndex);
       }
       break;
     }
@@ -496,7 +496,7 @@ int MapEditorLayerList::VisitElements(Delegate<bool, const MapEditorLayerSelecti
     }
   }
 
-  elem.m_Type = MapEditorLayerItemType::kEntityLayerParent;
+  elem.m_Type = MapEditorLayerItemType::kClientEntityLayerParent;
   if (visitor(elem, y_pos) == false)
   {
     return y_pos;
@@ -506,10 +506,10 @@ int MapEditorLayerList::VisitElements(Delegate<bool, const MapEditorLayerSelecti
 
   if (m_EntityParentExpanded)
   {
-    for (auto layer : m_Map.m_EntityLayers)
+    for (auto layer : m_Map.m_ClientEntityLayers)
     {
       MapEditorLayerSelection elem = {};
-      elem.m_Type = MapEditorLayerItemType::kEntityLayer;
+      elem.m_Type = MapEditorLayerItemType::kClientEntityLayer;
       elem.m_Index = layer.first;
 
       if (visitor(elem, y_pos) == false)
@@ -519,13 +519,13 @@ int MapEditorLayerList::VisitElements(Delegate<bool, const MapEditorLayerSelecti
 
       y_pos += layer_height;
 
-      auto layer_ptr = m_Editor->GetEntityManager().GetLayerManager(layer.first);
+      auto layer_ptr = m_Editor->GetClientEntityManager().GetLayerManager(layer.first);
       if (layer_ptr && layer_ptr->IsCollapsed() == false)
       {
         for (auto entity : layer.second.m_Entities)
         {
           MapEditorLayerSelection elem = {};
-          elem.m_Type = MapEditorLayerItemType::kEntity;
+          elem.m_Type = MapEditorLayerItemType::kClientEntity;
           elem.m_Index = layer.first;
           elem.m_SubIndex = entity.first;
 
@@ -540,7 +540,7 @@ int MapEditorLayerList::VisitElements(Delegate<bool, const MapEditorLayerSelecti
     }
   }
 
-  elem.m_Type = MapEditorLayerItemType::kServerObjectLayerParent;
+  elem.m_Type = MapEditorLayerItemType::kServerEntityLayerParent;
   if (visitor(elem, y_pos) == false)
   {
     return y_pos;
@@ -550,10 +550,10 @@ int MapEditorLayerList::VisitElements(Delegate<bool, const MapEditorLayerSelecti
 
   if (m_ServerObjectParentExpanded)
   {
-    for (auto layer : m_Map.m_ServerObjectLayers)
+    for (auto layer : m_Map.m_ServerEntityLayers)
     {
       MapEditorLayerSelection elem = {};
-      elem.m_Type = MapEditorLayerItemType::kServerObjectLayer;
+      elem.m_Type = MapEditorLayerItemType::kServerEntityLayer;
       elem.m_Index = layer.first;
 
       if (visitor(elem, y_pos) == false)
@@ -563,13 +563,13 @@ int MapEditorLayerList::VisitElements(Delegate<bool, const MapEditorLayerSelecti
 
       y_pos += layer_height;
 
-      auto layer_ptr = m_Editor->GetServerObjectManager().GetLayerManager(layer.first);
+      auto layer_ptr = m_Editor->GetServerEntityManager().GetLayerManager(layer.first);
       if (layer_ptr && layer_ptr->IsCollapsed() == false)
       {
-        for (auto server_object : layer.second.m_Objects)
+        for (auto server_object : layer.second.m_Entities)
         {
           MapEditorLayerSelection elem = {};
-          elem.m_Type = MapEditorLayerItemType::kServerObject;
+          elem.m_Type = MapEditorLayerItemType::kServerEntity;
           elem.m_Index = layer.first;
           elem.m_SubIndex = server_object.first;
 
@@ -914,50 +914,50 @@ void MapEditorLayerList::paintEvent(QPaintEvent * ev)
           p.drawText(layer_height + 10, y_pos, width(), height(), 0, m_Map.m_ManualTileLayers[layer.m_Index].m_Name.data());
           break;
         }
-      case MapEditorLayerItemType::kEntityLayerParent:
+      case MapEditorLayerItemType::kClientEntityLayerParent:
         {
           QStyleOption option;
           option.rect = QRect(2, y_pos, layer_height, layer_height);
           style()->drawPrimitive(m_EntityParentExpanded ? QStyle::PE_IndicatorArrowDown : QStyle::PE_IndicatorArrowRight, &option, &p, this);
-          p.drawText(layer_height + 2, y_pos, width(), height(), 0, "Entity Layers");
+          p.drawText(layer_height + 2, y_pos, width(), height(), 0, "ClientEntity Layers");
           break;
         }
-      case MapEditorLayerItemType::kEntityLayer:
+      case MapEditorLayerItemType::kClientEntityLayer:
         {
-          auto layer_ptr = m_Editor->GetEntityManager().GetLayerManager(layer.m_Index);
+          auto layer_ptr = m_Editor->GetClientEntityManager().GetLayerManager(layer.m_Index);
 
           QStyleOption option;
           option.rect = QRect(layer_height + 5, y_pos, layer_height, layer_height);
           style()->drawPrimitive((layer_ptr && layer_ptr->IsCollapsed() == false) ? QStyle::PE_IndicatorArrowDown : QStyle::PE_IndicatorArrowRight, &option, &p, this);
-          p.drawText(layer_height * 2 + 7, y_pos, width(), height(), 0, m_Map.m_EntityLayers[layer.m_Index].m_Name.data());
+          p.drawText(layer_height * 2 + 7, y_pos, width(), height(), 0, m_Map.m_ClientEntityLayers[layer.m_Index].m_Name.data());
           break;
         }
-      case MapEditorLayerItemType::kEntity:
+      case MapEditorLayerItemType::kClientEntity:
         {
-          p.drawText(layer_height * 2 + 17, y_pos, width(), height(), 0, m_Map.m_EntityLayers[layer.m_Index].m_Entities[layer.m_SubIndex].m_Name.data());
+          p.drawText(layer_height * 2 + 17, y_pos, width(), height(), 0, m_Map.m_ClientEntityLayers[layer.m_Index].m_Entities[layer.m_SubIndex].m_Name.data());
           break;
         }
-      case MapEditorLayerItemType::kServerObjectLayerParent:
+      case MapEditorLayerItemType::kServerEntityLayerParent:
         {
           QStyleOption option;
           option.rect = QRect(2, y_pos, layer_height, layer_height);
           style()->drawPrimitive(m_ServerObjectParentExpanded ? QStyle::PE_IndicatorArrowDown : QStyle::PE_IndicatorArrowRight, &option, &p, this);
-          p.drawText(layer_height + 2, y_pos, width(), height(), 0, "Server Object Layers");
+          p.drawText(layer_height + 2, y_pos, width(), height(), 0, "Server Entity Layers");
           break;
         }
-      case MapEditorLayerItemType::kServerObjectLayer:
+      case MapEditorLayerItemType::kServerEntityLayer:
         {
-          auto layer_ptr = m_Editor->GetServerObjectManager().GetLayerManager(layer.m_Index);
+          auto layer_ptr = m_Editor->GetServerEntityManager().GetLayerManager(layer.m_Index);
 
           QStyleOption option;
           option.rect = QRect(layer_height + 5, y_pos, layer_height, layer_height);
           style()->drawPrimitive((layer_ptr && layer_ptr->IsCollapsed() == false) ? QStyle::PE_IndicatorArrowDown : QStyle::PE_IndicatorArrowRight, &option, &p, this);
-          p.drawText(layer_height * 2 + 7, y_pos, width(), height(), 0, m_Map.m_ServerObjectLayers[layer.m_Index].m_Name.data());
+          p.drawText(layer_height * 2 + 7, y_pos, width(), height(), 0, m_Map.m_ServerEntityLayers[layer.m_Index].m_Name.data());
           break;
         }
-      case MapEditorLayerItemType::kServerObject:
+      case MapEditorLayerItemType::kServerEntity:
         {
-          p.drawText(layer_height * 2 + 17, y_pos, width(), height(), 0, m_Map.m_ServerObjectLayers[layer.m_Index].m_Objects[layer.m_SubIndex].m_Name.data());
+          p.drawText(layer_height * 2 + 17, y_pos, width(), height(), 0, m_Map.m_ServerEntityLayers[layer.m_Index].m_Entities[layer.m_SubIndex].m_Name.data());
           break;
         }
       case MapEditorLayerItemType::kParallaxLayerParent:
@@ -1115,17 +1115,17 @@ void MapEditorLayerList::mousePressEvent(QMouseEvent * ev)
       }
       break;
 
-    case MapEditorLayerItemType::kEntityLayerParent:
+    case MapEditorLayerItemType::kClientEntityLayerParent:
       if (ev->x() < 15)
       {
         m_EntityParentExpanded = !m_EntityParentExpanded;
       }
       break;
 
-    case MapEditorLayerItemType::kEntityLayer:
+    case MapEditorLayerItemType::kClientEntityLayer:
       if (ev->x() < 30)
       {
-        auto layer_ptr = m_Editor->GetEntityManager().GetLayerManager(selection->m_Index);
+        auto layer_ptr = m_Editor->GetClientEntityManager().GetLayerManager(selection->m_Index);
         if (layer_ptr)
         {
           layer_ptr->ToggleColapsed();
@@ -1133,17 +1133,17 @@ void MapEditorLayerList::mousePressEvent(QMouseEvent * ev)
       }
       break;
 
-    case MapEditorLayerItemType::kServerObjectLayerParent:
+    case MapEditorLayerItemType::kServerEntityLayerParent:
       if (ev->x() < 15)
       {
         m_ServerObjectParentExpanded = !m_ServerObjectParentExpanded;
       }
       break;
 
-    case MapEditorLayerItemType::kServerObjectLayer:
+    case MapEditorLayerItemType::kServerEntityLayer:
       if (ev->x() < 30)
       {
-        auto layer_ptr = m_Editor->GetServerObjectManager().GetLayerManager(selection->m_Index);
+        auto layer_ptr = m_Editor->GetServerEntityManager().GetLayerManager(selection->m_Index);
         if (layer_ptr)
         {
           layer_ptr->ToggleColapsed();
@@ -1215,17 +1215,17 @@ void MapEditorLayerList::mousePressEvent(QMouseEvent * ev)
         menu.exec(mapToGlobal(ev->pos()));
         break;
       }
-    case MapEditorLayerItemType::kEntityLayerParent:
+    case MapEditorLayerItemType::kClientEntityLayerParent:
       {
         QMenu menu(this);
-        connect(menu.addAction("Add"), &QAction::triggered, this, &MapEditorLayerList::addEntityLayer);
+        connect(menu.addAction("Add"), &QAction::triggered, this, &MapEditorLayerList::addClientEntityLayer);
         menu.exec(mapToGlobal(ev->pos()));
         break;
       }
-    case MapEditorLayerItemType::kServerObjectLayerParent:
+    case MapEditorLayerItemType::kServerEntityLayerParent:
       {
         QMenu menu(this);
-        connect(menu.addAction("Add"), &QAction::triggered, this, &MapEditorLayerList::addServerObjectLayer);
+        connect(menu.addAction("Add"), &QAction::triggered, this, &MapEditorLayerList::addServerEntityLayer);
         menu.exec(mapToGlobal(ev->pos()));
         break;
       }
@@ -1243,17 +1243,17 @@ void MapEditorLayerList::mousePressEvent(QMouseEvent * ev)
         menu.exec(mapToGlobal(ev->pos()));
         break;
       }
-    case MapEditorLayerItemType::kEntityLayer:
+    case MapEditorLayerItemType::kClientEntityLayer:
       {
         QMenu menu(this);
-        connect(menu.addAction("Remove"), &QAction::triggered, this, &MapEditorLayerList::removeEntityLayer);
+        connect(menu.addAction("Remove"), &QAction::triggered, this, &MapEditorLayerList::removeClientEntityLayer);
         menu.exec(mapToGlobal(ev->pos()));
         break;
       }
-    case MapEditorLayerItemType::kServerObjectLayer:
+    case MapEditorLayerItemType::kServerEntityLayer:
       {
         QMenu menu(this);
-        connect(menu.addAction("Remove"), &QAction::triggered, this, &MapEditorLayerList::removeServerObjectLayer);
+        connect(menu.addAction("Remove"), &QAction::triggered, this, &MapEditorLayerList::removeServerEntityLayer);
         menu.exec(mapToGlobal(ev->pos()));
         break;
       }
@@ -1332,50 +1332,50 @@ void MapEditorLayerList::removeManualTileLayer()
   m_Map.m_ManualTileLayers.RemoveAt(m_Selection->m_Index);
 }
 
-void MapEditorLayerList::addEntityLayer()
+void MapEditorLayerList::addClientEntityLayer()
 {
-  MapEntityLayer entity_layer;
-  entity_layer.m_Name = "Entity Layer";
+  MapClientEntityLayer entity_layer;
+  entity_layer.m_Name = "Client Entity Layer";
 
-  m_Map.m_EntityLayers.EmplaceBack(std::move(entity_layer));
+  m_Map.m_ClientEntityLayers.EmplaceBack(std::move(entity_layer));
 }
 
-void MapEditorLayerList::removeEntityLayer()
+void MapEditorLayerList::removeClientEntityLayer()
 {
   if (m_Selection == false)
   {
     return;
   }
 
-  if (m_Selection->m_Type != MapEditorLayerItemType::kEntityLayer)
+  if (m_Selection->m_Type != MapEditorLayerItemType::kClientEntityLayer)
   {
     return;
   }
 
-  m_Map.m_EntityLayers.RemoveAt(m_Selection->m_Index);
+  m_Map.m_ClientEntityLayers.RemoveAt(m_Selection->m_Index);
 }
 
-void MapEditorLayerList::addServerObjectLayer()
+void MapEditorLayerList::addServerEntityLayer()
 {
-  MapServerObjectLayer server_object_layer;
-  server_object_layer.m_Name = "Server Object Layer";
+  MapServerEntityLayer server_object_layer;
+  server_object_layer.m_Name = "Server Entity Layer";
 
-  m_Map.m_ServerObjectLayers.EmplaceBack(std::move(server_object_layer));
+  m_Map.m_ServerEntityLayers.EmplaceBack(std::move(server_object_layer));
 }
 
-void MapEditorLayerList::removeServerObjectLayer()
+void MapEditorLayerList::removeServerEntityLayer()
 {
   if (m_Selection == false)
   {
     return;
   }
 
-  if (m_Selection->m_Type != MapEditorLayerItemType::kServerObjectLayer)
+  if (m_Selection->m_Type != MapEditorLayerItemType::kServerEntityLayer)
   {
     return;
   }
 
-  m_Map.m_ServerObjectLayers.RemoveAt(m_Selection->m_Index);
+  m_Map.m_ServerEntityLayers.RemoveAt(m_Selection->m_Index);
 }
 
 void MapEditorLayerList::addParallaxLayer()

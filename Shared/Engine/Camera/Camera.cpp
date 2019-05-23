@@ -6,7 +6,7 @@
 #include "Engine/Rendering/RenderSettings.h"
 #include "Engine/Shader/ShaderManager.h"
 #include "Engine/DrawList/DrawList.h"
-#include "Engine/Entity/EntitySystem.h"
+#include "Engine/Entity/ClientEntitySystem.h"
 #include "Engine/Map/MapSystem.h"
 #include "Engine/VisualEffect/VisualEffectManager.h"
 #include "Engine/EngineState.h"

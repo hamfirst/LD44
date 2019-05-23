@@ -34,9 +34,9 @@ struct MapEffectLayerHandle : public MapHandleBase
   STORM_DATA_DEFAULT_CONSTRUCTION_DERIVED(MapEffectLayerHandle);
 };
 
-struct MapServerObjectHandle : public MapHandleBase
+struct MapServerEntityHandle : public MapHandleBase
 {
-  STORM_DATA_DEFAULT_CONSTRUCTION_DERIVED(MapServerObjectHandle);
+  STORM_DATA_DEFAULT_CONSTRUCTION_DERIVED(MapServerEntityHandle);
 };
 
 struct MapAnchorHandle : public MapHandleBase
