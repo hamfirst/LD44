@@ -88,11 +88,11 @@ std::string GameModeOnlineStaging::GetGameName()
   switch((LobbyGameType)m_GameInfo.m_Type)
   {
     case LobbyGameType::kCompetitive:
-      return "Competitive Game";
+      return "Competitive GameProject";
     case LobbyGameType::kCasual:
-      return "Casual Game";
+      return "Casual GameProject";
     case LobbyGameType::kPrivate:
-      return "Private Game";
+      return "Private GameProject";
   }
 
   return "";

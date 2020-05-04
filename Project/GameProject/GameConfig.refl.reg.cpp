@@ -13,5 +13,5 @@
 #include "Game/GameConfig.refl.h"
 #include "Game/GameConfig.refl.meta.h"
 
-REGISTER_CONFIG_TYPE(GameConfig, "Game Config", "gameconfig", "Configs");
+REGISTER_CONFIG_TYPE(GameConfig, "GameProject Config", "gameconfig", "Configs");
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(GameConfig);

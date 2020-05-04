@@ -32,7 +32,7 @@ include_directories(${PROJECT_SOURCE_DIR}
                     ${PROJECT_SOURCE_DIR}/Project
                     ${PROJECT_SOURCE_DIR}/Lobby)
 
-add_subdirectory(Project/Game)
+add_subdirectory(Project/GameProject)
 add_subdirectory(Project/GameShared)
 
 set_target_properties(Game PROPERTIES FOLDER Project)
@@ -95,7 +95,7 @@ if(BUILD_CLIENT OR BUILD_TOOLS)
     file(GLOB_RECURSE ClientSrc
       ${PROJECT_SOURCE_DIR}/Project/GameClientExe/*.cpp
       ${PROJECT_SOURCE_DIR}/Project/GameClient/*.cpp
-      ${PROJECT_SOURCE_DIR}/Project/Game/*.cpp
+      ${PROJECT_SOURCE_DIR}/Project/GameProject/*.cpp
       ${PROJECT_SOURCE_DIR}/Shared/Runtime/*.cpp
       ${PROJECT_SOURCE_DIR}/Shared/Engine/*.cpp)
 

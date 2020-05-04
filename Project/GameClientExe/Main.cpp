@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
   Vector2 resolution(kDefaultResolutionWidth, kDefaultResolutionHeight);
   resolution *= multiplier;
 
-  auto window = g_WindowManager.CreateNewWindow("Game Title!", resolution.x, resolution.y);
+  auto window = g_WindowManager.CreateNewWindow("GameProject Title!", resolution.x, resolution.y);
   window.MakeCurrent();
   //window.SetVsyncEnabled(false);
 

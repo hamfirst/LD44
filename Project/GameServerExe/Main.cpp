@@ -180,7 +180,7 @@ int main(int argc, const char ** argv)
 #endif
 #endif
 
-  printf("Game Server\n");
+  printf("GameProject Server\n");
 
   InitServerTypes();
   RuntimeInit();
