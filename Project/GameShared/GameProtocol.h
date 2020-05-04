@@ -36,11 +36,8 @@ using ClientProtocolDef = NetProtocolDefinition<
 
   NetPipeFullStateSeq<GameFullState, NetPipeMode::kUnreliableSequenced>,
   NetPipeFullState<ClientLocalData, NetPipeMode::kReliable>,
-#if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
-  NetPipeFullState<GameFullState, NetPipeMode::kReliable>>;
-#else
+
   NetPipeFullState<GameFullState, NetPipeMode::kUnreliableSequenced>>;
-#endif
 #endif
 
 using ServerProtocol = NetProtocolInfo<ServerProtocolDef>::template AsymmetricProtocolType<ClientProtocolDef>;

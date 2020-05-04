@@ -22,9 +22,9 @@ public:
   void AllowGraceJump();
   bool CanGraceJump() const;
 
-  virtual void Move(PlayerServerEntity & player, GameLogicContainer & game_container) override;
-  virtual void Transition(PlayerServerEntity & player, GameLogicContainer & game_container) override;
-  virtual void Animate(PlayerServerEntity & player, GameLogicContainer & game_container) override;
+  virtual void Move(PlayerServerEntity & player, GameServerWorld & game_container) override;
+  virtual void Transition(PlayerServerEntity & player, GameServerWorld & game_container) override;
+  virtual void Animate(PlayerServerEntity & player, GameServerWorld & game_container) override;
 
 public:
 

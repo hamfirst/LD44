@@ -1,10 +1,10 @@
 #include "GameClient/GameClientCommon.h"
-#include "GameClient/GameClientUIManager.h"
+#include "GameClientUIManager.h"
 #include "GameClient/GameContainer.h"
 #include "GameClient/GameClientEventSender.h"
 #include "GameClient/GameCamera.h"
 #include "GameClient/GameClientSystems.h"
-#include "GameClient/GameClientUIData.refl.meta.h"
+#include "GameClientUIData.refl.meta.h"
 
 #include "Game/GameNetworkEvents.refl.h"
 #include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"

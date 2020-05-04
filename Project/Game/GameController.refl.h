@@ -9,7 +9,7 @@
 #include "Game/GameNetworkExternals.refl.h"
 #include "Game/GameFullState.refl.h"
 
-class GameLogicContainer;
+class GameServerWorld;
 
 class GameController
 {
@@ -20,107 +20,98 @@ public:
 
   GameController();
 
-  void BootstrapGame(GameLogicContainer & game, uint32_t seed);
+  void BootstrapGame(GameServerWorld & game, uint32_t seed);
 
-  void ConstructPlayer(std::size_t player_index, GameLogicContainer & game, const std::string & name, int team);
-  void DestroyPlayer(std::size_t player_index, GameLogicContainer & game);
-  bool AllowConversionToBot(std::size_t player_index, GameLogicContainer & game);
-  void ConvertBotToPlayer(std::size_t player_index, GameLogicContainer & game, const std::string & name);
+  void ConstructPlayer(std::size_t player_index, GameServerWorld & game, const std::string & name, int team);
+  void DestroyPlayer(std::size_t player_index, GameServerWorld & game);
+  bool AllowConversionToBot(std::size_t player_index, GameServerWorld & game);
+  void ConvertBotToPlayer(std::size_t player_index, GameServerWorld & game, const std::string & name);
 
-  void ConstructBot(std::size_t player_index, GameLogicContainer & game, const std::string & name, int team);
-  void DestroyBot(std::size_t player_index, GameLogicContainer & game);
-  void ConvertPlayerToBot(std::size_t player_index, GameLogicContainer & game, const std::string & name);
+  void ConstructBot(std::size_t player_index, GameServerWorld & game, const std::string & name, int team);
+  void DestroyBot(std::size_t player_index, GameServerWorld & game);
+  void ConvertPlayerToBot(std::size_t player_index, GameServerWorld & game, const std::string & name);
 
 #ifdef NET_ALLOW_OBSERVERS
-  void ConstructObserver(std::size_t observer_index, GameLogicContainer & game, const std::string & name);
-  void DestroyObserver(std::size_t observer_index, GameLogicContainer & game);
+  void ConstructObserver(std::size_t observer_index, GameServerWorld & game, const std::string & name);
+  void DestroyObserver(std::size_t observer_index, GameServerWorld & game);
 
 #ifdef NET_USE_LOADOUT
-  void ConvertObserverToPlayer(std::size_t observer_index, std::size_t player_index, GameLogicContainer & game, int team,
+  void ConvertObserverToPlayer(std::size_t observer_index, std::size_t player_index, GameServerWorld & game, int team,
           uint32_t random_number, const GamePlayerLoadout & loadout);
 #else
   void ConvertObserverToPlayer(std::size_t observer_index, std::size_t player_index,
-          GameLogicContainer & game, int team, uint32_t random_number);
+          GameServerWorld & game, int team, uint32_t random_number);
 #endif
 
-  void ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameLogicContainer & game, bool replace_with_bot = true);
+  void ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameServerWorld & game, bool replace_with_bot = true);
 #endif
 
-  void ProcessExternal(const NetPolymorphic<GameNetworkExternalEvent> & ext, GameLogicContainer & game);
+  void ProcessExternal(const NetPolymorphic<GameNetworkExternalEvent> & ext, GameServerWorld & game);
 
-  void InitPlayer(GameLogicContainer & game, std::size_t player_index, const GamePlayer & player);
-  void SetPlayerToSpawn(GameLogicContainer & game, std::size_t player_index) const;
-  void CleanupPlayer(GameLogicContainer & game, std::size_t player_index);
-  int AddAIPlayer(GameLogicContainer & game, uint32_t random_number);
-  void FillWithBots(GameLogicContainer & game, uint32_t random_number);
+  void InitPlayer(GameServerWorld & game, std::size_t player_index, const GamePlayer & player);
+  void SetPlayerToSpawn(GameServerWorld & game, std::size_t player_index) const;
+  void CleanupPlayer(GameServerWorld & game, std::size_t player_index);
+  int AddAIPlayer(GameServerWorld & game, uint32_t random_number);
+  void FillWithBots(GameServerWorld & game, uint32_t random_number);
 
-  int GetMaxPlayerCount(GameLogicContainer & game) const;
+  int GetMaxPlayerCount(GameServerWorld & game) const;
 
 #ifdef NET_USE_SCORE
-  int GetScoreLimit(GameLogicContainer & game) const;
+  int GetScoreLimit(GameServerWorld & game) const;
 #endif
 
 #ifdef NET_USE_ROUND_TIMER
-
-  void RoundStarted(GameLogicContainer & game) const;
-  void RoundEnded(GameLogicContainer & game) const;
-  void RoundReset(GameLogicContainer & game) const;
-  int GetTimeLimit(GameLogicContainer & game) const;
+  void RoundStarted(GameServerWorld & game) const;
+  void RoundEnded(GameServerWorld & game) const;
+  void RoundReset(GameServerWorld & game) const;
+  int GetTimeLimit(GameServerWorld & game) const;
 #endif
 
   static std::vector<int> GetTeamCounts(const GameInstanceLowFrequencyData & game_data);
   static std::vector<int> GetTeamCounts(const GameStateLoading & game_data);
-  Optional<int> GetOnlyTeamWithPlayers(GameLogicContainer & game);
+  Optional<int> GetOnlyTeamWithPlayers(GameServerWorld & game);
   Optional<int> GetDefaultWinningTeam();
 
-  void HandleClientEvent(std::size_t player_index, GameLogicContainer & game, std::size_t event_class_id, const void * event_ptr);
-  void HandleAuthEvent(GameLogicContainer & game, std::size_t event_class_id, const void * event_ptr);
+  void HandleClientEvent(std::size_t player_index, GameServerWorld & game, std::size_t event_class_id, const void * event_ptr);
+  void HandleAuthEvent(GameServerWorld & game, std::size_t event_class_id, const void * event_ptr);
 
-  bool ValidateInput(std::size_t player_index, GameLogicContainer & game, ClientInput & input);
-  void ApplyInput(std::size_t player_index, GameLogicContainer & game, const ClientInput & input);
-  void Update(GameLogicContainer & game);
+  bool ValidateInput(std::size_t player_index, GameServerWorld & game, ClientInput & input);
+  void ApplyInput(std::size_t player_index, GameServerWorld & game, const ClientInput & input);
+  void Update(GameServerWorld & game);
 
-  void StartGame(GameLogicContainer & game);
-  void EndGame(int winning_team, GameLogicContainer & game);
+  void StartGame(GameServerWorld & game);
+  void EndGame(int winning_team, GameServerWorld & game);
 
 #ifdef NET_USE_SCORE
-  void AddScore(int team, GameLogicContainer & game, GameNetVec2 & pos);
+  void AddScore(int team, GameServerWorld & game, GameNetVec2 & pos);
 #endif
 
-  void STORM_REFL_FUNC HandlePlaceholderEvent(const PlaceholderClientEvent & ev, std::size_t player_index, GameLogicContainer & game);
-  void STORM_REFL_FUNC HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev, GameLogicContainer & game);
+  void STORM_REFL_FUNC HandlePlaceholderEvent(const PlaceholderClientEvent & ev, std::size_t player_index, GameServerWorld & game);
+  void STORM_REFL_FUNC HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev, GameServerWorld & game);
 
 #if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
-  void STORM_REFL_FUNC HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameLogicContainer & game);
+  void STORM_REFL_FUNC HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameServerWorld & game);
 #endif
 
 #ifdef NET_USE_AIM_DIRECTION
-  void STORM_REFL_FUNC HandleFireEvent(const FireEvent & ev, std::size_t player_index, GameLogicContainer & game);
+  void STORM_REFL_FUNC HandleFireEvent(const FireEvent & ev, std::size_t player_index, GameServerWorld & game);
 #endif
 
-  void STORM_REFL_FUNC HandleUseEvent(const UseEvent & ev, std::size_t player_index, GameLogicContainer & game);
-  void STORM_REFL_FUNC HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t player_index, GameLogicContainer & game);
+  void STORM_REFL_FUNC HandleUseEvent(const UseEvent & ev, std::size_t player_index, GameServerWorld & game);
+  void STORM_REFL_FUNC HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t player_index, GameServerWorld & game);
 
-  void RespawnNPCs(GameLogicContainer & game) const;
-
-#if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
-  bool IsPlayerActive(std::size_t player_index, GameLogicContainer & game);
-  void CheckEndTurnTimer(GameLogicContainer & game);
-  void EndTurn(GameLogicContainer & game);
-
-  void STORM_REFL_FUNC HandleEndTurnEvent(const EndTurnEvent & ev, std::size_t player_index, GameLogicContainer & game);
-#endif
+  void RespawnNPCs(GameServerWorld & game) const;
 
 private:
 
   template <typename Visitor>
-  void VisitPlayers(GameLogicContainer & game, Visitor && visitor) const;
+  void VisitPlayers(GameServerWorld & game, Visitor && visitor) const;
 
 private:
 
-  std::vector<Delegate<void, const void *, std::size_t, GameLogicContainer &>> m_ClientEventCallbacks;
-  std::vector<Delegate<void, const void *, GameLogicContainer &>> m_AuthEventCallbacks;
+  std::vector<Delegate<void, const void *, std::size_t, GameServerWorld &>> m_ClientEventCallbacks;
+  std::vector<Delegate<void, const void *, GameServerWorld &>> m_AuthEventCallbacks;
 
-  // There should be no state in this class since it's designed to only respond to events using the GameLogicContainer
+  // There should be no state in this class since it's designed to only respond to events using the GameServerWorld
 };
 

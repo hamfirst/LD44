@@ -239,8 +239,8 @@ Optional<Box> SpriteEngineData::RenderSprite(NotNullPtr<SpriteResource> resource
   }
 
   auto rounded_pos = position;
-  rounded_pos.x = floorf(rounded_pos.x);
-  rounded_pos.y = floorf(rounded_pos.y);
+//  rounded_pos.x = floorf(rounded_pos.x);
+//  rounded_pos.y = floorf(rounded_pos.y);
 
   render_state.BindShader(shader);
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), rounded_pos);

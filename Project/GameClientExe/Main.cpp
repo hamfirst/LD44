@@ -33,7 +33,7 @@
 
 #include "GameClient/GameContainer.h"
 #include "GameClient/GameCamera.h"
-#include "GameClient/GameShaders.h"
+#include "Project/GameClient/Shaders/GameShaders.h"
 
 #include "Foundation/Pathfinding/Pathfinding.h"
 #include "Foundation/Pathfinding/GraphPathfinding.h"

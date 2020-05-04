@@ -25,8 +25,8 @@ public:
   HealthPickup & operator = (const HealthPickup & rhs) = default;
   HealthPickup & operator = (HealthPickup && rhs) = default;
 
-  bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameLogicContainer & game_container) override;
-  void PickUp(NotNullPtr<ServerEntity> server_object, GameLogicContainer & game_container) override;
+  bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container) override;
+  void PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container) override;
 
   virtual czstr GetDefaultEntityBinding() const override;
   virtual const SpritePtr & GetSprite() const override;

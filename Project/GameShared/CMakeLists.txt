@@ -28,8 +28,8 @@ set(GENERIC_SRC_GameShared
             BehaviorTree/States/PlayAnimationForTimeBotState.refl.reg.cpp
             GameEventReconciler.cpp
             GameLevelList.cpp
-            GameLogicContainer.cpp
             GamePlayList.cpp
+            GameServerWorld.cpp
             GameSharedCommon.cpp
             GameStageManager.cpp
             GameWebrtc.cpp
@@ -40,7 +40,7 @@ set(GENERIC_SRC_GameShared
             SkillTree/SkillTreeConfig.refl.reg.cpp
             Systems/CVCPushSystem.cpp
             Systems/GameLogicSystems.cpp
-  Systems/GameServerEntityOverlapSystem.cpp
+            Systems/GameServerEntityOverlapSystem.cpp
             Systems/TargetDatabase.cpp
             #CPP_PLACEHOLDER
             )
@@ -65,11 +65,11 @@ set(GENERIC_HEADER_GameShared
             GameLevelList.h
             GameLevelListAsset.refl.h
             GameLevelListAsset.refl.meta.h
-            GameLogicContainer.h
             GamePlayList.h
             GamePlayListAsset.refl.h
             GamePlayListAsset.refl.meta.h
             GameProtocol.h
+            GameServerWorld.h
             GameSharedCommon.h
             GameStageManager.h
             Modifier/Modifier.refl.h
@@ -81,8 +81,8 @@ set(GENERIC_HEADER_GameShared
             SkillTree/SkillTreeSerialize.h
             Systems/CVCPushSystem.h
             Systems/GameLogicSystems.h
-  Systems/GameServerEntityOverlapRegistrationMacros.h
-  Systems/GameServerEntityOverlapSystem.h
+            Systems/GameServerEntityOverlapRegistrationMacros.h
+            Systems/GameServerEntityOverlapSystem.h
             Systems/TargetDatabase.h
             #HEADER_PLACEHOLDER
             )

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "GameClient/GameCamera.h"
-#include "GameClient/GameClientInputManager.h"
-#include "GameClient/GameClientUIManager.h"
-#include "GameClient/GameNetworkClient.h"
+#include "Project/GameClient/Input/GameClientInputManager.h"
+#include "Project/GameClient/UI/GameClientUIManager.h"
+#include "Project/GameClient/Network/GameNetworkClient.h"
 
 class GameContainer;
 

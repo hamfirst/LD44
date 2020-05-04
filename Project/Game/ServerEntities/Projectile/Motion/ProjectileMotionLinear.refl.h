@@ -16,8 +16,8 @@ class ProjectileMotionLinear : public ProjectileMotionBase
 public:
   NET_REFL;
 
-  void Init(ProjectileServerEntity & proj, GameLogicContainer & game_container) override;
-  void Update(ProjectileServerEntity & proj, GameLogicContainer & game_container) override;
+  void Init(ProjectileServerEntity & proj, GameServerWorld & game_container) override;
+  void Update(ProjectileServerEntity & proj, GameServerWorld & game_container) override;
 
 public:
 

@@ -4,7 +4,7 @@
 #include "GameClient/Modes/GameModeOnlineGameplay.h"
 #include "GameClient/Modes/GameModeMainMenu.h"
 #include "GameClient/GameContainer.h"
-#include "GameClient/GameNetworkClient.h"
+#include "Project/GameClient/Network/GameNetworkClient.h"
 #include "GameClient/Modes/GameModeOnlineStaging.h"
 
 #include "GameShared/GameLevelListAsset.refl.meta.h"

@@ -12,33 +12,27 @@ set(CMAKE_CXX_STANDARD 17)
 
 include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
 
-set(GENERIC_SRC_GameClient
-  ClientComponents/PlayerComponent.refl.cpp
-  ClientComponents/PlayerComponent.refl.reg.cpp
-  ClientComponents/Reusable/AttachVfxComponent.refl.cpp
-  ClientComponents/Reusable/AttachVfxComponent.refl.reg.cpp
-  ClientComponents/Reusable/PlayAnimationComponent.refl.cpp
-  ClientComponents/Reusable/PlayAnimationComponent.refl.reg.cpp
-  ClientComponents/Reusable/SyncServerObjectComponent.refl.cpp
-  ClientComponents/Reusable/SyncServerObjectComponent.refl.reg.cpp
+set(GENERIC_SRC_GameClient 
+            Camera/GameCamera.cpp
+            ClientComponents/PlayerComponent.refl.cpp
+            ClientComponents/PlayerComponent.refl.reg.cpp
+            ClientComponents/Reusable/AttachVfxComponent.refl.cpp
+            ClientComponents/Reusable/AttachVfxComponent.refl.reg.cpp
+            ClientComponents/Reusable/PlayAnimationComponent.refl.cpp
+            ClientComponents/Reusable/PlayAnimationComponent.refl.reg.cpp
+            ClientComponents/Reusable/SyncServerObjectComponent.refl.cpp
+            ClientComponents/Reusable/SyncServerObjectComponent.refl.reg.cpp
             EffectLayers/CollisionDrawer.refl.cpp
             EffectLayers/CollisionDrawer.refl.reg.cpp
-            GameCamera.cpp
             GameClientCommon.cpp
             GameClientController.refl.cpp
-            GameClientEntitySync.cpp
-            GameClientInputManager.cpp
             GameClientInstanceContainer.cpp
             GameClientInstanceResources.cpp
-            GameClientLatencyChecker.cpp
             GameClientLevelLoader.cpp
-            GameClientSave.cpp
             GameClientSystems.cpp
-            GameClientUIManager.cpp
             GameContainer.cpp
-            GameNetworkClient.cpp
             GameServerEventResponder.cpp
-            GameShaders.cpp
+            Input/GameClientInputManager.cpp
             Modes/GameMode.cpp
             Modes/GameModeConnectingGame.cpp
             Modes/GameModeConnectingLobby.cpp
@@ -60,42 +54,38 @@ set(GENERIC_SRC_GameClient
             Modes/GameModeSinglePlayerBots.cpp
             Modes/GameModeStagingBase.cpp
             Modes/GameModeTutorial.cpp
+            Network/GameClientEntitySync.cpp
+            Network/GameClientLatencyChecker.cpp
+            Network/GameNetworkClient.cpp
+            Save/GameClientSave.cpp
+            Shaders/GameShaders.cpp
+            UI/GameClientUIManager.cpp
             #CPP_PLACEHOLDER
             )
 
-set(GENERIC_HEADER_GameClient
-  ClientComponents/PlayerComponent.refl.h
-  ClientComponents/PlayerComponent.refl.meta.h
-  ClientComponents/Reusable/AttachVfxComponent.refl.h
-  ClientComponents/Reusable/AttachVfxComponent.refl.meta.h
-  ClientComponents/Reusable/PlayAnimationComponent.refl.h
-  ClientComponents/Reusable/PlayAnimationComponent.refl.meta.h
-  ClientComponents/Reusable/SyncServerObjectComponent.refl.h
-  ClientComponents/Reusable/SyncServerObjectComponent.refl.meta.h
+set(GENERIC_HEADER_GameClient 
+            Camera/GameCamera.h
+            ClientComponents/PlayerComponent.refl.h
+            ClientComponents/PlayerComponent.refl.meta.h
+            ClientComponents/Reusable/AttachVfxComponent.refl.h
+            ClientComponents/Reusable/AttachVfxComponent.refl.meta.h
+            ClientComponents/Reusable/PlayAnimationComponent.refl.h
+            ClientComponents/Reusable/PlayAnimationComponent.refl.meta.h
+            ClientComponents/Reusable/SyncServerObjectComponent.refl.h
+            ClientComponents/Reusable/SyncServerObjectComponent.refl.meta.h
             EffectLayers/CollisionDrawer.refl.h
             EffectLayers/CollisionDrawer.refl.meta.h
-            GameCamera.h
             GameClientCommon.h
             GameClientController.refl.h
             GameClientController.refl.meta.h
-            GameClientEntitySync.h
             GameClientEventSender.h
-            GameClientInputManager.h
             GameClientInstanceContainer.h
             GameClientInstanceResources.h
-            GameClientLatencyChecker.h
             GameClientLevelLoader.h
-            GameClientSave.h
-            GameClientSaveFileData.refl.h
-            GameClientSaveFileData.refl.meta.h
             GameClientSystems.h
-            GameClientUIData.refl.h
-            GameClientUIData.refl.meta.h
-            GameClientUIManager.h
             GameContainer.h
-            GameNetworkClient.h
             GameServerEventResponder.h
-            GameShaders.h
+            Input/GameClientInputManager.h
             Modes/GameMode.h
             Modes/GameModeConnectingGame.h
             Modes/GameModeConnectingLobby.h
@@ -117,18 +107,28 @@ set(GENERIC_HEADER_GameClient
             Modes/GameModeSinglePlayerBots.h
             Modes/GameModeStagingBase.h
             Modes/GameModeTutorial.h
+            Network/GameClientEntitySync.h
+            Network/GameClientLatencyChecker.h
+            Network/GameNetworkClient.h
+            Save/GameClientSave.h
+            Save/GameClientSaveFileData.refl.h
+            Save/GameClientSaveFileData.refl.meta.h
+            Shaders/GameShaders.h
+            UI/GameClientUIData.refl.h
+            UI/GameClientUIData.refl.meta.h
+            UI/GameClientUIManager.h
             #HEADER_PLACEHOLDER
             )
 
-set(GENERIC_REFL_GameClient
-  ClientComponents/PlayerComponent.refl.h
-  ClientComponents/Reusable/AttachVfxComponent.refl.h
-  ClientComponents/Reusable/PlayAnimationComponent.refl.h
-  ClientComponents/Reusable/SyncServerObjectComponent.refl.h
+set(GENERIC_REFL_GameClient 
+            ClientComponents/PlayerComponent.refl.h
+            ClientComponents/Reusable/AttachVfxComponent.refl.h
+            ClientComponents/Reusable/PlayAnimationComponent.refl.h
+            ClientComponents/Reusable/SyncServerObjectComponent.refl.h
             EffectLayers/CollisionDrawer.refl.h
             GameClientController.refl.h
-            GameClientSaveFileData.refl.h
-            GameClientUIData.refl.h
+            Save/GameClientSaveFileData.refl.h
+            UI/GameClientUIData.refl.h
             #REFL_PLACEHOLDER
             )
 

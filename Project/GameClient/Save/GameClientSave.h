@@ -3,7 +3,7 @@
 #include "Engine/EngineCommon.h"
 #include "Engine/SaveFile/SaveFile.h"
 
-#include "GameClient/GameClientSaveFileData.refl.h"
+#include "GameClientSaveFileData.refl.h"
 
 class GameClientSave
 {

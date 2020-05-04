@@ -3,11 +3,11 @@
 #include "Game/GameCommon.h"
 
 #include "GameShared/Systems/GameLogicSystems.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
-#include "Game/GameCollision.refl.h"
+#include "Game/GameCollisionType.refl.h"
 
 #include "Game/ServerEntities/GameServerEntityBase.refl.h"
 #include "Game/ServerEntities/GameServerEntityBase.refl.meta.h"
@@ -18,12 +18,12 @@ CLIENT_ASSET(ClientAssetType::kEntity, "./Gameplay/DefaultServerObject.entity", 
 
 SpritePtr g_DefaultEmptrySpritePtr;
 
-void GameServerEntityBase::Init(const GameServerEntityBaseInitData & init_data, GameLogicContainer & game_container)
+void GameServerEntityBase::Init(const GameServerEntityBaseInitData & init_data, GameServerWorld & game_container)
 {
   
 }
 
-void GameServerEntityBase::UpdateFirst(GameLogicContainer & container)
+void GameServerEntityBase::UpdateFirst(GameServerWorld & container)
 {
   m_CollisionId.Clear();
   container.GetSystems().GetCollisionDatabase().GetCollisionId(m_CollisionId);
@@ -91,7 +91,7 @@ Optional<Box> GameServerEntityBase::GetMoveBox(uint32_t box_name_hash)
   return {};
 }
 
-void GameServerEntityBase::PushDealDamageEventBox(const Box & b, const DamageEvent & damage_event, GameLogicContainer & game_container)
+void GameServerEntityBase::PushDealDamageEventBox(const Box & b, const DamageEvent & damage_event, GameServerWorld & game_container)
 {
   EventMetaData new_meta(this, &game_container);
 
@@ -109,7 +109,7 @@ void GameServerEntityBase::PushDealDamageEventBox(const Box & b, const DamageEve
   *dmg = damage_event;
 }
 
-void GameServerEntityBase::PushDealDamageEventBoxes(uint32_t multi_box_name_hash, const DamageEvent & damage_event, GameLogicContainer & game_container)
+void GameServerEntityBase::PushDealDamageEventBoxes(uint32_t multi_box_name_hash, const DamageEvent & damage_event, GameServerWorld & game_container)
 {
   auto & sprite = GetSprite();
   auto animation_state = GetAnimationState();
@@ -125,7 +125,7 @@ void GameServerEntityBase::PushDealDamageEventBoxes(uint32_t multi_box_name_hash
   }
 }
 
-void GameServerEntityBase::PushDealDamageEventBox(uint32_t box_name_hash, const DamageEvent & damage_event, GameLogicContainer & game_container)
+void GameServerEntityBase::PushDealDamageEventBox(uint32_t box_name_hash, const DamageEvent & damage_event, GameServerWorld & game_container)
 {
   auto & sprite = GetSprite();
   if(sprite)
@@ -135,7 +135,7 @@ void GameServerEntityBase::PushDealDamageEventBox(uint32_t box_name_hash, const 
   }
 }
 
-void GameServerEntityBase::PushReceiveDamageEventBox(const Box & b, GameLogicContainer & game_container)
+void GameServerEntityBase::PushReceiveDamageEventBox(const Box & b, GameServerWorld & game_container)
 {
   auto facing = GetFacing();
 
@@ -149,7 +149,7 @@ void GameServerEntityBase::PushReceiveDamageEventBox(const Box & b, GameLogicCon
   game_container.GetServerObjectEventSystem().PushEventReceiver<DamageEvent>(GetEntityHandle(), box);
 }
 
-void GameServerEntityBase::PushReceiveDamageEventBox(uint32_t box_name_hash, GameLogicContainer & game_container)
+void GameServerEntityBase::PushReceiveDamageEventBox(uint32_t box_name_hash, GameServerWorld & game_container)
 {
   auto & sprite = GetSprite();
   if(sprite)
@@ -159,7 +159,7 @@ void GameServerEntityBase::PushReceiveDamageEventBox(uint32_t box_name_hash, Gam
   }
 }
 
-void GameServerEntityBase::PushReceiveDamageEventBoxes(uint32_t multi_box_name_hash, GameLogicContainer & game_container)
+void GameServerEntityBase::PushReceiveDamageEventBoxes(uint32_t multi_box_name_hash, GameServerWorld & game_container)
 {
   auto & sprite = GetSprite();
   auto animation_state = GetAnimationState();
@@ -175,13 +175,13 @@ void GameServerEntityBase::PushReceiveDamageEventBoxes(uint32_t multi_box_name_h
   }
 }
 
-void GameServerEntityBase::PushReceiveDamageCollisionBox(const Box & b, GameLogicContainer & game_container)
+void GameServerEntityBase::PushReceiveDamageCollisionBox(const Box & b, GameServerWorld & game_container)
 {
   game_container.GetSystems().GetCollisionDatabase().PushDynamicCollision(b.Offset(m_Position),
           (uint32_t)GameCollisionType::kCollisionDamagable, CollisionDatabaseObjectInfo(GetEntityHandle()), m_CollisionId);
 }
 
-void GameServerEntityBase::PushReceiveDamageCollisionBox(uint32_t box_name_hash, GameLogicContainer & game_container)
+void GameServerEntityBase::PushReceiveDamageCollisionBox(uint32_t box_name_hash, GameServerWorld & game_container)
 {
   auto & sprite = GetSprite();
   if(sprite)
@@ -191,7 +191,7 @@ void GameServerEntityBase::PushReceiveDamageCollisionBox(uint32_t box_name_hash,
   }
 }
 
-void GameServerEntityBase::PushReceiveDamageCollisionBoxes(uint32_t multi_box_name_hash, GameLogicContainer & game_container)
+void GameServerEntityBase::PushReceiveDamageCollisionBoxes(uint32_t multi_box_name_hash, GameServerWorld & game_container)
 {
   auto & sprite = GetSprite();
   auto animation_state = GetAnimationState();
@@ -207,12 +207,12 @@ void GameServerEntityBase::PushReceiveDamageCollisionBoxes(uint32_t multi_box_na
   }
 }
 
-void GameServerEntityBase::PushCVCBox(const Box & b, GameLogicContainer & game_container)
+void GameServerEntityBase::PushCVCBox(const Box & b, GameServerWorld & game_container)
 {
   game_container.GetSystems().GetCVCPushSystem().SetCharacterCVCPosition(b, this);
 }
 
-void GameServerEntityBase::PushCVCBox(uint32_t box_name_hash, GameLogicContainer &game_container)
+void GameServerEntityBase::PushCVCBox(uint32_t box_name_hash, GameServerWorld &game_container)
 {
   auto & sprite = GetSprite();
   if(sprite)
@@ -222,7 +222,7 @@ void GameServerEntityBase::PushCVCBox(uint32_t box_name_hash, GameLogicContainer
   }
 }
 
-void GameServerEntityBase::PushSelfAsTarget(GameLogicContainer & game_container)
+void GameServerEntityBase::PushSelfAsTarget(GameServerWorld & game_container)
 {
   game_container.GetSystems().GetTargetDatabase().PushTarget(this, game_container);
 }
@@ -244,9 +244,9 @@ Optional<int> GameServerEntityBase::GetCollisionId() const
 }
 
 #ifdef MOVER_ONE_WAY_COLLISION
-MoverResult GameServerEntityBase::MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity, bool fallthrough)
+MoverResult GameServerEntityBase::MoveCheckCollisionDatabase(GameServerWorld & game_container, const GameNetVec2 & velocity, bool fallthrough)
 #else
-MoverResult GameServerEntityBase::MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity)
+MoverResult GameServerEntityBase::MoveCheckCollisionDatabase(GameServerWorld & game_container, const GameNetVec2 & velocity)
 #endif
 {
   auto & stage = game_container.GetStage();
@@ -293,7 +293,7 @@ MoverResult GameServerEntityBase::MoveCheckCollisionDatabase(GameLogicContainer 
   return result;
 }
 
-GameNetVec2 GameServerEntityBase::MoveCheckIntersectionDatabase(GameLogicContainer & game_container, const GameNetVec2 & vel, GameNetVal player_radius, GameNetVal move_threshold)
+GameNetVec2 GameServerEntityBase::MoveCheckIntersectionDatabase(GameServerWorld & game_container, const GameNetVec2 & vel, GameNetVal player_radius, GameNetVal move_threshold)
 {
   GameNetVal one = GameNetVal(1);
   GameNetVal two = GameNetVal(2);
@@ -342,7 +342,7 @@ GameNetVec2 GameServerEntityBase::MoveCheckIntersectionDatabase(GameLogicContain
 
 std::vector<ServerEntityHandle> GameServerEntityBase::QueryTargetDatabase(GameNetVal vision_cone_angle,
         GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
-        GameLogicContainer & game_container)
+        GameServerWorld & game_container)
 {
   auto coll_database = collision_mask != 0 ? &game_container.GetSystems().GetCollisionDatabase() : nullptr;
 

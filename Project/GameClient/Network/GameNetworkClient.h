@@ -29,7 +29,7 @@ using GameNetClientBackend = NetClientBackendWebsocket;
 
 #include "GameClient/GameClientController.refl.h"
 #include "GameClient/GameClientLevelLoader.h"
-#include "GameClient/GameClientEntitySync.h"
+#include "GameClientEntitySync.h"
 #include "GameClient/GameClientEventSender.h"
 #include "GameClient/GameClientInstanceResources.h"
 #include "GameClient/GameClientInstanceContainer.h"

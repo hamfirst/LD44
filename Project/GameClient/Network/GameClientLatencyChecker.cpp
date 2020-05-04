@@ -1,5 +1,5 @@
 
-#include "GameClient/GameClientLatencyChecker.h"
+#include "GameClientLatencyChecker.h"
 
 #include <cstdio>
 

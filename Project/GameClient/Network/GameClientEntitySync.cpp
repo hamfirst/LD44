@@ -6,7 +6,7 @@
 #include "Runtime/ClientEntity/ClientEntityResource.h"
 #include "Runtime/ServerEntity/ServerEntity.h"
 
-#include "GameClient/GameClientEntitySync.h"
+#include "GameClientEntitySync.h"
 #include "GameClient/GameContainer.h"
 
 
@@ -44,7 +44,7 @@ void GameClientEntitySync::ActivateEntities()
   m_ActivateEntities = true;
 }
 
-bool GameClientEntitySync::IsLocal(NotNullPtr<ServerEntity> server_ent, GameLogicContainer & game_container)
+bool GameClientEntitySync::IsLocal(NotNullPtr<ServerEntity> server_ent, GameServerWorld & game_container)
 {
   auto associated_player = server_ent->GetAssociatedPlayer(game_container);
 
@@ -70,7 +70,7 @@ bool GameClientEntitySync::IsLocal(NotNullPtr<ServerEntity> server_ent, GameLogi
 }
 
 void GameClientEntitySync::SyncEntityList(SparseList<ClientEntityHandle> & entity_list,
-        ServerEntityManager & ent_manager, GameLogicContainer & game_container, bool process_local, bool process_nonlocal)
+        ServerEntityManager & ent_manager, GameServerWorld & game_container, bool process_local, bool process_nonlocal)
 {
   auto & engine_state = m_GameContainer.GetEngineState();
 

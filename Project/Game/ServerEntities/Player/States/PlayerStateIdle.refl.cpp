@@ -1,7 +1,7 @@
 
 #include "Game/GameCommon.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 
@@ -20,7 +20,7 @@
 
 NET_REGISTER_TYPE(PlayerStateIdle, PlayerStateBase);
 
-void PlayerStateIdle::Move(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateIdle::Move(PlayerServerEntity & player, GameServerWorld & game_container)
 {
 #ifndef PLATFORMER_MOVEMENT
 
@@ -38,7 +38,7 @@ void PlayerStateIdle::Move(PlayerServerEntity & player, GameLogicContainer & gam
 
 }
 
-void PlayerStateIdle::Transition(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateIdle::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
 {
 #ifdef NET_USE_ROUND_TIMER
   if (game_container.GetInstanceData().m_RoundState == RoundState::kPreRound)
@@ -80,7 +80,7 @@ void PlayerStateIdle::Transition(PlayerServerEntity & player, GameLogicContainer
 #endif
 }
 
-void PlayerStateIdle::Animate(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateIdle::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   // Vampire
   if(player.m_Bat)

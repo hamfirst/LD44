@@ -1,7 +1,7 @@
 
 #include "Game/GameCommon.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 
@@ -41,7 +41,7 @@ void PlayerStateBasicAttack::Setup(PlayerServerEntity & player, uint32_t animati
   }
 }
 
-void PlayerStateBasicAttack::Move(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateBasicAttack::Move(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   player.m_Velocity.x = 0;
 
@@ -85,7 +85,7 @@ void PlayerStateBasicAttack::Move(PlayerServerEntity & player, GameLogicContaine
   player.MoveCheckCollisionDatabase(game_container, m_AnimationVelocity);
 }
 
-void PlayerStateBasicAttack::Transition(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateBasicAttack::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
 {
 #if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
   if (m_Settings.m_InterruptIfNoGround && player.m_OnGround == false)
@@ -96,7 +96,7 @@ void PlayerStateBasicAttack::Transition(PlayerServerEntity & player, GameLogicCo
 #endif
 }
 
-void PlayerStateBasicAttack::Animate(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateBasicAttack::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   bool finished = player.FrameAdvance(m_AnimationHash, false);
   player.TriggerAnimationEvents(game_container, *this);
@@ -125,7 +125,7 @@ void PlayerStateBasicAttack::Animate(PlayerServerEntity & player, GameLogicConta
   }
 }
 
-void PlayerStateBasicAttack::PostUpdate(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateBasicAttack::PostUpdate(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   if (m_DamageSettings)
   {

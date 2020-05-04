@@ -2,7 +2,7 @@
 
 #include "Game/GameCommon.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "GameShared/Systems/GameLogicSystems.h"
 
 #include "Game/GameServerEventSender.h"
@@ -32,10 +32,10 @@ public:
   NPCBot & operator = (const NPCBot & rhs) = default;
   NPCBot & operator = (NPCBot && rhs) = default;
 
-  void Init(const NPCBotInitData & init_data, GameLogicContainer & game_container);
-  void UpdateFirst(GameLogicContainer & game_container);
-  void UpdateMiddle(GameLogicContainer & game_container);
-  void UpdateLast(GameLogicContainer & game_container);
+  void Init(const NPCBotInitData & init_data, GameServerWorld & game_container);
+  void UpdateFirst(GameServerWorld & game_container);
+  void UpdateMiddle(GameServerWorld & game_container);
+  void UpdateLast(GameServerWorld & game_container);
 
   bool SERVER_ENTITY_EVENT_HANDLER HandleDamageEvent(const DamageEvent & ev, const EventMetaData & meta);
 

@@ -10,7 +10,7 @@ class ServerEntityUpdateList;
 class ServerEntityNetBitWriter;
 class ServerEntityNetBitReader;
 
-class GameLogicContainer;
+class GameServerWorld;
 
 struct ServerEntityComponentInfo
 {
@@ -36,7 +36,7 @@ struct ServerEntityTypeInfo
   NotNullPtr<ServerEntity>(*m_EntityDuplicate)(NotNullPtr<const ServerEntity> rhs);
 
   void(*m_EntityInit)(NotNullPtr<ServerEntity> entity, NullOptPtr<const ServerEntityInitData> init_data,
-                      GameLogicContainer & game_container);
+                      GameServerWorld & game_container);
   void(*m_EntityCopy)(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntity> rhs);
   void(*m_EntityResetHandles)(NotNullPtr<ServerEntity> entity, const ServerEntityManager & obj_manager);
   void(*m_EntityDestroy)(NotNullPtr<ServerEntity> entity);

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameShared/GameSharedCommon.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Game/GameServerTypes.h"
 
@@ -14,11 +14,11 @@ class TargetDatabase
 {
 public:
 
-  void PushTarget(NotNullPtr<GameServerEntityBase> obj, GameLogicContainer & game_container);
+  void PushTarget(NotNullPtr<GameServerEntityBase> obj, GameServerWorld & game_container);
 
   std::vector<ServerEntityHandle> QueryForTargets(NotNullPtr<GameServerEntityBase> src, GameNetVal vision_cone_angle,
           GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
-          NullOptPtr<CollisionDatabase> collision_database, GameLogicContainer & game_container);
+          NullOptPtr<CollisionDatabase> collision_database, GameServerWorld & game_container);
 
   void Clear();
 

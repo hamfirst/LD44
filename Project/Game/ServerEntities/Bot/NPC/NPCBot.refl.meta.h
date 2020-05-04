@@ -152,9 +152,9 @@ struct StormReflTypeInfo<NPCBot>
 template <>
 struct StormReflTypeInfo<NPCBot>::field_data_static<0 + StormReflTypeInfo<BotServerObject>::fields_n>
 {
-  using member_type = BotBehaviorTree; // StormBehaviorTree<BotServerObject, GameLogicContainer>
+  using member_type = BotBehaviorTree; // StormBehaviorTree<BotServerObject, GameServerWorld>
   static constexpr auto GetName() { return "m_Tree"; }
-  static constexpr auto GetType() { return "StormBehaviorTree<BotServerObject, GameLogicContainer>"; }
+  static constexpr auto GetType() { return "StormBehaviorTree<BotServerObject, GameServerWorld>"; }
   static constexpr unsigned GetFieldNameHash() { return 0x89A3CBC3; }
   static constexpr unsigned GetTypeNameHash() { return 0xD4BF05A2; }
   static constexpr bool HasDefault() { return true; }

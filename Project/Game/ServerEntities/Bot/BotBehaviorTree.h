@@ -8,7 +8,7 @@
 #include "GameShared/BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h"
 #include "GameShared/BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h"
 
-using BT = StormBehaviorTreeTemplateBuilder<BotServerObject, GameLogicContainer>;
+using BT = StormBehaviorTreeTemplateBuilder<BotServerObject, GameServerWorld>;
 
 inline BT SELECT()
 {

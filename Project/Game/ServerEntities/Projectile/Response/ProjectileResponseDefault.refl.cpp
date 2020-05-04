@@ -14,7 +14,7 @@ REGISTER_LOGIC_TYPE(ProjectileResponseDefaultConfig, ProjectileResponseBaseConfi
 NET_REGISTER_TYPE(ProjectileResponseDefault, ProjectileResponseBase)
 
 void ProjectileResponseDefault::HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result,
-                                          ProjectileServerEntity & proj, GameLogicContainer & game_container)
+                                          ProjectileServerEntity & proj, GameServerWorld & game_container)
 {
   auto config = GetConfigAs<ProjectileResponseDefaultConfig>();
   if(config == nullptr)
@@ -49,7 +49,7 @@ void ProjectileResponseDefault::HandleImpact(NullOptPtr<CollisionDatabaseTraceRe
   }
 }
 
-void ProjectileResponseDefault::HandleRangeExpired(ProjectileServerEntity & proj, GameLogicContainer & game_container)
+void ProjectileResponseDefault::HandleRangeExpired(ProjectileServerEntity & proj, GameServerWorld & game_container)
 {
   proj.Destroy(game_container.GetObjectManager());
 }

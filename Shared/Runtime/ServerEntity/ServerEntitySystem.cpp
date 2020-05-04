@@ -26,7 +26,7 @@ NotNullPtr<ServerEntity> ServerEntitySystem::DuplicateEntity(NotNullPtr<const Se
   return entity;
 }
 
-void ServerEntitySystem::InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data, GameLogicContainer & game_container)
+void ServerEntitySystem::InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data, GameServerWorld & game_container)
 {
   m_EntityTypes[entity->m_TypeIndex].m_EntityInit(entity, init_data, game_container);
 }

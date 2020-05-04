@@ -11,7 +11,7 @@
 #include "Game/Data/KillVolume.refl.meta.h"
 #include "Game/Data/NPCSpawn.refl.meta.h"
 #include "Game/Data/CoverPoint.refl.meta.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 GameStage::GameStage(const Map & map) :
   m_DynamicObjectCount(127),
@@ -307,7 +307,7 @@ GameFullState GameStage::CreateDefaultGameState() const
   return GameFullState{ ServerEntityManager(m_StaticEntities, m_DynamicEntities, m_DynamicObjectCount, kMaxPlayers) };
 }
 
-void GameStage::InitAllObjects(GameLogicContainer & game_container) const
+void GameStage::InitAllObjects(GameServerWorld & game_container) const
 {
   game_container.GetObjectManager().InitAllEntities(m_StaticEntities, m_DynamicEntities, game_container);
 }

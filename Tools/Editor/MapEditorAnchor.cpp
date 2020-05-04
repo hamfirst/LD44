@@ -61,8 +61,10 @@ void MapEditorAnchor::Draw(GeometryVertexBufferBuilder & buffer, const Box & vie
 
   if (m_SpritePtr.IsLoaded())
   {
+    Vector2f draw_pos = (Vector2f)point.Value() - screen_center;
+
     RenderState render_state;
-    SpriteEngineData::RenderSprite(m_SpritePtr, render_state, 0, 0, 0, point.Value() - screen_center);
+    SpriteEngineData::RenderSprite(m_SpritePtr, render_state, 0, 0, 0, draw_pos);
   }
 }
 

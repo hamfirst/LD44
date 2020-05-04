@@ -9,7 +9,7 @@
 class ServerEntity;
 class ServerEntityInitData;
 class ServerEntityHandle;
-class GameLogicContainer;
+class GameServerWorld;
 
 struct MapServerEntityHandle;
 
@@ -40,21 +40,21 @@ public:
   ServerEntityManager & operator = (const ServerEntityManager & rhs);
 
   template <typename T>
-  NullOptPtr<T> CreateDynamicEntity(GameLogicContainer & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
+  NullOptPtr<T> CreateDynamicEntity(GameServerWorld & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
   {
     auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, false, init_data, false, game_container);
     return static_cast<T *>(ptr);
   }
 
   template <typename T>
-  NullOptPtr<T> CreateDynamicEntity(std::size_t reserved_slot, GameLogicContainer & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
+  NullOptPtr<T> CreateDynamicEntity(std::size_t reserved_slot, GameServerWorld & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
   {
     auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, (int)reserved_slot, false, init_data, false, game_container);
     return static_cast<T *>(ptr);
   }
 
   template <typename T>
-  NullOptPtr<T> CreateUnsyncedDynamicEntity(GameLogicContainer & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
+  NullOptPtr<T> CreateUnsyncedDynamicEntity(GameServerWorld & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
   {
     auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, -1, true, init_data, false, game_container);
     return static_cast<T *>(ptr);
@@ -146,13 +146,13 @@ protected:
 
   void InitAllEntities(const std::vector<ServerEntityStaticInitData> & static_entities,
                       const std::vector<ServerEntityStaticInitData> & dynamic_entities,
-                      GameLogicContainer & game_container);
+                      GameServerWorld & game_container);
 
   int GetNewDynamicEntityId();
   NullOptPtr<ServerEntity> CreateDynamicEntityInternal(int type_index, bool unsynced,
-          NullOptPtr<const ServerEntityInitData> init_data, bool original, GameLogicContainer & game_container);
+          NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container);
   NullOptPtr<ServerEntity> CreateDynamicEntityInternal(int type_index, int slot_index, bool unsynced,
-          NullOptPtr<const ServerEntityInitData> init_data, bool original, GameLogicContainer & game_container);
+          NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container);
   void DestroyDynamicEntityInternal(NotNullPtr<ServerEntity> ptr);
 
   void FinalizeHandles();

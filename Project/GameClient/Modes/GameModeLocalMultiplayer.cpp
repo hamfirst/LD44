@@ -3,7 +3,7 @@
 #include "GameClient/Modes/GameModeLocalMultiplayer.h"
 #include "GameClient/Modes/GameModeMainMenu.h"
 #include "GameClient/GameContainer.h"
-#include "GameClient/GameNetworkClient.h"
+#include "Project/GameClient/Network/GameNetworkClient.h"
 #include "GameClient/Modes/GameModeEndGame.h"
 
 #include "Engine/Asset/TextureAsset.h"

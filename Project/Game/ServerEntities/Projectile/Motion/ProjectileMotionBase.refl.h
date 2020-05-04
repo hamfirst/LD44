@@ -3,7 +3,7 @@
 
 #include "Game/GameCommon.h"
 #include "Game/GameServerTypes.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/Config/ConfigResource.h"
@@ -24,8 +24,8 @@ public:
   NET_DECLARE_BASE_TYPE;
   NET_REFL;
 
-  virtual void Init(ProjectileServerEntity & proj, GameLogicContainer & game_container);
-  virtual void Update(ProjectileServerEntity & proj, GameLogicContainer & game_container);
+  virtual void Init(ProjectileServerEntity & proj, GameServerWorld & game_container);
+  virtual void Update(ProjectileServerEntity & proj, GameServerWorld & game_container);
 
 };
 

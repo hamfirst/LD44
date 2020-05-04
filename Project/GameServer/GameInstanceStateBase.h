@@ -5,7 +5,7 @@
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "GameShared/GameEventReconciler.h"
 
 #include "GameServer/GameInstanceStateData.h"

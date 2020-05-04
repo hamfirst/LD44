@@ -340,9 +340,9 @@ void GameClientInstanceContainer::HandleLocalServerAuthorityEvent(std::size_t cl
   m_ClientController.HandleAuthEvent(class_id, ev);
 }
 
-GameLogicContainer GameClientInstanceContainer::GetLogicContainer(NullOptPtr<bool> authority, int & send_timer)
+GameServerWorld GameClientInstanceContainer::GetLogicContainer(NullOptPtr<bool> authority, int & send_timer)
 {
-  return GameLogicContainer(
+  return GameServerWorld(
     GetGameController(),
     m_InitSettings,
     GetFullState().m_InstanceData,
@@ -359,9 +359,9 @@ GameLogicContainer GameClientInstanceContainer::GetLogicContainer(NullOptPtr<boo
     authority ? *authority : m_Authority, send_timer, m_ModifiedLowFreq);
 }
 
-GameLogicContainer GameClientInstanceContainer::GetLogicContainer(std::size_t history_index)
+GameServerWorld GameClientInstanceContainer::GetLogicContainer(std::size_t history_index)
 {
-  return GameLogicContainer(
+  return GameServerWorld(
     GetGameController(),
     m_InitSettings,
     GetHistoryState(history_index).m_InstanceData,

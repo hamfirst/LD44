@@ -3,7 +3,7 @@
 #include "GameClient/Modes/GameModeTutorial.h"
 #include "GameClient/Modes/GameModeMainMenu.h"
 #include "GameClient/GameContainer.h"
-#include "GameClient/GameNetworkClient.h"
+#include "Project/GameClient/Network/GameNetworkClient.h"
 #include "GameClient/Modes/GameModeSinglePlayerBots.h"
 
 #include "Engine/Asset/TextureAsset.h"

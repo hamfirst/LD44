@@ -8,12 +8,12 @@ STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(ProjectileMotionBaseConfig);
 NET_REGISTER_BASE_TYPE(ProjectileMotionBase);
 
 
-void ProjectileMotionBase::Init(ProjectileServerEntity & proj, GameLogicContainer & game_container)
+void ProjectileMotionBase::Init(ProjectileServerEntity & proj, GameServerWorld & game_container)
 {
 
 }
 
-void ProjectileMotionBase::Update(ProjectileServerEntity & proj, GameLogicContainer & game_container)
+void ProjectileMotionBase::Update(ProjectileServerEntity & proj, GameServerWorld & game_container)
 {
 
 }

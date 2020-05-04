@@ -2,7 +2,7 @@
 
 #include ""Game/GameCommon.h""
 
-#include ""GameShared/GameLogicContainer.h""
+#include ""GameShared/GameServerWorld.h""
 #include ""GameShared/Systems/GameLogicSystems.h""
 
 #include ""Game/GameServerEventSender.h""

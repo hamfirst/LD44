@@ -16,9 +16,9 @@ public:
 
   PlayAnimationForTimeBotState(uint32_t animation_hash, int frames);
 
-  void Activate(BotServerObject & bot, GameLogicContainer & container);
+  void Activate(BotServerObject & bot, GameServerWorld & container);
 
-  bool Update(BotServerObject & bot, GameLogicContainer & container);
+  bool Update(BotServerObject & bot, GameServerWorld & container);
 
 private:
   uint32_t m_AnimationHash;

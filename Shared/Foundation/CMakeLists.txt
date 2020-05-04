@@ -87,6 +87,7 @@ set(GENERIC_HEADER_Foundation
             Castable/Castable.h
             CircularBuffer/CircularBuffer.h
             CircularBuffer/CircularQueue.h
+            Class/ClassDef.h
             Common.h
             Delegate/Delegate.h
             Delegate/DelegateLink.h

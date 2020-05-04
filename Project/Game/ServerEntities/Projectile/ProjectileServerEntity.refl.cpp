@@ -28,7 +28,7 @@ void ProjectileConfigResourcesLoad(const ConfigPtr<ProjectileConfig> & config, P
 GLOBAL_ASSET_DIRECTORY(ConfigPtr<ProjectileConfig>, g_ProjectileConfigs, "./Gaameplay", "projectileconfig");
 GLOBAL_DEPENDENT_ASSET_ARRAY(ProjectileServerEntityConfigResources, g_ProjectileConfigInfo, g_ProjectileConfigs, ProjectileConfigResourcesLoad);
 
-void ProjectileServerEntity::Init(const ProjectileServerEntityInitData & init_data, GameLogicContainer & game_container)
+void ProjectileServerEntity::Init(const ProjectileServerEntityInitData & init_data, GameServerWorld & game_container)
 {
   m_Position = init_data.m_SpawnData.m_Position;
   m_Direction = init_data.m_SpawnData.m_Direction;
@@ -38,7 +38,7 @@ void ProjectileServerEntity::Init(const ProjectileServerEntityInitData & init_da
   m_Config.SetTo(*init_data.m_SpawnData.m_Config);
 }
 
-void ProjectileServerEntity::UpdateFirst(GameLogicContainer & game_container)
+void ProjectileServerEntity::UpdateFirst(GameServerWorld & game_container)
 {
   if(m_Destroyed)
   {
@@ -49,7 +49,7 @@ void ProjectileServerEntity::UpdateFirst(GameLogicContainer & game_container)
   GameServerEntityBase::UpdateFirst(game_container);
 }
 
-void ProjectileServerEntity::UpdateLast(GameLogicContainer & game_container)
+void ProjectileServerEntity::UpdateLast(GameServerWorld & game_container)
 {
   if(m_Motion)
   {
@@ -57,7 +57,7 @@ void ProjectileServerEntity::UpdateLast(GameLogicContainer & game_container)
   }
 }
 
-void ProjectileServerEntity::HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result, GameLogicContainer & game_container)
+void ProjectileServerEntity::HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result, GameServerWorld & game_container)
 {
   if(m_Response)
   {
@@ -69,7 +69,7 @@ void ProjectileServerEntity::HandleImpact(NullOptPtr<CollisionDatabaseTraceResul
   }
 }
 
-void ProjectileServerEntity::HandleRangeExpired(GameLogicContainer & game_container)
+void ProjectileServerEntity::HandleRangeExpired(GameServerWorld & game_container)
 {
   if(m_Response)
   {
@@ -83,7 +83,7 @@ void ProjectileServerEntity::HandleRangeExpired(GameLogicContainer & game_contai
 
 NotNullPtr<ProjectileServerEntity> ProjectileServerEntity::SpawnProjectile(const GameNetVec2 & pos,
         const GameNetVec2 & dir, int team_index, const ServerEntityHandle & owner_handle,
-        const ConfigPtr<ProjectileConfig> & config, GameLogicContainer & game_container)
+        const ConfigPtr<ProjectileConfig> & config, GameServerWorld & game_container)
 {
   ProjectileServerEntityInitData init_data;
   init_data.m_SpawnData.m_Position = pos;
@@ -121,7 +121,7 @@ czstr ProjectileServerEntity::GetDefaultEntityBinding() const
   return config.m_EntityFile.c_str();
 }
 
-Optional<int> ProjectileServerEntity::GetAssociatedPlayer(GameLogicContainer & game_container) const
+Optional<int> ProjectileServerEntity::GetAssociatedPlayer(GameServerWorld & game_container) const
 {
   auto owner = m_Owner.Resolve(game_container.GetObjectManager());
   if(owner)

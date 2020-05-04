@@ -1,7 +1,7 @@
 #include "GameClient/GameClientCommon.h"
 #include "GameClient/GameContainer.h"
 #include "GameClient/Modes/GameModeLoadingGlobal.h"
-#include "GameClient/GameNetworkClient.h"
+#include "Project/GameClient/Network/GameNetworkClient.h"
 #include "GameClient/GameCamera.h"
 
 #include "Engine/Text/TextManager.h"

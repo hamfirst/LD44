@@ -1,6 +1,6 @@
 #include "GameClient/GameClientCommon.h"
 #include "GameClient/GameContainer.h"
-#include "GameClient/GameClientUIManager.h"
+#include "Project/GameClient/UI/GameClientUIManager.h"
 #include "GameClient/GameClientController.refl.meta.h"
 #include "GameClient/ClientComponents/Reusable/PlayAnimationComponent.refl.h"
 #include "GameClient/ClientComponents/Reusable/PlayAnimationComponent.refl.meta.h"

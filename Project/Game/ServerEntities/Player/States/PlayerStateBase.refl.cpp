@@ -3,7 +3,7 @@
 #include "Game/GameCommon.h"
 
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 

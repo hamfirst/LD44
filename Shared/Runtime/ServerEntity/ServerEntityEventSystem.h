@@ -3,7 +3,7 @@
 #include "Runtime/Event/EventSystem.h"
 #include "Runtime/ServerEntity/ServerEntity.h"
 
-class GameLogicContainer;
+class GameServerWorld;
 
 extern template class EventSystem<ServerEntity, ServerEntityHandle>;
 

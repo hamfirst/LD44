@@ -25,7 +25,7 @@ GameInstanceStateGameplay::GameInstanceStateGameplay(GameInstanceStateData & sta
   GameInstanceLowFrequencyData low_freq_data;
   bool modify_low_freq = false;
 
-  GameLogicContainer logic_container(m_Controller, m_StateData.GetInitSettings(), m_InitialState.m_InstanceData, low_freq_data,
+  GameServerWorld logic_container(m_Controller, m_StateData.GetInitSettings(), m_InitialState.m_InstanceData, low_freq_data,
           m_InitialState.m_ServerEntityManager, m_ServerObjectEventSystem, *this, *this, m_Systems,
 #ifdef DELIBERATE_SYNC_SYSTEM_LIST
           m_DeliberateSyncSystemData,
@@ -440,7 +440,7 @@ void GameInstanceStateGameplay::BatchUpdate(int frames_to_rewind, int frames_to_
 
     int fake_send_timer = 0;
 
-    GameLogicContainer logic_container(m_Controller, m_StateData.GetInitSettings(), new_state->m_InstanceData,
+    GameServerWorld logic_container(m_Controller, m_StateData.GetInitSettings(), new_state->m_InstanceData,
             *new_low_freq_data, new_state->m_ServerEntityManager, m_ServerObjectEventSystem, *this, *this, m_Systems,
 #ifdef DELIBERATE_SYNC_SYSTEM_LIST
             m_DeliberateSyncSystemData,
@@ -744,12 +744,12 @@ const GameInstanceLowFrequencyData & GameInstanceStateGameplay::GetCurrentLowFre
   return *m_CurrentLowFrequencyData;
 }
 
-GameLogicContainer GameInstanceStateGameplay::GetLogicContainer(int history_index)
+GameServerWorld GameInstanceStateGameplay::GetLogicContainer(int history_index)
 {
   m_CurrentLowFrequencyData = std::make_shared<GameInstanceLowFrequencyData>(*m_CurrentLowFrequencyData);
   m_LowFrequencyHistory.ReplaceTop(m_CurrentLowFrequencyData);
 
-  return GameLogicContainer(m_Controller, m_StateData.GetInitSettings(), m_CurrentState->m_InstanceData,
+  return GameServerWorld(m_Controller, m_StateData.GetInitSettings(), m_CurrentState->m_InstanceData,
           *m_CurrentLowFrequencyData, m_CurrentState->m_ServerEntityManager, m_ServerObjectEventSystem,
           *this, *this, m_Systems,
 #ifdef DELIBERATE_SYNC_SYSTEM_LIST

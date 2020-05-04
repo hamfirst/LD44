@@ -23,11 +23,6 @@ static const int kMaxRewindFrames = 20;
 static const int kMaxHistoryFrames = 30;
 #endif
 
-#if (NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC)
-static const int kTurnMaxTime = 60 * 50;
-static const int kTurnUpdateTime = 60 * 2;
-#endif
-
 #ifdef NET_USE_SCORE
 static const int kMaxScore = 5;
 #endif
@@ -207,15 +202,6 @@ struct GameInstanceData
 
 #if NET_MODE == NET_MODE_GGPO
   int m_FrameCount = 0;
-#elif (NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC)
-  NetRangedNumber<int, -1, kMaxTeams - 1> m_ActiveTurn = -1;
-
-
-#ifdef NET_MODE_TURN_BASED_RUN
-  bool m_Running = false;
-  NetRangedNumber<int, 0, kTurnMaxTime> m_TimeExpiration = 0;
-#endif
-
 #endif
 };
 

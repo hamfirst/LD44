@@ -3,7 +3,7 @@
 
 #include "Game/GameCommon.h"
 #include "Game/GameServerTypes.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Game/ServerEntities/GameServerEntityBase.refl.h"
 #include "Game/ServerEntities/Player/States/PlayerStateBase.refl.h"
@@ -72,26 +72,26 @@ public:
   PlayerServerEntity & operator = (const PlayerServerEntity & rhs) = default;
   PlayerServerEntity & operator = (PlayerServerEntity && rhs) = default;
 
-  void Init(const PlayerServerEntityInitData & init_data, GameLogicContainer & game_container);
-  void UpdateFirst(GameLogicContainer & game_container);
-  void UpdateMiddle(GameLogicContainer & game_container);
-  void UpdateLast(GameLogicContainer & game_container);
+  void Init(const PlayerServerEntityInitData & init_data, GameServerWorld & game_container);
+  void UpdateFirst(GameServerWorld & game_container);
+  void UpdateMiddle(GameServerWorld & game_container);
+  void UpdateLast(GameServerWorld & game_container);
 
-  void ResetState(GameLogicContainer & game_container);
+  void ResetState(GameServerWorld & game_container);
 
-  MoverResult MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & extra_movement = {});
+  MoverResult MoveCheckCollisionDatabase(GameServerWorld & game_container, const GameNetVec2 & extra_movement = {});
 
 #ifdef PLATFORMER_MOVEMENT
-  void Jump(GameLogicContainer & game_container);
+  void Jump(GameServerWorld & game_container);
 #endif
 
 #ifdef NET_USE_AIM_DIRECTION
-  void Fire(GameLogicContainer & game_container);
+  void Fire(GameServerWorld & game_container);
 #endif
 
-  void Use(GameLogicContainer & game_container);
+  void Use(GameServerWorld & game_container);
 
-  void RemoveFromGame(GameLogicContainer & game_container);
+  void RemoveFromGame(GameServerWorld & game_container);
 
   bool SERVER_ENTITY_EVENT_HANDLER HandlePlaceholderEvent(const PlaceholderEvent & ev, const EventMetaData & meta);
   bool SERVER_ENTITY_EVENT_HANDLER HandleDamageEvent(const DamageEvent & ev, const EventMetaData & meta);
@@ -100,8 +100,8 @@ public:
 
   virtual Optional<AnimationState> GetAnimationState() const override;
   virtual void SetAnimationState(const AnimationState & anim_state) override;
-  virtual Optional<int> GetAssociatedPlayer(GameLogicContainer & game_container) const override;
-  virtual int GetTeam(GameLogicContainer & game_container) const;
+  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_container) const override;
+  virtual int GetTeam(GameServerWorld & game_container) const;
 
   virtual const SpritePtr & GetSprite() const override;
   virtual Optional<CharacterFacing> GetFacing() const override;
@@ -111,7 +111,7 @@ public:
   virtual czstr GetDefaultEntityBinding() const override;
 
   template <typename State>
-  NullOptPtr<State> TransitionToState(GameLogicContainer & game_container)
+  NullOptPtr<State> TransitionToState(GameServerWorld & game_container)
   {
     NetPolymorphic<PlayerStateBase> new_state(NetPolymorphicTypeInit<State>{});
     m_State->Cleanup(*this, game_container);
@@ -128,7 +128,7 @@ public:
   }
 
   // Vampire
-  void PoofToBat(GameLogicContainer & game_container, bool play_audio);
+  void PoofToBat(GameServerWorld & game_container, bool play_audio);
   void GiveHealth(int health);
   void RefillAmmo();
   int GetMaxHealth();

@@ -17,7 +17,7 @@ class ServerEntityManager;
 class ServerComponent;
 class ServerGameState;
 
-class GameLogicContainer;
+class GameServerWorld;
 
 class ServerEntity
 {
@@ -32,7 +32,7 @@ public:
   virtual czstr GetDefaultEntityBinding() const;
   virtual czstr GetEntityBinding() const;
 
-  virtual Optional<int> GetAssociatedPlayer(GameLogicContainer & game_container) const;
+  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_container) const;
   virtual void InitStaticComponents();
 
   bool IsDestroyed() const;

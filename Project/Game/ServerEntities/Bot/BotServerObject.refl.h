@@ -2,7 +2,7 @@
 
 #include "Game/GameCommon.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "GameShared/Systems/GameLogicSystems.h"
 #include "GameShared/BehaviorTree/BehaviorTree.h"
 
@@ -33,9 +33,9 @@ public:
   BotServerObject & operator = (const BotServerObject & rhs) = default;
   BotServerObject & operator = (BotServerObject && rhs) = default;
 
-  void Init(const BotServerObjectInitData & init_data, GameLogicContainer & game_container);
-  void UpdateFirst(GameLogicContainer & game_container);
-  void UpdateMiddle(GameLogicContainer & game_container);
+  void Init(const BotServerObjectInitData & init_data, GameServerWorld & game_container);
+  void UpdateFirst(GameServerWorld & game_container);
+  void UpdateMiddle(GameServerWorld & game_container);
 
   virtual Optional<AnimationState> GetAnimationState() const override;
   virtual void SetAnimationState(const AnimationState & anim_state) override;

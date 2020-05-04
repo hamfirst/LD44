@@ -1,7 +1,7 @@
 
 #include "Game/GameCommon.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 
@@ -30,7 +30,7 @@ bool PlayerStateJump::CanGraceJump() const
 }
 
 
-void PlayerStateJump::Move(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateJump::Move(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   auto target_velocity = player.m_Input.m_XInput * player.GetConfig()->m_MoveSpeed;
   if (player.m_Velocity.x < target_velocity)
@@ -60,7 +60,7 @@ void PlayerStateJump::Move(PlayerServerEntity & player, GameLogicContainer & gam
   }
 }
 
-void PlayerStateJump::Transition(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateJump::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   if (player.m_OnGround)
   {
@@ -68,7 +68,7 @@ void PlayerStateJump::Transition(PlayerServerEntity & player, GameLogicContainer
   }
 }
 
-void PlayerStateJump::Animate(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateJump::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   if (player.m_Velocity.y >= GameNetVal(0))
   {

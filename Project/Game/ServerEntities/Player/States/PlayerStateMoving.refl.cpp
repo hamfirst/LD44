@@ -1,7 +1,7 @@
 
 #include "Game/GameCommon.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 
@@ -17,7 +17,7 @@
 
 NET_REGISTER_TYPE(PlayerStateMoving, PlayerStateBase);
 
-void PlayerStateMoving::Move(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateMoving::Move(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   auto move_speed = (GameNetVal)player.GetConfig()->m_MoveSpeed;
 
@@ -68,7 +68,7 @@ void PlayerStateMoving::Move(PlayerServerEntity & player, GameLogicContainer & g
 #endif
 }
 
-void PlayerStateMoving::Transition(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateMoving::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
 {
 #ifndef PLATFORMER_MOVEMENT
 
@@ -99,7 +99,7 @@ void PlayerStateMoving::Transition(PlayerServerEntity & player, GameLogicContain
 }
 
 
-void PlayerStateMoving::Animate(PlayerServerEntity & player, GameLogicContainer & game_container)
+void PlayerStateMoving::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
 {
   // Vampire
   if(player.m_Bat)

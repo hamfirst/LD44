@@ -1,5 +1,5 @@
 #include "GameClient/GameClientCommon.h"
-#include "GameClient/GameClientInputManager.h"
+#include "GameClientInputManager.h"
 #include "GameClient/GameContainer.h"
 #include "GameClient/GameClientEventSender.h"
 

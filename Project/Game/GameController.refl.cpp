@@ -3,7 +3,7 @@
 #include "Foundation/Pathfinding/Pathfinding.h"
 
 #include "GameShared/Systems/GameLogicSystems.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Game/GameController.refl.meta.h"
 #include "Game/GameNetworkData.refl.meta.h"
@@ -34,29 +34,29 @@ struct GameControllerRegister
   template <typename ParamType>
   static void Register(
     GameController * ptr, 
-    std::vector<Delegate<void, const void *, std::size_t, GameLogicContainer &>> & client_events,
-    std::vector<Delegate<void, const void *, GameLogicContainer &>> & auth_events,
-    void (GameController::*func_ptr)(const ParamType &, std::size_t, GameLogicContainer &))
+    std::vector<Delegate<void, const void *, std::size_t, GameServerWorld &>> & client_events,
+    std::vector<Delegate<void, const void *, GameServerWorld &>> & auth_events,
+    void (GameController::*func_ptr)(const ParamType &, std::size_t, GameServerWorld &))
   {
     static_assert(std::is_base_of<ClientNetworkEvent, ParamType>::value, "Client event handlers must have a parameter that inherits from ClientNetworkEvent");
 
     auto class_id = ClientNetworkEvent::__s_TypeDatabase.GetClassId<ParamType>();
-    client_events[class_id] = Delegate<void, const void *, std::size_t, GameLogicContainer &>(
-      [=](const void * ev, std::size_t player_index, GameLogicContainer & game) { (ptr->*func_ptr)(*(const ParamType *)ev, player_index, game); });
+    client_events[class_id] = Delegate<void, const void *, std::size_t, GameServerWorld &>(
+      [=](const void * ev, std::size_t player_index, GameServerWorld & game) { (ptr->*func_ptr)(*(const ParamType *)ev, player_index, game); });
   }
 
   template <typename ParamType>
   static void Register(
     GameController * ptr,
-    std::vector<Delegate<void, const void *, std::size_t, GameLogicContainer &>> & client_events,
-    std::vector<Delegate<void, const void *, GameLogicContainer &>> & auth_events,
-    void (GameController::*func_ptr)(const ParamType &, GameLogicContainer &))
+    std::vector<Delegate<void, const void *, std::size_t, GameServerWorld &>> & client_events,
+    std::vector<Delegate<void, const void *, GameServerWorld &>> & auth_events,
+    void (GameController::*func_ptr)(const ParamType &, GameServerWorld &))
   {
     static_assert(std::is_base_of<ServerAuthNetworkEvent, ParamType>::value, "Auth event handlers must have a parameter that inherits from ServerAuthNetworkEvent");
 
     auto class_id = ServerAuthNetworkEvent::__s_TypeDatabase.GetClassId<ParamType>();
-    auth_events[class_id] = Delegate<void, const void *, GameLogicContainer &>(
-      [=](const void * ev, GameLogicContainer & game) { (ptr->*func_ptr)(*(const ParamType *)ev, game); });
+    auth_events[class_id] = Delegate<void, const void *, GameServerWorld &>(
+      [=](const void * ev, GameServerWorld & game) { (ptr->*func_ptr)(*(const ParamType *)ev, game); });
   }
 };
 
@@ -80,7 +80,7 @@ GameController::GameController()
   StormReflVisitFuncs(*this, visitor);
 }
 
-void GameController::BootstrapGame(GameLogicContainer & game, uint32_t seed)
+void GameController::BootstrapGame(GameServerWorld & game, uint32_t seed)
 {
 #ifdef NET_USE_RANDOM
   auto & sim_data = game.GetInstanceData();
@@ -92,7 +92,7 @@ void GameController::BootstrapGame(GameLogicContainer & game, uint32_t seed)
 #endif
 }
 
-void GameController::ConstructPlayer(std::size_t player_index, GameLogicContainer & game, const std::string & name, int team)
+void GameController::ConstructPlayer(std::size_t player_index, GameServerWorld & game, const std::string & name, int team)
 {
   GamePlayer player;
   player.m_UserName = name;
@@ -102,12 +102,12 @@ void GameController::ConstructPlayer(std::size_t player_index, GameLogicContaine
   data.m_Players.EmplaceAt(player_index, std::move(player));
 }
 
-void GameController::DestroyPlayer(std::size_t player_index, GameLogicContainer & game)
+void GameController::DestroyPlayer(std::size_t player_index, GameServerWorld & game)
 {
   CleanupPlayer(game, player_index);
 }
 
-bool GameController::AllowConversionToBot(std::size_t player_index, GameLogicContainer & game)
+bool GameController::AllowConversionToBot(std::size_t player_index, GameServerWorld & game)
 {
   auto & global_data = game.GetLowFrequencyInstanceData();
   auto player = global_data.m_Players.TryGet(player_index);
@@ -134,7 +134,7 @@ bool GameController::AllowConversionToBot(std::size_t player_index, GameLogicCon
   return true;
 }
 
-void GameController::ConvertBotToPlayer(std::size_t player_index, GameLogicContainer & game, const std::string & name)
+void GameController::ConvertBotToPlayer(std::size_t player_index, GameServerWorld & game, const std::string & name)
 {
   auto & global_data = game.GetLowFrequencyInstanceDataForModify();
   auto player = global_data.m_Players.TryGet(player_index);
@@ -145,7 +145,7 @@ void GameController::ConvertBotToPlayer(std::size_t player_index, GameLogicConta
   game_data.m_AIPlayerInfo.RemoveAt(player_index);
 }
 
-void GameController::ConstructBot(std::size_t player_index, GameLogicContainer & game, const std::string & name, int team)
+void GameController::ConstructBot(std::size_t player_index, GameServerWorld & game, const std::string & name, int team)
 {
   GamePlayer player;
   player.m_UserName = name;
@@ -158,7 +158,7 @@ void GameController::ConstructBot(std::size_t player_index, GameLogicContainer &
   game_state.m_AIPlayerInfo.EmplaceAt(player_index);
 }
 
-void GameController::DestroyBot(std::size_t player_index, GameLogicContainer & game)
+void GameController::DestroyBot(std::size_t player_index, GameServerWorld & game)
 {
   auto & global_data = game.GetLowFrequencyInstanceDataForModify();
   global_data.m_Players.RemoveAt(player_index);
@@ -167,7 +167,7 @@ void GameController::DestroyBot(std::size_t player_index, GameLogicContainer & g
   game_state.m_AIPlayerInfo.RemoveAt(player_index);
 }
 
-void GameController::ConvertPlayerToBot(std::size_t player_index, GameLogicContainer & game, const std::string & name)
+void GameController::ConvertPlayerToBot(std::size_t player_index, GameServerWorld & game, const std::string & name)
 {
   auto & global_data = game.GetLowFrequencyInstanceDataForModify();
   auto player = global_data.m_Players.TryGet(player_index);
@@ -179,7 +179,7 @@ void GameController::ConvertPlayerToBot(std::size_t player_index, GameLogicConta
 }
 
 #ifdef NET_ALLOW_OBSERVERS
-void GameController::ConstructObserver(std::size_t observer_index, GameLogicContainer & game, const std::string & name)
+void GameController::ConstructObserver(std::size_t observer_index, GameServerWorld & game, const std::string & name)
 {
   GameObserver player;
   player.m_UserName = name;
@@ -188,7 +188,7 @@ void GameController::ConstructObserver(std::size_t observer_index, GameLogicCont
   global_data.m_Observers.EmplaceAt(observer_index, std::move(player));
 }
 
-void GameController::DestroyObserver(std::size_t observer_index, GameLogicContainer & game)
+void GameController::DestroyObserver(std::size_t observer_index, GameServerWorld & game)
 {
   auto & global_data = game.GetLowFrequencyInstanceDataForModify();
   global_data.m_Observers.RemoveAt(observer_index);
@@ -197,10 +197,10 @@ void GameController::DestroyObserver(std::size_t observer_index, GameLogicContai
 
 #ifdef NET_USE_LOADOUT
 void GameController::ConvertObserverToPlayer(std::size_t observer_index, std::size_t player_index,
-        GameLogicContainer & game, int team, uint32_t random_number, const GamePlayerLoadout & loadout)
+        GameServerWorld & game, int team, uint32_t random_number, const GamePlayerLoadout & loadout)
 #else
 void GameController::ConvertObserverToPlayer(std::size_t observer_index, std::size_t player_index,
-        GameLogicContainer & game, int team, uint32_t random_number)
+        GameServerWorld & game, int team, uint32_t random_number)
 #endif
 {
   auto & game_data = game.GetLowFrequencyInstanceDataForModify();
@@ -230,7 +230,7 @@ void GameController::ConvertObserverToPlayer(std::size_t observer_index, std::si
   game_data.m_Players.EmplaceAt(player_index, std::move(player));
 }
 
-void GameController::ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameLogicContainer & game, bool replace_with_bot)
+void GameController::ConvertPlayerToObserver(std::size_t observer_index, std::size_t player_index, GameServerWorld & game, bool replace_with_bot)
 {
   auto & game_data = game.GetLowFrequencyInstanceDataForModify();
   auto & user_name = game_data.m_Players[player_index].m_UserName;
@@ -256,7 +256,7 @@ void GameController::ConvertPlayerToObserver(std::size_t observer_index, std::si
 
 #endif
 
-void GameController::ProcessExternal(const NetPolymorphic<GameNetworkExternalEvent> & ext, GameLogicContainer & game)
+void GameController::ProcessExternal(const NetPolymorphic<GameNetworkExternalEvent> & ext, GameServerWorld & game)
 {
   auto & stage = game.GetStage();
   auto & map_props = stage.GetMapProperties();
@@ -328,7 +328,7 @@ void GameController::ProcessExternal(const NetPolymorphic<GameNetworkExternalEve
 
 }
 
-void GameController::InitPlayer(GameLogicContainer & game, std::size_t player_index, const GamePlayer & player)
+void GameController::InitPlayer(GameServerWorld & game, std::size_t player_index, const GamePlayer & player)
 {
   auto & obj_manager = game.GetObjectManager();
 
@@ -344,7 +344,7 @@ void GameController::InitPlayer(GameLogicContainer & game, std::size_t player_in
   }
 }
 
-void GameController::SetPlayerToSpawn(GameLogicContainer & game, std::size_t player_index) const
+void GameController::SetPlayerToSpawn(GameServerWorld & game, std::size_t player_index) const
 {
   auto & stage = game.GetStage();
   auto & spawns = stage.GetPlayerSpawns();
@@ -386,7 +386,7 @@ void GameController::SetPlayerToSpawn(GameLogicContainer & game, std::size_t pla
   }
 }
 
-void GameController::CleanupPlayer(GameLogicContainer & game, std::size_t player_index)
+void GameController::CleanupPlayer(GameServerWorld & game, std::size_t player_index)
 {
   auto & global_data = game.GetLowFrequencyInstanceDataForModify();
   global_data.m_Players.RemoveAt(player_index);
@@ -417,7 +417,7 @@ void GameController::CleanupPlayer(GameLogicContainer & game, std::size_t player
   }
 }
 
-int GameController::AddAIPlayer(GameLogicContainer & game, uint32_t random_number)
+int GameController::AddAIPlayer(GameServerWorld & game, uint32_t random_number)
 {
   auto & game_data = game.GetLowFrequencyInstanceData();
   for (int index = 0; index < kMaxPlayers; index++)
@@ -441,7 +441,7 @@ int GameController::AddAIPlayer(GameLogicContainer & game, uint32_t random_numbe
   return -1;
 }
 
-void GameController::FillWithBots(GameLogicContainer & game, uint32_t random_number)
+void GameController::FillWithBots(GameServerWorld & game, uint32_t random_number)
 {
   while (true)
   {
@@ -470,7 +470,7 @@ void GameController::FillWithBots(GameLogicContainer & game, uint32_t random_num
   }
 }
 
-int GameController::GetMaxPlayerCount(GameLogicContainer & game) const
+int GameController::GetMaxPlayerCount(GameServerWorld & game) const
 {
 #ifdef NET_USE_PLAYER_LIMIT
   return game.GetLowFrequencyInstanceData().m_Settings.m_PlayerCount;
@@ -480,7 +480,7 @@ int GameController::GetMaxPlayerCount(GameLogicContainer & game) const
 }
 
 #ifdef NET_USE_SCORE
-int GameController::GetScoreLimit(GameLogicContainer & game) const
+int GameController::GetScoreLimit(GameServerWorld & game) const
 {
 #ifdef NET_USE_SCORE_LIMIT
   return game.GetLowFrequencyInstanceData().m_Settings.m_ScoreLimit;
@@ -491,7 +491,7 @@ int GameController::GetScoreLimit(GameLogicContainer & game) const
 #endif
 
 #ifdef NET_USE_ROUND_TIMER
-void GameController::RoundStarted(GameLogicContainer & game) const
+void GameController::RoundStarted(GameServerWorld & game) const
 {
   // Vampire
   VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerEntity> player)
@@ -502,12 +502,12 @@ void GameController::RoundStarted(GameLogicContainer & game) const
   game.GetEventSender().SendSoundEvent({}, g_BatChirpsAudio, false);
 }
 
-void GameController::RoundEnded(GameLogicContainer & game) const
+void GameController::RoundEnded(GameServerWorld & game) const
 {
 
 }
 
-void GameController::RoundReset(GameLogicContainer & game) const
+void GameController::RoundReset(GameServerWorld & game) const
 {
   VisitPlayers(game, [&](std::size_t player_index, NotNullPtr<PlayerServerEntity> player)
   {
@@ -521,7 +521,7 @@ void GameController::RoundReset(GameLogicContainer & game) const
   RespawnNPCs(game);
 }
 
-int GameController::GetTimeLimit(GameLogicContainer & game) const
+int GameController::GetTimeLimit(GameServerWorld & game) const
 {
 #ifdef NET_USE_TIME_LIMIT
   if(game.GetLowFrequencyInstanceData().m_Settings.m_TimeLimit != 0)
@@ -559,7 +559,7 @@ std::vector<int> GameController::GetTeamCounts(const GameStateLoading & game_dat
   return teams;
 }
 
-Optional<int> GameController::GetOnlyTeamWithPlayers(GameLogicContainer & game)
+Optional<int> GameController::GetOnlyTeamWithPlayers(GameServerWorld & game)
 {
   Optional<int> team_with_players;
   for (auto player : game.GetLowFrequencyInstanceData().m_Players)
@@ -585,24 +585,17 @@ Optional<int> GameController::GetDefaultWinningTeam()
   return{};
 }
 
-void GameController::HandleClientEvent(std::size_t player_index, GameLogicContainer & game, std::size_t event_class_id, const void * event_ptr)
+void GameController::HandleClientEvent(std::size_t player_index, GameServerWorld & game, std::size_t event_class_id, const void * event_ptr)
 {
-#if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
-  if (!IsPlayerActive(player_index, game))
-  {
-    return;
-  }
-#endif
-
   m_ClientEventCallbacks[event_class_id].Call(event_ptr, player_index, game);
 }
 
-void GameController::HandleAuthEvent(GameLogicContainer & game, std::size_t event_class_id, const void * event_ptr)
+void GameController::HandleAuthEvent(GameServerWorld & game, std::size_t event_class_id, const void * event_ptr)
 {
   m_AuthEventCallbacks[event_class_id].Call(event_ptr, game);
 }
 
-bool GameController::ValidateInput(std::size_t player_index, GameLogicContainer & game, ClientInput & input)
+bool GameController::ValidateInput(std::size_t player_index, GameServerWorld & game, ClientInput & input)
 {
 #ifndef PLATFORMER_MOVEMENT
   input.m_InputStr.Clamp(0, 1);
@@ -613,7 +606,7 @@ bool GameController::ValidateInput(std::size_t player_index, GameLogicContainer 
   return true;
 }
 
-void GameController::ApplyInput(std::size_t player_index, GameLogicContainer & game, const ClientInput & input)
+void GameController::ApplyInput(std::size_t player_index, GameServerWorld & game, const ClientInput & input)
 {
   auto server_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
   auto player_obj = game.GetLowFrequencyInstanceData().m_Players.TryGet(player_index);
@@ -629,7 +622,7 @@ void GameController::ApplyInput(std::size_t player_index, GameLogicContainer & g
   }
 }
 
-void GameController::Update(GameLogicContainer & game)
+void GameController::Update(GameServerWorld & game)
 {
   auto & game_data = game.GetInstanceData();
   if (game_data.m_WiningTeam)
@@ -741,7 +734,7 @@ void GameController::Update(GameLogicContainer & game)
   }
 }
 
-void GameController::StartGame(GameLogicContainer & game)
+void GameController::StartGame(GameServerWorld & game)
 {
   auto & global_data = game.GetInstanceData();
 
@@ -750,10 +743,6 @@ void GameController::StartGame(GameLogicContainer & game)
   global_data.m_RoundTimer = kPreRoundTimer;
 #endif
 
-#if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
-  global_data.m_TimeExpiration = kTurnMaxTime;
-  global_data.m_ActiveTurn = 0;
-#endif
   for (auto player : game.GetLowFrequencyInstanceData().m_Players)
   {
     InitPlayer(game, player.first, player.second);
@@ -767,7 +756,7 @@ void GameController::StartGame(GameLogicContainer & game)
   game.TriggerImmediateSend();
 }
 
-void GameController::EndGame(int winning_team, GameLogicContainer & game)
+void GameController::EndGame(int winning_team, GameServerWorld & game)
 {
   game.GetInstanceData().m_WiningTeam.Emplace(winning_team);
 
@@ -776,7 +765,7 @@ void GameController::EndGame(int winning_team, GameLogicContainer & game)
 }
 
 #ifdef NET_USE_SCORE
-void GameController::AddScore(int team, GameLogicContainer & game, GameNetVec2 & pos)
+void GameController::AddScore(int team, GameServerWorld & game, GameNetVec2 & pos)
 {
   if (game.IsAuthority())
   {
@@ -810,19 +799,19 @@ void GameController::AddScore(int team, GameLogicContainer & game, GameNetVec2 &
 }
 #endif
 
-void GameController::HandlePlaceholderEvent(const PlaceholderClientEvent & ev, std::size_t player_index, GameLogicContainer & game)
+void GameController::HandlePlaceholderEvent(const PlaceholderClientEvent & ev, std::size_t player_index, GameServerWorld & game)
 {
   auto & global_data = game.GetInstanceData();
 }
 
-void GameController::HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev, GameLogicContainer & game)
+void GameController::HandlePlaceholderAuthEvent(const PlaceholderServerAuthEvent & ev, GameServerWorld & game)
 {
 
 }
 
 
 #if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
-void GameController::HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameLogicContainer & game)
+void GameController::HandleJumpEvent(const JumpEvent & ev, std::size_t player_index, GameServerWorld & game)
 {
   auto server_obj = game.GetObjectManager().GetReservedSlotObjectAs<PlayerServerEntity>(player_index);
   if (server_obj)
@@ -834,7 +823,7 @@ void GameController::HandleJumpEvent(const JumpEvent & ev, std::size_t player_in
 
 
 #ifdef NET_USE_AIM_DIRECTION
-void GameController::HandleFireEvent(const FireEvent & ev, std::size_t player_index, GameLogicContainer & game)
+void GameController::HandleFireEvent(const FireEvent & ev, std::size_t player_index, GameServerWorld & game)
 {
   auto server_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
   if (server_obj)
@@ -844,7 +833,7 @@ void GameController::HandleFireEvent(const FireEvent & ev, std::size_t player_in
 }
 #endif
 
-void GameController::HandleUseEvent(const UseEvent & ev, std::size_t player_index, GameLogicContainer & game)
+void GameController::HandleUseEvent(const UseEvent & ev, std::size_t player_index, GameServerWorld & game)
 {
   auto server_obj = game.GetObjectManager().GetReservedSlotEntityAs<PlayerServerEntity>(player_index);
   if (server_obj)
@@ -853,7 +842,7 @@ void GameController::HandleUseEvent(const UseEvent & ev, std::size_t player_inde
   }
 }
 
-void GameController::HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t player_index, GameLogicContainer & game)
+void GameController::HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t player_index, GameServerWorld & game)
 {
   if(game.GetInstanceData().m_RoundState != RoundState::kPostRound)
   {
@@ -868,7 +857,7 @@ void GameController::HandlePurchaseEvent(const PurchaseEvent & ev, std::size_t p
 }
 
 
-void GameController::RespawnNPCs(GameLogicContainer & game) const
+void GameController::RespawnNPCs(GameServerWorld & game) const
 {
   game.GetObjectManager().VisitEntities([&](auto index, NotNullPtr<ServerEntity> obj)
   {
@@ -895,84 +884,8 @@ void GameController::RespawnNPCs(GameLogicContainer & game) const
   }
 }
 
-#if NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC
-bool GameController::IsPlayerActive(std::size_t player_index, GameLogicContainer & game)
-{
-  auto & global_data = game.GetInstanceData();
-  if (global_data.m_Players.HasAt(player_index) == false)
-  {
-    return false;
-  }
-
-  auto player_team = (int)global_data.m_Players[player_index].m_Team;
-  return global_data.m_ActiveTurn == player_team;
-}
-
-void GameController::CheckEndTurnTimer(GameLogicContainer & game)
-{
-  auto & global_data = game.GetInstanceData();
-
-  if (global_data.m_Started == false)
-  {
-    return;
-  }
-
-#ifdef NET_MODE_TURN_BASED_RUN
-  if (global_data.m_Running)
-  {
-    return;
-  }
-#endif
-
-  auto time_left = global_data.m_TimeExpiration;
-  if (time_left == 0)
-  {
-    game.GetSimEventCallbacks().HandleTimeExpired();
-  }
-  else
-  {
-    global_data.m_TimeExpiration = time_left - 1;
-  }
-}
-
-void GameController::EndTurn(GameLogicContainer & game)
-{
-  auto & global_data = game.GetInstanceData();
-
-  if (global_data.m_Running)
-  {
-    return;
-  }
-
-#ifdef NET_MODE_TURN_BASED_RUN
-  global_data.m_Running = true;
-  global_data.m_TimeExpiration = kTurnUpdateTime;
-#else
-  global_data.m_TimeExpiration = kTurnMaxTime;
-#endif
-
-  auto active = (int)global_data.m_ActiveTurn;
-  if (global_data.m_ActiveTurn + 1 >= kMaxTeams)
-  {
-    global_data.m_ActiveTurn = 0;
-  }
-  else
-  {
-    global_data.m_ActiveTurn = active + 1;
-  }
-
-  game.TriggerImmediateSend();
-}
-
-void GameController::HandleEndTurnEvent(const EndTurnEvent & ev, std::size_t player_index, GameLogicContainer & game)
-{
-  EndTurn(game);
-}
-
-#endif
-
 template <typename Visitor>
-void GameController::VisitPlayers(GameLogicContainer & game, Visitor && visitor) const
+void GameController::VisitPlayers(GameServerWorld & game, Visitor && visitor) const
 {
   auto & obj_manager = game.GetObjectManager();
   obj_manager.VisitEntities([&](std::size_t index, NotNullPtr<ServerEntity> server_object)

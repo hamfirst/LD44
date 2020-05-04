@@ -1,6 +1,6 @@
 #include "GameClient/GameClientCommon.h"
-#include "GameClient/GameClientSave.h"
-#include "GameClient/GameClientSaveFileData.refl.meta.h"
+#include "GameClientSave.h"
+#include "GameClientSaveFileData.refl.meta.h"
 
 #include "Engine/SaveFile/SaveFileMetaFuncs.h"
 

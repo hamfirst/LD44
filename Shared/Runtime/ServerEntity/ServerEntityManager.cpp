@@ -412,7 +412,7 @@ bool ServerEntityManager::CompleteUpdateLoop()
 void ServerEntityManager::InitAllEntities(
         const std::vector<ServerEntityStaticInitData> & static_entities,
         const std::vector<ServerEntityStaticInitData> & dynamic_entities,
-        GameLogicContainer & game_container)
+        GameServerWorld & game_container)
 {
   if(m_Initialized)
   {
@@ -466,7 +466,7 @@ int ServerEntityManager::GetNewDynamicEntityId()
 }
 
 NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int type_index, bool unsynced,
-        NullOptPtr<const ServerEntityInitData> init_data, bool original, GameLogicContainer & game_container)
+        NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container)
 {
   auto slot_index = GetNewDynamicEntityId();
   if (slot_index == -1)
@@ -478,7 +478,7 @@ NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int ty
 }
 
 NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int type_index, int slot_index, bool unsynced,
-        NullOptPtr<const ServerEntityInitData> init_data, bool original, GameLogicContainer & game_container)
+        NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container)
 {
   auto ptr = g_ServerEntitySystem.AllocateEntity(type_index);
   ptr->m_IsStatic = false;

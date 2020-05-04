@@ -2,7 +2,7 @@
 
 #include <StormRefl/StormReflMetaInfoBase.h>
 
-#include "GameCollision.refl.h"
+#include "GameCollisionType.refl.h"
 
 
 template <>

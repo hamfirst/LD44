@@ -24,7 +24,7 @@ private:
   NotNullPtr<ServerEntity> AllocateEntity(std::size_t type_index);
   NotNullPtr<ServerEntity> DuplicateEntity(NotNullPtr<const ServerEntity> rhs);
 
-  void InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data, GameLogicContainer & game_container);
+  void InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data, GameServerWorld & game_container);
   void CopyEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntity> rhs);
   void FreeEntity(NotNullPtr<ServerEntity> entity);
   void ResetEntityHandles(NotNullPtr<ServerEntity> entity, const ServerEntityManager & obj_manager);

@@ -8,12 +8,12 @@ REGISTER_LOGIC_TYPE(ProjectileMotionLinearConfig, ProjectileMotionBaseConfig, Pr
 NET_REGISTER_TYPE(ProjectileMotionLinear, ProjectileMotionBase);
 
 
-void ProjectileMotionLinear::Init(ProjectileServerEntity & proj, GameLogicContainer & game_container)
+void ProjectileMotionLinear::Init(ProjectileServerEntity & proj, GameServerWorld & game_container)
 {
   m_RangeRemaining = GameNetVal((int)proj.m_Config->m_MaxDistance);
 }
 
-void ProjectileMotionLinear::Update(ProjectileServerEntity & proj, GameLogicContainer & game_container)
+void ProjectileMotionLinear::Update(ProjectileServerEntity & proj, GameServerWorld & game_container)
 {
   auto config = GetConfigAs<ProjectileMotionLinearConfig>();
   if(config == nullptr)

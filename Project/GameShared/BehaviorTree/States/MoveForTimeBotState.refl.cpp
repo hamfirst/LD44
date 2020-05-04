@@ -3,7 +3,7 @@
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Project/GameShared/BehaviorTree/States/MoveForTimeBotState.refl.h"
 #include "Project/GameShared/BehaviorTree/States/MoveForTimeBotState.refl.meta.h"
@@ -17,13 +17,13 @@ MoveForTimeBotState::MoveForTimeBotState(const GameNetVec2 vel, uint32_t animati
 
 }
 
-void MoveForTimeBotState::Activate(BotServerObject & bot, GameLogicContainer & container)
+void MoveForTimeBotState::Activate(BotServerObject & bot, GameServerWorld & container)
 {
   bot.ResetAnimState();
   bot.m_StateTimer = m_Frames;
 }
 
-bool MoveForTimeBotState::Update(BotServerObject & bot, GameLogicContainer & container)
+bool MoveForTimeBotState::Update(BotServerObject & bot, GameServerWorld & container)
 {
   bot.FrameAdvance(m_AnimationHash, true);
   bot.m_Velocity = m_Velocity;

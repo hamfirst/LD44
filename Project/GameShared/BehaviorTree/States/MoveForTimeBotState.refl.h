@@ -16,8 +16,8 @@ public:
 
   MoveForTimeBotState(const GameNetVec2 vel, uint32_t animation_hash, int frames, bool stop_when_blocked = true);
 
-  void Activate(BotServerObject & bot, GameLogicContainer & container);
-  bool Update(BotServerObject & bot, GameLogicContainer & container);
+  void Activate(BotServerObject & bot, GameServerWorld & container);
+  bool Update(BotServerObject & bot, GameServerWorld & container);
 
 private:
   GameNetVec2 m_Velocity;

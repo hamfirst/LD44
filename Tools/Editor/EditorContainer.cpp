@@ -36,7 +36,7 @@
 #include "Runtime/Runtime.h"
 #include "Runtime/Config/ConfigManager.h"
 
-#include "GameClient/GameShaders.h"
+#include "Project/GameClient/Shaders/GameShaders.h"
 
 #include "DocumentServer/DocumentServerMessages.refl.meta.h"
 

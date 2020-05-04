@@ -4,7 +4,7 @@
 #include "GameClient/Modes/GameModeConnectingGame.h"
 #include "GameClient/Modes/GameModeSinglePlayerBots.h"
 #include "GameClient/GameContainer.h"
-#include "GameClient/GameNetworkClient.h"
+#include "Project/GameClient/Network/GameNetworkClient.h"
 
 #include "Engine/Asset/TextureAsset.h"
 #include "Engine/Text/TextManager.h"

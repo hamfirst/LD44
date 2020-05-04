@@ -30,7 +30,7 @@ void GameServerEntityOverlapSystem::RegisterObjectInteraction(std::size_t src_ob
   m_ObjectInfo[src_object_type].m_DstTypes.push_back(dst_object_type);
 }
 
-void GameServerEntityOverlapSystem::CheckOverlaps(ServerEntityManager & obj_manager, GameLogicContainer & game_logic_container)
+void GameServerEntityOverlapSystem::CheckOverlaps(ServerEntityManager & obj_manager, GameServerWorld & game_logic_container)
 {
   struct Object
   {

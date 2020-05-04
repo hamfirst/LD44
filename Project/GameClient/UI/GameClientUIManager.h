@@ -7,7 +7,7 @@
 #include "Foundation/Sequencer/Sequencer.h"
 #include "Foundation/Time/FPSClock.h"
 
-#include "GameClient/GameClientUIData.refl.h"
+#include "GameClientUIData.refl.h"
 
 class GameContainer;
 class GameClientEventSender;

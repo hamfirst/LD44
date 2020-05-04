@@ -9,7 +9,7 @@ void CVCPushSystem::SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServ
   m_Data.push_back(CVCData{ obj->GetEntityHandle(), box });
 }
 
-void CVCPushSystem::ProcessCVC(GameLogicContainer & game_container)
+void CVCPushSystem::ProcessCVC(GameServerWorld & game_container)
 {
   for (std::size_t index1 = 0, end = m_Data.size(); index1 < end; ++index1)
   {

@@ -52,7 +52,8 @@ bool ConvertToCanonicalPath(std::string & path, const std::string & root_path)
 std::string GetCanonicalRootPath()
 {
 #if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS) && !defined(_INCLUDEOS)
-  auto canonical_path = fs::canonical(fs::current_path());
+  auto current_path = fs::current_path();
+  auto canonical_path = fs::canonical(current_path);
   auto root_path = canonical_path.string();
 
   auto asset_dir_file = FileOpen("asset_dir.txt", FileOpenMode::kRead);

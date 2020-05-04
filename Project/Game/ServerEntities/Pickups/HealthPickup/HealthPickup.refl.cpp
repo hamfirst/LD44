@@ -17,7 +17,7 @@ GLOBAL_ASSET(ClientEntityResourcePtr, g_HealthPickupEntityFile, g_HealthPickupEn
 
 CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/HealthPickedUp.wav", g_HealthPickupSfx);
 
-bool HealthPickup::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameLogicContainer & game_container)
+bool HealthPickup::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container)
 {
   if(server_object == m_AvoidObject.Resolve(game_container.GetObjectManager()))
   {
@@ -27,7 +27,7 @@ bool HealthPickup::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameLog
   return server_object->CastTo<PlayerServerEntity>();
 }
 
-void HealthPickup::PickUp(NotNullPtr<ServerEntity> server_object, GameLogicContainer & game_container)
+void HealthPickup::PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container)
 {
   auto player = server_object->CastTo<PlayerServerEntity>();
   if(player)

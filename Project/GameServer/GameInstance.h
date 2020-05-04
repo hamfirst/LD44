@@ -3,7 +3,7 @@
 #include "Foundation/Common.h"
 #include "Foundation/CircularBuffer/CircularBuffer.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "GameShared/GameEventReconciler.h"
 
 #include "LobbyShared/SharedTypes.refl.h"
@@ -24,7 +24,7 @@ class GameInstanceStateBase;
 
 struct GameInfoTeamSizes;
 
-using GameSimulationActionList = std::vector<Delegate<void, GameLogicContainer &>>;
+using GameSimulationActionList = std::vector<Delegate<void, GameServerWorld &>>;
 
 enum class GameInstanceState
 {

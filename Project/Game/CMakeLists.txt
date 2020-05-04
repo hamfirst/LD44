@@ -28,35 +28,35 @@ set(GENERIC_SRC_Game
             GameServerEventSender.cpp
             GameServerTypes.cpp
             GameStage.cpp
-  ServerEntities/Bot/BotServerObject.refl.cpp
-  ServerEntities/Bot/BotServerObject.refl.reg.cpp
-  ServerEntities/Bot/NPC/NPCBot.refl.cpp
-  ServerEntities/Bot/NPC/NPCBot.refl.reg.cpp
-  ServerEntities/Bot/TestBot/TestBot.refl.cpp
-  ServerEntities/Bot/TestBot/TestBot.refl.reg.cpp
-  ServerEntities/CharacterFacing.refl.cpp
-  ServerEntities/GameServerEntityBase.refl.cpp
-  ServerEntities/GameServerEntityBase.refl.reg.cpp
-  ServerEntities/Pickups/HealthPickup/HealthPickup.refl.cpp
-  ServerEntities/Pickups/HealthPickup/HealthPickup.refl.reg.cpp
-  ServerEntities/Pickups/PickupBase.refl.cpp
-  ServerEntities/Pickups/PickupBase.refl.reg.cpp
-  ServerEntities/Player/PlayerConfig.refl.reg.cpp
-  ServerEntities/Player/PlayerServerEntity.refl.cpp
-  ServerEntities/Player/PlayerServerEntity.refl.reg.cpp
-  ServerEntities/Player/States/PlayerStateBase.refl.cpp
-  ServerEntities/Player/States/PlayerStateBasicAttack.refl.cpp
-  ServerEntities/Player/States/PlayerStateBite.refl.cpp
-  ServerEntities/Player/States/PlayerStateIdle.refl.cpp
-  ServerEntities/Player/States/PlayerStateJump.refl.cpp
-  ServerEntities/Player/States/PlayerStateMoving.refl.cpp
-  ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.cpp
-  ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.cpp
-  ServerEntities/Projectile/ProjectileConfig.refl.reg.cpp
-  ServerEntities/Projectile/ProjectileServerEntity.refl.cpp
-  ServerEntities/Projectile/ProjectileServerEntity.refl.reg.cpp
-  ServerEntities/Projectile/Response/ProjectileResponseBase.refl.cpp
-  ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.cpp
+            ServerEntities/Bot/BotServerObject.refl.cpp
+            ServerEntities/Bot/BotServerObject.refl.reg.cpp
+            ServerEntities/Bot/NPC/NPCBot.refl.cpp
+            ServerEntities/Bot/NPC/NPCBot.refl.reg.cpp
+            ServerEntities/Bot/TestBot/TestBot.refl.cpp
+            ServerEntities/Bot/TestBot/TestBot.refl.reg.cpp
+            ServerEntities/CharacterFacing.refl.cpp
+            ServerEntities/GameServerEntityBase.refl.cpp
+            ServerEntities/GameServerEntityBase.refl.reg.cpp
+            ServerEntities/Pickups/HealthPickup/HealthPickup.refl.cpp
+            ServerEntities/Pickups/HealthPickup/HealthPickup.refl.reg.cpp
+            ServerEntities/Pickups/PickupBase.refl.cpp
+            ServerEntities/Pickups/PickupBase.refl.reg.cpp
+            ServerEntities/Player/PlayerConfig.refl.reg.cpp
+            ServerEntities/Player/PlayerServerEntity.refl.cpp
+            ServerEntities/Player/PlayerServerEntity.refl.reg.cpp
+            ServerEntities/Player/States/PlayerStateBase.refl.cpp
+            ServerEntities/Player/States/PlayerStateBasicAttack.refl.cpp
+            ServerEntities/Player/States/PlayerStateBite.refl.cpp
+            ServerEntities/Player/States/PlayerStateIdle.refl.cpp
+            ServerEntities/Player/States/PlayerStateJump.refl.cpp
+            ServerEntities/Player/States/PlayerStateMoving.refl.cpp
+            ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.cpp
+            ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.cpp
+            ServerEntities/Projectile/ProjectileConfig.refl.reg.cpp
+            ServerEntities/Projectile/ProjectileServerEntity.refl.cpp
+            ServerEntities/Projectile/ProjectileServerEntity.refl.reg.cpp
+            ServerEntities/Projectile/Response/ProjectileResponseBase.refl.cpp
+            ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.cpp
             #CPP_PLACEHOLDER
             )
 
@@ -72,8 +72,8 @@ set(GENERIC_HEADER_Game
             Data/NPCSpawn.refl.meta.h
             Data/PlayerSpawn.refl.h
             Data/PlayerSpawn.refl.meta.h
-            GameCollision.refl.h
-            GameCollision.refl.meta.h
+            GameCollisionType.refl.h
+            GameCollisionType.refl.meta.h
             GameCommon.h
             GameConfig.refl.h
             GameConfig.refl.meta.h
@@ -100,49 +100,49 @@ set(GENERIC_HEADER_Game
             GameplayEvents/DamageType.refl.meta.h
             GameplayEvents/PickupEvents.h
             GameplayEvents/PlaceholderEvent.h
-  ServerEntities/Bot/BotBehaviorTree.h
-  ServerEntities/Bot/BotServerObject.refl.h
-  ServerEntities/Bot/BotServerObject.refl.meta.h
-  ServerEntities/Bot/NPC/NPCBot.refl.h
-  ServerEntities/Bot/NPC/NPCBot.refl.meta.h
-  ServerEntities/Bot/TestBot/TestBot.refl.h
-  ServerEntities/Bot/TestBot/TestBot.refl.meta.h
-  ServerEntities/CharacterFacing.refl.h
-  ServerEntities/CharacterFacing.refl.meta.h
-  ServerEntities/GameServerEntityBase.refl.h
-  ServerEntities/GameServerEntityBase.refl.meta.h
-  ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h
-  ServerEntities/Pickups/HealthPickup/HealthPickup.refl.meta.h
-  ServerEntities/Pickups/PickupBase.refl.h
-  ServerEntities/Pickups/PickupBase.refl.meta.h
-  ServerEntities/Player/PlayerConfig.refl.h
-  ServerEntities/Player/PlayerConfig.refl.meta.h
-  ServerEntities/Player/PlayerServerEntity.refl.h
-  ServerEntities/Player/PlayerServerEntity.refl.meta.h
-  ServerEntities/Player/States/PlayerStateBase.refl.h
-  ServerEntities/Player/States/PlayerStateBase.refl.meta.h
-  ServerEntities/Player/States/PlayerStateBasicAttack.refl.h
-  ServerEntities/Player/States/PlayerStateBasicAttack.refl.meta.h
-  ServerEntities/Player/States/PlayerStateBite.refl.h
-  ServerEntities/Player/States/PlayerStateBite.refl.meta.h
-  ServerEntities/Player/States/PlayerStateIdle.refl.h
-  ServerEntities/Player/States/PlayerStateIdle.refl.meta.h
-  ServerEntities/Player/States/PlayerStateJump.refl.h
-  ServerEntities/Player/States/PlayerStateJump.refl.meta.h
-  ServerEntities/Player/States/PlayerStateMoving.refl.h
-  ServerEntities/Player/States/PlayerStateMoving.refl.meta.h
-  ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h
-  ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.meta.h
-  ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.h
-  ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.meta.h
-  ServerEntities/Projectile/ProjectileConfig.refl.h
-  ServerEntities/Projectile/ProjectileConfig.refl.meta.h
-  ServerEntities/Projectile/ProjectileServerEntity.refl.h
-  ServerEntities/Projectile/ProjectileServerEntity.refl.meta.h
-  ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h
-  ServerEntities/Projectile/Response/ProjectileResponseBase.refl.meta.h
-  ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.h
-  ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.meta.h
+            ServerEntities/Bot/BotBehaviorTree.h
+            ServerEntities/Bot/BotServerObject.refl.h
+            ServerEntities/Bot/BotServerObject.refl.meta.h
+            ServerEntities/Bot/NPC/NPCBot.refl.h
+            ServerEntities/Bot/NPC/NPCBot.refl.meta.h
+            ServerEntities/Bot/TestBot/TestBot.refl.h
+            ServerEntities/Bot/TestBot/TestBot.refl.meta.h
+            ServerEntities/CharacterFacing.refl.h
+            ServerEntities/CharacterFacing.refl.meta.h
+            ServerEntities/GameServerEntityBase.refl.h
+            ServerEntities/GameServerEntityBase.refl.meta.h
+            ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h
+            ServerEntities/Pickups/HealthPickup/HealthPickup.refl.meta.h
+            ServerEntities/Pickups/PickupBase.refl.h
+            ServerEntities/Pickups/PickupBase.refl.meta.h
+            ServerEntities/Player/PlayerConfig.refl.h
+            ServerEntities/Player/PlayerConfig.refl.meta.h
+            ServerEntities/Player/PlayerServerEntity.refl.h
+            ServerEntities/Player/PlayerServerEntity.refl.meta.h
+            ServerEntities/Player/States/PlayerStateBase.refl.h
+            ServerEntities/Player/States/PlayerStateBase.refl.meta.h
+            ServerEntities/Player/States/PlayerStateBasicAttack.refl.h
+            ServerEntities/Player/States/PlayerStateBasicAttack.refl.meta.h
+            ServerEntities/Player/States/PlayerStateBite.refl.h
+            ServerEntities/Player/States/PlayerStateBite.refl.meta.h
+            ServerEntities/Player/States/PlayerStateIdle.refl.h
+            ServerEntities/Player/States/PlayerStateIdle.refl.meta.h
+            ServerEntities/Player/States/PlayerStateJump.refl.h
+            ServerEntities/Player/States/PlayerStateJump.refl.meta.h
+            ServerEntities/Player/States/PlayerStateMoving.refl.h
+            ServerEntities/Player/States/PlayerStateMoving.refl.meta.h
+            ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h
+            ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.meta.h
+            ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.h
+            ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.meta.h
+            ServerEntities/Projectile/ProjectileConfig.refl.h
+            ServerEntities/Projectile/ProjectileConfig.refl.meta.h
+            ServerEntities/Projectile/ProjectileServerEntity.refl.h
+            ServerEntities/Projectile/ProjectileServerEntity.refl.meta.h
+            ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h
+            ServerEntities/Projectile/Response/ProjectileResponseBase.refl.meta.h
+            ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.h
+            ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.meta.h
             Systems/GameDeliberateSyncSystemList.h
             #HEADER_PLACEHOLDER
             )
@@ -153,7 +153,7 @@ set(GENERIC_REFL_Game
             Data/KillVolume.refl.h
             Data/NPCSpawn.refl.h
             Data/PlayerSpawn.refl.h
-            GameCollision.refl.h
+            GameCollisionType.refl.h
             GameConfig.refl.h
             GameController.refl.h
             GameFullState.refl.h
@@ -163,27 +163,27 @@ set(GENERIC_REFL_Game
             GameNetworkExternals.refl.h
             GameSimulationStats.refl.h
             GameplayEvents/DamageType.refl.h
-  ServerEntities/Bot/BotServerObject.refl.h
-  ServerEntities/Bot/NPC/NPCBot.refl.h
-  ServerEntities/Bot/TestBot/TestBot.refl.h
-  ServerEntities/CharacterFacing.refl.h
-  ServerEntities/GameServerEntityBase.refl.h
-  ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h
-  ServerEntities/Pickups/PickupBase.refl.h
-  ServerEntities/Player/PlayerConfig.refl.h
-  ServerEntities/Player/PlayerServerEntity.refl.h
-  ServerEntities/Player/States/PlayerStateBase.refl.h
-  ServerEntities/Player/States/PlayerStateBasicAttack.refl.h
-  ServerEntities/Player/States/PlayerStateBite.refl.h
-  ServerEntities/Player/States/PlayerStateIdle.refl.h
-  ServerEntities/Player/States/PlayerStateJump.refl.h
-  ServerEntities/Player/States/PlayerStateMoving.refl.h
-  ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h
-  ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.h
-  ServerEntities/Projectile/ProjectileConfig.refl.h
-  ServerEntities/Projectile/ProjectileServerEntity.refl.h
-  ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h
-  ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.h
+            ServerEntities/Bot/BotServerObject.refl.h
+            ServerEntities/Bot/NPC/NPCBot.refl.h
+            ServerEntities/Bot/TestBot/TestBot.refl.h
+            ServerEntities/CharacterFacing.refl.h
+            ServerEntities/GameServerEntityBase.refl.h
+            ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h
+            ServerEntities/Pickups/PickupBase.refl.h
+            ServerEntities/Player/PlayerConfig.refl.h
+            ServerEntities/Player/PlayerServerEntity.refl.h
+            ServerEntities/Player/States/PlayerStateBase.refl.h
+            ServerEntities/Player/States/PlayerStateBasicAttack.refl.h
+            ServerEntities/Player/States/PlayerStateBite.refl.h
+            ServerEntities/Player/States/PlayerStateIdle.refl.h
+            ServerEntities/Player/States/PlayerStateJump.refl.h
+            ServerEntities/Player/States/PlayerStateMoving.refl.h
+            ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h
+            ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.h
+            ServerEntities/Projectile/ProjectileConfig.refl.h
+            ServerEntities/Projectile/ProjectileServerEntity.refl.h
+            ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h
+            ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.h
             #REFL_PLACEHOLDER
             )
 

@@ -11,10 +11,10 @@ class GameSimulationEventCallbacks;
 class GameLogicSystems;
 class GameStage;
 
-class GameLogicContainer
+class GameServerWorld
 {
 public:
-  GameLogicContainer(
+  GameServerWorld(
     GameController & game_controller,
     const GameInitSettings & init_settings,
     GameInstanceData & global_data,
@@ -29,8 +29,8 @@ public:
     int & send_timer,
     bool & modified_low_freq_data);
 
-  GameLogicContainer(const GameLogicContainer & rhs) = default;
-  GameLogicContainer(GameLogicContainer && rhs) = default;
+  GameServerWorld(const GameServerWorld & rhs) = default;
+  GameServerWorld(GameServerWorld && rhs) = default;
 
   GameController & GetGameController();
   const GameInitSettings & GetGameInitSettings();

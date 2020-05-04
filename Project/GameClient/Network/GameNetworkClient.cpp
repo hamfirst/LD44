@@ -5,7 +5,7 @@
 #include "Engine/Text/TextManager.h"
 #include "Engine/Audio/AudioManager.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "GameShared/GameProtocol.h"
 
 #include "Game/GameMessages.refl.meta.h"
@@ -13,7 +13,7 @@
 #include "Game/Systems/GameDeliberateSyncSystemList.h"
 #include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
 
-#include "GameClient/GameNetworkClient.h"
+#include "GameNetworkClient.h"
 #include "GameClient/GameContainer.h"
 
 #include <SDL2/SDL.h>

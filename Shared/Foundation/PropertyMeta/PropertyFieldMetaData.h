@@ -31,8 +31,8 @@ struct PropertyFieldEnumData
 struct PropertyFieldPolymorphicOptionData
 {
   std::string m_Name;
-  uint32_t m_NameHash;
-  PropertyField * m_FieldData;
+  uint32_t m_NameHash = 0;
+  PropertyField * m_FieldData = nullptr;
 };
 
 struct PropertyFieldPolymorphicData
@@ -43,19 +43,20 @@ struct PropertyFieldPolymorphicData
 struct PropertyFieldStructMemberData
 {
   std::string m_Name;
-  void *(*GetMember)(void * obj);
-  PropertyField * m_FieldData;
+  PropertyField * m_FieldData = nullptr;
+
+  void *(*GetMember)(void * obj) = nullptr;
 };
 
 struct PropertyFieldStructData
 {
-  uint32_t m_TypeNameHash;
+  uint32_t m_TypeNameHash = 0;
   std::vector<PropertyFieldStructMemberData> m_Members;
 };
 
 struct PropertyField
 {
-  PropertyFieldType m_Type;
+  PropertyFieldType m_Type = PropertyFieldType::kUnknown;
 
   union
   {

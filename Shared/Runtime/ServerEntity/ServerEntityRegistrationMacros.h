@@ -139,7 +139,7 @@ void ServerEntityName::RegisterServerEntity()                                   
   };                                                                                                                            \
                                                                                                                                 \
   type_info.m_EntityInit = [](NotNullPtr<ServerEntity> entity, NullOptPtr<const ServerEntityInitData> init_data,                \
-          GameLogicContainer & game_container)                                                                                  \
+          GameServerWorld & world)                                                                                              \
   {                                                                                                                             \
     auto obj = static_cast<ServerEntityName *>(entity);                                                                         \
     InitFunc                                                                                                                    \
@@ -219,7 +219,7 @@ NotNullPtr<ServerEntityEventDispatch> ServerEntityName::GetEventDispatch()      
 #define SERVER_ENTITY_CONSTRUCT_NOBASE          0
 #define SERVER_ENTITY_CONSTRUCT_BASE(BaseClass) COMPILE_TIME_CRC32_STR(#BaseClass)
 
-#define SERVER_ENTITY_INIT_DATA(InitData)       obj->Init(*static_cast<const InitData *>(init_data), game_container);
+#define SERVER_ENTITY_INIT_DATA(InitData)       obj->Init(*static_cast<const InitData *>(init_data), world);
 #define SERVER_ENTITY_NOINIT_DATA   
 
 #define REGISTER_BASE_SERVER_ENTITY(ServerEntityName) \

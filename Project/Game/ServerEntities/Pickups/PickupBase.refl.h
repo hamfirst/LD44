@@ -7,7 +7,7 @@
 #include "Game/ServerEntities/GameServerEntityBase.refl.h"
 
 #include "GameShared/Systems/GameLogicSystems.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Runtime/ServerEntity/ServerEntity.h"
 #include "Runtime/ServerEntity/ServerEntityInitData.refl.h"
@@ -30,12 +30,12 @@ public:
   PickupBase & operator = (const PickupBase & rhs) = default;
   PickupBase & operator = (PickupBase && rhs) = default;
 
-  void Init(const PickupBaseInitData & init_data, GameLogicContainer & game_container);
-  void UpdateFirst(GameLogicContainer & game_container);
-  void UpdateMiddle(GameLogicContainer & game_container);
+  void Init(const PickupBaseInitData & init_data, GameServerWorld & game_container);
+  void UpdateFirst(GameServerWorld & game_container);
+  void UpdateMiddle(GameServerWorld & game_container);
 
-  virtual bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameLogicContainer & game_container);
-  virtual void PickUp(NotNullPtr<ServerEntity> server_object, GameLogicContainer & game_container);
+  virtual bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container);
+  virtual void PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container);
 
 public:
 

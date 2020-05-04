@@ -4,7 +4,7 @@
 #include "Game/GameCommon.h"
 
 #include "Game/GameServerTypes.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 #include "Game/GameNetworkData.refl.h"
 
 #include "Game/ServerEntities/CharacterFacing.refl.h"
@@ -35,8 +35,8 @@ public:
   GameServerEntityBase & operator = (const GameServerEntityBase & rhs) = default;
   GameServerEntityBase & operator = (GameServerEntityBase && rhs) = default;
 
-  void Init(const GameServerEntityBaseInitData & init_data, GameLogicContainer & game_container);
-  void UpdateFirst(GameLogicContainer & container);
+  void Init(const GameServerEntityBaseInitData & init_data, GameServerWorld & game_container);
+  void UpdateFirst(GameServerWorld & container);
 
   virtual void InitPosition(const Vector2 & pos) override;
 
@@ -52,37 +52,37 @@ public:
 
   Optional<Box> GetMoveBox(uint32_t box_name_hash = COMPILE_TIME_CRC32_STR("MoveBox"));
 
-  void PushDealDamageEventBox(const Box & b, const DamageEvent & damage_event, GameLogicContainer & game_container);
-  void PushDealDamageEventBox(uint32_t box_name_hash, const DamageEvent & damage_event, GameLogicContainer & game_container);
-  void PushDealDamageEventBoxes(uint32_t multi_box_name_hash, const DamageEvent & damage_event, GameLogicContainer & game_container);
-  void PushReceiveDamageEventBox(const Box & b, GameLogicContainer & game_container);
-  void PushReceiveDamageEventBox(uint32_t box_name_hash, GameLogicContainer & game_container);
-  void PushReceiveDamageEventBoxes(uint32_t multi_box_name_hash, GameLogicContainer & game_container);
-  void PushReceiveDamageCollisionBox(const Box & b, GameLogicContainer & game_container);
-  void PushReceiveDamageCollisionBox(uint32_t box_name_hash, GameLogicContainer & game_container);
-  void PushReceiveDamageCollisionBoxes(uint32_t multi_box_name_hash, GameLogicContainer & game_container);
-  void PushCVCBox(const Box & b, GameLogicContainer & game_container);
-  void PushCVCBox(uint32_t box_name_hash, GameLogicContainer & game_container);
-  void PushSelfAsTarget(GameLogicContainer & game_container);
+  void PushDealDamageEventBox(const Box & b, const DamageEvent & damage_event, GameServerWorld & game_container);
+  void PushDealDamageEventBox(uint32_t box_name_hash, const DamageEvent & damage_event, GameServerWorld & game_container);
+  void PushDealDamageEventBoxes(uint32_t multi_box_name_hash, const DamageEvent & damage_event, GameServerWorld & game_container);
+  void PushReceiveDamageEventBox(const Box & b, GameServerWorld & game_container);
+  void PushReceiveDamageEventBox(uint32_t box_name_hash, GameServerWorld & game_container);
+  void PushReceiveDamageEventBoxes(uint32_t multi_box_name_hash, GameServerWorld & game_container);
+  void PushReceiveDamageCollisionBox(const Box & b, GameServerWorld & game_container);
+  void PushReceiveDamageCollisionBox(uint32_t box_name_hash, GameServerWorld & game_container);
+  void PushReceiveDamageCollisionBoxes(uint32_t multi_box_name_hash, GameServerWorld & game_container);
+  void PushCVCBox(const Box & b, GameServerWorld & game_container);
+  void PushCVCBox(uint32_t box_name_hash, GameServerWorld & game_container);
+  void PushSelfAsTarget(GameServerWorld & game_container);
 
 #if defined(MOVER_ONE_WAY_COLLISION) && PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
-  MoverResult MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity, bool fallthrough = false);
+  MoverResult MoveCheckCollisionDatabase(GameServerWorld & game_container, const GameNetVec2 & velocity, bool fallthrough = false);
 #else
-  MoverResult MoveCheckCollisionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity);
+  MoverResult MoveCheckCollisionDatabase(GameServerWorld & game_container, const GameNetVec2 & velocity);
 #endif
 
-  GameNetVec2 MoveCheckIntersectionDatabase(GameLogicContainer & game_container, const GameNetVec2 & velocity, GameNetVal player_radius, GameNetVal move_threshold);
+  GameNetVec2 MoveCheckIntersectionDatabase(GameServerWorld & game_container, const GameNetVec2 & velocity, GameNetVal player_radius, GameNetVal move_threshold);
 
   std::vector<ServerEntityHandle> QueryTargetDatabase(GameNetVal vision_cone_angle,
           GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
-          GameLogicContainer & game_container);
+          GameServerWorld & game_container);
 
   virtual const SpritePtr & GetSprite() const;
   virtual Optional<CharacterFacing> GetFacing() const;
   virtual Optional<int> GetCollisionId() const;
 
   template <typename Target>
-  void TriggerAnimationEvents(GameLogicContainer & game_container, Target & target)
+  void TriggerAnimationEvents(GameServerWorld & game_container, Target & target)
   {
     auto anim_state = GetAnimationState();
     if (anim_state)

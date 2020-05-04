@@ -161,11 +161,4 @@ struct PurchaseEvent : public ClientNetworkEvent
   int16_t m_Upgrade;
 };
 
-#if (NET_MODE == NET_MODE_TURN_BASED_DETERMINISTIC)
 
-struct EndTurnEvent : public ClientNetworkEvent
-{
-  NET_REFL;
-};
-
-#endif

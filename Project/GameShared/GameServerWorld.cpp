@@ -1,8 +1,8 @@
 #include <Project/Game/GameNetworkData.refl.h>
 #include "GameShared/GameSharedCommon.h"
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
-GameLogicContainer::GameLogicContainer(
+GameServerWorld::GameServerWorld(
   GameController & game_controller,
   const GameInitSettings & init_settings,
   GameInstanceData & global_data,
@@ -34,27 +34,27 @@ GameLogicContainer::GameLogicContainer(
 
 }
 
-GameController & GameLogicContainer::GetGameController()
+GameController & GameServerWorld::GetGameController()
 {
   return m_GameController;
 }
 
-const GameInitSettings & GameLogicContainer::GetGameInitSettings()
+const GameInitSettings & GameServerWorld::GetGameInitSettings()
 {
   return m_InitSettings;
 }
 
-GameInstanceData & GameLogicContainer::GetInstanceData()
+GameInstanceData & GameServerWorld::GetInstanceData()
 {
   return m_InstanceData;
 }
 
-const GameInstanceLowFrequencyData & GameLogicContainer::GetLowFrequencyInstanceData() const
+const GameInstanceLowFrequencyData & GameServerWorld::GetLowFrequencyInstanceData() const
 {
   return m_LowFrequencyData;
 }
 
-GameInstanceLowFrequencyData & GameLogicContainer::GetLowFrequencyInstanceDataForModify()
+GameInstanceLowFrequencyData & GameServerWorld::GetLowFrequencyInstanceDataForModify()
 {
   ASSERT(m_AllowModifyLowFreqData, "Modifying low freq data when not allowed");
 
@@ -62,47 +62,47 @@ GameInstanceLowFrequencyData & GameLogicContainer::GetLowFrequencyInstanceDataFo
   return m_LowFrequencyData;
 }
 
-ServerEntityManager & GameLogicContainer::GetObjectManager()
+ServerEntityManager & GameServerWorld::GetObjectManager()
 {
   return m_ObjectManager;
 }
 
-ServerEntityEventSystem & GameLogicContainer::GetServerObjectEventSystem()
+ServerEntityEventSystem & GameServerWorld::GetServerObjectEventSystem()
 {
   return m_ObjectEventSystem;
 }
 
-GameServerEventSender & GameLogicContainer::GetEventSender()
+GameServerEventSender & GameServerWorld::GetEventSender()
 {
   return m_ServerEventSender;
 }
 
-GameSimulationEventCallbacks & GameLogicContainer::GetSimEventCallbacks()
+GameSimulationEventCallbacks & GameServerWorld::GetSimEventCallbacks()
 {
   return m_SimEventSender;
 }
 
-GameLogicSystems & GameLogicContainer::GetSystems()
+GameLogicSystems & GameServerWorld::GetSystems()
 {
   return m_Systems;
 }
 
-const GameStage & GameLogicContainer::GetStage()
+const GameStage & GameServerWorld::GetStage()
 {
   return m_Stage;
 }
 
-bool GameLogicContainer::IsAuthority()
+bool GameServerWorld::IsAuthority()
 {
   return m_IsAuthority;
 }
 
-void GameLogicContainer::TriggerImmediateSend()
+void GameServerWorld::TriggerImmediateSend()
 {
   m_SendTimer = 0;
 }
 
-void GameLogicContainer::SetAllowModifyLowFrequencyData(bool allow)
+void GameServerWorld::SetAllowModifyLowFrequencyData(bool allow)
 {
   m_AllowModifyLowFreqData = allow;
 }

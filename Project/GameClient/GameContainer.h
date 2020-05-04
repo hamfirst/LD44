@@ -14,8 +14,8 @@
 
 #include "GameClient/Modes/GameMode.h"
 #include "GameClient/GameClientSystems.h"
-#include "GameClient/GameClientSave.h"
-#include "GameClient/GameClientLatencyChecker.h"
+#include "Project/GameClient/Save/GameClientSave.h"
+#include "Project/GameClient/Network/GameClientLatencyChecker.h"
 
 #include "LobbyClientConnection/LobbyClientConnection.h"
 

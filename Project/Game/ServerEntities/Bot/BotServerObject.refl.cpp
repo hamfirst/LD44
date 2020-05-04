@@ -9,17 +9,17 @@
 
 #include "Runtime/Animation/AnimationState.h"
 
-void BotServerObject::Init(const BotServerObjectInitData & init_data, GameLogicContainer & game_container)
+void BotServerObject::Init(const BotServerObjectInitData & init_data, GameServerWorld & game_container)
 {
 
 }
 
-void BotServerObject::UpdateFirst(GameLogicContainer & game_container)
+void BotServerObject::UpdateFirst(GameServerWorld & game_container)
 {
   GameServerEntityBase::UpdateFirst(game_container);
 }
 
-void BotServerObject::UpdateMiddle(GameLogicContainer & game_container)
+void BotServerObject::UpdateMiddle(GameServerWorld & game_container)
 {
   auto behavior_tree = GetBehaviorTree();
 

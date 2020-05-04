@@ -3,7 +3,7 @@
 #include "Game/GameServerEventSender.h"
 #include "Game/GameStage.h"
 
-#include "GameShared/GameLogicContainer.h"
+#include "GameShared/GameServerWorld.h"
 
 #include "Project/GameShared/BehaviorTree/States/PlayAnimationForTimeBotState.refl.h"
 #include "Project/GameShared/BehaviorTree/States/PlayAnimationForTimeBotState.refl.meta.h"
@@ -15,13 +15,13 @@ PlayAnimationForTimeBotState::PlayAnimationForTimeBotState(uint32_t animation_ha
 
 }
 
-void PlayAnimationForTimeBotState::Activate(BotServerObject & bot, GameLogicContainer & container)
+void PlayAnimationForTimeBotState::Activate(BotServerObject & bot, GameServerWorld & container)
 {
   bot.ResetAnimState();
   bot.m_StateTimer = m_Frames;
 }
 
-bool PlayAnimationForTimeBotState::Update(BotServerObject & bot, GameLogicContainer & container)
+bool PlayAnimationForTimeBotState::Update(BotServerObject & bot, GameServerWorld & container)
 {
   bot.FrameAdvance(m_AnimationHash, true);
 

@@ -24,7 +24,7 @@ CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/GuyScream2.wav", g_NPC2Alert);
 CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/GirlScream.wav", g_NPC3Alert);
 CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/PigSqueal.wav", g_NPC4Alert);
 
-static StormBehaviorTreeTemplate<BotServerObject, GameLogicContainer> BehaviorTreeTemplate =
+static StormBehaviorTreeTemplate<BotServerObject, GameServerWorld> BehaviorTreeTemplate =
 
         SELECT()
         .AddChild(
@@ -61,17 +61,17 @@ NPCBot::NPCBot()
   m_Tree.SetBehaviorTree(&BehaviorTreeTemplate);
 }
 
-void NPCBot::Init(const NPCBotInitData & init_data, GameLogicContainer & game_container)
+void NPCBot::Init(const NPCBotInitData & init_data, GameServerWorld & game_container)
 {
   m_NPCIndex = init_data.m_NPCIndex;
 }
 
-void NPCBot::UpdateFirst(GameLogicContainer & game_container)
+void NPCBot::UpdateFirst(GameServerWorld & game_container)
 {
   BotServerObject::UpdateFirst(game_container);
 }
 
-void NPCBot::UpdateMiddle(GameLogicContainer & game_container)
+void NPCBot::UpdateMiddle(GameServerWorld & game_container)
 {
   BotServerObject::UpdateMiddle(game_container);
 
@@ -82,7 +82,7 @@ void NPCBot::UpdateMiddle(GameLogicContainer & game_container)
   }
 }
 
-void NPCBot::UpdateLast(GameLogicContainer & game_container)
+void NPCBot::UpdateLast(GameServerWorld & game_container)
 {
   if(m_AlertedFrames > 0)
   {
