@@ -1,18 +1,18 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateIdle.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateIdle.refl.meta.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateIdle.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateIdle.refl.meta.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateMoving.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateJump.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateBasicAttack.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateMoving.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateJump.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBasicAttack.refl.h"
 
 #include "Runtime/ClientEntity/ClientEntityResource.h"
 
@@ -20,7 +20,7 @@
 
 NET_REGISTER_TYPE(PlayerStateIdle, PlayerStateBase);
 
-void PlayerStateIdle::Move(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateIdle::Move(PlayerServerEntity & player, GameServerWorld & game_world)
 {
 #ifndef PLATFORMER_MOVEMENT
 
@@ -38,7 +38,7 @@ void PlayerStateIdle::Move(PlayerServerEntity & player, GameServerWorld & game_c
 
 }
 
-void PlayerStateIdle::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateIdle::Transition(PlayerServerEntity & player, GameServerWorld & game_world)
 {
 #ifdef NET_USE_ROUND_TIMER
   if (game_container.GetInstanceData().m_RoundState == RoundState::kPreRound)
@@ -80,7 +80,7 @@ void PlayerStateIdle::Transition(PlayerServerEntity & player, GameServerWorld & 
 #endif
 }
 
-void PlayerStateIdle::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateIdle::Animate(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   // Vampire
   if(player.m_Bat)

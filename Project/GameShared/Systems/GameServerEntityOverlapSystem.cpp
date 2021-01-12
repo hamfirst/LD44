@@ -1,7 +1,7 @@
 
 #include "GameShared/GameSharedCommon.h"
 #include "GameShared/Systems/GameServerEntityOverlapSystem.h"
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
 #include "Runtime/ServerEntity/ServerEntityManager.h"
 #include "Runtime/Sprite/SpriteResource.h"
 

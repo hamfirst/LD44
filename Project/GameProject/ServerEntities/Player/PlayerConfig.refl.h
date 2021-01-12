@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "Game/GameCommon.h"
-#include "Game/GameServerTypes.h"
-#include "Game/GameNetworkData.refl.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameServerTypes.h"
+#include "GameProject/GameNetworkData.refl.h"
 
 struct PlayerConfig
 {

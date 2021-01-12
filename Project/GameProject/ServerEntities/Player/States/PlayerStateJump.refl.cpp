@@ -1,16 +1,16 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateJump.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateJump.refl.meta.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateJump.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateJump.refl.meta.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateIdle.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateIdle.refl.h"
 
 #include "StormNet/NetReflectionTypeDatabase.h"
 
@@ -30,7 +30,7 @@ bool PlayerStateJump::CanGraceJump() const
 }
 
 
-void PlayerStateJump::Move(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateJump::Move(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   auto target_velocity = player.m_Input.m_XInput * player.GetConfig()->m_MoveSpeed;
   if (player.m_Velocity.x < target_velocity)
@@ -60,7 +60,7 @@ void PlayerStateJump::Move(PlayerServerEntity & player, GameServerWorld & game_c
   }
 }
 
-void PlayerStateJump::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateJump::Transition(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   if (player.m_OnGround)
   {
@@ -68,7 +68,7 @@ void PlayerStateJump::Transition(PlayerServerEntity & player, GameServerWorld & 
   }
 }
 
-void PlayerStateJump::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateJump::Animate(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   if (player.m_Velocity.y >= GameNetVal(0))
   {

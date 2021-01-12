@@ -6,7 +6,7 @@
 #include "GameClient/Modes/GameModeMapSettings.h"
 #include "GameClient/GameContainer.h"
 
-#include "GameShared/GamePlayListAsset.refl.meta.h"
+#include "Project/GameShared/PlayList/GamePlayListAsset.refl.meta.h"
 
 #include "Runtime/UI/UIResource.h"
 

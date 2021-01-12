@@ -1,10 +1,9 @@
 
-#include "Game/GameCommon.h"
-#include "Game/AI/PlayerAI.h"
-#include "Game/GameStage.h"
-#include "GameShared/Systems/GameLogicSystems.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/AI/PlayerAI.h"
+#include "GameProject/GameStage.h"
 #include "GameShared/Systems/TargetDatabase.h"
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
 #include "Runtime/ServerEntity/ServerEntityManager.h"
 

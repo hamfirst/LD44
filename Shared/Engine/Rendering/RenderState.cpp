@@ -7,6 +7,7 @@
 #include "Engine/Rendering/VertexBuffer.h"
 #include "Engine/Rendering/VertexBufferBuilder.h"
 #include "Engine/Rendering/Texture.h"
+#include "Engine/Rendering/Shader.h"
 #include "Engine/Rendering/ShaderLiteral.h"
 #include "Engine/Rendering/VertexBufferBuilder.h"
 #include "Engine/Rendering/Rendering.h"
@@ -113,18 +114,23 @@ RenderState::~RenderState()
 
 void RenderState::InitRenderState(int screen_width, int screen_height)
 {
+  InitRenderState(Box{Vector2(0, 0), Vector2(screen_width, screen_height) });
+}
+
+void RenderState::InitRenderState(const Box & viewport)
+{
   glEnable(GL_BLEND); CHECK_GL_RENDER_ERROR;
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); CHECK_GL_RENDER_ERROR;
   glBlendEquation(GL_FUNC_ADD); CHECK_GL_RENDER_ERROR;
-  glViewport(0, 0, screen_width, screen_height);
+
+  m_Viewport = viewport;
+  Vector2 size = viewport.Size();
+  glViewport(viewport.m_Start.x, viewport.m_Start.y, size.x, size.y);
 
   BootstrapContext();
 
   m_BlendEnabled = true;
   m_BlendMode = RenderingBlendMode::kNone;
-
-  m_ScreenWidth = screen_width;
-  m_ScreenHeight = screen_height;
 
 #ifdef USE_RENDER_TARGET
   QuadVertexBuilderInfo quad;
@@ -289,6 +295,26 @@ void RenderState::SetClearColor(const Color & color)
   glClearColor(c.r, c.g, c.b, c.a);
 }
 
+void RenderState::SetViewport(const Box & viewport)
+{
+  if(m_Viewport != viewport)
+  {
+    Vector2 size = viewport.Size();
+    glViewport(viewport.m_Start.x, viewport.m_Start.y, size.x, size.y);
+
+    m_Viewport = viewport;
+  }
+}
+
+Box RenderState::GetViewport() const
+{
+  return m_Viewport;
+}
+Vector2 RenderState::GetViewportSize() const
+{
+  return m_Viewport.Size();
+}
+
 void RenderState::BindShader(const ShaderProgram & shader)
 {
   if (m_BoundShader != &shader || m_BoundShaderName != shader.m_ProgramName)
@@ -443,31 +469,6 @@ void RenderState::DisableScissorRect()
   }
 }
 
-int RenderState::GetScreenWidth()
-{
-  return m_ScreenWidth;
-}
-
-int RenderState::GetScreenHeight()
-{
-  return m_ScreenHeight;
-}
-
-Vector2 RenderState::GetScreenSize()
-{
-  return Vector2(m_ScreenWidth, m_ScreenHeight);
-}
-
-void RenderState::SetScreenSize(Vector2 screen_size)
-{
-  if (screen_size.x != m_ScreenWidth || screen_size.y != m_ScreenHeight)
-  {
-    glViewport(0, 0, screen_size.x, screen_size.y);
-    m_ScreenWidth = screen_size.x;
-    m_ScreenHeight = screen_size.y;
-  }
-}
-
 float RenderState::GetRenderWidth()
 {
   return m_RenderWidth;
@@ -483,31 +484,32 @@ RenderVec2 RenderState::GetRenderSize()
   return RenderVec2(m_RenderWidth, m_RenderHeight);
 }
 
-RenderVec4 RenderState::GetFullRenderDimensions()
-{
-  return RenderVec4(m_RenderWidth, m_RenderHeight, m_ScreenWidth, m_ScreenHeight);
-}
-
 void RenderState::SetRenderSize(RenderVec2 render_size)
 {
   m_RenderWidth = render_size.x;
   m_RenderHeight = render_size.y;
 }
 
+RenderVec4 RenderState::GetShaderScreenSizeValue()
+{
+  return RenderVec4(m_RenderWidth, m_RenderHeight, RenderVec2 { GetViewportSize() });
+}
+
 RenderVec2 RenderState::ScreenPixelsToRenderPixels(const RenderVec2 & screen_pixels)
 {
-  auto half_screen = RenderVec2{ m_ScreenWidth, m_ScreenHeight } * 0.5f;
+  auto offset_pos = screen_pixels - RenderVec2{ m_Viewport.m_Start };
+  auto half_screen = RenderVec2{ GetViewportSize() } * 0.5f;
   auto half_render = RenderVec2{ m_RenderWidth, m_RenderHeight } * 0.5f;
-  auto clip_space = (screen_pixels - half_screen) / half_screen;
+  auto clip_space = (offset_pos - half_screen) / half_screen;
   return (clip_space * half_render);
 }
 
 RenderVec2 RenderState::RenderPixelsToScreenPixels(const RenderVec2 & render_pixels)
 {
-  auto half_screen = RenderVec2{ m_ScreenWidth, m_ScreenHeight } *0.5f;
+  auto half_screen = RenderVec2{ GetViewportSize() } * 0.5f;
   auto half_render = RenderVec2{ m_RenderWidth, m_RenderHeight } *0.5f;
   auto clip_space = (render_pixels) / half_render;
-  return (clip_space * half_screen) + half_screen;
+  return (clip_space * half_screen) + half_screen + RenderVec2{ m_Viewport.m_Start };
 }
 
 RenderVec4 RenderState::ComputeScreenBounds(const Optional<Box> & active_area)
@@ -544,6 +546,17 @@ RenderVec4 RenderState::ComputeScreenBounds(const Optional<Box> & active_area)
   return screen_bounds;
 }
 
+void RenderState::ResetShader(ShaderProgram & shader)
+{
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), GetShaderScreenSizeValue());
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), RenderVec2{ 0, 0 });
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), RenderVec4{ 1.0f, 0, 0, 1.0f });
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Color"), RenderVec4{ 1.0f, 1.0f, 1.0f, 1.0f });
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Bounds"), RenderVec4{ -1.0f, -1.0f, 1.0f, 1.0f });
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ColorMatrix"), Mat4f());
+}
+
 const Texture & RenderState::GetDefaultTexture() const
 {
   return m_DefaultTexture;
@@ -576,13 +589,7 @@ void RenderState::DrawDebugTexturedQuad(const Box & b, const Color & c, const Te
   BindTexture(texture);
   BindVertexBuffer(m_ScratchVertexBuffer);
 
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), GetFullRenderDimensions());
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), RenderVec2{ 0, 0 });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), RenderVec4{ 1.0f, 0, 0, 1.0f });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Color"), RenderVec4{ 1.0f, 1.0f, 1.0f, 1.0f });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Bounds"), RenderVec4{ -1.0f, -1.0f, 1.0f, 1.0f });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ColorMatrix"), Mat4f());
+  ResetShader(shader);
 
   Draw();
 }
@@ -661,5 +668,7 @@ void RenderState::TransferToDefault(const Window & window, ShaderProgram & shade
   BindVertexBuffer(m_TransferVertexBuffer);
   Draw();
 }
+
+
 
 #endif

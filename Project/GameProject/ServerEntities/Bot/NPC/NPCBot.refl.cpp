@@ -1,13 +1,13 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/GameController.refl.h"
-#include "Game/GameServerEventSender.h"
+#include "GameProject/GameController.refl.h"
+#include "GameProject/GameServerEventSender.h"
 
-#include "Game/ServerEntities/Bot/BotBehaviorTree.h"
+#include "GameProject/ServerEntities/Bot/BotBehaviorTree.h"
 
-#include "Game/ServerEntities/Bot/NPC/NPCBot.refl.h"
-#include "Game/ServerEntities/Bot/NPC/NPCBot.refl.meta.h"
+#include "GameProject/ServerEntities/Bot/NPC/NPCBot.refl.h"
+#include "GameProject/ServerEntities/Bot/NPC/NPCBot.refl.meta.h"
 
 #include "Runtime/ClientEntity/ClientEntityResource.h"
 #include "Runtime/Sprite/SpriteResource.h"
@@ -61,17 +61,17 @@ NPCBot::NPCBot()
   m_Tree.SetBehaviorTree(&BehaviorTreeTemplate);
 }
 
-void NPCBot::Init(const NPCBotInitData & init_data, GameServerWorld & game_container)
+void NPCBot::Init(const NPCBotInitData & init_data, GameServerWorld & game_world)
 {
   m_NPCIndex = init_data.m_NPCIndex;
 }
 
-void NPCBot::UpdateFirst(GameServerWorld & game_container)
+void NPCBot::UpdateFirst(GameServerWorld & game_world)
 {
   BotServerObject::UpdateFirst(game_container);
 }
 
-void NPCBot::UpdateMiddle(GameServerWorld & game_container)
+void NPCBot::UpdateMiddle(GameServerWorld & game_world)
 {
   BotServerObject::UpdateMiddle(game_container);
 
@@ -82,7 +82,7 @@ void NPCBot::UpdateMiddle(GameServerWorld & game_container)
   }
 }
 
-void NPCBot::UpdateLast(GameServerWorld & game_container)
+void NPCBot::UpdateLast(GameServerWorld & game_world)
 {
   if(m_AlertedFrames > 0)
   {

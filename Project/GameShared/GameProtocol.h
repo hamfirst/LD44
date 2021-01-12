@@ -5,40 +5,29 @@
 #include "StormNet/NetPipeBuffer.h"
 #include "StormNet/NetPipeFullState.h"
 #include "StormNet/NetPipeVariant.h"
+#include "StormNet/NetPipeRaw.h"
 #include "StormNet/NetPipeDeltaState.h"
 #include "StormNet/NetPipeDeltaStateReliable.h"
 #include "StormNet/NetReflection.h"
 
-#include "Game/GameFullState.refl.meta.h"
-#include "Game/GameMessages.refl.meta.h"
-#include "Game/GameNetworkData.refl.meta.h"
-#include "Game/GameNetworkEvents.refl.meta.h"
+#include "GameProject/GameFullState.refl.meta.h"
+#include "GameProject/GameMessages.refl.meta.h"
+#include "GameProject/GameNetworkData.refl.meta.h"
+#include "GameProject/GameNetworkEvents.refl.meta.h"
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 
 using ServerProtocolDef = NetProtocolDefinition<
   NetPipeMessage<ToServerMessage, NetPipeMode::kReliable>,
-#if NET_MODE == NET_MODE_GGPO
-  NetPipeFullState<GameGGPOClientUpdate, NetPipeMode::kUnreliableSequenced>>;
-#else
-  NetPipeMessage<ClientNetworkEvent, NetPipeMode::kReliable>,
-  NetPipeFullState<ClientAuthData, NetPipeMode::kUnreliableSequenced>>;
-#endif
+  NetPipeRaw<NetPipeMode::kUnreliableSequenced>
+  >;
 
 using ClientProtocolDef = NetProtocolDefinition<
   NetPipeMessage<FromServerMessage, NetPipeMode::kReliable>,
+  NetPipeMessage<GameStateLoading, NetPipeMode::kUnreliableSequenced>,
+  NetPipeRaw<NetPipeMode::kUnreliableSequenced>
+  >;
 
-#if NET_MODE == NET_MODE_GGPO
-  NetPipeVariant<NetPipeMode::kUnreliableSequenced, GameGGPOServerGameState, GameStateLoading>>;
-#else
-  NetPipeMessage<GlobalNetworkEvent, NetPipeMode::kReliable>,
-  NetPipeMessage<TargetNetworkEvent, NetPipeMode::kReliable>,
-
-  NetPipeFullStateSeq<GameFullState, NetPipeMode::kUnreliableSequenced>,
-  NetPipeFullState<ClientLocalData, NetPipeMode::kReliable>,
-
-  NetPipeFullState<GameFullState, NetPipeMode::kUnreliableSequenced>>;
-#endif
 
 using ServerProtocol = NetProtocolInfo<ServerProtocolDef>::template AsymmetricProtocolType<ClientProtocolDef>;
 using ClientProtocol = NetProtocolInfo<ClientProtocolDef>::template AsymmetricProtocolType<ServerProtocolDef>;

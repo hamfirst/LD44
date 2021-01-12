@@ -1,20 +1,19 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
 #include "Foundation/Pathfinding/Pathfinding.h"
 
-#include "GameShared/Systems/GameLogicSystems.h"
-#include "GameShared/GameServerWorld.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
-#include "Game/GameController.refl.meta.h"
-#include "Game/GameNetworkData.refl.meta.h"
-#include "Game/GameNetworkEvents.refl.meta.h"
-#include "Game/GameSimulationEventCallbacks.h"
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
-#include "Game/AI/PlayerAI.h"
-#include "Game/GameConfig.refl.meta.h"
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.meta.h"
-#include "Game/ServerEntities/Bot/NPC/NPCBot.refl.meta.h"
+#include "GameProject/GameController.refl.meta.h"
+#include "GameProject/GameNetworkData.refl.meta.h"
+#include "GameProject/GameNetworkEvents.refl.meta.h"
+#include "GameProject/GameSimulationEventCallbacks.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
+#include "GameProject/AI/PlayerAI.h"
+#include "GameProject/GameConfig.refl.meta.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.meta.h"
+#include "GameProject/ServerEntities/Bot/NPC/NPCBot.refl.meta.h"
 
 #include "Runtime/ServerEntity/ServerEntityManager.h"
 

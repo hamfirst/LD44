@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <optional>
+#include <string>
 
 using DDSRoutingTableNodeInfo = std::optional<std::reference_wrapper<const DDSNodeElementBase>>;
 

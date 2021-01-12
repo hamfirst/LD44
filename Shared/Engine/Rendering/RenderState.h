@@ -31,6 +31,7 @@ public:
   ~RenderState();
 
   void InitRenderState(int screen_width, int screen_height);
+  void InitRenderState(const Box & viewport);
 
   void MakeCurrent();
   void ResetState();
@@ -42,6 +43,10 @@ public:
   void Clear(const Color & color);
   void SetDefaultClearColor();
   void SetClearColor(const Color & color);
+
+  void SetViewport(const Box & viewport);
+  Box GetViewport() const;
+  Vector2 GetViewportSize() const;
 
   void BindShader(const ShaderProgram & shader);
   void BindVertexBuffer(VertexBuffer & buffer);
@@ -62,23 +67,18 @@ public:
   void EnableScissorRect(const Box & box);
   void DisableScissorRect();
 
-  int GetScreenWidth();
-  int GetScreenHeight();
-
-  Vector2 GetScreenSize();
-  void SetScreenSize(Vector2 screen_size);
-
   float GetRenderWidth();
   float GetRenderHeight();
 
   RenderVec2 GetRenderSize();
   void SetRenderSize(RenderVec2 render_size);
-
-  RenderVec4 GetFullRenderDimensions();
+  RenderVec4 GetShaderScreenSizeValue();
 
   RenderVec2 ScreenPixelsToRenderPixels(const RenderVec2 & screen_pixels);
   RenderVec2 RenderPixelsToScreenPixels(const RenderVec2 & render_pixels);
   RenderVec4 ComputeScreenBounds(const Optional<Box> & active_area);
+
+  void ResetShader(ShaderProgram & shader);
 
   const Texture & GetDefaultTexture() const;
   VertexBuffer & GetScratchBuffer();
@@ -99,8 +99,7 @@ public:
 #endif
 
 private:
-  int m_ScreenWidth = 1;
-  int m_ScreenHeight = 1;
+  Box m_Viewport;
 
   float m_RenderWidth = 1;
   float m_RenderHeight = 1;

@@ -262,7 +262,7 @@ public:
       return nullptr;
     }
 
-    return *reinterpret_cast<const Type *>(&m_Buffer);
+    return reinterpret_cast<const Type *>(&m_Buffer);
   }
 
   template <typename Type>

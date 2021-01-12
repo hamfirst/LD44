@@ -7,21 +7,21 @@ class PropertyFieldDatabase
 public:
   PropertyFieldDatabase();
 
-  PropertyField * GetUnknownField();
-  PropertyField * GetBasicField(PropertyFieldType type);
-  PropertyField * GetBasicSignedField(int size);
-  PropertyField * GetBasicUnsignedField(int size);
-  PropertyField * GetBasicFloatField(int size);
+  NotNullPtr<PropertyField> GetUnknownField();
+  NotNullPtr<PropertyField> GetBasicField(PropertyFieldType type);
+  NotNullPtr<PropertyField> GetBasicSignedField(int size);
+  NotNullPtr<PropertyField> GetBasicUnsignedField(int size);
+  NotNullPtr<PropertyField> GetBasicFloatField(int size);
 
-  PropertyField * AllocateField();
+  NotNullPtr<PropertyField> AllocateField();
 
-  std::pair<bool, PropertyField *> GetEnumData(uint32_t enum_hash);
-  std::pair<bool, PropertyField *> GetPolyData(uint32_t base_type_hash);
-  std::pair<bool, PropertyField *> GetStructData(uint32_t type_name_hash);
+  std::pair<bool, NotNullPtr<PropertyField>> GetEnumData(uint32_t enum_hash);
+  std::pair<bool, NotNullPtr<PropertyField>> GetPolyData(uint32_t base_type_hash);
+  std::pair<bool, NotNullPtr<PropertyField>> GetStructData(uint32_t type_name_hash);
 
-  PropertyField * FindStructData(uint32_t type_name_hash) const;
+  NotNullPtr<PropertyField> FindStructData(uint32_t type_name_hash) const;
 
-  void RegisterStructWithAlternateName(uint32_t type_name_hash, PropertyField * prop);
+  void RegisterStructWithAlternateName(uint32_t type_name_hash, NotNullPtr<PropertyField> prop);
 
 private:
 
@@ -42,13 +42,13 @@ private:
 
   std::vector<std::unique_ptr<PropertyField>> m_PropertyAlloc;
 
-  std::unordered_map<uint32_t, PropertyField *> m_EnumField;
+  std::unordered_map<uint32_t, NotNullPtr<PropertyField>> m_EnumField;
   std::vector<std::unique_ptr<PropertyFieldEnumData>> m_EnumData;
 
-  std::unordered_map<uint32_t, PropertyField *> m_PolyField;
+  std::unordered_map<uint32_t, NotNullPtr<PropertyField>> m_PolyField;
   std::vector<std::unique_ptr<PropertyFieldPolymorphicData>> m_PolyData;
 
-  std::unordered_map<uint32_t, PropertyField *> m_StructField;
+  std::unordered_map<uint32_t, NotNullPtr<PropertyField>> m_StructField;
   std::vector<std::unique_ptr<PropertyFieldStructData>> m_StructData;
 };
 

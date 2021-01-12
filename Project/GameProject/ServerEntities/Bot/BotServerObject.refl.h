@@ -1,15 +1,14 @@
 #pragma once
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "GameShared/Systems/GameLogicSystems.h"
+#include "GameServerFramework/GameServerWorld.h"
 #include "GameShared/BehaviorTree/BehaviorTree.h"
 
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
-#include "Game/ServerEntities/CharacterFacing.refl.h"
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
+#include "GameProject/ServerEntities/CharacterFacing.refl.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
 
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/ServerEntity/ServerEntity.h"
@@ -33,9 +32,9 @@ public:
   BotServerObject & operator = (const BotServerObject & rhs) = default;
   BotServerObject & operator = (BotServerObject && rhs) = default;
 
-  void Init(const BotServerObjectInitData & init_data, GameServerWorld & game_container);
-  void UpdateFirst(GameServerWorld & game_container);
-  void UpdateMiddle(GameServerWorld & game_container);
+  void Init(const BotServerObjectInitData & init_data, GameServerWorld & game_world);
+  void UpdateFirst(GameServerWorld & game_world);
+  void UpdateMiddle(GameServerWorld & game_world);
 
   virtual Optional<AnimationState> GetAnimationState() const override;
   virtual void SetAnimationState(const AnimationState & anim_state) override;

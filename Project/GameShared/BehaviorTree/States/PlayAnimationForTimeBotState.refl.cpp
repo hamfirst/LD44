@@ -1,9 +1,9 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
 
-#include "GameShared/GameServerWorld.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
 #include "Project/GameShared/BehaviorTree/States/PlayAnimationForTimeBotState.refl.h"
 #include "Project/GameShared/BehaviorTree/States/PlayAnimationForTimeBotState.refl.meta.h"

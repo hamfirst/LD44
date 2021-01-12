@@ -122,6 +122,7 @@ uint32_t ServerEntityName::GetTypeNameHash() const                              
 void ServerEntityName::RegisterServerEntity()                                                                                   \
 {                                                                                                                               \
   ServerEntityTypeInfo type_info;                                                                                               \
+  type_info.m_TypeName = ServerEntityName::TypeName;                                                                            \
   type_info.m_TypeNameHash = ServerEntityName::TypeNameHash;                                                                    \
   type_info.m_InitDataTypeNameHash = COMPILE_TIME_CRC32_STR(#InitData);                                                         \
   type_info.m_TypeIndexPtr = &ServerEntityName::TypeIndex;                                                                      \
@@ -139,20 +140,16 @@ void ServerEntityName::RegisterServerEntity()                                   
   };                                                                                                                            \
                                                                                                                                 \
   type_info.m_EntityInit = [](NotNullPtr<ServerEntity> entity, NullOptPtr<const ServerEntityInitData> init_data,                \
-          GameServerWorld & world)                                                                                              \
+                              NotNullPtr<GameServerWorld> world)                                                                \
   {                                                                                                                             \
     auto obj = static_cast<ServerEntityName *>(entity);                                                                         \
+    obj->m_World = world;                                                                                                       \
     InitFunc                                                                                                                    \
   };                                                                                                                            \
                                                                                                                                 \
   type_info.m_EntityCopy = [](NotNullPtr<ServerEntity> entity, NullOptPtr<const ServerEntity> rhs)                              \
   {                                                                                                                             \
     StormReflCopy(*static_cast<ServerEntityName *>(entity), *static_cast<const ServerEntityName *>(rhs));                       \
-  };                                                                                                                            \
-                                                                                                                                \
-  type_info.m_EntityResetHandles = [](NotNullPtr<ServerEntity> entity, const ServerEntityManager & obj_manager)                 \
-  {                                                                                                                             \
-    ServerEntityResetHandle<ServerEntityName>::Process(*static_cast<ServerEntityName *>(entity), obj_manager);                  \
   };                                                                                                                            \
                                                                                                                                 \
   type_info.m_EntityDestroy = [](NotNullPtr<ServerEntity> entity)                                                               \
@@ -219,7 +216,7 @@ NotNullPtr<ServerEntityEventDispatch> ServerEntityName::GetEventDispatch()      
 #define SERVER_ENTITY_CONSTRUCT_NOBASE          0
 #define SERVER_ENTITY_CONSTRUCT_BASE(BaseClass) COMPILE_TIME_CRC32_STR(#BaseClass)
 
-#define SERVER_ENTITY_INIT_DATA(InitData)       obj->Init(*static_cast<const InitData *>(init_data), world);
+#define SERVER_ENTITY_INIT_DATA(InitData)       obj->Init(*static_cast<const InitData *>(init_data));
 #define SERVER_ENTITY_NOINIT_DATA   
 
 #define REGISTER_BASE_SERVER_ENTITY(ServerEntityName) \

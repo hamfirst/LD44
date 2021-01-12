@@ -5,15 +5,14 @@
 
 #include "Engine/Window/Window.h"
 
+#include "ProjectSettings/ProjectNetworkSettings.h"
+
 #include "Foundation/HistoryList/HistoryList.h"
 
 #include "GameShared/GameProtocol.h"
-#include "GameShared/GameEventReconciler.h"
 
-#include "Game/GameController.refl.h"
-#include "Game/GameFullState.refl.h"
-#include "ProjectSettings/ProjectNetworkSettings.h"
-#include "Game/Systems/GameDeliberateSyncSystemList.h"
+#include "GameProject/GameController.refl.h"
+#include "GameProject/GameFullState.refl.h"
 
 #if NET_BACKEND == NET_BACKEND_WEBRTC
 #include <StormNetCustomBindings/NetClientBackendWebrtc.h>
@@ -125,14 +124,9 @@ private:
   void HandleEntityEvent(std::size_t event_class_id, void * event_ptr);
 #endif
 
-#ifdef DELIBERATE_SYNC_SYSTEM_LIST
-  void HandleDeliberateSystemSync(std::size_t type_index, void * data_ptr);
-#endif
-
   void SendJoinServer();
   void SendPing();
   void SendClientUpdate();
-
 
   void SendClientEvent(std::size_t class_id, const void * event_ptr, std::size_t client_index) override;
 
@@ -156,8 +150,8 @@ private:
   std::unique_ptr<GameClientInstanceContainer> m_InstanceContainer;
   std::unique_ptr<GameClientInstanceContainer> m_LoadingInstanceContainer;
 
-  ProtocolType * m_Protocol = nullptr;
-  uint64_t m_LoadToken;
+  NullOptPtr<ProtocolType> m_Protocol = nullptr;
+  uint64_t m_LoadToken = 0;
 
   std::vector<GameNetworkClientTextData> m_TextData;
 
@@ -169,10 +163,6 @@ private:
   int m_LastServerFrame;
 
   int m_FrameSkip;
-#endif
-
-#ifdef DELIBERATE_SYNC_SYSTEM_LIST
-  std::unique_ptr<bool[]> m_InitialDeliberateSystemSync;
 #endif
 
   bool m_FinalizedLoad;

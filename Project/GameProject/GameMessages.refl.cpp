@@ -1,4 +1,4 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
 #include "StormNet/NetReflectionTypeDatabaseRegister.h"
 

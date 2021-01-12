@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "Game/GameCommon.h"
-#include "Game/GameServerTypes.h"
-#include "GameShared/GameServerWorld.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameServerTypes.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/Config/ConfigResource.h"
@@ -25,8 +25,8 @@ public:
   NET_REFL;
 
   virtual void HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result,
-                            ProjectileServerEntity & proj, GameServerWorld & game_container);
-  virtual void HandleRangeExpired(ProjectileServerEntity & proj, GameServerWorld & game_container);
+                            ProjectileServerEntity & proj, GameServerWorld & game_world);
+  virtual void HandleRangeExpired(ProjectileServerEntity & proj, GameServerWorld & game_world);
 };
 
 

@@ -42,7 +42,7 @@ private:
   int m_ChannelBits;
 };
 
-class NetPipeBufferReciever
+class NetPipeBufferReceiver
 {
 public:
   void Initialize(NetTransmitter * transmitter, NetPipeMode mode, int channel_index, int channel_bits)
@@ -64,7 +64,7 @@ public:
 
   void GotMessage(NetBitReader & reader)
   {
-    std::size_t size = (std::size_t)reader.ReadUBits(32);
+    auto size = (std::size_t)reader.ReadUBits(32);
 
     std::unique_ptr<uint8_t[]> buffer = std::make_unique<uint8_t[]>(size);
     reader.ReadBuffer(buffer.get(), size);
@@ -86,7 +86,7 @@ struct NetPipeBuffer
 {
   using SenderType = NetPipeBufferSender;
 
-  using ReceiverType = NetPipeBufferReciever;
+  using ReceiverType = NetPipeBufferReceiver;
 
   static const NetPipeMode PipeMode = Mode;
 };

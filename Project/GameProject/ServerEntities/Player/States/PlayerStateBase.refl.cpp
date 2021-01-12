@@ -1,18 +1,18 @@
 
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
 
-#include "GameShared/GameServerWorld.h"
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateBase.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateBase.refl.meta.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBase.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBase.refl.meta.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateIdle.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateIdle.refl.h"
 
 #include "StormNet/NetReflectionTypeDatabaseRegister.h"
 

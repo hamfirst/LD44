@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "GameShared/Systems/GameLogicSystems.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
-#include "Game/ServerEntities/Bot/BotServerObject.refl.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
+#include "GameProject/ServerEntities/Bot/BotServerObject.refl.h"
 
 #include "Runtime/ServerEntity/ServerEntity.h"
 #include "Runtime/ServerEntity/ServerEntityInitData.refl.h"
@@ -31,9 +30,9 @@ public:
   TestBot & operator = (const TestBot & rhs) = default;
   TestBot & operator = (TestBot && rhs) = default;
 
-  void Init(const TestBotInitData & init_data, GameServerWorld & game_container);
-  void UpdateFirst(GameServerWorld & game_container);
-  void UpdateMiddle(GameServerWorld & game_container);
+  void Init(const TestBotInitData & init_data, GameServerWorld & game_world);
+  void UpdateFirst(GameServerWorld & game_world);
+  void UpdateMiddle(GameServerWorld & game_world);
 
   virtual czstr GetDefaultEntityBinding() const override;
   virtual const SpritePtr & GetSprite() const override;

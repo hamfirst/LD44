@@ -1,26 +1,25 @@
 
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "GameShared/Systems/GameLogicSystems.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
-#include "Game/GameCollisionType.refl.h"
-#include "Game/GameController.refl.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
+#include "GameProject/GameCollisionType.refl.h"
+#include "GameProject/GameController.refl.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.meta.h"
-#include "Game/ServerEntities/Player/States/PlayerStateIdle.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateJump.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateBite.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.meta.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateIdle.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateJump.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBite.refl.h"
 
-#include "Game/ServerEntities/Projectile/ProjectileServerEntity.refl.meta.h"
-#include "Game/ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h"
-#include "Game/ServerEntities/Bot/NPC/NPCBot.refl.h"
-#include "Game/ServerEntities/Player/PlayerConfig.refl.meta.h"
-#include "Game/ServerEntities/Projectile/ProjectileConfig.refl.meta.h"
+#include "GameProject/ServerEntities/Projectile/ProjectileServerEntity.refl.meta.h"
+#include "GameProject/ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h"
+#include "GameProject/ServerEntities/Bot/NPC/NPCBot.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerConfig.refl.meta.h"
+#include "GameProject/ServerEntities/Projectile/ProjectileConfig.refl.meta.h"
 
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/ClientEntity/ClientEntityResource.h"
@@ -45,18 +44,18 @@ void PlayerServerEntityConfigResourcesLoad(const ConfigPtr<PlayerConfig> & confi
 GLOBAL_ASSET_ARRAY(ConfigPtr<PlayerConfig>, g_PlayerConfig, "./Gameplay/PlayerConfig.playerconfig");
 GLOBAL_DEPENDENT_ASSET_ARRAY(PlayerServerEntityConfigResources, g_PlayerConfigResources, g_PlayerConfig, PlayerServerEntityConfigResourcesLoad);
 
-void PlayerServerEntity::Init(const PlayerServerEntityInitData & init_data, GameServerWorld & game_container)
+void PlayerServerEntity::Init(const PlayerServerEntityInitData & init_data, GameServerWorld & game_world)
 {
   m_State.SetType<PlayerStateIdle>();
 }
 
-void PlayerServerEntity::UpdateFirst(GameServerWorld & game_container)
+void PlayerServerEntity::UpdateFirst(GameServerWorld & game_world)
 {
   GameServerEntityBase::UpdateFirst(game_container);
   m_ProcessedAttacks.clear();
 }
 
-void PlayerServerEntity::UpdateMiddle(GameServerWorld & game_container)
+void PlayerServerEntity::UpdateMiddle(GameServerWorld & game_world)
 {
   m_State->PreUpdate(*this, game_container);
   m_State->Move(*this, game_container);
@@ -86,7 +85,7 @@ void PlayerServerEntity::UpdateMiddle(GameServerWorld & game_container)
   }
 }
 
-void PlayerServerEntity::UpdateLast(GameServerWorld & game_container)
+void PlayerServerEntity::UpdateLast(GameServerWorld & game_world)
 {
   auto box = GetSprite()->GetSingleBoxDefault(COMPILE_TIME_CRC32_STR("MoveBox"));
   box = box.Offset(m_Position);
@@ -127,7 +126,7 @@ void PlayerServerEntity::UpdateLast(GameServerWorld & game_container)
   }
 }
 
-void PlayerServerEntity::ResetState(GameServerWorld & game_container)
+void PlayerServerEntity::ResetState(GameServerWorld & game_world)
 {
   TransitionToState<PlayerStateIdle>(game_container);
 
@@ -141,7 +140,7 @@ void PlayerServerEntity::ResetState(GameServerWorld & game_container)
   }
 }
 
-MoverResult PlayerServerEntity::MoveCheckCollisionDatabase(GameServerWorld & game_container, const GameNetVec2 & extra_movement)
+MoverResult PlayerServerEntity::MoveCheckCollisionDatabase(GameServerWorld & game_world, const GameNetVec2 & extra_movement)
 {
 #ifdef MOVER_ONE_WAY_COLLISION
   auto result = GameServerEntityBase::MoveCheckCollisionDatabase(game_container, m_Velocity + extra_movement, m_FallThrough);
@@ -180,7 +179,7 @@ MoverResult PlayerServerEntity::MoveCheckCollisionDatabase(GameServerWorld & gam
 }
 
 #if defined(PLATFORMER_MOVEMENT)
-void PlayerServerEntity::Jump(GameServerWorld & game_container)
+void PlayerServerEntity::Jump(GameServerWorld & game_world)
 {
 #if defined(PLAYER_ENABLE_JUMP)
   if (m_OnGround)
@@ -215,7 +214,7 @@ void PlayerServerEntity::Jump(GameServerWorld & game_container)
 #endif
 
 #ifdef NET_USE_AIM_DIRECTION
-void PlayerServerEntity::Fire(GameServerWorld & game_container)
+void PlayerServerEntity::Fire(GameServerWorld & game_world)
 {
   if(m_RefireTime == 0 && m_Bat == false && game_container.GetInstanceData().m_RoundState == RoundState::kRound &&
       m_NPCBeingEaten.GetRawSlotIndex() == -1 && m_Ammo > 0)
@@ -263,7 +262,7 @@ void PlayerServerEntity::Fire(GameServerWorld & game_container)
 }
 #endif
 
-void PlayerServerEntity::Use(GameServerWorld & game_container)
+void PlayerServerEntity::Use(GameServerWorld & game_world)
 {
   //Vampire
   if(m_InCoffin || m_NPCBeingEaten.GetRawSlotIndex() != -1 || game_container.GetInstanceData().m_RoundState != RoundState::kRound)
@@ -306,7 +305,7 @@ void PlayerServerEntity::Use(GameServerWorld & game_container)
   });
 }
 
-void PlayerServerEntity::RemoveFromGame(GameServerWorld & game_container)
+void PlayerServerEntity::RemoveFromGame(GameServerWorld & game_world)
 {
   Destroy(game_container.GetObjectManager());
 }
@@ -432,12 +431,12 @@ void PlayerServerEntity::SetAnimationState(const AnimationState & anim_state)
   m_AnimDelay = anim_state.m_AnimDelay;
 }
 
-Optional<int> PlayerServerEntity::GetAssociatedPlayer(GameServerWorld & game_container) const
+Optional<int> PlayerServerEntity::GetAssociatedPlayer(GameServerWorld & game_world) const
 {
   return GetSlotIndex();
 }
 
-int PlayerServerEntity::GetTeam(GameServerWorld & game_container) const
+int PlayerServerEntity::GetTeam(GameServerWorld & game_world) const
 {
   return game_container.GetLowFrequencyInstanceData().m_Players[GetSlotIndex()].m_Team;
 }
@@ -468,7 +467,7 @@ const ConfigPtr<PlayerConfig> & PlayerServerEntity::GetConfig() const
   return m_Config.Value();
 }
 
-void PlayerServerEntity::PoofToBat(GameServerWorld & game_container, bool play_audio)
+void PlayerServerEntity::PoofToBat(GameServerWorld & game_world, bool play_audio)
 {
   m_Bat = true;
   m_BatTimer = kMaxBatTimer;

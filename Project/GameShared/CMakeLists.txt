@@ -26,20 +26,16 @@ set(GENERIC_SRC_GameShared
             BehaviorTree/States/PlayAnimationBotState.refl.reg.cpp
             BehaviorTree/States/PlayAnimationForTimeBotState.refl.cpp
             BehaviorTree/States/PlayAnimationForTimeBotState.refl.reg.cpp
-            GameEventReconciler.cpp
-            GameLevelList.cpp
-            GamePlayList.cpp
-            GameServerWorld.cpp
             GameSharedCommon.cpp
-            GameStageManager.cpp
-            GameWebrtc.cpp
+            Level/GameLevelList.cpp
+            Level/GameStageManager.cpp
             Modifier/Modifier.refl.cpp
             Modifier/Modifier.refl.reg.cpp
+            PlayList/GamePlayList.cpp
             SkillTree/SkillTree.cpp
             SkillTree/SkillTreeCompiled.cpp
             SkillTree/SkillTreeConfig.refl.reg.cpp
             Systems/CVCPushSystem.cpp
-            Systems/GameLogicSystems.cpp
             Systems/GameServerEntityOverlapSystem.cpp
             Systems/TargetDatabase.cpp
             #CPP_PLACEHOLDER
@@ -50,37 +46,24 @@ set(GENERIC_HEADER_GameShared
             BehaviorTree/BehaviorTreeSerialize.h
             BehaviorTree/BehaviorTreeTypeDatabase.h
             BehaviorTree/Conditionals/IsAlertedBotConditional.refl.h
-            BehaviorTree/Conditionals/IsAlertedBotConditional.refl.meta.h
             BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.h
-            BehaviorTree/Conditionals/IsBeingEatenBotConditional.refl.meta.h
             BehaviorTree/Conditionals/IsDeadBotConditional.refl.h
-            BehaviorTree/Conditionals/IsDeadBotConditional.refl.meta.h
             BehaviorTree/States/MoveForTimeBotState.refl.h
-            BehaviorTree/States/MoveForTimeBotState.refl.meta.h
             BehaviorTree/States/PlayAnimationBotState.refl.h
-            BehaviorTree/States/PlayAnimationBotState.refl.meta.h
             BehaviorTree/States/PlayAnimationForTimeBotState.refl.h
-            BehaviorTree/States/PlayAnimationForTimeBotState.refl.meta.h
-            GameEventReconciler.h
-            GameLevelList.h
-            GameLevelListAsset.refl.h
-            GameLevelListAsset.refl.meta.h
-            GamePlayList.h
-            GamePlayListAsset.refl.h
-            GamePlayListAsset.refl.meta.h
             GameProtocol.h
-            GameServerWorld.h
             GameSharedCommon.h
-            GameStageManager.h
+            Level/GameLevelList.h
+            Level/GameLevelListAsset.refl.h
+            Level/GameStageManager.h
             Modifier/Modifier.refl.h
-            Modifier/Modifier.refl.meta.h
+            PlayList/GamePlayList.h
+            PlayList/GamePlayListAsset.refl.h
             SkillTree/SkillTree.h
             SkillTree/SkillTreeCompiled.h
             SkillTree/SkillTreeConfig.refl.h
-            SkillTree/SkillTreeConfig.refl.meta.h
             SkillTree/SkillTreeSerialize.h
             Systems/CVCPushSystem.h
-            Systems/GameLogicSystems.h
             Systems/GameServerEntityOverlapRegistrationMacros.h
             Systems/GameServerEntityOverlapSystem.h
             Systems/TargetDatabase.h
@@ -94,9 +77,9 @@ set(GENERIC_REFL_GameShared
             BehaviorTree/States/MoveForTimeBotState.refl.h
             BehaviorTree/States/PlayAnimationBotState.refl.h
             BehaviorTree/States/PlayAnimationForTimeBotState.refl.h
-            GameLevelListAsset.refl.h
-            GamePlayListAsset.refl.h
+            Level/GameLevelListAsset.refl.h
             Modifier/Modifier.refl.h
+            PlayList/GamePlayListAsset.refl.h
             SkillTree/SkillTreeConfig.refl.h
             #REFL_PLACEHOLDER
             )

@@ -2,9 +2,7 @@
 #include "Foundation/Common.h"
 #include "Foundation/Time/FrameClock.h"
 
-#ifndef _INCLUDEOS
 #include <thread>
-#endif
 
 FrameClock::FrameClock(double frame_interval)
 {
@@ -30,7 +28,6 @@ bool FrameClock::ShouldSkipFrameUpdate()
 
 void FrameClock::WaitUntilNextFrame()
 {
-#ifndef _INCLUDEOS
   double t = GetTimeUntilNextFrame();
   if (t >= 0)
   {
@@ -40,7 +37,6 @@ void FrameClock::WaitUntilNextFrame()
 
   m_LastFrame += m_FrameInterval;
   m_FrameCount++;
-#endif
 }
 
 void FrameClock::BeginFrame()

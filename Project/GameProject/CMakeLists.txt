@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
 
-set(GENERIC_SRC_Game 
+set(GENERIC_SRC_GameProject 
             AI/PlayerAI.cpp
             Data/CoverPoint.refl.reg.cpp
             Data/DealDamageAnimationEvent.refl.reg.cpp
@@ -60,7 +60,7 @@ set(GENERIC_SRC_Game
             #CPP_PLACEHOLDER
             )
 
-set(GENERIC_HEADER_Game 
+set(GENERIC_HEADER_GameProject 
             AI/PlayerAI.h
             Data/CoverPoint.refl.h
             Data/CoverPoint.refl.meta.h
@@ -79,8 +79,6 @@ set(GENERIC_HEADER_Game
             GameConfig.refl.meta.h
             GameController.refl.h
             GameController.refl.meta.h
-            GameFullState.refl.h
-            GameFullState.refl.meta.h
             GameMessages.refl.h
             GameMessages.refl.meta.h
             GameNetworkData.refl.h
@@ -143,11 +141,10 @@ set(GENERIC_HEADER_Game
             ServerEntities/Projectile/Response/ProjectileResponseBase.refl.meta.h
             ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.h
             ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.meta.h
-            Systems/GameDeliberateSyncSystemList.h
             #HEADER_PLACEHOLDER
             )
 
-set(GENERIC_REFL_Game 
+set(GENERIC_REFL_GameProject 
             Data/CoverPoint.refl.h
             Data/DealDamageAnimationEvent.refl.h
             Data/KillVolume.refl.h
@@ -156,7 +153,6 @@ set(GENERIC_REFL_Game
             GameCollisionType.refl.h
             GameConfig.refl.h
             GameController.refl.h
-            GameFullState.refl.h
             GameMessages.refl.h
             GameNetworkData.refl.h
             GameNetworkEvents.refl.h
@@ -188,7 +184,7 @@ set(GENERIC_REFL_Game
             )
 
 if(GENERATE_REFL)
-  foreach(REFL_FILE ${GENERIC_REFL_Game})
+  foreach(REFL_FILE ${GENERIC_REFL_GameProject})
     string(REPLACE ".refl.h" ".refl.meta.h" META_FILE ${REFL_FILE})
     add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${META_FILE}
                        COMMAND stormrefl ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE} -- -DSTORM_REFL_PARSE -D_CRT_SECURE_NO_WARNINGS -std=c++17 -x c++ -Wno-pragma-once-outside-header -I${CMAKE_CURRENT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR}/StormTech -I${PROJECT_SOURCE_DIR}/Tools -I${PROJECT_SOURCE_DIR}/Shared -I${PROJECT_SOURCE_DIR}/Project -I${PROJECT_SOURCE_DIR}/Lobby -I${PROJECT_SOURCE_DIR}/External -I${CLANG_HEADER_PATH} -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
@@ -197,11 +193,11 @@ if(GENERATE_REFL)
   endforeach()
 endif()
 
-add_library(Game STATIC ${GENERIC_SRC_Game} ${GENERIC_HEADER_Game})
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${GENERIC_SRC_Game} ${GENERIC_HEADER_Game})
+add_library(GameProject STATIC ${GENERIC_SRC_GameProject} ${GENERIC_HEADER_GameProject})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${GENERIC_SRC_GameProject} ${GENERIC_HEADER_GameProject})
 
-set_target_properties(Game PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT GameCommon.h)
+set_target_properties(GameProject PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT GameCommon.h)
 
 if(GENERATE_PCH)
-  cotire(Game)
+  cotire(GameProject)
 endif()

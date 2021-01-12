@@ -1,6 +1,6 @@
 
-#include "Game/GameCommon.h"
-#include "Game/ServerEntities/CharacterFacing.refl.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/ServerEntities/CharacterFacing.refl.h"
 
 std::pair<uint32_t, bool> GetAnimationInfoForFacingDirection(CharacterFacing facing)
 {

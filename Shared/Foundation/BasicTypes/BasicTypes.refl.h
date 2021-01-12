@@ -158,6 +158,11 @@ struct Box
     return m_Start == rhs.m_Start && m_End == rhs.m_End;
   }
 
+  bool operator != (const Box & rhs) const
+  {
+    return !operator==(rhs);
+  }
+
   Box Offset(const Vector2 & offset) const;
   Box MirrorX() const;
 

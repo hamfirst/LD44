@@ -77,12 +77,12 @@ PropertyFieldDatabase::PropertyFieldDatabase()
   m_BasicString.m_String.m_MaxLength = 0;
 }
 
-PropertyField * PropertyFieldDatabase::GetUnknownField()
+NotNullPtr<PropertyField> PropertyFieldDatabase::GetUnknownField()
 {
   return &m_Unknown;
 }
 
-PropertyField * PropertyFieldDatabase::GetBasicField(PropertyFieldType type)
+NotNullPtr<PropertyField> PropertyFieldDatabase::GetBasicField(PropertyFieldType type)
 {
   switch (type)
   {
@@ -97,7 +97,7 @@ PropertyField * PropertyFieldDatabase::GetBasicField(PropertyFieldType type)
   }
 }
 
-PropertyField * PropertyFieldDatabase::GetBasicSignedField(int size)
+NotNullPtr<PropertyField> PropertyFieldDatabase::GetBasicSignedField(int size)
 {
   switch (size)
   {
@@ -114,7 +114,7 @@ PropertyField * PropertyFieldDatabase::GetBasicSignedField(int size)
   }
 }
 
-PropertyField * PropertyFieldDatabase::GetBasicUnsignedField(int size)
+NotNullPtr<PropertyField> PropertyFieldDatabase::GetBasicUnsignedField(int size)
 {
   switch (size)
   {
@@ -131,7 +131,7 @@ PropertyField * PropertyFieldDatabase::GetBasicUnsignedField(int size)
   }
 }
 
-PropertyField * PropertyFieldDatabase::GetBasicFloatField(int size)
+NotNullPtr<PropertyField> PropertyFieldDatabase::GetBasicFloatField(int size)
 {
   switch (size)
   {
@@ -144,13 +144,13 @@ PropertyField * PropertyFieldDatabase::GetBasicFloatField(int size)
   }
 }
 
-PropertyField * PropertyFieldDatabase::AllocateField()
+NotNullPtr<PropertyField> PropertyFieldDatabase::AllocateField()
 {
   m_PropertyAlloc.emplace_back(std::make_unique<PropertyField>());
   return m_PropertyAlloc.back().get();
 }
 
-std::pair<bool, PropertyField *> PropertyFieldDatabase::GetEnumData(uint32_t enum_hash)
+std::pair<bool, NotNullPtr<PropertyField>> PropertyFieldDatabase::GetEnumData(uint32_t enum_hash)
 {
   auto itr = m_EnumField.find(enum_hash);
   if (itr == m_EnumField.end())
@@ -169,7 +169,7 @@ std::pair<bool, PropertyField *> PropertyFieldDatabase::GetEnumData(uint32_t enu
   return std::make_pair(false, itr->second);
 }
 
-std::pair<bool, PropertyField *> PropertyFieldDatabase::GetPolyData(uint32_t base_type_hash)
+std::pair<bool, NotNullPtr<PropertyField>> PropertyFieldDatabase::GetPolyData(uint32_t base_type_hash)
 {
   auto itr = m_PolyField.find(base_type_hash);
   if (itr == m_PolyField.end())
@@ -188,7 +188,7 @@ std::pair<bool, PropertyField *> PropertyFieldDatabase::GetPolyData(uint32_t bas
   return std::make_pair(false, itr->second);
 }
 
-std::pair<bool, PropertyField *> PropertyFieldDatabase::GetStructData(uint32_t type_name_hash)
+std::pair<bool, NotNullPtr<PropertyField>> PropertyFieldDatabase::GetStructData(uint32_t type_name_hash)
 {
   auto itr = m_StructField.find(type_name_hash);
   if (itr == m_StructField.end())
@@ -208,7 +208,7 @@ std::pair<bool, PropertyField *> PropertyFieldDatabase::GetStructData(uint32_t t
   return std::make_pair(false, itr->second);
 }
 
-PropertyField * PropertyFieldDatabase::FindStructData(uint32_t type_name_hash) const
+NotNullPtr<PropertyField> PropertyFieldDatabase::FindStructData(uint32_t type_name_hash) const
 {
   auto itr = m_StructField.find(type_name_hash);
   if (itr == m_StructField.end())
@@ -219,7 +219,7 @@ PropertyField * PropertyFieldDatabase::FindStructData(uint32_t type_name_hash) c
   return itr->second;
 }
 
-void PropertyFieldDatabase::RegisterStructWithAlternateName(uint32_t type_name_hash, PropertyField * prop)
+void PropertyFieldDatabase::RegisterStructWithAlternateName(uint32_t type_name_hash, NotNullPtr<PropertyField> prop)
 {
   auto itr = m_StructField.find(type_name_hash);
   if (itr == m_StructField.end())

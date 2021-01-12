@@ -4,10 +4,10 @@
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 
-#include "Game/GameNetworkData.refl.h"
-#include "Game/GameNetworkEvents.refl.h"
-#include "Game/GameNetworkExternals.refl.h"
-#include "Game/GameFullState.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
+#include "GameProject/GameNetworkEvents.refl.h"
+#include "GameProject/GameNetworkExternals.refl.h"
+#include "GameProject/GameFullState.refl.h"
 
 class GameServerWorld;
 

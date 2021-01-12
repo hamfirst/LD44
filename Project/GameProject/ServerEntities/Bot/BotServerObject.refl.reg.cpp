@@ -1,4 +1,4 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 #include "Foundation/SkipField/SkipField.h"
 
 #include "StormRefl/StormReflMetaFuncs.h"
@@ -16,8 +16,8 @@
 #include "Runtime/ServerEntity/ServerObjectUpdate.h"
 #include "Runtime/ServerEntity/ServerEntitySerialize.h"
 
-#include "Game/ServerEntities/Bot/BotServerObject.refl.h"
-#include "Game/ServerEntities/Bot/BotServerObject.refl.meta.h"
+#include "GameProject/ServerEntities/Bot/BotServerObject.refl.h"
+#include "GameProject/ServerEntities/Bot/BotServerObject.refl.meta.h"
 
 #include "GameShared/BehaviorTree/BehaviorTreeTypeDatabase.h"
 #include "GameShared/BehaviorTree/BehaviorTreeSerialize.h"

@@ -25,6 +25,7 @@ struct ServerEntityComponentInfo
 
 struct ServerEntityTypeInfo
 {
+  std::string m_TypeName;
   uint32_t m_TypeNameHash;
   uint32_t m_TypeIndex;
   uint32_t m_InitDataTypeNameHash;
@@ -35,10 +36,8 @@ struct ServerEntityTypeInfo
   NotNullPtr<ServerEntity>(*m_EntityCreate)();
   NotNullPtr<ServerEntity>(*m_EntityDuplicate)(NotNullPtr<const ServerEntity> rhs);
 
-  void(*m_EntityInit)(NotNullPtr<ServerEntity> entity, NullOptPtr<const ServerEntityInitData> init_data,
-                      GameServerWorld & game_container);
+  void(*m_EntityInit)(NotNullPtr<ServerEntity> entity, NullOptPtr<const ServerEntityInitData> init_data, NotNullPtr<GameServerWorld> game_world);
   void(*m_EntityCopy)(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntity> rhs);
-  void(*m_EntityResetHandles)(NotNullPtr<ServerEntity> entity, const ServerEntityManager & obj_manager);
   void(*m_EntityDestroy)(NotNullPtr<ServerEntity> entity);
   void(*m_AddToUpdateList)(NotNullPtr<ServerEntity> entity, ServerEntityUpdateList & l);
 

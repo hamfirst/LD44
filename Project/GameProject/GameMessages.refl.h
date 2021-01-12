@@ -7,7 +7,7 @@
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 
-#include "Game/GameNetworkData.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
 
 struct FromServerMessage
 {

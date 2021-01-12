@@ -1,6 +1,6 @@
 
-#include "Game/ServerEntities/Projectile/ProjectileServerEntity.refl.h"
-#include "Game/ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.meta.h"
+#include "GameProject/ServerEntities/Projectile/ProjectileServerEntity.refl.h"
+#include "GameProject/ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.meta.h"
 
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(ProjectileMotionLinearConfig);
 REGISTER_LOGIC_TYPE(ProjectileMotionLinearConfig, ProjectileMotionBaseConfig, ProjectileMotionLinear, ProjectileMotionBase);
@@ -8,12 +8,12 @@ REGISTER_LOGIC_TYPE(ProjectileMotionLinearConfig, ProjectileMotionBaseConfig, Pr
 NET_REGISTER_TYPE(ProjectileMotionLinear, ProjectileMotionBase);
 
 
-void ProjectileMotionLinear::Init(ProjectileServerEntity & proj, GameServerWorld & game_container)
+void ProjectileMotionLinear::Init(ProjectileServerEntity & proj, GameServerWorld & game_world)
 {
   m_RangeRemaining = GameNetVal((int)proj.m_Config->m_MaxDistance);
 }
 
-void ProjectileMotionLinear::Update(ProjectileServerEntity & proj, GameServerWorld & game_container)
+void ProjectileMotionLinear::Update(ProjectileServerEntity & proj, GameServerWorld & game_world)
 {
   auto config = GetConfigAs<ProjectileMotionLinearConfig>();
   if(config == nullptr)
@@ -30,7 +30,7 @@ void ProjectileMotionLinear::Update(ProjectileServerEntity & proj, GameServerWor
     CollisionObjectMask coll_mask;
     coll_mask.Set(owner->GetCollisionId().Value());
 
-    auto result = game_container.GetSystems().GetCollisionDatabase().TracePath(
+    auto result = game_world.GetSystems().GetCollisionDatabase().TracePath(
             proj.m_Position, new_pos, 0xFFFFFFFF, &coll_mask);
 
     if (result)
@@ -41,7 +41,7 @@ void ProjectileMotionLinear::Update(ProjectileServerEntity & proj, GameServerWor
   }
   else
   {
-    auto result = game_container.GetSystems().GetCollisionDatabase().TracePath(proj.m_Position, new_pos, 0xFFFFFFFF);
+    auto result = game_world.GetSystems().GetCollisionDatabase().TracePath(proj.m_Position, new_pos, 0xFFFFFFFF);
 
     if (result)
     {

@@ -5,6 +5,8 @@
 #include "Runtime/ServerEntity/ServerEntityDef.refl.h"
 
 #include "Foundation/SparseList/SparseList.h"
+#include "ServerEntitySystem.h"
+
 
 class ServerEntity;
 class ServerEntityInitData;
@@ -30,7 +32,8 @@ class ServerEntityManager
 {
 public:
 
-  ServerEntityManager(const std::vector<ServerEntityStaticInitData> & static_entities,
+  ServerEntityManager(NotNullPtr<GameServerWorld> world,
+                      const std::vector<ServerEntityStaticInitData> & static_entities,
                       const std::vector<ServerEntityStaticInitData> & dynamic_entities,
                       int max_dynamic_entities, int num_reserved_slots);
   ServerEntityManager(const ServerEntityManager & rhs);
@@ -40,23 +43,23 @@ public:
   ServerEntityManager & operator = (const ServerEntityManager & rhs);
 
   template <typename T>
-  NullOptPtr<T> CreateDynamicEntity(GameServerWorld & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
+  NullOptPtr<T> CreateDynamicEntity(NullOptPtr<ServerEntityInitData> init_data = nullptr)
   {
-    auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, false, init_data, false, game_container);
+    auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, false, init_data, false);
     return static_cast<T *>(ptr);
   }
 
   template <typename T>
-  NullOptPtr<T> CreateDynamicEntity(std::size_t reserved_slot, GameServerWorld & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
+  NullOptPtr<T> CreateDynamicEntity(std::size_t reserved_slot, NullOptPtr<ServerEntityInitData> init_data = nullptr)
   {
-    auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, (int)reserved_slot, false, init_data, false, game_container);
+    auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, (int)reserved_slot, false, init_data, false);
     return static_cast<T *>(ptr);
   }
 
   template <typename T>
-  NullOptPtr<T> CreateUnsyncedDynamicEntity(GameServerWorld & game_container, NullOptPtr<ServerEntityInitData> init_data = nullptr)
+  NullOptPtr<T> CreateUnsyncedDynamicEntity(NullOptPtr<ServerEntityInitData> init_data = nullptr)
   {
-    auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, -1, true, init_data, false, game_container);
+    auto ptr = CreateDynamicEntityInternal((int)T::TypeIndex, -1, true, init_data, false);
     return static_cast<T *>(ptr);
   }
 
@@ -114,7 +117,7 @@ public:
   template <typename T>
   NullOptPtr<T> ResolveMapHandleAs(const MapServerEntityHandle & handle)
   {
-    static_assert(std::is_base_of<ServerEntity, T>::value, "Must resolve to server entity type");
+    static_assert(std::is_base_of_v<ServerEntity, T>, "Must resolve to server entity type");
     auto ptr = ResolveMapHandle(handle);
 
     if(ptr)
@@ -125,7 +128,6 @@ public:
     return nullptr;
   }
 
-  void IncrementTimeAlive();
   void CreateUpdateList(ServerEntityUpdateList & update_list);
 
   int GetHandleBits() const;
@@ -137,6 +139,8 @@ public:
   void StartUpdateLoop();
   bool CompleteUpdateLoop();
 
+  int GetDynamicEntityGeneration(int slot_id) const;
+
 protected:
 
   friend class ServerEntity;
@@ -146,16 +150,15 @@ protected:
 
   void InitAllEntities(const std::vector<ServerEntityStaticInitData> & static_entities,
                       const std::vector<ServerEntityStaticInitData> & dynamic_entities,
-                      GameServerWorld & game_container);
+                      GameServerWorld & game_world);
 
   int GetNewDynamicEntityId();
   NullOptPtr<ServerEntity> CreateDynamicEntityInternal(int type_index, bool unsynced,
-          NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container);
+          NullOptPtr<const ServerEntityInitData> init_data, bool original);
   NullOptPtr<ServerEntity> CreateDynamicEntityInternal(int type_index, int slot_index, bool unsynced,
-          NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container);
+          NullOptPtr<const ServerEntityInitData> init_data, bool original);
   void DestroyDynamicEntityInternal(NotNullPtr<ServerEntity> ptr);
 
-  void FinalizeHandles();
   NullOptPtr<ServerEntity> ResolveHandle(int slot_index, int gen) const;
   NullOptPtr<ServerEntity> GetReservedSlotEntityInternal(std::size_t slot_index, std::size_t type_index);
 
@@ -169,6 +172,7 @@ protected:
 
 private:
 
+  NotNullPtr<GameServerWorld> m_World;
   std::vector<NotNullPtr<ServerEntity>> m_StaticEntities;
   std::vector<int> m_DynamicEntityGen;
   SparseList<DynamicEntityInfo> m_DynamicEntities;

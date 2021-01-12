@@ -42,7 +42,7 @@ private:
 };
 
 template <class DataClass>
-class NetPipeFullStateReciever
+class NetPipeFullStateReceiver
 {
 public:
   void Initialize(NetTransmitter * transmitter, NetPipeMode mode, int channel_index, int channel_bits)
@@ -100,7 +100,7 @@ template <class DataClass, NetPipeMode Mode = NetPipeMode::kReliable>
 struct NetPipeFullState
 {
   using SenderType = NetPipeFullStateSender<DataClass>;
-  using ReceiverType = NetPipeFullStateReciever<DataClass>;
+  using ReceiverType = NetPipeFullStateReceiver<DataClass>;
 
   static const NetPipeMode PipeMode = Mode;
 };

@@ -199,7 +199,7 @@ void TextureViewerWidget::paintGL()
     m_RenderState.BindTexture(*asset);
     m_RenderState.BindVertexBuffer(vertex_buffer);
 
-    shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState.GetFullRenderDimensions());
+    shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState.GetShaderScreenSizeValue());
     shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), m_Center * m_Magnification.Get());
     shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), RenderVec4{ m_Magnification.Get(), 0, 0, m_Magnification.Get() });
     shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);

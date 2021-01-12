@@ -283,7 +283,7 @@ void VisualEffectEditorViewer::paintGL()
 
     auto & shader = g_ShaderManager.GetDefaultWorldSpaceShader();
     m_RenderState.BindShader(shader);
-    shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState.GetFullRenderDimensions());
+    shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState.GetShaderScreenSizeValue());
 
     GameContainer * container = nullptr;
     draw_list.Draw(*container, viewport, {}, m_RenderState);

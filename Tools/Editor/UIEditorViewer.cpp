@@ -190,14 +190,7 @@ void UIEditorViewer::paintGL()
 
   auto & shader = g_ShaderManager.GetDefaultScreenSpaceShader();
   m_RenderState.BindShader(shader);
-
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState.GetFullRenderDimensions());
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), RenderVec2{ 0.0, 0.0 });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), RenderVec4{ 1.0f, 0, 0, 1.0f });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Color"), RenderVec4{ 1.0f, 1.0f, 1.0f, 1.0f });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Bounds"), RenderVec4{ -1.0f, -1.0f, 1.0f, 1.0f });
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ColorMatrix"), Mat4f());
+  m_RenderState.ResetShader(shader);
 
   m_RenderState.BindTexture(m_RenderState.GetDefaultTexture());
   m_RenderState.BindVertexBuffer(vertex_buffer);

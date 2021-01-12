@@ -11,6 +11,7 @@
 #include "Runtime/Map/MapResource.h"
 
 EngineState::EngineState(NotNullPtr<GameContainer> game, Window & window) :
+  m_Window(window),
   m_EntitySystem(std::make_unique<ClientEntitySystem>(this, game)),
   m_ComponentSystem(std::make_unique<ClientComponentSystem>()),
   m_MapSystem(std::make_unique<MapSystem>(this)),
@@ -87,3 +88,4 @@ NotNullPtr<UIManager> EngineState::GetUIManager()
 {
   return m_UIManager.get();
 }
+

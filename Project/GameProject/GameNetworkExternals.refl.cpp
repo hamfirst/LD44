@@ -1,5 +1,5 @@
-#include "Game/GameCommon.h"
-#include "Game/GameNetworkExternals.refl.meta.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameNetworkExternals.refl.meta.h"
 #include "StormNet/NetReflectionTypeDatabaseRegister.h"
 
 NET_REGISTER_BASE_TYPE(GameNetworkExternalEvent);

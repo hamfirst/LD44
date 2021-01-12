@@ -35,7 +35,7 @@ include_directories(${PROJECT_SOURCE_DIR}
 add_subdirectory(Project/GameProject)
 add_subdirectory(Project/GameShared)
 
-set_target_properties(Game PROPERTIES FOLDER Project)
+set_target_properties(GameProject PROPERTIES FOLDER Project)
 set_target_properties(GameShared PROPERTIES FOLDER Project)
 
 add_subdirectory(Lobby/LobbyShared)
@@ -368,7 +368,8 @@ if(BUILD_TOOLS)
   endif()
 
   link_directories(${CLANG_SRC_LIB_PATH})
-  add_executable(stormrefl StormTech/StormRefl/main.cpp StormTech/StormRefl/StormReflOutput.cpp)
+  add_executable(stormrefl StormTech/StormReflProc/main.cpp StormTech/StormReflProc/StormReflOutput.cpp)
+  target_link_libraries(stormrefl StormRefl)
   set_target_properties(stormrefl PROPERTIES FOLDER Tools)
 
   target_include_directories(stormrefl PRIVATE ${CLANG_SRC_INCLUDE_PATH})
@@ -464,7 +465,7 @@ if(BUILD_TOOLS)
   add_dependencies(Foundation stormrefl)
   add_dependencies(Engine stormrefl)
   add_dependencies(Runtime stormrefl)
-  add_dependencies(Game stormrefl)
+  add_dependencies(GameProject stormrefl)
   add_dependencies(GameServer stormrefl)
   add_dependencies(GameClient stormrefl)
   add_dependencies(Editor stormrefl)
@@ -589,34 +590,32 @@ endif()
 
 add_dependencies(StormData stormrefl)
 
-add_dependencies(Game Runtime)
-add_dependencies(GameShared Game)
+add_dependencies(GameProject Runtime)
+add_dependencies(GameShared GameProject)
 add_dependencies(Runtime Foundation)
-
 
 if(BUILD_CLIENT OR BUILD_TOOLS)
   add_dependencies(Engine Runtime)
-  add_dependencies(GameClient Game GameShared)
+  add_dependencies(GameClient GameProject GameShared)
   add_dependencies(GameClientExe GameShared)
-  add_dependencies(LobbyClientConnection Game)
+  add_dependencies(LobbyClientConnection GameProject)
   add_dependencies(LobbyClientConnection Lobby)
 endif()
 
 if(BUILD_SERVER OR BUILD_TOOLS)
   add_dependencies(HurricaneDDS StormData)
-  add_dependencies(GameServer Game)
-  add_dependencies(GameServerExe Game)
-  add_dependencies(Lobby Game)
-  add_dependencies(LobbyServerConnection Game)
+  add_dependencies(GameServer GameProject)
+  add_dependencies(GameServerExe GameProject)
+  add_dependencies(Lobby GameProject)
+  add_dependencies(LobbyServerConnection GameProject)
   add_dependencies(LobbyServerConnection Lobby)
   add_dependencies(GameServerExe Lobby)
   add_dependencies(GameClientExe Lobby)
-
 endif()
 
 if(BUILD_TOOLS)
   add_dependencies(Editor DocumentServerExe)
-  add_dependencies(Editor Game)
+  add_dependencies(Editor GameProject)
 endif()
 
 if(CMAKE_BUILD_TYPE EQUAL "RELWITHDEBUGINFO")
@@ -640,14 +639,14 @@ if(EXPORT_TEST)
 
 
     add_custom_target(Test${OUTPUT} ALL
-      COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${OUTPUT}> ${CMAKE_CURRENT_SOURCE_DIR}/Test/
+      COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${OUTPUT}> ${CMAKE_CURRENT_SOURCE_DIR}/Content/
       DEPENDS ${OUTPUT}
       COMMENT "Copying to Test Directory"
     )
     
     set_target_properties(Test${OUTPUT} PROPERTIES FOLDER Executable)
-    set_property(TARGET ${OUTPUT} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/Test")
-    set_property(TARGET Test${OUTPUT} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/Test")
+    set_property(TARGET ${OUTPUT} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/Content")
+    set_property(TARGET Test${OUTPUT} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/Content")
 
   endforeach()
 endif()

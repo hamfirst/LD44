@@ -4,8 +4,8 @@
 
 #include "GameServer/GameServer.h"
 
-#include "Game/GameFullState.refl.meta.h"
-#include "Game/GameMessages.refl.meta.h"
+#include "GameProject/GameFullState.refl.meta.h"
+#include "GameProject/GameMessages.refl.meta.h"
 
 #include "GameShared/GameProtocol.h"
 

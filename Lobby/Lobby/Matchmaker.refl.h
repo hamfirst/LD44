@@ -5,8 +5,8 @@
 
 #include "HurricaneDDS/DDSDataObject.h"
 
-#include "Game/GameNetworkData.refl.h"
-#include "GameShared/GamePlayListAsset.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
+#include "Project/GameShared/PlayList/GamePlayListAsset.refl.h"
 
 #include "LobbyShared/SharedTypes.refl.h"
 

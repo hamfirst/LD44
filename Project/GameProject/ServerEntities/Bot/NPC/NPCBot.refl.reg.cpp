@@ -1,4 +1,4 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 #include "Foundation/SkipField/SkipField.h"
 
 #include "StormRefl/StormReflMetaFuncs.h"
@@ -18,8 +18,8 @@
 
 #include "GameShared/BehaviorTree/BehaviorTreeSerialize.h"
 
-#include "Game/ServerEntities/Bot/NPC/NPCBot.refl.h"
-#include "Game/ServerEntities/Bot/NPC/NPCBot.refl.meta.h"
+#include "GameProject/ServerEntities/Bot/NPC/NPCBot.refl.h"
+#include "GameProject/ServerEntities/Bot/NPC/NPCBot.refl.meta.h"
 
 REGISTER_SERVER_ENTITY_WITH_INIT_DATA(NPCBot, NPCBotInitData, BotServerObject);
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(NPCBotInitData);

@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "Game/GameCommon.h"
-#include "Game/GameplayEvents/DamageType.refl.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameplayEvents/DamageType.refl.h"
 
-#include "Game/ServerEntities/CharacterFacing.refl.h"
+#include "GameProject/ServerEntities/CharacterFacing.refl.h"
 
 #include "Runtime/SpriteBase/SpriteAnimationEventDef.refl.h"
 

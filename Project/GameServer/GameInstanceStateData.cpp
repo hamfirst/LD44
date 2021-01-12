@@ -3,7 +3,7 @@
 #include "GameServer/GameInstance.h"
 #include "GameServer/GameServer.h"
 
-#include "GameShared/GameStageManager.h"
+#include "Project/GameShared/Level/GameStageManager.h"
 
 GameInstanceStateData::GameInstanceStateData(NotNullPtr<GameInstance> instance, const GameInitSettings & init_settings,
                                              const GameInfoTeamSizes & team_info, GameStageManager & stage_manager) :

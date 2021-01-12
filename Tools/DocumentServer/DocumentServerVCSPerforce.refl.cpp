@@ -12,7 +12,6 @@
 
 #include "p4/clientapi.h"
 
-#include "gsl/gsl"
 #include "hash/Hash64.h"
 
 #include <unordered_map>

@@ -7,7 +7,7 @@
 #include "Project/GameClient/Network/GameNetworkClient.h"
 #include "GameClient/Modes/GameModeOnlineStaging.h"
 
-#include "GameShared/GameLevelListAsset.refl.meta.h"
+#include "Project/GameShared/Level/GameLevelListAsset.refl.meta.h"
 
 #include "LobbyShared/LobbyGameFuncs.h"
 

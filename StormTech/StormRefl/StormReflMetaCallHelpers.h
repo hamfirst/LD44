@@ -1,5 +1,7 @@
 #pragma once
 
+#include "sb/optptr.h"
+
 template <typename T>
 struct StormReflTypeInfo;
 
@@ -161,7 +163,7 @@ namespace StormReflMetaHelpers
   template <typename ReturnType, typename Enable = void>
   struct StormReflReturnDestroy
   {
-    static ReturnType Destroy(ReturnType * t)
+    static ReturnType Destroy(NotNullPtr<ReturnType> t)
     {
       return *t;
     }
@@ -170,7 +172,7 @@ namespace StormReflMetaHelpers
   template <typename ReturnType>
   struct StormReflReturnDestroy<ReturnType, typename std::enable_if<std::is_destructible<ReturnType>::value>::type>
   {
-    static ReturnType Destroy(ReturnType * t)
+    static ReturnType Destroy(NotNullPtr<ReturnType> t)
     {
       ReturnType t_moved(std::move(*t));
       t->~ReturnType();

@@ -4,7 +4,7 @@
 #include "Foundation/Common.h"
 
 #include "Runtime/Anchor/AnchorDef.refl.h"
-#include "Game/GameNetworkData.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
 
 struct PlayerSpawn : public AnchorDataBase
 {

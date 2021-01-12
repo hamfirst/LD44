@@ -8,7 +8,7 @@
  *            instead.
  */
 /*
- *  Copyright (C) 2006-2015, ARM Limited, All Rights Reserved
+ *  Copyright The Mbed TLS Contributors
  *  SPDX-License-Identifier: Apache-2.0
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -23,14 +23,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
- *  This file is part of mbed TLS (https://tls.mbed.org)
- *
  */
 #ifndef MBEDTLS_DES_H
 #define MBEDTLS_DES_H
 
 #if !defined(MBEDTLS_CONFIG_FILE)
-#include "config.h"
+#include "mbedtls/config.h"
 #else
 #include MBEDTLS_CONFIG_FILE
 #endif
@@ -42,17 +40,19 @@
 #define MBEDTLS_DES_DECRYPT     0
 
 #define MBEDTLS_ERR_DES_INVALID_INPUT_LENGTH              -0x0032  /**< The data input has an invalid length. */
+
+/* MBEDTLS_ERR_DES_HW_ACCEL_FAILED is deprecated and should not be used. */
 #define MBEDTLS_ERR_DES_HW_ACCEL_FAILED                   -0x0033  /**< DES hardware accelerator failed. */
 
 #define MBEDTLS_DES_KEY_SIZE    8
 
-#if !defined(MBEDTLS_DES_ALT)
-// Regular implementation
-//
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#if !defined(MBEDTLS_DES_ALT)
+// Regular implementation
+//
 
 /**
  * \brief          DES context structure
@@ -61,7 +61,7 @@ extern "C" {
  *                 security risk. We recommend considering stronger ciphers
  *                 instead.
  */
-typedef struct
+typedef struct mbedtls_des_context
 {
     uint32_t sk[32];            /*!<  DES subkeys       */
 }
@@ -70,11 +70,15 @@ mbedtls_des_context;
 /**
  * \brief          Triple-DES context structure
  */
-typedef struct
+typedef struct mbedtls_des3_context
 {
     uint32_t sk[96];            /*!<  3DES subkeys      */
 }
 mbedtls_des3_context;
+
+#else  /* MBEDTLS_DES_ALT */
+#include "des_alt.h"
+#endif /* MBEDTLS_DES_ALT */
 
 /**
  * \brief          Initialize DES context
@@ -331,17 +335,8 @@ int mbedtls_des3_crypt_cbc( mbedtls_des3_context *ctx,
  */
 void mbedtls_des_setkey( uint32_t SK[32],
                          const unsigned char key[MBEDTLS_DES_KEY_SIZE] );
-#ifdef __cplusplus
-}
-#endif
 
-#else  /* MBEDTLS_DES_ALT */
-#include "des_alt.h"
-#endif /* MBEDTLS_DES_ALT */
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#if defined(MBEDTLS_SELF_TEST)
 
 /**
  * \brief          Checkup routine
@@ -349,6 +344,8 @@ extern "C" {
  * \return         0 if successful, or 1 if the test failed
  */
 int mbedtls_des_self_test( int verbose );
+
+#endif /* MBEDTLS_SELF_TEST */
 
 #ifdef __cplusplus
 }

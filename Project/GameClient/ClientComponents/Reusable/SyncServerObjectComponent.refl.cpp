@@ -10,7 +10,7 @@
 #include "Engine/Entity/ClientEntity.h"
 #include "Engine/Asset/AudioAsset.h"
 
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
 
 #include "GameClient/ClientComponents/Reusable/SyncServerObjectComponent.refl.h"
 #include "GameClient/ClientComponents/Reusable/SyncServerObjectComponent.refl.meta.h"

@@ -1,9 +1,9 @@
 
-#include "Game/GameCommon.h"
-#include "Game/GameServerEventSender.h"
-#include "Game/ServerEntities/Projectile/ProjectileServerEntity.refl.h"
-#include "Game/ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.meta.h"
-#include "Game/GameplayEvents/DamageType.refl.meta.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/ServerEntities/Projectile/ProjectileServerEntity.refl.h"
+#include "GameProject/ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.meta.h"
+#include "GameProject/GameplayEvents/DamageType.refl.meta.h"
 
 #include "Runtime/ServerEntity/ServerEntity.h"
 #include "Runtime/ServerEntity/ServerEntityHandle.h"
@@ -14,7 +14,7 @@ REGISTER_LOGIC_TYPE(ProjectileResponseDefaultConfig, ProjectileResponseBaseConfi
 NET_REGISTER_TYPE(ProjectileResponseDefault, ProjectileResponseBase)
 
 void ProjectileResponseDefault::HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result,
-                                          ProjectileServerEntity & proj, GameServerWorld & game_container)
+                                          ProjectileServerEntity & proj, GameServerWorld & game_world)
 {
   auto config = GetConfigAs<ProjectileResponseDefaultConfig>();
   if(config == nullptr)
@@ -49,7 +49,7 @@ void ProjectileResponseDefault::HandleImpact(NullOptPtr<CollisionDatabaseTraceRe
   }
 }
 
-void ProjectileResponseDefault::HandleRangeExpired(ProjectileServerEntity & proj, GameServerWorld & game_container)
+void ProjectileResponseDefault::HandleRangeExpired(ProjectileServerEntity & proj, GameServerWorld & game_world)
 {
   proj.Destroy(game_container.GetObjectManager());
 }

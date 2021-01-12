@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "Game/GameCommon.h"
-#include "Game/ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h"
-#include "Game/GameplayEvents/DamageType.refl.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h"
+#include "GameProject/GameplayEvents/DamageType.refl.h"
 
 #include "StormNet/NetReflection.h"
 
@@ -22,7 +22,7 @@ public:
   NET_REFL;
 
   virtual void HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result,
-                            ProjectileServerEntity & proj, GameServerWorld & game_container);
-  virtual void HandleRangeExpired(ProjectileServerEntity & proj, GameServerWorld & game_container);
+                            ProjectileServerEntity & proj, GameServerWorld & game_world);
+  virtual void HandleRangeExpired(ProjectileServerEntity & proj, GameServerWorld & game_world);
 };
 

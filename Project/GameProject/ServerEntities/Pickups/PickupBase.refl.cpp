@@ -1,27 +1,27 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/GameController.refl.h"
-#include "Game/GameServerEventSender.h"
+#include "GameProject/GameController.refl.h"
+#include "GameProject/GameServerEventSender.h"
 
-#include "Game/GameplayEvents/PickupEvents.h"
+#include "GameProject/GameplayEvents/PickupEvents.h"
 
-#include "Game/ServerEntities/Pickups/PickupBase.refl.h"
-#include "Game/ServerEntities/Pickups/PickupBase.refl.meta.h"
+#include "GameProject/ServerEntities/Pickups/PickupBase.refl.h"
+#include "GameProject/ServerEntities/Pickups/PickupBase.refl.meta.h"
 
 #include "Runtime/ClientEntity/ClientEntityResource.h"
 
-void PickupBase::Init(const PickupBaseInitData & init_data, GameServerWorld & game_container)
+void PickupBase::Init(const PickupBaseInitData & init_data, GameServerWorld & game_world)
 {
 
 }
 
-void PickupBase::UpdateFirst(GameServerWorld & game_container)
+void PickupBase::UpdateFirst(GameServerWorld & game_world)
 {
 
 }
 
-void PickupBase::UpdateMiddle(GameServerWorld & game_container)
+void PickupBase::UpdateMiddle(GameServerWorld & game_world)
 {
   auto move_box = GetMoveBox();
   if(move_box)
@@ -31,12 +31,12 @@ void PickupBase::UpdateMiddle(GameServerWorld & game_container)
   }
 }
 
-bool PickupBase::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container)
+bool PickupBase::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world)
 {
   return m_PickedUp == false;
 }
 
-void PickupBase::PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container)
+void PickupBase::PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world)
 {
   m_PickedUp = true;
   Destroy(game_container.GetObjectManager());

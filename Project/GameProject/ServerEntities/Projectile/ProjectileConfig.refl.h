@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Game/GameCommon.h"
-#include "Game/GameServerTypes.h"
-#include "Game/ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h"
-#include "Game/ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameServerTypes.h"
+#include "GameProject/ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h"
+#include "GameProject/ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h"
 
 struct ProjectileConfig
 {

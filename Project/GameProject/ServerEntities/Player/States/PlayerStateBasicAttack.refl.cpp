@@ -1,17 +1,17 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateBasicAttack.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateBasicAttack.refl.meta.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBasicAttack.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBasicAttack.refl.meta.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateIdle.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateJump.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateIdle.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateJump.refl.h"
 
 #include "StormNet/NetReflectionTypeDatabase.h"
 
@@ -41,7 +41,7 @@ void PlayerStateBasicAttack::Setup(PlayerServerEntity & player, uint32_t animati
   }
 }
 
-void PlayerStateBasicAttack::Move(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateBasicAttack::Move(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   player.m_Velocity.x = 0;
 
@@ -85,7 +85,7 @@ void PlayerStateBasicAttack::Move(PlayerServerEntity & player, GameServerWorld &
   player.MoveCheckCollisionDatabase(game_container, m_AnimationVelocity);
 }
 
-void PlayerStateBasicAttack::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateBasicAttack::Transition(PlayerServerEntity & player, GameServerWorld & game_world)
 {
 #if PROJECT_PERSPECTIVE == PERSPECTIVE_SIDESCROLLER
   if (m_Settings.m_InterruptIfNoGround && player.m_OnGround == false)
@@ -96,7 +96,7 @@ void PlayerStateBasicAttack::Transition(PlayerServerEntity & player, GameServerW
 #endif
 }
 
-void PlayerStateBasicAttack::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateBasicAttack::Animate(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   bool finished = player.FrameAdvance(m_AnimationHash, false);
   player.TriggerAnimationEvents(game_container, *this);
@@ -125,7 +125,7 @@ void PlayerStateBasicAttack::Animate(PlayerServerEntity & player, GameServerWorl
   }
 }
 
-void PlayerStateBasicAttack::PostUpdate(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateBasicAttack::PostUpdate(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   if (m_DamageSettings)
   {

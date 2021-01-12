@@ -2,7 +2,7 @@
 
 #include "GameServer/GameInstanceStateBase.h"
 
-#include "Game/GameFullState.refl.h"
+#include "GameProject/GameFullState.refl.h"
 
 class GameInstanceStateLoading : public GameInstanceStateBase
 {

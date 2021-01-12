@@ -10,8 +10,8 @@
 #include "GameClient/GameContainer.h"
 #include "GameClient/ClientComponents/PlayerComponent.refl.h"
 
-#include "Game/GameNetworkData.refl.h"
-#include "GameShared/GameLevelListAsset.refl.meta.h"
+#include "GameProject/GameNetworkData.refl.h"
+#include "Project/GameShared/Level/GameLevelListAsset.refl.meta.h"
 
 #include "Engine/Engine.h"
 #include "Engine/Asset/TextureAsset.h"

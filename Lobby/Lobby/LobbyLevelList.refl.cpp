@@ -7,7 +7,7 @@
 
 #include "Runtime/Map/MapDef.refl.meta.h"
 
-#include "GameShared/GameLevelListAsset.refl.meta.h"
+#include "Project/GameShared/Level/GameLevelListAsset.refl.meta.h"
 
 #include "StormRefl/StormReflJsonStd.h"
 

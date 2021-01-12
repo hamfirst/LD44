@@ -6,10 +6,10 @@
 #include "Foundation/Pathfinding/GridPathfinding.h"
 #include "Foundation/Pathfinding/PathfindingPath.h"
 
-#include "Game/GameFullState.refl.h"
-#include "Game/GameServerTypes.h"
+#include "GameProject/GameFullState.refl.h"
+#include "GameProject/GameServerTypes.h"
 
-#include "Game/Data/KillVolume.refl.h"
+#include "GameProject/Data/KillVolume.refl.h"
 
 #include "Runtime/Collision/CollisionDatabase.h"
 #include "Runtime/Collision/IntersectionDatabase.h"
@@ -77,7 +77,7 @@ private:
   friend class GameInstanceStateGameplay;
 
   GameFullState CreateDefaultGameState() const;
-  void InitAllObjects(GameServerWorld & game_container) const;
+  void InitAllObjects(GameServerWorld & game_world) const;
 
 protected:
 

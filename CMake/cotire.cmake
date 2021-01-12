@@ -43,7 +43,7 @@ if (NOT CMAKE_SCRIPT_MODE_FILE)
 endif()
 
 set (COTIRE_CMAKE_MODULE_FILE "${CMAKE_CURRENT_LIST_FILE}")
-set (COTIRE_CMAKE_MODULE_VERSION "1.8.0")
+set (COTIRE_CMAKE_MODULE_VERSION "1.8.1")
 
 # activate select policies
 if (POLICY CMP0025)
@@ -677,7 +677,7 @@ function (cotire_get_target_export_symbol _target _exportSymbolVar)
 	get_target_property(_targetType ${_target} TYPE)
 	get_target_property(_enableExports ${_target} ENABLE_EXPORTS)
 	if (_targetType MATCHES "(SHARED|MODULE)_LIBRARY" OR
-		(_targetType STREQUAL "EXECUTABLE" AND _enableExports))
+	(_targetType STREQUAL "EXECUTABLE" AND _enableExports))
 		get_target_property(_exportSymbol ${_target} DEFINE_SYMBOL)
 		if (NOT _exportSymbol)
 			set (_exportSymbol "${_target}_EXPORTS")
@@ -1068,10 +1068,10 @@ macro (cotire_check_ignore_header_file_path _headerFile _headerIsIgnoredVar)
 		set (${_headerIsIgnoredVar} TRUE)
 	elseif (IS_DIRECTORY "${_headerFile}")
 		set (${_headerIsIgnoredVar} TRUE)
-	elseif ("${_headerFile}" MATCHES "\\.\\.|[_-]fixed" AND "${_headerFile}" MATCHES "\\.h$")
-		# heuristic: ignore C headers with embedded parent directory references or "-fixed" or "_fixed" in path
+	elseif ("${_headerFile}" MATCHES "\\.\\.|[_-]fixed")
+		# heuristic: ignore headers with embedded parent directory references or "-fixed" or "_fixed" in path
 		# these often stem from using GCC #include_next tricks, which may break the precompiled header compilation
-		# with the error message "error: no include path in which to search for header.h"
+		# with the error message "error: no include path in which to search for header"
 		set (${_headerIsIgnoredVar} TRUE)
 	else()
 		set (${_headerIsIgnoredVar} FALSE)
@@ -1693,6 +1693,9 @@ function (cotire_add_pch_compilation_flags _language _compilerID _compilerVersio
 				endif()
 			endif()
 		elseif (WIN32)
+			file (TO_NATIVE_PATH "${_prefixFile}" _prefixFileNative)
+			file (TO_NATIVE_PATH "${_pchFile}" _pchFileNative)
+			file (TO_NATIVE_PATH "${_hostFile}" _hostFileNative)
 			# Clang-cl.exe options used
 			# /Yc creates a precompiled header file
 			# /Fp specifies precompiled header binary file name
@@ -1705,10 +1708,10 @@ function (cotire_add_pch_compilation_flags _language _compilerID _compilerVersio
 			if (_flags)
 				# append to list
 				list (APPEND _flags "${_sourceFileType${_language}}"
-						"/Yc${_prefixFile}" "/Fp${_pchFile}" "/FI${_prefixFile}" /Zs "${_hostFile}")
+					"/Yc${_prefixFileNative}" "/Fp${_pchFileNative}" "/FI${_prefixFileNative}" /Zs "${_hostFileNative}")
 			else()
 				# return as a flag string
-				set (_flags "/Yc\"${_prefixFile}\" /Fp\"${_pchFile}\" /FI\"${_prefixFile}\"")
+				set (_flags "/Yc\"${_prefixFileNative}\" /Fp\"${_pchFileNative}\" /FI\"${_prefixFileNative}\"")
 			endif()
 		endif()
 	elseif (_compilerID MATCHES "Intel")
@@ -1842,26 +1845,28 @@ function (cotire_add_prefix_pch_inclusion_flags _language _compilerID _compilerV
 				set (_flags "-include \"${_prefixFile}\"")
 			endif()
 		elseif (WIN32)
+			file (TO_NATIVE_PATH "${_prefixFile}" _prefixFileNative)
 			# Clang-cl.exe options used
 			# /Yu uses a precompiled header file during build
 			# /Fp specifies precompiled header binary file name
 			# /FI forces inclusion of file
 			if (_pchFile)
+				file (TO_NATIVE_PATH "${_pchFile}" _pchFileNative)
 				if (_flags)
 					# append to list
-					list (APPEND _flags "/Yu${_prefixFile}" "/Fp${_pchFile}" "/FI${_prefixFile}")
+					list (APPEND _flags "/Yu${_prefixFileNative}" "/Fp${_pchFileNative}" "/FI${_prefixFileNative}")
 				else()
 					# return as a flag string
-					set (_flags "/Yu\"${_prefixFile}\" /Fp\"${_pchFile}\" /FI\"${_prefixFile}\"")
+					set (_flags "/Yu\"${_prefixFileNative}\" /Fp\"${_pchFileNative}\" /FI\"${_prefixFileNative}\"")
 				endif()
 			else()
 				# no precompiled header, force inclusion of prefix header
 				if (_flags)
 					# append to list
-					list (APPEND _flags "/FI${_prefixFile}")
+					list (APPEND _flags "/FI${_prefixFileNative}")
 				else()
 					# return as a flag string
-					set (_flags "/FI\"${_prefixFile}\"")
+					set (_flags "/FI\"${_prefixFileNative}\"")
 				endif()
 			endif()
 		endif()
@@ -2046,8 +2051,10 @@ function (cotire_check_precompiled_header_support _language _target _msgVar)
 			else()
 				set (_ccacheExe "${_launcher}")
 			endif()
+			# ccache 3.7.0 replaced --print-config with --show-config
+			# use -p instead, which seems to work for all version for now, sigh
 			execute_process(
-				COMMAND "${_ccacheExe}" "--print-config"
+				COMMAND "${_ccacheExe}" "-p"
 				WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 				RESULT_VARIABLE _result
 				OUTPUT_VARIABLE _ccacheConfig OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -2382,7 +2389,7 @@ endfunction()
 function (cotire_setup_pch_file_compilation _language _target _targetScript _prefixFile _pchFile _hostFile)
 	set (_sourceFiles ${ARGN})
 	if (CMAKE_${_language}_COMPILER_ID MATCHES "MSVC|Intel" OR
-		(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
+	(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
 		# for MSVC, Intel and Clang-cl, we attach the precompiled header compilation to the host file
 		# the remaining files include the precompiled header, see cotire_setup_pch_file_inclusion
 		if (_sourceFiles)
@@ -2391,6 +2398,9 @@ function (cotire_setup_pch_file_compilation _language _target _targetScript _pre
 				"${_language}" "${CMAKE_${_language}_COMPILER_ID}" "${CMAKE_${_language}_COMPILER_VERSION}"
 				"${_prefixFile}" "${_pchFile}" "${_hostFile}" _flags)
 			set_property (SOURCE ${_hostFile} APPEND_STRING PROPERTY COMPILE_FLAGS " ${_flags} ")
+			if (COTIRE_DEBUG)
+				message (STATUS "set_property: SOURCE ${_hostFile} APPEND_STRING COMPILE_FLAGS ${_flags}")
+			endif()
 			set_property (SOURCE ${_hostFile} APPEND PROPERTY OBJECT_OUTPUTS "${_pchFile}")
 			# make object file generated from host file depend on prefix header
 			set_property (SOURCE ${_hostFile} APPEND PROPERTY OBJECT_DEPENDS "${_prefixFile}")
@@ -2429,7 +2439,7 @@ endfunction()
 
 function (cotire_setup_pch_file_inclusion _language _target _wholeTarget _prefixFile _pchFile _hostFile)
 	if (CMAKE_${_language}_COMPILER_ID MATCHES "MSVC|Intel" OR
-		(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
+	(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
 		# for MSVC, Intel and clang-cl, we include the precompiled header in all but the host file
 		# the host file does the precompiled header compilation, see cotire_setup_pch_file_compilation
 		set (_sourceFiles ${ARGN})
@@ -2442,6 +2452,9 @@ function (cotire_setup_pch_file_inclusion _language _target _wholeTarget _prefix
 				"${_language}" "${CMAKE_${_language}_COMPILER_ID}" "${CMAKE_${_language}_COMPILER_VERSION}"
 				"${_prefixFile}" "${_pchFile}" _flags)
 			set_property (SOURCE ${_sourceFiles} APPEND_STRING PROPERTY COMPILE_FLAGS " ${_flags} ")
+			if (COTIRE_DEBUG)
+				message (STATUS "set_property: SOURCE ${_sourceFiles} APPEND_STRING COMPILE_FLAGS ${_flags}")
+			endif()
 			# make object files generated from source files depend on precompiled header
 			set_property (SOURCE ${_sourceFiles} APPEND PROPERTY OBJECT_DEPENDS "${_pchFile}")
 		endif()
@@ -2455,6 +2468,9 @@ function (cotire_setup_pch_file_inclusion _language _target _wholeTarget _prefix
 				"${_language}" "${CMAKE_${_language}_COMPILER_ID}" "${CMAKE_${_language}_COMPILER_VERSION}"
 				"${_prefixFile}" "${_pchFile}" _flags)
 			set_property (SOURCE ${_sourceFiles} APPEND_STRING PROPERTY COMPILE_FLAGS " ${_flags} ")
+			if (COTIRE_DEBUG)
+				message (STATUS "set_property: SOURCE ${_sourceFiles} APPEND_STRING COMPILE_FLAGS ${_flags}")
+			endif()
 			# mark sources as cotired to prevent them from being used in another cotired target
 			set_source_files_properties(${_sourceFiles} PROPERTIES COTIRE_TARGET "${_target}")
 		endif()
@@ -2472,6 +2488,9 @@ function (cotire_setup_prefix_file_inclusion _language _target _prefixFile)
 		"${_language}" "${CMAKE_${_language}_COMPILER_ID}" "${CMAKE_${_language}_COMPILER_VERSION}"
 		"${_prefixFile}" "${_pchFile}" _flags)
 	set_property (SOURCE ${_sourceFiles} APPEND_STRING PROPERTY COMPILE_FLAGS " ${_flags} ")
+	if (COTIRE_DEBUG)
+		message (STATUS "set_property: SOURCE ${_sourceFiles} APPEND_STRING COMPILE_FLAGS ${_flags}")
+	endif()
 	# mark sources as cotired to prevent them from being used in another cotired target
 	set_source_files_properties(${_sourceFiles} PROPERTIES COTIRE_TARGET "${_target}")
 	# make object files generated from source files depend on prefix header
@@ -2579,7 +2598,7 @@ function (cotire_setup_target_pch_usage _languages _target _wholeTarget)
 			# for MSVC, Intel and clang-cl, precompiled header inclusion is always done on the source file level
 			# see cotire_setup_pch_file_inclusion
 			if (NOT CMAKE_${_language}_COMPILER_ID MATCHES "MSVC|Intel" AND NOT
-				(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
+			(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
 				get_property(_prefixFile TARGET ${_target} PROPERTY COTIRE_${_language}_PREFIX_HEADER)
 				if (_prefixFile)
 					get_property(_pchFile TARGET ${_target} PROPERTY COTIRE_${_language}_PRECOMPILED_HEADER)
@@ -2588,6 +2607,9 @@ function (cotire_setup_target_pch_usage _languages _target _wholeTarget)
 						"${_language}" "${CMAKE_${_language}_COMPILER_ID}" "${CMAKE_${_language}_COMPILER_VERSION}"
 						"${_prefixFile}" "${_pchFile}" _options)
 					set_property(TARGET ${_target} APPEND PROPERTY ${_options})
+					if (COTIRE_DEBUG)
+						message (STATUS "set_property: TARGET ${_target} APPEND PROPERTY ${_options}")
+					endif()
 				endif()
 			endif()
 		endif()
@@ -3072,7 +3094,7 @@ function (cotire_setup_pch_target _languages _configurations _target)
 		foreach (_language ${_languages})
 			set (_props COTIRE_${_language}_PREFIX_HEADER COTIRE_${_language}_UNITY_SOURCE)
 			if (NOT CMAKE_${_language}_COMPILER_ID MATCHES "MSVC|Intel" AND NOT
-				(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
+			(WIN32 AND CMAKE_${_language}_COMPILER_ID MATCHES "Clang"))
 				# MSVC, Intel and clang-cl only create precompiled header as a side effect
 				list (INSERT _props 0 COTIRE_${_language}_PRECOMPILED_HEADER)
 			endif()
@@ -3845,51 +3867,51 @@ else()
 		CACHED_VARIABLE PROPERTY "COTIRE_ADDITIONAL_PREFIX_HEADER_IGNORE_PATH"
 		BRIEF_DOCS "Ignore headers from these directories when generating the prefix header."
 		FULL_DOCS
-			"The variable can be set to a semicolon separated list of include directories."
-			"If a header file is found in one of these directories or sub-directories, it will be excluded from the generated prefix header."
-			"If not defined, defaults to empty list."
+		"The variable can be set to a semicolon separated list of include directories."
+		"If a header file is found in one of these directories or sub-directories, it will be excluded from the generated prefix header."
+		"If not defined, defaults to empty list."
 	)
 
 	define_property(
 		CACHED_VARIABLE PROPERTY "COTIRE_ADDITIONAL_PREFIX_HEADER_IGNORE_EXTENSIONS"
 		BRIEF_DOCS "Ignore includes with the listed file extensions from the generated prefix header."
 		FULL_DOCS
-			"The variable can be set to a semicolon separated list of file extensions."
-			"If a header file extension matches one in the list, it will be excluded from the generated prefix header."
-			"Includes with an extension in CMAKE_<LANG>_SOURCE_FILE_EXTENSIONS are always ignored."
-			"If not defined, defaults to inc;inl;ipp."
+		"The variable can be set to a semicolon separated list of file extensions."
+		"If a header file extension matches one in the list, it will be excluded from the generated prefix header."
+		"Includes with an extension in CMAKE_<LANG>_SOURCE_FILE_EXTENSIONS are always ignored."
+		"If not defined, defaults to inc;inl;ipp."
 	)
 
 	define_property(
 		CACHED_VARIABLE PROPERTY "COTIRE_UNITY_SOURCE_EXCLUDE_EXTENSIONS"
 		BRIEF_DOCS "Exclude sources with the listed file extensions from the generated unity source."
 		FULL_DOCS
-			"The variable can be set to a semicolon separated list of file extensions."
-			"If a source file extension matches one in the list, it will be excluded from the generated unity source file."
-			"Source files with an extension in CMAKE_<LANG>_IGNORE_EXTENSIONS are always excluded."
-			"If not defined, defaults to m;mm."
+		"The variable can be set to a semicolon separated list of file extensions."
+		"If a source file extension matches one in the list, it will be excluded from the generated unity source file."
+		"Source files with an extension in CMAKE_<LANG>_IGNORE_EXTENSIONS are always excluded."
+		"If not defined, defaults to m;mm."
 	)
 
 	define_property(
 		CACHED_VARIABLE PROPERTY "COTIRE_MINIMUM_NUMBER_OF_TARGET_SOURCES"
 		BRIEF_DOCS "Minimum number of sources in target required to enable use of precompiled header."
 		FULL_DOCS
-			"The variable can be set to an integer > 0."
-			"If a target contains less than that number of source files, cotire will not enable the use of the precompiled header for the target."
-			"If not defined, defaults to 2."
+		"The variable can be set to an integer > 0."
+		"If a target contains less than that number of source files, cotire will not enable the use of the precompiled header for the target."
+		"If not defined, defaults to 2."
 	)
 
 	define_property(
 		CACHED_VARIABLE PROPERTY "COTIRE_MAXIMUM_NUMBER_OF_UNITY_INCLUDES"
 		BRIEF_DOCS "Maximum number of source files to include in a single unity source file."
 		FULL_DOCS
-			"This may be set to an integer >= 0."
-			"If 0, cotire will only create a single unity source file."
-			"If a target contains more than that number of source files, cotire will create multiple unity source files for it."
-			"Can be set to \"-j\" to optimize the count of unity source files for the number of available processor cores."
-			"Can be set to \"-j jobs\" to optimize the number of unity source files for the given number of simultaneous jobs."
-			"Is used to initialize the target property COTIRE_UNITY_SOURCE_MAXIMUM_NUMBER_OF_INCLUDES."
-			"Defaults to \"-j\" for the generators Visual Studio, JOM or Ninja. Defaults to 0 otherwise."
+		"This may be set to an integer >= 0."
+		"If 0, cotire will only create a single unity source file."
+		"If a target contains more than that number of source files, cotire will create multiple unity source files for it."
+		"Can be set to \"-j\" to optimize the count of unity source files for the number of available processor cores."
+		"Can be set to \"-j jobs\" to optimize the number of unity source files for the given number of simultaneous jobs."
+		"Is used to initialize the target property COTIRE_UNITY_SOURCE_MAXIMUM_NUMBER_OF_INCLUDES."
+		"Defaults to \"-j\" for the generators Visual Studio, JOM or Ninja. Defaults to 0 otherwise."
 	)
 
 	# define cotire directory properties
@@ -3898,70 +3920,70 @@ else()
 		DIRECTORY PROPERTY "COTIRE_ENABLE_PRECOMPILED_HEADER"
 		BRIEF_DOCS "Modify build command of cotired targets added in this directory to make use of the generated precompiled header."
 		FULL_DOCS
-			"See target property COTIRE_ENABLE_PRECOMPILED_HEADER."
+		"See target property COTIRE_ENABLE_PRECOMPILED_HEADER."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_ADD_UNITY_BUILD"
 		BRIEF_DOCS "Add a new target that performs a unity build for cotired targets added in this directory."
 		FULL_DOCS
-			"See target property COTIRE_ADD_UNITY_BUILD."
+		"See target property COTIRE_ADD_UNITY_BUILD."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_ADD_CLEAN"
 		BRIEF_DOCS "Add a new target that cleans all cotire generated files for cotired targets added in this directory."
 		FULL_DOCS
-			"See target property COTIRE_ADD_CLEAN."
+		"See target property COTIRE_ADD_CLEAN."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_PREFIX_HEADER_IGNORE_PATH"
 		BRIEF_DOCS "Ignore headers from these directories when generating the prefix header."
 		FULL_DOCS
-			"See target property COTIRE_PREFIX_HEADER_IGNORE_PATH."
+		"See target property COTIRE_PREFIX_HEADER_IGNORE_PATH."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_PREFIX_HEADER_INCLUDE_PATH"
 		BRIEF_DOCS "Honor headers from these directories when generating the prefix header."
 		FULL_DOCS
-			"See target property COTIRE_PREFIX_HEADER_INCLUDE_PATH."
+		"See target property COTIRE_PREFIX_HEADER_INCLUDE_PATH."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_PREFIX_HEADER_INCLUDE_PRIORITY_PATH"
 		BRIEF_DOCS "Header paths matching one of these directories are put at the top of the prefix header."
 		FULL_DOCS
-			"See target property COTIRE_PREFIX_HEADER_INCLUDE_PRIORITY_PATH."
+		"See target property COTIRE_PREFIX_HEADER_INCLUDE_PRIORITY_PATH."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_UNITY_SOURCE_PRE_UNDEFS"
 		BRIEF_DOCS "Preprocessor undefs to place in the generated unity source file before the inclusion of each source file."
 		FULL_DOCS
-			"See target property COTIRE_UNITY_SOURCE_PRE_UNDEFS."
+		"See target property COTIRE_UNITY_SOURCE_PRE_UNDEFS."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_UNITY_SOURCE_POST_UNDEFS"
 		BRIEF_DOCS "Preprocessor undefs to place in the generated unity source file after the inclusion of each source file."
 		FULL_DOCS
-			"See target property COTIRE_UNITY_SOURCE_POST_UNDEFS."
+		"See target property COTIRE_UNITY_SOURCE_POST_UNDEFS."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_UNITY_SOURCE_MAXIMUM_NUMBER_OF_INCLUDES"
 		BRIEF_DOCS "Maximum number of source files to include in a single unity source file."
 		FULL_DOCS
-			"See target property COTIRE_UNITY_SOURCE_MAXIMUM_NUMBER_OF_INCLUDES."
+		"See target property COTIRE_UNITY_SOURCE_MAXIMUM_NUMBER_OF_INCLUDES."
 	)
 
 	define_property(
 		DIRECTORY PROPERTY "COTIRE_UNITY_LINK_LIBRARIES_INIT"
 		BRIEF_DOCS "Define strategy for setting up the unity target's link libraries."
 		FULL_DOCS
-			"See target property COTIRE_UNITY_LINK_LIBRARIES_INIT."
+		"See target property COTIRE_UNITY_LINK_LIBRARIES_INIT."
 	)
 
 	# define cotire target properties
@@ -3970,162 +3992,162 @@ else()
 		TARGET PROPERTY "COTIRE_ENABLE_PRECOMPILED_HEADER" INHERITED
 		BRIEF_DOCS "Modify this target's build command to make use of the generated precompiled header."
 		FULL_DOCS
-			"If this property is set to TRUE, cotire will modify the build command to make use of the generated precompiled header."
-			"Irrespective of the value of this property, cotire will setup custom commands to generate the unity source and prefix header for the target."
-			"For makefile based generators cotire will also set up a custom target to manually invoke the generation of the precompiled header."
-			"The target name will be set to this target's name with the suffix _pch appended."
-			"Inherited from directory."
-			"Defaults to TRUE."
+		"If this property is set to TRUE, cotire will modify the build command to make use of the generated precompiled header."
+		"Irrespective of the value of this property, cotire will setup custom commands to generate the unity source and prefix header for the target."
+		"For makefile based generators cotire will also set up a custom target to manually invoke the generation of the precompiled header."
+		"The target name will be set to this target's name with the suffix _pch appended."
+		"Inherited from directory."
+		"Defaults to TRUE."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_ADD_UNITY_BUILD" INHERITED
 		BRIEF_DOCS "Add a new target that performs a unity build for this target."
 		FULL_DOCS
-			"If this property is set to TRUE, cotire creates a new target of the same type that uses the generated unity source file instead of the target sources."
-			"Most of the relevant target properties will be copied from this target to the new unity build target."
-			"Target dependencies and linked libraries have to be manually set up for the new unity build target."
-			"The unity target name will be set to this target's name with the suffix _unity appended."
-			"Inherited from directory."
-			"Defaults to TRUE."
+		"If this property is set to TRUE, cotire creates a new target of the same type that uses the generated unity source file instead of the target sources."
+		"Most of the relevant target properties will be copied from this target to the new unity build target."
+		"Target dependencies and linked libraries have to be manually set up for the new unity build target."
+		"The unity target name will be set to this target's name with the suffix _unity appended."
+		"Inherited from directory."
+		"Defaults to TRUE."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_ADD_CLEAN" INHERITED
 		BRIEF_DOCS "Add a new target that cleans all cotire generated files for this target."
 		FULL_DOCS
-			"If this property is set to TRUE, cotire creates a new target that clean all files (unity source, prefix header, precompiled header)."
-			"The clean target name will be set to this target's name with the suffix _clean_cotire appended."
-			"Inherited from directory."
-			"Defaults to FALSE."
+		"If this property is set to TRUE, cotire creates a new target that clean all files (unity source, prefix header, precompiled header)."
+		"The clean target name will be set to this target's name with the suffix _clean_cotire appended."
+		"Inherited from directory."
+		"Defaults to FALSE."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_PREFIX_HEADER_IGNORE_PATH" INHERITED
 		BRIEF_DOCS "Ignore headers from these directories when generating the prefix header."
 		FULL_DOCS
-			"The property can be set to a list of directories."
-			"If a header file is found in one of these directories or sub-directories, it will be excluded from the generated prefix header."
-			"Inherited from directory."
-			"If not set, this property is initialized to \${CMAKE_SOURCE_DIR};\${CMAKE_BINARY_DIR}."
+		"The property can be set to a list of directories."
+		"If a header file is found in one of these directories or sub-directories, it will be excluded from the generated prefix header."
+		"Inherited from directory."
+		"If not set, this property is initialized to \${CMAKE_SOURCE_DIR};\${CMAKE_BINARY_DIR}."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_PREFIX_HEADER_INCLUDE_PATH" INHERITED
 		BRIEF_DOCS "Honor headers from these directories when generating the prefix header."
 		FULL_DOCS
-			"The property can be set to a list of directories."
-			"If a header file is found in one of these directories or sub-directories, it will be included in the generated prefix header."
-			"If a header file is both selected by COTIRE_PREFIX_HEADER_IGNORE_PATH and COTIRE_PREFIX_HEADER_INCLUDE_PATH,"
-			"the option which yields the closer relative path match wins."
-			"Inherited from directory."
-			"If not set, this property is initialized to the empty list."
+		"The property can be set to a list of directories."
+		"If a header file is found in one of these directories or sub-directories, it will be included in the generated prefix header."
+		"If a header file is both selected by COTIRE_PREFIX_HEADER_IGNORE_PATH and COTIRE_PREFIX_HEADER_INCLUDE_PATH,"
+		"the option which yields the closer relative path match wins."
+		"Inherited from directory."
+		"If not set, this property is initialized to the empty list."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_PREFIX_HEADER_INCLUDE_PRIORITY_PATH" INHERITED
 		BRIEF_DOCS "Header paths matching one of these directories are put at the top of prefix header."
 		FULL_DOCS
-			"The property can be set to a list of directories."
-			"Header file paths matching one of these directories will be inserted at the beginning of the generated prefix header."
-			"Header files are sorted according to the order of the directories in the property."
-			"If not set, this property is initialized to the empty list."
+		"The property can be set to a list of directories."
+		"Header file paths matching one of these directories will be inserted at the beginning of the generated prefix header."
+		"Header files are sorted according to the order of the directories in the property."
+		"If not set, this property is initialized to the empty list."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_UNITY_SOURCE_PRE_UNDEFS" INHERITED
 		BRIEF_DOCS "Preprocessor undefs to place in the generated unity source file before the inclusion of each target source file."
 		FULL_DOCS
-			"This may be set to a semicolon-separated list of preprocessor symbols."
-			"cotire will add corresponding #undef directives to the generated unit source file before each target source file."
-			"Inherited from directory."
-			"Defaults to empty string."
+		"This may be set to a semicolon-separated list of preprocessor symbols."
+		"cotire will add corresponding #undef directives to the generated unit source file before each target source file."
+		"Inherited from directory."
+		"Defaults to empty string."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_UNITY_SOURCE_POST_UNDEFS" INHERITED
 		BRIEF_DOCS "Preprocessor undefs to place in the generated unity source file after the inclusion of each target source file."
 		FULL_DOCS
-			"This may be set to a semicolon-separated list of preprocessor symbols."
-			"cotire will add corresponding #undef directives to the generated unit source file after each target source file."
-			"Inherited from directory."
-			"Defaults to empty string."
+		"This may be set to a semicolon-separated list of preprocessor symbols."
+		"cotire will add corresponding #undef directives to the generated unit source file after each target source file."
+		"Inherited from directory."
+		"Defaults to empty string."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_UNITY_SOURCE_MAXIMUM_NUMBER_OF_INCLUDES" INHERITED
 		BRIEF_DOCS "Maximum number of source files to include in a single unity source file."
 		FULL_DOCS
-			"This may be set to an integer > 0."
-			"If a target contains more than that number of source files, cotire will create multiple unity build files for it."
-			"If not set, cotire will only create a single unity source file."
-			"Inherited from directory."
-			"Defaults to empty."
+		"This may be set to an integer > 0."
+		"If a target contains more than that number of source files, cotire will create multiple unity build files for it."
+		"If not set, cotire will only create a single unity source file."
+		"Inherited from directory."
+		"Defaults to empty."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_<LANG>_UNITY_SOURCE_INIT"
 		BRIEF_DOCS "User provided unity source file to be used instead of the automatically generated one."
 		FULL_DOCS
-			"If set, cotire will only add the given file(s) to the generated unity source file."
-			"If not set, cotire will add all the target source files to the generated unity source file."
-			"The property can be set to a user provided unity source file."
-			"Defaults to empty."
+		"If set, cotire will only add the given file(s) to the generated unity source file."
+		"If not set, cotire will add all the target source files to the generated unity source file."
+		"The property can be set to a user provided unity source file."
+		"Defaults to empty."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_<LANG>_PREFIX_HEADER_INIT"
 		BRIEF_DOCS "User provided prefix header file to be used instead of the automatically generated one."
 		FULL_DOCS
-			"If set, cotire will add the given header file(s) to the generated prefix header file."
-			"If not set, cotire will generate a prefix header by tracking the header files included by the unity source file."
-			"The property can be set to a user provided prefix header file (e.g., stdafx.h)."
-			"Defaults to empty."
+		"If set, cotire will add the given header file(s) to the generated prefix header file."
+		"If not set, cotire will generate a prefix header by tracking the header files included by the unity source file."
+		"The property can be set to a user provided prefix header file (e.g., stdafx.h)."
+		"Defaults to empty."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_UNITY_LINK_LIBRARIES_INIT" INHERITED
 		BRIEF_DOCS "Define strategy for setting up unity target's link libraries."
 		FULL_DOCS
-			"If this property is empty or set to NONE, the generated unity target's link libraries have to be set up manually."
-			"If this property is set to COPY, the unity target's link libraries will be copied from this target."
-			"If this property is set to COPY_UNITY, the unity target's link libraries will be copied from this target with considering existing unity targets."
-			"Inherited from directory."
-			"Defaults to empty."
+		"If this property is empty or set to NONE, the generated unity target's link libraries have to be set up manually."
+		"If this property is set to COPY, the unity target's link libraries will be copied from this target."
+		"If this property is set to COPY_UNITY, the unity target's link libraries will be copied from this target with considering existing unity targets."
+		"Inherited from directory."
+		"Defaults to empty."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_<LANG>_UNITY_SOURCE"
 		BRIEF_DOCS "Read-only property. The generated <LANG> unity source file(s)."
 		FULL_DOCS
-			"cotire sets this property to the path of the generated <LANG> single computation unit source file for the target."
-			"Defaults to empty string."
+		"cotire sets this property to the path of the generated <LANG> single computation unit source file for the target."
+		"Defaults to empty string."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_<LANG>_PREFIX_HEADER"
 		BRIEF_DOCS "Read-only property. The generated <LANG> prefix header file."
 		FULL_DOCS
-			"cotire sets this property to the full path of the generated <LANG> language prefix header for the target."
-			"Defaults to empty string."
+		"cotire sets this property to the full path of the generated <LANG> language prefix header for the target."
+		"Defaults to empty string."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_<LANG>_PRECOMPILED_HEADER"
 		BRIEF_DOCS "Read-only property. The generated <LANG> precompiled header file."
 		FULL_DOCS
-			"cotire sets this property to the full path of the generated <LANG> language precompiled header binary for the target."
-			"Defaults to empty string."
+		"cotire sets this property to the full path of the generated <LANG> language precompiled header binary for the target."
+		"Defaults to empty string."
 	)
 
 	define_property(
 		TARGET PROPERTY "COTIRE_UNITY_TARGET_NAME"
 		BRIEF_DOCS "The name of the generated unity build target corresponding to this target."
 		FULL_DOCS
-			"This property can be set to the desired name of the unity target that will be created by cotire."
-			"If not set, the unity target name will be set to this target's name with the suffix _unity appended."
-			"After this target has been processed by cotire, the property is set to the actual name of the generated unity target."
-			"Defaults to empty string."
+		"This property can be set to the desired name of the unity target that will be created by cotire."
+		"If not set, the unity target name will be set to this target's name with the suffix _unity appended."
+		"After this target has been processed by cotire, the property is set to the actual name of the generated unity target."
+		"Defaults to empty string."
 	)
 
 	# define cotire source properties
@@ -4134,58 +4156,57 @@ else()
 		SOURCE PROPERTY "COTIRE_EXCLUDED"
 		BRIEF_DOCS "Do not modify source file's build command."
 		FULL_DOCS
-			"If this property is set to TRUE, the source file's build command will not be modified to make use of the precompiled header."
-			"The source file will also be excluded from the generated unity source file."
-			"Source files that have their COMPILE_FLAGS property set will be excluded by default."
-			"Defaults to FALSE."
+		"If this property is set to TRUE, the source file's build command will not be modified to make use of the precompiled header."
+		"The source file will also be excluded from the generated unity source file."
+		"Source files that have their COMPILE_FLAGS property set will be excluded by default."
+		"Defaults to FALSE."
 	)
 
 	define_property(
 		SOURCE PROPERTY "COTIRE_DEPENDENCY"
 		BRIEF_DOCS "Add this source file to dependencies of the automatically generated prefix header file."
 		FULL_DOCS
-			"If this property is set to TRUE, the source file is added to dependencies of the generated prefix header file."
-			"If the file is modified, cotire will re-generate the prefix header source upon build."
-			"Defaults to FALSE."
+		"If this property is set to TRUE, the source file is added to dependencies of the generated prefix header file."
+		"If the file is modified, cotire will re-generate the prefix header source upon build."
+		"Defaults to FALSE."
 	)
 
 	define_property(
 		SOURCE PROPERTY "COTIRE_UNITY_SOURCE_PRE_UNDEFS"
 		BRIEF_DOCS "Preprocessor undefs to place in the generated unity source file before the inclusion of this source file."
 		FULL_DOCS
-			"This may be set to a semicolon-separated list of preprocessor symbols."
-			"cotire will add corresponding #undef directives to the generated unit source file before this file is included."
-			"Defaults to empty string."
+		"This may be set to a semicolon-separated list of preprocessor symbols."
+		"cotire will add corresponding #undef directives to the generated unit source file before this file is included."
+		"Defaults to empty string."
 	)
 
 	define_property(
 		SOURCE PROPERTY "COTIRE_UNITY_SOURCE_POST_UNDEFS"
 		BRIEF_DOCS "Preprocessor undefs to place in the generated unity source file after the inclusion of this source file."
 		FULL_DOCS
-			"This may be set to a semicolon-separated list of preprocessor symbols."
-			"cotire will add corresponding #undef directives to the generated unit source file after this file is included."
-			"Defaults to empty string."
+		"This may be set to a semicolon-separated list of preprocessor symbols."
+		"cotire will add corresponding #undef directives to the generated unit source file after this file is included."
+		"Defaults to empty string."
 	)
 
 	define_property(
 		SOURCE PROPERTY "COTIRE_START_NEW_UNITY_SOURCE"
 		BRIEF_DOCS "Start a new unity source file which includes this source file as the first one."
 		FULL_DOCS
-			"If this property is set to TRUE, cotire will complete the current unity file and start a new one."
-			"The new unity source file will include this source file as the first one."
-			"This property essentially works as a separator for unity source files."
-			"Defaults to FALSE."
+		"If this property is set to TRUE, cotire will complete the current unity file and start a new one."
+		"The new unity source file will include this source file as the first one."
+		"This property essentially works as a separator for unity source files."
+		"Defaults to FALSE."
 	)
 
 	define_property(
 		SOURCE PROPERTY "COTIRE_TARGET"
 		BRIEF_DOCS "Read-only property. Mark this source file as cotired for the given target."
 		FULL_DOCS
-			"cotire sets this property to the name of target, that the source file's build command has been altered for."
-			"Defaults to empty string."
+		"cotire sets this property to the name of target, that the source file's build command has been altered for."
+		"Defaults to empty string."
 	)
 
 	message (STATUS "cotire ${COTIRE_CMAKE_MODULE_VERSION} loaded.")
 
 endif()
-

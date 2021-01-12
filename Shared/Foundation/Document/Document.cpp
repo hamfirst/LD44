@@ -518,7 +518,7 @@ void Document::CheckForCompleteLoad()
 
   for (auto & link : m_Links)
   {
-    if (link.m_Loaded == false)
+    if (!link.m_Loaded)
     {
       all_load_complete = false;
       break;
@@ -531,14 +531,14 @@ void Document::CheckForCompleteLoad()
 
     for (auto & link : m_Links)
     {
-      if (link.m_Error == true)
+      if (link.m_Error)
       {
         load_success = false;
         break;
       }
     }
 
-    if (load_success == false)
+    if (!load_success)
     {
       SetDependentError();
     }
@@ -555,7 +555,7 @@ void Document::CheckForFixedLoad()
 
   for (auto & link : m_Links)
   {
-    if (link.m_Error == true)
+    if (link.m_Error)
     {
       load_success = false;
       break;
@@ -583,7 +583,7 @@ void Document::ProcessLinkLoad(DocumentLinkData & link)
   {
     ReflectionChangeNotification change;
     change.m_Type = ReflectionNotifyChangeType::kSet;
-    change.m_Path = link.m_Link.m_LocalPath.data();
+    change.m_Path = link.m_Link.m_LocalPath;
     json->Encode(change.m_Data);
 
     m_ChangeHandler(m_FileId, this, change);
@@ -606,7 +606,6 @@ void Document::SetCompletedLoad()
   {
     return;
   }
-
 
   m_Compiled = m_FileJson;
   for (auto & link : m_Links)

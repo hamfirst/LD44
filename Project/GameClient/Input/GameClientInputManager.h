@@ -2,7 +2,7 @@
 
 #include "Engine/Input/InputState.h"
 
-#include "Game/GameNetworkData.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
 
 class GameContainer;
 class GameClientEventSender;

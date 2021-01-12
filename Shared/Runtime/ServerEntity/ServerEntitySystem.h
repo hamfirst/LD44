@@ -16,6 +16,7 @@ public:
   czstr GetEntityBindingForInitDataTypeNameHash(uint32_t init_data_type_name_hash);
 
   const ServerEntityTypeInfo & GetTypeInfo(int type_index) const;
+  const std::vector<ServerEntityTypeInfo> & GetAllTypes() const;
 
 private:
 
@@ -24,10 +25,9 @@ private:
   NotNullPtr<ServerEntity> AllocateEntity(std::size_t type_index);
   NotNullPtr<ServerEntity> DuplicateEntity(NotNullPtr<const ServerEntity> rhs);
 
-  void InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data, GameServerWorld & game_container);
+  void InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data, NotNullPtr<GameServerWorld> game_world);
   void CopyEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntity> rhs);
   void FreeEntity(NotNullPtr<ServerEntity> entity);
-  void ResetEntityHandles(NotNullPtr<ServerEntity> entity, const ServerEntityManager & obj_manager);
   void FinalizeType(ServerEntityTypeInfo & type);
   
 private:

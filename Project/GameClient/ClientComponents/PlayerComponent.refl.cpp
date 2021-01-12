@@ -5,7 +5,7 @@
 #include "Engine/Entity/ClientEntitySystem.h"
 #include "Engine/Audio/AudioManager.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.meta.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.meta.h"
 
 #include "GameClient/GameContainer.h"
 #include "GameClient/ClientComponents/PlayerComponent.refl.h"

@@ -62,7 +62,7 @@ czstr ServerEntity::GetEntityBinding() const
   return GetDefaultEntityBinding();
 }
 
-Optional<int> ServerEntity::GetAssociatedPlayer(GameServerWorld & game_container) const
+Optional<int> ServerEntity::GetAssociatedPlayer(GameServerWorld & game_world) const
 {
   return {};
 }
@@ -80,11 +80,6 @@ bool ServerEntity::IsDestroyed() const
 int ServerEntity::GetSlotIndex() const
 {
   return m_SlotIndex;
-}
-
-int ServerEntity::GetLifetime() const
-{
-  return std::min(m_FramesAlive, 7);
 }
 
 int ServerEntity::GetTypeIndex() const

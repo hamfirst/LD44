@@ -3,7 +3,7 @@
 #include <StormNet/NetServer.h>
 
 #include "GameShared/GameProtocol.h"
-#include "GameShared/GameStageManager.h"
+#include "Project/GameShared/Level/GameStageManager.h"
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 

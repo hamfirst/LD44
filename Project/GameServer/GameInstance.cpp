@@ -6,9 +6,9 @@
 #include "GameServer/GameInstanceStateBase.h"
 #include "GameServer.h"
 
-#include "Game/GameMessages.refl.meta.h"
-#include "Game/GameFullState.refl.meta.h"
-#include "Game/GameStage.h"
+#include "GameProject/GameMessages.refl.meta.h"
+#include "GameProject/GameFullState.refl.meta.h"
+#include "GameProject/GameStage.h"
 
 
 #include <sb/vector.h>

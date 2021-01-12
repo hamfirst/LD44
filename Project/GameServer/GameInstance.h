@@ -3,7 +3,7 @@
 #include "Foundation/Common.h"
 #include "Foundation/CircularBuffer/CircularBuffer.h"
 
-#include "GameShared/GameServerWorld.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 #include "GameShared/GameEventReconciler.h"
 
 #include "LobbyShared/SharedTypes.refl.h"
@@ -11,11 +11,11 @@
 #include "ProjectSettings/ProjectNetworkSettings.h"
 
 
-#include "Game/GameMessages.refl.h"
-#include "Game/GameNetworkData.refl.h"
-#include "Game/GameSimulationEventCallbacks.h"
-#include "Game/GameFullState.refl.h"
-#include "Game/GameController.refl.h"
+#include "GameProject/GameMessages.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
+#include "GameProject/GameSimulationEventCallbacks.h"
+#include "GameProject/GameFullState.refl.h"
+#include "GameProject/GameController.refl.h"
 #include "GameServer/GameInstanceStateData.h"
 
 class GameClientConnection;

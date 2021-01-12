@@ -14,6 +14,7 @@ include("${PROJECT_SOURCE_DIR}/CMake/cotire.cmake")
 
 set(GENERIC_SRC_GameClient 
             Camera/GameCamera.cpp
+            Camera/GameCameraManager.cpp
             ClientComponents/PlayerComponent.refl.cpp
             ClientComponents/PlayerComponent.refl.reg.cpp
             ClientComponents/Reusable/AttachVfxComponent.refl.cpp
@@ -25,13 +26,8 @@ set(GENERIC_SRC_GameClient
             EffectLayers/CollisionDrawer.refl.cpp
             EffectLayers/CollisionDrawer.refl.reg.cpp
             GameClientCommon.cpp
-            GameClientController.refl.cpp
-            GameClientInstanceContainer.cpp
-            GameClientInstanceResources.cpp
             GameClientLevelLoader.cpp
-            GameClientSystems.cpp
             GameContainer.cpp
-            GameServerEventResponder.cpp
             Input/GameClientInputManager.cpp
             Modes/GameMode.cpp
             Modes/GameModeConnectingGame.cpp
@@ -65,26 +61,15 @@ set(GENERIC_SRC_GameClient
 
 set(GENERIC_HEADER_GameClient 
             Camera/GameCamera.h
+            Camera/GameCameraManager.h
             ClientComponents/PlayerComponent.refl.h
-            ClientComponents/PlayerComponent.refl.meta.h
             ClientComponents/Reusable/AttachVfxComponent.refl.h
-            ClientComponents/Reusable/AttachVfxComponent.refl.meta.h
             ClientComponents/Reusable/PlayAnimationComponent.refl.h
-            ClientComponents/Reusable/PlayAnimationComponent.refl.meta.h
             ClientComponents/Reusable/SyncServerObjectComponent.refl.h
-            ClientComponents/Reusable/SyncServerObjectComponent.refl.meta.h
             EffectLayers/CollisionDrawer.refl.h
-            EffectLayers/CollisionDrawer.refl.meta.h
             GameClientCommon.h
-            GameClientController.refl.h
-            GameClientController.refl.meta.h
-            GameClientEventSender.h
-            GameClientInstanceContainer.h
-            GameClientInstanceResources.h
             GameClientLevelLoader.h
-            GameClientSystems.h
             GameContainer.h
-            GameServerEventResponder.h
             Input/GameClientInputManager.h
             Modes/GameMode.h
             Modes/GameModeConnectingGame.h
@@ -112,10 +97,8 @@ set(GENERIC_HEADER_GameClient
             Network/GameNetworkClient.h
             Save/GameClientSave.h
             Save/GameClientSaveFileData.refl.h
-            Save/GameClientSaveFileData.refl.meta.h
             Shaders/GameShaders.h
             UI/GameClientUIData.refl.h
-            UI/GameClientUIData.refl.meta.h
             UI/GameClientUIManager.h
             #HEADER_PLACEHOLDER
             )
@@ -126,7 +109,6 @@ set(GENERIC_REFL_GameClient
             ClientComponents/Reusable/PlayAnimationComponent.refl.h
             ClientComponents/Reusable/SyncServerObjectComponent.refl.h
             EffectLayers/CollisionDrawer.refl.h
-            GameClientController.refl.h
             Save/GameClientSaveFileData.refl.h
             UI/GameClientUIData.refl.h
             #REFL_PLACEHOLDER

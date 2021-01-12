@@ -6,14 +6,14 @@
 
 #include <cwctype>
 
-#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS) && !defined(_INCLUDEOS)
+#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS)
 #include <filesystem>
 namespace fs = std::filesystem;
 #endif
 
 bool ConvertToCanonicalPath(std::string & path, const std::string & root_path)
 {
-#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS) && !defined(_INCLUDEOS)
+#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS)
 
   auto fs_path = fs::path(path);
   auto filename = fs_path.filename();
@@ -51,7 +51,7 @@ bool ConvertToCanonicalPath(std::string & path, const std::string & root_path)
 
 std::string GetCanonicalRootPath()
 {
-#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS) && !defined(_INCLUDEOS)
+#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS)
   auto current_path = fs::current_path();
   auto canonical_path = fs::canonical(current_path);
   auto root_path = canonical_path.string();
@@ -88,7 +88,7 @@ std::string GetCanonicalRootPath()
 
 std::string GetFullPath(const std::string & path, const std::string & root_path)
 {
-#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS) && !defined(_INCLUDEOS)
+#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS)
   if (fs::path(path).is_absolute())
   {
     std::error_code ec;
@@ -121,7 +121,7 @@ std::string GetFullPath(const std::string & path, const std::string & root_path)
 
 std::string JoinPath(const std::string & path_part1, const std::string & path_part2)
 {
-#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS) && !defined(_INCLUDEOS)
+#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS)
   return (fs::path(path_part1) / path_part2).string();
 #else
 
@@ -138,7 +138,7 @@ std::string JoinPath(const std::string & path_part1, const std::string & path_pa
 
 bool CreateDirectory(const std::string & path)
 {
-#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS) && !defined(_INCLUDEOS)
+#if !defined(_WEB) && !defined(_ANDROID) && !defined(_IOS)
   std::error_code ec;
   fs::create_directories(path.data(), ec);
 

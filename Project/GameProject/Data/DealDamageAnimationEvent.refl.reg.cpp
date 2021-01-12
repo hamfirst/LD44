@@ -1,6 +1,6 @@
 
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
 #include "StormData/StormData.h"
 #include "StormData/StormDataTypeDatabase.h"
@@ -11,8 +11,8 @@
 
 #include "Foundation/PropertyMeta/PropertyFieldMetaFuncs.h"
 
-#include "Game/Data/DealDamageAnimationEvent.refl.h"
-#include "Game/Data/DealDamageAnimationEvent.refl.meta.h"
+#include "GameProject/Data/DealDamageAnimationEvent.refl.h"
+#include "GameProject/Data/DealDamageAnimationEvent.refl.meta.h"
 
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(DealDamageAnimationEvent);
 REGISTER_TYPE(DealDamageAnimationEvent, SpriteAnimationEventDataBase);

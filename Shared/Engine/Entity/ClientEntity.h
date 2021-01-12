@@ -101,18 +101,6 @@ public:
   bool SyncToFrame(uint32_t anim_name_hash, int frame);
   Box GetDrawingFrame() const;
   void SetParent(NullOptPtr<ClientEntity> entity);
-  NullOptPtr<ServerEntity> GetServerObject(int history_index = 0);
-
-  template <typename ServerObjectType>
-  NullOptPtr<ServerObjectType> GetServerObjectAs()
-  {
-    if(m_ServerEntityManager == nullptr)
-    {
-      return nullptr;
-    }
-
-    return m_ServerObject.ResolveTo<ServerObjectType>(*m_ServerEntityManager);
-  }
 
   void SetRotation(bool flip_x, bool flip_y, float rotation = 0);
   void SetCustomDrawingCallback(EntityCustomDraw && draw_callback);

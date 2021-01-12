@@ -235,6 +235,11 @@ public:
     return m_Config.template CastTo<T>();
   }
 
+  NotNullPtr<GameServerWorld> GetWorld()
+  {
+    return m_Entity->m_ServerWorld;
+  }
+
   void Clear()
   {
     if(m_Entity)

@@ -14,6 +14,7 @@ set(GENERIC_SRC_mbedtls
             aes.c
             aesni.c
             arc4.c
+            aria.c
             asn1parse.c
             asn1write.c
             base64.c
@@ -22,6 +23,8 @@ set(GENERIC_SRC_mbedtls
             camellia.c
             ccm.c
             certs.c
+            chacha20.c
+            chachapoly.c
             cipher.c
             cipher_wrap.c
             cmac.c
@@ -39,14 +42,15 @@ set(GENERIC_SRC_mbedtls
             error.c
             gcm.c
             havege.c
+            hkdf.c
             hmac_drbg.c
             md.c
             md2.c
             md4.c
             md5.c
-            md_wrap.c
             memory_buffer_alloc.c
             net_sockets.c
+            nist_kw.c
             oid.c
             padlock.c
             pem.c
@@ -58,6 +62,8 @@ set(GENERIC_SRC_mbedtls
             pkparse.c
             pkwrite.c
             platform.c
+            platform_util.c
+            poly1305.c
             ripemd160.c
             rsa.c
             rsa_internal.c
@@ -68,12 +74,13 @@ set(GENERIC_SRC_mbedtls
             ssl_ciphersuites.c
             ssl_cli.c
             ssl_cookie.c
+            ssl_msg.c
             ssl_srv.c
             ssl_ticket.c
             ssl_tls.c
+            ssl_tls13_keys.c
             threading.c
             timing.c
-            timing_alt.c
             version.c
             version_features.c
             x509.c
@@ -90,6 +97,7 @@ set(GENERIC_HEADER_mbedtls
             aes.h
             aesni.h
             arc4.h
+            aria.h
             asn1.h
             asn1write.h
             base64.h
@@ -99,12 +107,30 @@ set(GENERIC_HEADER_mbedtls
             camellia.h
             ccm.h
             certs.h
+            chacha20.h
+            chachapoly.h
             check_config.h
+            check_crypto_config.h
             cipher.h
             cipher_internal.h
             cmac.h
+            common.h
             compat-1.3.h
             config.h
+            config_psa.h
+            crypto.h
+            crypto_accel_driver.h
+            crypto_compat.h
+            crypto_config.h
+            crypto_driver_common.h
+            crypto_entropy_driver.h
+            crypto_extra.h
+            crypto_platform.h
+            crypto_se_driver.h
+            crypto_sizes.h
+            crypto_struct.h
+            crypto_types.h
+            crypto_values.h
             ctr_drbg.h
             debug.h
             des.h
@@ -119,6 +145,7 @@ set(GENERIC_HEADER_mbedtls
             error.h
             gcm.h
             havege.h
+            hkdf.h
             hmac_drbg.h
             md.h
             md2.h
@@ -128,6 +155,7 @@ set(GENERIC_HEADER_mbedtls
             memory_buffer_alloc.h
             net.h
             net_sockets.h
+            nist_kw.h
             oid.h
             padlock.h
             pem.h
@@ -138,6 +166,8 @@ set(GENERIC_HEADER_mbedtls
             pkcs5.h
             platform.h
             platform_time.h
+            platform_util.h
+            poly1305.h
             ripemd160.h
             rsa.h
             rsa_internal.h
@@ -149,10 +179,12 @@ set(GENERIC_HEADER_mbedtls
             ssl_ciphersuites.h
             ssl_cookie.h
             ssl_internal.h
+            ssl_invasive.h
             ssl_ticket.h
+            ssl_tls13_keys.h
             threading.h
+            threading_alt.h
             timing.h
-            timing_alt.h
             version.h
             x509.h
             x509_crl.h

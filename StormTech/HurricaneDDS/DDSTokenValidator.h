@@ -1,9 +1,9 @@
 #pragma once
 
+#include <string>
 #include <unordered_map>
 
 #include "DDSDeferredCallbackSystem.h"
-
 
 class DDSTokenValidator : public DDSDeferredCallbackSystem<uint64_t, uint64_t, bool, const std::string &>
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameShared/GameSharedCommon.h"
-#include "GameShared/GameServerWorld.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 #include "Runtime/ServerEntity/ServerEntity.h"
 
 class GameServerEntityBase;
@@ -11,7 +11,7 @@ class CVCPushSystem
 public:
 
   void SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServerEntityBase> obj);
-  void ProcessCVC(GameServerWorld & game_container);
+  void ProcessCVC(GameServerWorld & game_world);
 
   void Clear();
 

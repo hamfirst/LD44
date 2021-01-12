@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/ServerEntities/Pickups/PickupBase.refl.h"
+#include "GameProject/ServerEntities/Pickups/PickupBase.refl.h"
 
 #include "Runtime/ServerEntity/ServerEntity.h"
 #include "Runtime/ServerEntity/ServerEntityInitData.refl.h"
@@ -25,8 +25,8 @@ public:
   HealthPickup & operator = (const HealthPickup & rhs) = default;
   HealthPickup & operator = (HealthPickup && rhs) = default;
 
-  bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container) override;
-  void PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container) override;
+  bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world) override;
+  void PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world) override;
 
   virtual czstr GetDefaultEntityBinding() const override;
   virtual const SpritePtr & GetSprite() const override;

@@ -2,12 +2,12 @@
 #include "GameShared/GameSharedCommon.h"
 #include "GameShared/Systems/TargetDatabase.h"
 
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
 #include "Runtime/Collision/CollisionDatabase.h"
 
-void TargetDatabase::PushTarget(NotNullPtr<GameServerEntityBase> obj, GameServerWorld & game_container)
+void TargetDatabase::PushTarget(NotNullPtr<GameServerEntityBase> obj, GameServerWorld & game_world)
 {
   TargetData target_data;
   target_data.m_Handle = obj->GetEntityHandle();
@@ -29,7 +29,7 @@ void TargetDatabase::PushTarget(NotNullPtr<GameServerEntityBase> obj, GameServer
 
 std::vector<ServerEntityHandle> TargetDatabase::QueryForTargets(NotNullPtr<GameServerEntityBase> src, GameNetVal vision_cone_angle,
         GameNetVal vision_distance, const GameNetVec2 & vision_forward, uint32_t collision_mask,
-        NullOptPtr<CollisionDatabase> collision_database, GameServerWorld & game_container)
+        NullOptPtr<CollisionDatabase> collision_database, GameServerWorld & game_world)
 {
   std::vector<ServerEntityHandle> targets;
 

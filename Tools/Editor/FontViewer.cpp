@@ -125,7 +125,7 @@ void FontViewer::paintGL()
   RenderVec2 tex_center = RenderVec2{ g_EngineSettings.m_FontCacheSize, g_EngineSettings.m_FontCacheSize } * 0.5f;
   RenderVec2 window_center = RenderVec2{ width(), height() } * 0.5f;
 
-  m_Shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState.GetFullRenderDimensions());
+  m_Shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState.GetShaderScreenSizeValue());
   m_Shader.SetUniform(COMPILE_TIME_CRC32_STR("u_StartPos"), window_center - (tex_center - m_Center) * m_Magnification.Get());
   m_Shader.SetUniform(COMPILE_TIME_CRC32_STR("u_EndPos"), window_center + (tex_center + m_Center) * m_Magnification.Get());
   m_Shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);

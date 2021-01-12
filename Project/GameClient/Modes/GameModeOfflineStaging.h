@@ -4,7 +4,7 @@
 #include "Foundation/Sequencer/Sequencer.h"
 
 #include "GameClient/Modes/GameMode.h"
-#include "Game/GameNetworkData.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
 
 #include "Engine/UI/UIManager.h"
 

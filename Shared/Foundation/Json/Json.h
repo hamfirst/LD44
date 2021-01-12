@@ -7,9 +7,11 @@
 #include "Foundation/Json/JsonArray.h"
 #include "Foundation/Json/JsonDictionary.h"
 
-
 #include "StormRefl/StormReflMetaFuncs.h"
 #include "StormData/StormDataChangeNotifier.h"
+
+struct JsonParentAndPath;
+class JsonDictionaryIterator;
 
 enum class JsonParseResult
 {
@@ -18,10 +20,6 @@ enum class JsonParseResult
   kNull,
 };
 
-enum class JsonState
-{
-
-};
 
 class Json
 {
@@ -37,7 +35,7 @@ public:
 
   JsonType GetType() const
   {
-    return (JsonType)m_JsonData->GetCurrentTypeIndex();
+    return (JsonType)m_JsonData.GetCurrentTypeIndex();
   }
 
   void Encode(std::string & sb);
@@ -59,21 +57,13 @@ protected:
 
   JsonParseResult Parse(czstr data, czstr & result, bool allow_null);
 
-  struct ParentAndPath
-  {
-    NullOptPtr<Json> m_Json;
-    NullOptPtr<Json> m_Parent;
-    Optional<ObjectType::iterator> m_Iterator;
-  };
+  JsonParentAndPath GetJsonAndParentAtPath(czstr path, NullOptPtr<Json> parent, czstr & created_node_path_end, std::string_view & parent_key);
 
-  ParentAndPath GetJsonAndParentAtPath(czstr path, NullOptPtr<Json> parent, czstr & created_node_path_end);
-
-  void ApplyChangeDirect(const ReflectionChangeNotification & change, NullOptPtr<ReflectionChangeNotification> reverse_change, 
-    Json * parent_node, ObjectType::iterator * itr, const std::string & created_node_path);
+  void ApplyChangeDirect(const ReflectionChangeNotification & change, NullOptPtr<ReflectionChangeNotification> reverse_change,
+    NullOptPtr<Json> parent_node, const std::string_view & parent_key, const std::string & created_node_path);
 
 private:
 
   using JsonDataType = Variant<void *, bool, uint64_t, int64_t, float, std::string, ArrayType, ObjectType>;
-
-  std::unique_ptr<JsonDataType> m_JsonData;
+  JsonDataType m_JsonData;
 };

@@ -83,7 +83,7 @@ uint32_t CollisionDrawer::GetCollisionMask(GameContainer & game_container)
       }
     }
 
-    if (has_player == false)
+    if (!has_player)
     {
       collision_mask |= (1 << team);
     }

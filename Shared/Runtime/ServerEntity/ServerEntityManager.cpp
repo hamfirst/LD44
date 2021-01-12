@@ -8,10 +8,12 @@
 
 #include "StormNet/NetBitUtil.h"
 
-ServerEntityManager::ServerEntityManager(const std::vector<ServerEntityStaticInitData> & static_entities,
+ServerEntityManager::ServerEntityManager(NotNullPtr<GameServerWorld> world,
+                                         const std::vector<ServerEntityStaticInitData> & static_entities,
                                          const std::vector<ServerEntityStaticInitData> & dynamic_entities,
                                          int max_dynamic_entities, int num_reserved_slots)
 {
+  m_World = world;
   m_Initialized = false;
   m_InUpdateLoop = false;
 
@@ -22,10 +24,10 @@ ServerEntityManager::ServerEntityManager(const std::vector<ServerEntityStaticIni
   for (auto & obj : static_entities)
   {
     auto ptr = g_ServerEntitySystem.AllocateEntity(obj.m_TypeIndex);
+    ptr->m_World = m_World;
     ptr->m_IsStatic = true;
     ptr->m_TypeIndex = (int)obj.m_TypeIndex;
     ptr->m_SlotIndex = -1;
-    ptr->m_FramesAlive = 0;
     ptr->m_ServerEntityHandle.m_SlotId = slot_index;
     ptr->m_ServerEntityHandle.m_Gen = 0;
     ptr->m_EventDispatch = ptr->GetEventDispatch();
@@ -70,6 +72,7 @@ ServerEntityManager::ServerEntityManager(const ServerEntityManager & rhs)
   {
     auto ptr = g_ServerEntitySystem.DuplicateEntity(obj);
     ptr->m_SlotIndex = -1;
+    ptr->m_World = m_World;
     m_StaticEntities.emplace_back(ptr);
   }
 
@@ -80,6 +83,7 @@ ServerEntityManager::ServerEntityManager(const ServerEntityManager & rhs)
   {
     auto ptr = g_ServerEntitySystem.DuplicateEntity(obj.second.m_ServerEntity);
     ptr->m_SlotIndex = (int)obj.first;
+    ptr->m_World = m_World;
     m_DynamicEntities.EmplaceAt(obj.first, DynamicEntityInfo{ ptr, obj.second.m_TypeIndex, obj.second.m_Original });
   }
 
@@ -87,6 +91,7 @@ ServerEntityManager::ServerEntityManager(const ServerEntityManager & rhs)
   {
     auto ptr = g_ServerEntitySystem.DuplicateEntity(obj.m_ServerEntity);
     ptr->m_SlotIndex = -1;
+    ptr->m_World = m_World;
     m_UnsyncedEntities.emplace_back(DynamicEntityInfo{ ptr, obj.m_TypeIndex, obj.m_Original });
   }
 
@@ -132,7 +137,7 @@ ServerEntityManager & ServerEntityManager::operator = (const ServerEntityManager
       {
         if (m_DynamicEntities[index].m_TypeIndex == rhs.m_DynamicEntities[index].m_TypeIndex)
         {
-            g_ServerEntitySystem.CopyEntity(m_DynamicEntities[index].m_ServerEntity, rhs.m_DynamicEntities[index].m_ServerEntity);
+          g_ServerEntitySystem.CopyEntity(m_DynamicEntities[index].m_ServerEntity, rhs.m_DynamicEntities[index].m_ServerEntity);
           continue;
         }
 
@@ -141,6 +146,7 @@ ServerEntityManager & ServerEntityManager::operator = (const ServerEntityManager
 
       auto ptr = g_ServerEntitySystem.DuplicateEntity(rhs.m_DynamicEntities[index].m_ServerEntity);
       ptr->m_SlotIndex = (int)index;
+      ptr->m_World = m_World;
       m_DynamicEntities.EmplaceAt(index, DynamicEntityInfo{ ptr, rhs.m_DynamicEntities[index].m_TypeIndex });
     }
     else
@@ -164,6 +170,7 @@ ServerEntityManager & ServerEntityManager::operator = (const ServerEntityManager
     auto ptr = g_ServerEntitySystem.DuplicateEntity(obj.m_ServerEntity);
     ptr->m_SlotIndex = -1;
     ptr->m_IsUnsynced = true;
+    ptr->m_World = m_World;
     m_UnsyncedEntities.emplace_back(DynamicEntityInfo{ ptr, obj.m_TypeIndex, obj.m_Original });
   }
 
@@ -210,31 +217,13 @@ NullOptPtr<ServerEntity> ServerEntityManager::ResolveMapHandle(const MapServerEn
   }
 
   slot_index -= (int)m_StaticEntities.size();
-  if (m_DynamicEntities[slot_index].m_Original == false)
+  if (!m_DynamicEntities[slot_index].m_Original)
   {
     return nullptr;
   }
 
   auto ptr = m_DynamicEntities.TryGet(slot_index);
   return ptr ? const_cast<ServerEntity *>(ptr->m_ServerEntity) : nullptr;
-}
-
-void ServerEntityManager::IncrementTimeAlive()
-{
-  for (auto & obj : m_StaticEntities)
-  {
-    obj->m_FramesAlive++;
-  }
-
-  for (auto obj : m_DynamicEntities)
-  {
-    obj.second.m_ServerEntity->m_FramesAlive++;
-  }
-
-  for (auto & obj : m_UnsyncedEntities)
-  {
-    obj.m_ServerEntity->m_FramesAlive++;
-  }
 }
 
 void ServerEntityManager::CreateUpdateList(ServerEntityUpdateList & update_list)
@@ -306,9 +295,6 @@ void ServerEntityManager::Serialize(NetBitWriter & writer) const
       auto original = obj->m_Original;
       so_writer.WriteBits(original ? 1 : 0, 1);
 
-      auto lifetime = std::min(7, obj->m_ServerEntity->m_FramesAlive);
-      so_writer.WriteBits((uint64_t)lifetime, 3);
-
       g_ServerEntitySystem.m_EntityTypes[type_index].m_EntitySerialize(obj->m_ServerEntity, so_writer);
       g_ServerEntitySystem.m_EntityTypes[type_index].m_ComponentSerialize(obj->m_ServerEntity, so_writer);
     }
@@ -341,14 +327,12 @@ void ServerEntityManager::Deserialize(NetBitReader & reader)
     {
       auto type_index = so_reader.ReadUBits(GetRequiredBits(g_ServerEntitySystem.m_EntityTypes.size() - 1));
       auto original = so_reader.ReadUBits(1) != 0;
-      auto lifetime = so_reader.ReadUBits(3);
 
       if (obj)
       {
         if (obj->m_TypeIndex == type_index)
         {
           g_ServerEntitySystem.m_EntityTypes[type_index].m_EntityDeserialize(obj->m_ServerEntity, so_reader);
-          obj->m_ServerEntity->m_FramesAlive = (int)lifetime;
           obj->m_Original = original;
 
           obj->m_ServerEntity->InitStaticComponents();
@@ -366,7 +350,6 @@ void ServerEntityManager::Deserialize(NetBitReader & reader)
       ptr->m_ServerEntityHandle.m_SlotId = (int)slot_index + (int)m_StaticEntities.size();
       ptr->m_ServerEntityHandle.m_Gen = m_DynamicEntityGen[slot_index];
       ptr->m_EventDispatch = ptr->GetEventDispatch();
-      ptr->m_FramesAlive = (int)lifetime;
 
       m_DynamicEntities.EmplaceAt((std::size_t)slot_index, DynamicEntityInfo{ptr, (std::size_t)type_index, original});
 
@@ -412,7 +395,7 @@ bool ServerEntityManager::CompleteUpdateLoop()
 void ServerEntityManager::InitAllEntities(
         const std::vector<ServerEntityStaticInitData> & static_entities,
         const std::vector<ServerEntityStaticInitData> & dynamic_entities,
-        GameServerWorld & game_container)
+        GameServerWorld & game_world)
 {
   if(m_Initialized)
   {
@@ -423,8 +406,7 @@ void ServerEntityManager::InitAllEntities(
   for (auto & obj : static_entities)
   {
     auto type_index = m_StaticEntities[slot_index]->m_TypeIndex;
-    g_ServerEntitySystem.m_EntityTypes[type_index].m_EntityInit(m_StaticEntities[slot_index],
-      obj.m_InitData.GetValue(), game_container);
+    g_ServerEntitySystem.m_EntityTypes[type_index].m_EntityInit(m_StaticEntities[slot_index], obj.m_InitData.GetValue(), m_World);
 
     m_StaticEntities[slot_index]->InitPosition(obj.m_InitPosition);
     m_StaticEntities[slot_index]->InitStaticComponents();
@@ -439,8 +421,7 @@ void ServerEntityManager::InitAllEntities(
     {
       auto type_index = ptr->m_TypeIndex;
 
-      g_ServerEntitySystem.m_EntityTypes[type_index].m_EntityInit(ptr,
-        obj.m_InitData.GetValue(), game_container);
+      g_ServerEntitySystem.m_EntityTypes[type_index].m_EntityInit(ptr, obj.m_InitData.GetValue(), m_World);
 
       ptr->InitPosition(obj.m_InitPosition);
       ptr->InitStaticComponents();
@@ -456,7 +437,7 @@ int ServerEntityManager::GetNewDynamicEntityId()
 {
   for (std::size_t index = m_ReservedSlots, end = m_MaxDynamicEntities; index < end; index++)
   {
-    if (m_DynamicEntities.HasAt(index) == false)
+    if (!m_DynamicEntities.HasAt(index))
     {
       return (int)index;
     }
@@ -466,7 +447,7 @@ int ServerEntityManager::GetNewDynamicEntityId()
 }
 
 NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int type_index, bool unsynced,
-        NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container)
+        NullOptPtr<const ServerEntityInitData> init_data, bool original)
 {
   auto slot_index = GetNewDynamicEntityId();
   if (slot_index == -1)
@@ -474,11 +455,11 @@ NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int ty
     return nullptr;
   }
 
-  return CreateDynamicEntityInternal(type_index, slot_index, unsynced, init_data, original, game_container);
+  return CreateDynamicEntityInternal(type_index, slot_index, unsynced, init_data, original);
 }
 
 NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int type_index, int slot_index, bool unsynced,
-        NullOptPtr<const ServerEntityInitData> init_data, bool original, GameServerWorld & game_container)
+        NullOptPtr<const ServerEntityInitData> init_data, bool original)
 {
   auto ptr = g_ServerEntitySystem.AllocateEntity(type_index);
   ptr->m_IsStatic = false;
@@ -487,9 +468,9 @@ NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int ty
   ptr->m_SlotIndex = slot_index;
   ptr->m_EventDispatch = ptr->GetEventDispatch();
 
-  if(unsynced == false)
+  if(!unsynced)
   {
-    ptr->m_ServerEntityHandle.m_SlotId = slot_index + (int) m_StaticEntities.size();
+    ptr->m_ServerEntityHandle.m_SlotId = slot_index + (int)m_StaticEntities.size();
     ptr->m_ServerEntityHandle.m_Gen = m_DynamicEntityGen[slot_index];
 
     m_DynamicEntities.EmplaceAt((std::size_t)slot_index, DynamicEntityInfo{ptr, (std::size_t)type_index, original});
@@ -504,7 +485,7 @@ NullOptPtr<ServerEntity> ServerEntityManager::CreateDynamicEntityInternal(int ty
 
   if(m_Initialized)
   {
-    g_ServerEntitySystem.InitEntity(ptr, init_data, game_container);
+    g_ServerEntitySystem.InitEntity(ptr, init_data, m_World);
     ptr->InitStaticComponents();
   }
 
@@ -539,7 +520,7 @@ void ServerEntityManager::DestroyDynamicEntityInternal(NotNullPtr<ServerEntity> 
   auto slot_index = ptr->m_ServerEntityHandle.m_SlotId - m_StaticEntities.size();
   ASSERT(slot_index >= 0, "Attempting to free a static entity");
 
-  if (m_DynamicEntities.HasAt(slot_index) == false)
+  if (!m_DynamicEntities.HasAt(slot_index))
   {
     ASSERT(slot_index >= 0, "Attempting to free an already freed entity");
     return;
@@ -549,30 +530,6 @@ void ServerEntityManager::DestroyDynamicEntityInternal(NotNullPtr<ServerEntity> 
   
   g_ServerEntitySystem.FreeEntity(m_DynamicEntities[slot_index].m_ServerEntity);
   m_DynamicEntities.RemoveAt(slot_index);
-}
-
-void ServerEntityManager::FinalizeHandles()
-{
-  for (auto & obj : m_StaticEntities)
-  {
-    g_ServerEntitySystem.ResetEntityHandles(obj, *this);
-  }
-
-  for (auto obj : m_DynamicEntities)
-  {
-    g_ServerEntitySystem.ResetEntityHandles(obj.second.m_ServerEntity, *this);
-  }
-
-  for (auto & obj : m_UnsyncedEntities)
-  {
-    g_ServerEntitySystem.ResetEntityHandles(obj.m_ServerEntity, *this);
-  }
-
-  for (auto & gen : m_DynamicEntityGen)
-  {
-    gen = 0;
-  }
-
 }
 
 NullOptPtr<ServerEntity> ServerEntityManager::ResolveHandle(int slot_index, int gen) const
@@ -621,5 +578,10 @@ NullOptPtr<ServerEntity> ServerEntityManager::GetReservedSlotEntityInternal(std:
 
   auto dynamic_entity_info = m_DynamicEntities.TryGet(slot_index);
   return dynamic_entity_info && dynamic_entity_info->m_TypeIndex == type_index ? dynamic_entity_info->m_ServerEntity : nullptr;
+}
+
+int ServerEntityManager::GetDynamicEntityGeneration(int slot_id) const
+{
+  return m_DynamicEntityGen.size() > slot_id ? m_DynamicEntityGen[slot_id] : 0;
 }
 

@@ -6,8 +6,8 @@
 #include "Foundation/Time/FrameClock.h"
 #include "Foundation/Time/FPSClock.h"
 
-#include "GameShared/GameLevelList.h"
-#include "GameShared/GameStageManager.h"
+#include "Project/GameShared/Level/GameLevelList.h"
+#include "Project/GameShared/Level/GameStageManager.h"
 
 #include "GameServer/GameServer.h"
 

@@ -22,13 +22,13 @@ NotNullPtr<ServerEntity> ServerEntitySystem::DuplicateEntity(NotNullPtr<const Se
   auto entity = m_EntityTypes[type_index].m_EntityDuplicate(rhs);
   entity->m_TypeIndex = type_index;
   entity->m_EventDispatch = rhs->m_EventDispatch;
-  entity->m_FramesAlive = rhs->m_FramesAlive;
   return entity;
 }
 
-void ServerEntitySystem::InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data, GameServerWorld & game_container)
+void ServerEntitySystem::InitEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntityInitData> init_data,
+  NotNullPtr<GameServerWorld> game_world)
 {
-  m_EntityTypes[entity->m_TypeIndex].m_EntityInit(entity, init_data, game_container);
+  m_EntityTypes[entity->m_TypeIndex].m_EntityInit(entity, init_data, game_world);
 }
 
 void ServerEntitySystem::CopyEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<const ServerEntity> rhs)
@@ -38,17 +38,11 @@ void ServerEntitySystem::CopyEntity(NotNullPtr<ServerEntity> entity, NotNullPtr<
   auto type_index = rhs->m_TypeIndex;
   m_EntityTypes[type_index].m_EntityCopy(entity, rhs);
   entity->m_EventDispatch = rhs->m_EventDispatch;
-  entity->m_FramesAlive = rhs->m_FramesAlive;
 }
 
 void ServerEntitySystem::FreeEntity(NotNullPtr<ServerEntity> entity)
 {
   m_EntityTypes[entity->m_TypeIndex].m_EntityDestroy(entity);
-}
-
-void ServerEntitySystem::ResetEntityHandles(NotNullPtr<ServerEntity> entity, const ServerEntityManager & obj_manager)
-{
-  m_EntityTypes[entity->m_TypeIndex].m_EntityResetHandles(entity, obj_manager);
 }
 
 void ServerEntitySystem::RegisterType(const ServerEntityTypeInfo & type_info)
@@ -192,4 +186,9 @@ czstr ServerEntitySystem::GetEntityBindingForInitDataTypeNameHash(uint32_t init_
 const ServerEntityTypeInfo & ServerEntitySystem::GetTypeInfo(int type_index) const
 {
   return m_EntityTypes[type_index];
+}
+
+const std::vector<ServerEntityTypeInfo> & ServerEntitySystem::GetAllTypes() const
+{
+  return m_EntityTypes;
 }

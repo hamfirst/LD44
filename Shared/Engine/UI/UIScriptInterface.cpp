@@ -311,7 +311,7 @@ void UIScriptInterface::DrawSprite(int sprite_id, int x, int y, bool flip_x, boo
     screen_bounds = RenderVec4{ -1.0f, -1.0f, 1.0f, 1.0f };
   }
 
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetFullRenderDimensions());
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetShaderScreenSizeValue());
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Bounds"), screen_bounds);
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ColorMatrix"), Mat4f());
 
@@ -374,7 +374,7 @@ void UIScriptInterface::DrawAtlas(int atlas_id, std::string & elem_name, int x, 
     screen_bounds = RenderVec4{ -1.0f, -1.0f, 1.0f, 1.0f };
   }
 
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetFullRenderDimensions());
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetShaderScreenSizeValue());
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), RenderVec2{ m_DrawArea.m_Start });
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), RenderVec4{ 1.0f, 0, 0, 1.0f });
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);
@@ -469,7 +469,7 @@ void UIScriptInterface::DrawTextureInternal(int texture_id, int x, int y, float 
     screen_bounds = RenderVec4{ -1.0f, -1.0f, 1.0f, 1.0f };
   }
 
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetFullRenderDimensions());
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetShaderScreenSizeValue());
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), RenderVec2{ m_DrawArea.m_Start });
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), RenderVec4{ 1.0, 0, 0, 1.0 });
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);
@@ -579,7 +579,7 @@ void UIScriptInterface::FlushGeometry()
     screen_bounds = RenderVec4{ -1.0f, -1.0f, 1.0f, 1.0f };
   }
 
-  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetFullRenderDimensions());
+  shader.SetUniform(COMPILE_TIME_CRC32_STR("u_ScreenSize"), m_RenderState->GetShaderScreenSizeValue());
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Offset"), RenderVec2{ m_DrawArea.m_Start });
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Matrix"), RenderVec4{ 1.0f, 0, 0, 1.0f });
   shader.SetUniform(COMPILE_TIME_CRC32_STR("u_Texture"), 0);

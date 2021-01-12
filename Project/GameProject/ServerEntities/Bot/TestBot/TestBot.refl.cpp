@@ -1,12 +1,12 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/GameController.refl.h"
-#include "Game/GameServerEventSender.h"
+#include "GameProject/GameController.refl.h"
+#include "GameProject/GameServerEventSender.h"
 
-#include "Game/ServerEntities/Bot/BotBehaviorTree.h"
-#include "Game/ServerEntities/Bot/TestBot/TestBot.refl.h"
-#include "Game/ServerEntities/Bot/TestBot/TestBot.refl.meta.h"
+#include "GameProject/ServerEntities/Bot/BotBehaviorTree.h"
+#include "GameProject/ServerEntities/Bot/TestBot/TestBot.refl.h"
+#include "GameProject/ServerEntities/Bot/TestBot/TestBot.refl.meta.h"
 
 #include "Runtime/ClientEntity/ClientEntityResource.h"
 
@@ -24,17 +24,17 @@ TestBot::TestBot()
   m_Tree.SetBehaviorTree(&BehaviorTreeTemplate);
 }
 
-void TestBot::Init(const TestBotInitData & init_data, GameServerWorld & game_container)
+void TestBot::Init(const TestBotInitData & init_data, GameServerWorld & game_world)
 {
 
 }
 
-void TestBot::UpdateFirst(GameServerWorld & game_container)
+void TestBot::UpdateFirst(GameServerWorld & game_world)
 {
   BotServerObject::UpdateFirst(game_container);
 }
 
-void TestBot::UpdateMiddle(GameServerWorld & game_container)
+void TestBot::UpdateMiddle(GameServerWorld & game_world)
 {
   BotServerObject::UpdateMiddle(game_container);
 }

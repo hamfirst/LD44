@@ -6,7 +6,7 @@
 #include "GameClient/Modes/GameModeConnectingGame.h"
 #include "GameClient/GameContainer.h"
 
-#include "GameShared/GameLevelListAsset.refl.meta.h"
+#include "Project/GameShared/Level/GameLevelListAsset.refl.meta.h"
 
 #include "Engine/Asset/TextureAsset.h"
 #include "Engine/Text/TextManager.h"

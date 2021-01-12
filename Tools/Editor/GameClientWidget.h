@@ -7,8 +7,8 @@
 #include "Engine/Window/FakeWindow.h"
 #include "Engine/Rendering/RenderState.h"
 
-#include "GameShared/GameLevelList.h"
-#include "GameShared/GameStageManager.h"
+#include "Project/GameShared/Level/GameLevelList.h"
+#include "Project/GameShared/Level/GameStageManager.h"
 
 #include "GameClient/GameContainer.h"
 

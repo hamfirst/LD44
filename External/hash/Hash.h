@@ -110,6 +110,16 @@ inline Hash crc32(const std::string & str)
   return crc32(str.data());
 }
 
+inline Hash crc32(const std::string_view & str)
+{
+  Hash hash = crc32begin();
+  for(char c : str)
+  {
+    hash = crc32additive(hash, c);
+  }
+  return crc32end(hash);
+}
+
 inline Hash crc32lowercase(czstr str)
 {
   Hash hash = crc32begin();

@@ -1,15 +1,14 @@
 #pragma once
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "GameShared/Systems/GameLogicSystems.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
-#include "Game/ServerEntities/Projectile/ProjectileConfig.refl.h"
-#include "Game/ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/ServerEntities/Projectile/ProjectileConfig.refl.h"
+#include "GameProject/ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h"
 
 #include "Runtime/Asset/Asset.h"
 #include "Runtime/Sprite/SpriteResource.h"
@@ -52,20 +51,20 @@ public:
   ProjectileServerEntity & operator = (const ProjectileServerEntity & rhs) = default;
   ProjectileServerEntity & operator = (ProjectileServerEntity && rhs) = default;
 
-  void Init(const ProjectileServerEntityInitData & init_data, GameServerWorld & game_container);
-  void UpdateFirst(GameServerWorld & game_container);
-  void UpdateLast(GameServerWorld & game_container);
+  void Init(const ProjectileServerEntityInitData & init_data, GameServerWorld & game_world);
+  void UpdateFirst(GameServerWorld & game_world);
+  void UpdateLast(GameServerWorld & game_world);
 
-  void HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result, GameServerWorld & game_container);
-  void HandleRangeExpired(GameServerWorld & game_container);
+  void HandleImpact(NullOptPtr<CollisionDatabaseTraceResult> collision_result, GameServerWorld & game_world);
+  void HandleRangeExpired(GameServerWorld & game_world);
 
   static NotNullPtr<ProjectileServerEntity> SpawnProjectile(const GameNetVec2 & pos, const GameNetVec2 & dir,
           int team_index, const ServerEntityHandle & handle,
-          const ConfigPtr<ProjectileConfig> & config, GameServerWorld & game_container);
+          const ConfigPtr<ProjectileConfig> & config, GameServerWorld & game_world);
 
   virtual czstr GetEntityBinding() const override;
   virtual czstr GetDefaultEntityBinding() const override;
-  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_container) const override;
+  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_world) const override;
   virtual void InitStaticComponents() override;
 
 public:

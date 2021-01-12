@@ -12,7 +12,7 @@
 #include "StormNet/NetReflectionStruct.h"
 #include "StormNet/NetReflectionTypeDatabase.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateBase.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBase.refl.h"
 
 class PlayerStateJump : public PlayerStateBase, public PlayerStateEventHandler<PlayerStateJump>
 {
@@ -22,9 +22,9 @@ public:
   void AllowGraceJump();
   bool CanGraceJump() const;
 
-  virtual void Move(PlayerServerEntity & player, GameServerWorld & game_container) override;
-  virtual void Transition(PlayerServerEntity & player, GameServerWorld & game_container) override;
-  virtual void Animate(PlayerServerEntity & player, GameServerWorld & game_container) override;
+  virtual void Move(PlayerServerEntity & player, GameServerWorld & game_world) override;
+  virtual void Transition(PlayerServerEntity & player, GameServerWorld & game_world) override;
+  virtual void Animate(PlayerServerEntity & player, GameServerWorld & game_world) override;
 
 public:
 

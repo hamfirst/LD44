@@ -1,18 +1,18 @@
 
 #pragma once
 
-#include "Game/GameCommon.h"
-#include "Game/GameServerTypes.h"
-#include "GameShared/GameServerWorld.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameServerTypes.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateBase.refl.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateBase.refl.h"
 
-#include "Game/GameplayEvents/PlaceholderEvent.h"
-#include "Game/GameplayEvents/PickupEvents.h"
-#include "Game/Data/DealDamageAnimationEvent.refl.h"
+#include "GameProject/GameplayEvents/PlaceholderEvent.h"
+#include "GameProject/GameplayEvents/PickupEvents.h"
+#include "GameProject/Data/DealDamageAnimationEvent.refl.h"
 
-#include "Game/ServerEntities/Player/PlayerConfig.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerConfig.refl.h"
 
 #include "Runtime/Sprite/SpriteResource.h"
 #include "Runtime/Config/ConfigResource.h"
@@ -72,26 +72,26 @@ public:
   PlayerServerEntity & operator = (const PlayerServerEntity & rhs) = default;
   PlayerServerEntity & operator = (PlayerServerEntity && rhs) = default;
 
-  void Init(const PlayerServerEntityInitData & init_data, GameServerWorld & game_container);
-  void UpdateFirst(GameServerWorld & game_container);
-  void UpdateMiddle(GameServerWorld & game_container);
-  void UpdateLast(GameServerWorld & game_container);
+  void Init(const PlayerServerEntityInitData & init_data, GameServerWorld & game_world);
+  void UpdateFirst(GameServerWorld & game_world);
+  void UpdateMiddle(GameServerWorld & game_world);
+  void UpdateLast(GameServerWorld & game_world);
 
-  void ResetState(GameServerWorld & game_container);
+  void ResetState(GameServerWorld & game_world);
 
-  MoverResult MoveCheckCollisionDatabase(GameServerWorld & game_container, const GameNetVec2 & extra_movement = {});
+  MoverResult MoveCheckCollisionDatabase(GameServerWorld & game_world, const GameNetVec2 & extra_movement = {});
 
 #ifdef PLATFORMER_MOVEMENT
-  void Jump(GameServerWorld & game_container);
+  void Jump(GameServerWorld & game_world);
 #endif
 
 #ifdef NET_USE_AIM_DIRECTION
-  void Fire(GameServerWorld & game_container);
+  void Fire(GameServerWorld & game_world);
 #endif
 
-  void Use(GameServerWorld & game_container);
+  void Use(GameServerWorld & game_world);
 
-  void RemoveFromGame(GameServerWorld & game_container);
+  void RemoveFromGame(GameServerWorld & game_world);
 
   bool SERVER_ENTITY_EVENT_HANDLER HandlePlaceholderEvent(const PlaceholderEvent & ev, const EventMetaData & meta);
   bool SERVER_ENTITY_EVENT_HANDLER HandleDamageEvent(const DamageEvent & ev, const EventMetaData & meta);
@@ -100,8 +100,8 @@ public:
 
   virtual Optional<AnimationState> GetAnimationState() const override;
   virtual void SetAnimationState(const AnimationState & anim_state) override;
-  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_container) const override;
-  virtual int GetTeam(GameServerWorld & game_container) const;
+  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_world) const override;
+  virtual int GetTeam(GameServerWorld & game_world) const;
 
   virtual const SpritePtr & GetSprite() const override;
   virtual Optional<CharacterFacing> GetFacing() const override;
@@ -111,7 +111,7 @@ public:
   virtual czstr GetDefaultEntityBinding() const override;
 
   template <typename State>
-  NullOptPtr<State> TransitionToState(GameServerWorld & game_container)
+  NullOptPtr<State> TransitionToState(GameServerWorld & game_world)
   {
     NetPolymorphic<PlayerStateBase> new_state(NetPolymorphicTypeInit<State>{});
     m_State->Cleanup(*this, game_container);
@@ -128,7 +128,7 @@ public:
   }
 
   // Vampire
-  void PoofToBat(GameServerWorld & game_container, bool play_audio);
+  void PoofToBat(GameServerWorld & game_world, bool play_audio);
   void GiveHealth(int health);
   void RefillAmmo();
   int GetMaxHealth();

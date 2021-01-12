@@ -12,19 +12,6 @@
 
 #include "Runtime/Asset/Asset.h"
 
-
-NullOptPtr<ServerEntityManager> GetServerEntityManager(NotNullPtr<GameContainer> game)
-{
-  auto instance_data = game->GetInstanceData();
-  return instance_data ? &instance_data->GetFullState().m_ServerEntityManager : nullptr;
-}
-
-NullOptPtr<ServerEntityManager> GetServerEntityManager(NotNullPtr<GameContainer> game, int history_index)
-{
-  auto instance_data = game->GetInstanceData();
-  return instance_data ? &instance_data->GetHistoryState(history_index).m_ServerEntityManager : nullptr;
-}
-
 GameContainer::GameContainer(Window & window, std::unique_ptr<GameContainerInitSettings> && init_settings) :
   m_EngineState(this, window),
   m_LevelList(),
@@ -102,16 +89,6 @@ NullOptPtr<GameClientInstanceContainer> GameContainer::GetInstanceData()
 void GameContainer::SetInstanceData(NullOptPtr<GameClientInstanceContainer> instance_data)
 {
   m_ClientInstanceData = instance_data;
-}
-
-NullOptPtr<GameClientSystems> GameContainer::GetClientSystems()
-{
-  return m_ClientSystems;
-}
-
-void GameContainer::SetClientSystems(NullOptPtr<GameClientSystems> client_systems)
-{
-  m_ClientSystems = client_systems;
 }
 
 void GameContainer::ResetAllGameplaySystems()
@@ -223,8 +200,6 @@ void GameContainer::Update()
   }
 
   m_Updating = false;
-
-
 }
 
 void GameContainer::Render()

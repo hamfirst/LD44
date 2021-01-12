@@ -90,7 +90,7 @@ const char * StormDataFindJsonStartByPath(const char * path, const char * docume
   else if (*path == '[')
   {
     path++;
-    if (*path < '0' && *path > '9')
+    if (*path < '0' || *path > '9')
     {
       return nullptr;
     }
@@ -119,7 +119,7 @@ const char * StormDataFindJsonStartByPath(const char * path, const char * docume
       {
         document++;
         StormReflJsonAdvanceWhiteSpace(document);
-        if (StormReflJsonParseOverValue(document, document) == false)
+        if (!StormReflJsonParseOverValue(document, document))
         {
           return nullptr;
         }
@@ -149,7 +149,7 @@ const char * StormDataFindJsonStartByPath(const char * path, const char * docume
         }
 
         document++;
-        if (*document < '0' && *document > '9')
+        if (*document < '0' || *document > '9')
         {
           return nullptr;
         }

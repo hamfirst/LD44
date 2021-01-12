@@ -36,6 +36,7 @@ set(GENERIC_SRC_Foundation
             Json/Json.cpp
             Json/JsonArray.cpp
             Json/JsonDictionary.cpp
+            Json/JsonDictionaryIterator.cpp
             Lerp/LerpFuncs.cpp
             Lerp/LerpVar.cpp
             Math/Util.cpp
@@ -110,6 +111,8 @@ set(GENERIC_HEADER_Foundation
             Json/Json.h
             Json/JsonArray.h
             Json/JsonDictionary.h
+            Json/JsonDictionaryElement.h
+            Json/JsonDictionaryIterator.h
             Json/JsonType.h
             Lerp/LerpFuncs.h
             Lerp/LerpVar.h

@@ -1,18 +1,24 @@
 
 #include "Foundation/Common.h"
 #include "Foundation/Json/Json.h"
+#include "Foundation/Json/JsonDictionaryIterator.h"
 
 #include "StormRefl/StormReflJsonStd.h"
 
+struct JsonParentAndPath
+{
+  NullOptPtr<Json> m_Json;
+  NullOptPtr<Json> m_Parent;
+};
+
 Json::Json()
-  : m_JsonData(std::make_unique<JsonDataType>())
 {
 
 }
 
 Json::Json(const Json & rhs)
 {
-  m_JsonData = std::make_unique<JsonDataType>(*rhs.m_JsonData.get());
+  m_JsonData = rhs.m_JsonData;
 }
 
 Json::Json(Json && rhs)
@@ -27,7 +33,7 @@ Json::~Json()
 
 Json & Json::operator = (const Json & rhs)
 {
-  m_JsonData = std::make_unique<JsonDataType>(*rhs.m_JsonData.get());
+  m_JsonData = rhs.m_JsonData;
   return *this;
 }
 
@@ -45,46 +51,39 @@ void Json::Encode(std::string & sb)
     sb += "null";
     return;
   case JsonType::kBool:
-    if (m_JsonData->GetAs<bool>())
-    {
-      sb += "true";
-    }
-    else
-    {
-      sb += "false";
-    }
+    sb += m_JsonData.GetAs<bool>() ? "true" : "false";
     break;
   case JsonType::kUnsignedIntegerNumber:
     {
-      uint64_t val = m_JsonData->GetAs<uint64_t>();
+      uint64_t val = m_JsonData.GetAs<uint64_t>();
       sb += std::to_string(val);
     }
     break;
   case JsonType::kSignedIntegerNumber:
     {
-      int64_t val = m_JsonData->GetAs<int64_t>();
+      int64_t val = m_JsonData.GetAs<int64_t>();
       sb += std::to_string(val);
     }
     break;
   case JsonType::kFloatingNumber:
     {
-      float val = m_JsonData->GetAs<float>();
+      float val = m_JsonData.GetAs<float>();
       sb += std::to_string(val);
     }
     break;
   case JsonType::kString:
     {
-      StormReflEncodeJson(m_JsonData->GetAs<std::string>(), sb);
+      StormReflEncodeJson(m_JsonData.GetAs<std::string>(), sb);
     }
     break;
   case JsonType::kArray:
     {
-      auto & vec = m_JsonData->GetAs<ArrayType>();
+      auto & vec = m_JsonData.GetAs<ArrayType>();
 
       sb += '[';
       for (std::size_t index = 0, end = vec.size(); index < end; ++index)
       {
-        vec[index]->Encode(sb);
+        vec[index].Encode(sb);
         if (index < end - 1)
         {
           sb += ',';
@@ -96,7 +95,7 @@ void Json::Encode(std::string & sb)
 
   case JsonType::kObject:
     {
-      auto & dict = m_JsonData->GetAs<ObjectType>();
+      auto & dict = m_JsonData.GetAs<ObjectType>();
       auto itr = dict.begin();
 
       if (itr == dict.end())
@@ -108,10 +107,12 @@ void Json::Encode(std::string & sb)
       sb += '{';
       while (true)
       {
+        auto elem = *itr;
+
         sb += '\"';
-        sb += itr->second.m_Name;
+        sb += elem.first;
         sb += "\":";
-        itr->second.m_Object->Encode(sb);
+        elem.second.Encode(sb);
         ++itr;
 
         if (itr == dict.end())
@@ -139,7 +140,7 @@ void Json::EncodePretty(std::string & sb, int base_indent, int advance, bool do_
   {
   case JsonType::kObject:
     {
-      auto & dict = m_JsonData->GetAs<ObjectType>();
+      auto & dict = m_JsonData.GetAs<ObjectType>();
       auto itr = dict.begin();
 
       if (itr == dict.end())
@@ -152,11 +153,13 @@ void Json::EncodePretty(std::string & sb, int base_indent, int advance, bool do_
       sb += "{\n";
       while (true)
       {
+        auto elem = *itr;
+
         StormReflJsonHelpers::StormReflEncodeIndent(base_indent + advance, sb);
         sb += '\"';
-        sb += itr->second.m_Name;
+        sb += elem.first;
         sb += "\": ";
-        itr->second.m_Object->EncodePretty(sb, base_indent + advance, advance, false);
+        elem.second.EncodePretty(sb, base_indent + advance, advance, false);
         ++itr;
 
         if (itr == dict.end())
@@ -186,7 +189,7 @@ JsonParseResult Json::Parse(czstr data)
 
 JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
 {
-  auto & json_data = *m_JsonData.get();
+  auto & json_data = m_JsonData;
   StormReflJsonAdvanceWhiteSpace(data);
   if (*data == '{')
   {
@@ -206,7 +209,7 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
     while (true)
     {
       std::string id;
-      if (StormReflParseJson(id, data, data) == false)
+      if (!StormReflParseJson(id, data, data))
       {
         return JsonParseResult::kSyntaxError;
       }
@@ -225,7 +228,7 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
       auto parse_result = new_json.Parse(data, data, true);
       if (parse_result == JsonParseResult::kNone)
       {
-        dict.emplace(std::make_pair(crc32(id), JsonNameAndObject{ id, std::make_unique<Json>(std::move(new_json)) }));
+        dict.emplace(id, std::move(new_json));
         StormReflJsonAdvanceWhiteSpace(data);
       }
       else
@@ -273,7 +276,7 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
       auto parse_result = new_json.Parse(data, data, true);
       if (parse_result == JsonParseResult::kNone)
       {
-        arr.emplace_back(std::make_unique<Json>(std::move(new_json)));
+        arr.emplace_back(std::move(new_json));
         StormReflJsonAdvanceWhiteSpace(data);
       }
       else
@@ -303,7 +306,7 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
   else if (*data == '\"')
   {
     std::string str;
-    if (StormReflJson<std::string>::Parse(str, data, result, false) == false)
+    if (!StormReflJson<std::string>::Parse(str, data, result, false))
     {
       return JsonParseResult::kSyntaxError;
     }
@@ -373,7 +376,7 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
   }
   else if (*data == 't')
   {
-    if (StormReflJsonParseOverTrue(data, result) == false)
+    if (!StormReflJsonParseOverTrue(data, result))
     {
       return JsonParseResult::kSyntaxError;
     }
@@ -383,7 +386,7 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
   }
   else if (*data == 'f')
   {
-    if (StormReflJsonParseOverFalse(data, result) == false)
+    if (!StormReflJsonParseOverFalse(data, result))
     {
       return JsonParseResult::kSyntaxError;
     }
@@ -393,7 +396,7 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
   }
   else if (*data == 'n')
   {
-    if (StormReflJsonParseOverNull(data, result) == false)
+    if (!StormReflJsonParseOverNull(data, result))
     {
       return JsonParseResult::kSyntaxError;
     }
@@ -408,7 +411,8 @@ JsonParseResult Json::Parse(czstr data, czstr & result, bool allow_null)
 void Json::ApplyChange(const ReflectionChangeNotification & change, NullOptPtr<ReflectionChangeNotification> reverse_change)
 {
   czstr created_node_end = nullptr;
-  auto result = GetJsonAndParentAtPath(change.m_Path.data(), nullptr, created_node_end);
+  std::string_view parent_key;
+  auto result = GetJsonAndParentAtPath(change.m_Path.data(), nullptr, created_node_end, parent_key);
 
   std::string created_node_path;
   if (created_node_end)
@@ -418,47 +422,46 @@ void Json::ApplyChange(const ReflectionChangeNotification & change, NullOptPtr<R
 
   if (result.m_Json == nullptr)
   {
-    throw false;
+    ASSERT(false, "Could not find json at location for change");
   }
 
-  result.m_Json->ApplyChangeDirect(change, reverse_change, result.m_Parent, result.m_Iterator.GetPtr(), created_node_path);
+  result.m_Json->ApplyChangeDirect(change, reverse_change, result.m_Parent, parent_key, created_node_path);
 }
 
 void Json::ApplyJson(const Json & rhs)
 {
-  if(rhs.m_JsonData->GetCurrentTypeIndex() == (int)JsonType::kObject && m_JsonData->GetCurrentTypeIndex() == (int)JsonType::kObject)
+  if(rhs.m_JsonData.GetCurrentTypeIndex() == (int)JsonType::kObject && m_JsonData.GetCurrentTypeIndex() == (int)JsonType::kObject)
   {
-    auto & rhs_dict = rhs.m_JsonData->GetAs<ObjectType>();
-    auto & this_dict = m_JsonData->GetAs<ObjectType>();
+    auto & rhs_dict = rhs.m_JsonData.GetAs<ObjectType>();
+    auto & this_dict = m_JsonData.GetAs<ObjectType>();
 
-    for (auto & elem : rhs_dict)
+    for (auto elem : rhs_dict)
     {
       auto itr = this_dict.find(elem.first);
       if (itr == this_dict.end())
       {
-        if (elem.second.m_Object->GetType() != JsonType::kNull)
+        if (elem.second.GetType() != JsonType::kNull)
         {
-          auto json_copy = std::make_unique<Json>(*elem.second.m_Object.get());
-          this_dict.emplace(std::make_pair(elem.first, JsonNameAndObject{ elem.second.m_Name, std::move(json_copy) }));
+          this_dict.emplace(elem.first, elem.second);
         }
       }
       else
       {
-        if (elem.second.m_Object->GetType() == JsonType::kNull)
+        if (elem.second.GetType() == JsonType::kNull)
         {
           this_dict.erase(itr);
         }
         else
         {
-          auto & json = itr->second.m_Object;
-          json->ApplyJson(*elem.second.m_Object.get());
+          auto & json = (*itr).second;
+          json.ApplyJson(elem.second);
         }
       }
     }
   }
   else
   {
-    m_JsonData = std::make_unique<JsonDataType>(*rhs.m_JsonData.get());
+    m_JsonData = rhs.m_JsonData;
   }
 }
 
@@ -469,11 +472,11 @@ NullOptPtr<Json> Json::GetJsonAtPath(czstr path, bool create_nodes)
     return this;
   }
 
-  if (m_JsonData->GetCurrentTypeIndex() != (int)JsonType::kObject)
+  if (m_JsonData.GetCurrentTypeIndex() != (int)JsonType::kObject)
   {
     if (create_nodes)
     {
-      m_JsonData = std::make_unique<JsonDataType>(ObjectType{});
+      m_JsonData = ObjectType{};
     }
     else
     {
@@ -482,7 +485,6 @@ NullOptPtr<Json> Json::GetJsonAtPath(czstr path, bool create_nodes)
   }
 
   std::string index;
-  uint32_t hash = crc32begin();
 
   if (*path == '.')
   {
@@ -490,7 +492,6 @@ NullOptPtr<Json> Json::GetJsonAtPath(czstr path, bool create_nodes)
 
     while (*path != 0 && *path != '.' && *path != '[')
     {
-      hash = crc32additive(hash, *path);
       index += *path;
       path++;
     }
@@ -501,7 +502,6 @@ NullOptPtr<Json> Json::GetJsonAtPath(czstr path, bool create_nodes)
 
     while (*path != 0 && *path != ']')
     {
-      hash = crc32additive(hash, *path);
       index += *path;
       path++;
     }
@@ -512,75 +512,69 @@ NullOptPtr<Json> Json::GetJsonAtPath(czstr path, bool create_nodes)
     }
   }
 
-  hash = crc32end(hash);
+  auto & obj = m_JsonData.GetAs<ObjectType>();
+  auto json = obj.try_find(index);
 
-  auto & obj = m_JsonData->GetAs<ObjectType>();
-  auto itr = obj.find(hash);
-
-  if (itr == obj.end())
+  if (json == nullptr)
   {
-    if (create_nodes == false)
+    if (!create_nodes)
     {
       return nullptr;
     }
 
-    Json new_json;
-    new_json.m_JsonData = std::make_unique<JsonDataType>();
-
-    auto result = obj.emplace(std::make_pair(hash, JsonNameAndObject{ index, std::make_unique<Json>(std::move(new_json)) }));
-    auto & json = result.first->second.m_Object;
-
-    return json->GetJsonAtPath(path, create_nodes);
+    auto & new_json = obj.emplace(index, CreateEmptyObject());
+    return new_json.GetJsonAtPath(path, create_nodes);
   }
 
-  return itr->second.m_Object->GetJsonAtPath(path, create_nodes);
+  return json->GetJsonAtPath(path, create_nodes);
 }
 
-Json::ParentAndPath Json::GetJsonAndParentAtPath(czstr path, NullOptPtr<Json> parent, czstr & created_node_path_end)
+JsonParentAndPath Json::GetJsonAndParentAtPath(czstr path, NullOptPtr<Json> parent, czstr & created_node_path_end, std::string_view & parent_key)
 {
   if (*path == 0)
   {
-    return ParentAndPath{ this, parent, Optional<Json::ObjectType::iterator>{} };
+    return JsonParentAndPath{ this, parent };
   }
 
-  if (m_JsonData->GetCurrentTypeIndex() != (int)JsonType::kObject)
+  if (m_JsonData.GetCurrentTypeIndex() != (int)JsonType::kObject)
   {
-    m_JsonData = std::make_unique<JsonDataType>(ObjectType{});
+    m_JsonData = ObjectType{};
   }
 
   std::string index;
-  uint32_t hash = crc32begin();
 
   if (*path == '.')
   {
     path++;
+    czstr path_start = path;
+
     while (*path != 0 && *path != '.' && *path != '[')
     {
-      hash = crc32additive(hash, *path);
-      index += *path;
-      path++;
-    }
-  }
-  else if (*path == '[')
-  {
-    path++;
-    while (*path != 0 && *path != ']')
-    {
-      hash = crc32additive(hash, *path);
       index += *path;
       path++;
     }
 
+    parent_key = std::string_view(path_start, path - path_start);
+  }
+  else if (*path == '[')
+  {
+    path++;
+    czstr path_start = path;
+    while (*path != 0 && *path != ']')
+    {
+      index += *path;
+      path++;
+    }
+
+    parent_key = std::string_view(path_start, path - path_start);
     if (*path == ']')
     {
       path++;
     }
   }
 
-  hash = crc32end(hash);
-
-  auto & obj = m_JsonData->GetAs<ObjectType>();
-  auto itr = obj.find(hash);
+  auto & obj = m_JsonData.GetAs<ObjectType>();
+  auto itr = obj.find(index);
 
   if (itr == obj.end())
   {
@@ -591,38 +585,31 @@ Json::ParentAndPath Json::GetJsonAndParentAtPath(czstr path, NullOptPtr<Json> pa
 
     if (*path == 0)
     {
-      auto result = obj.emplace(std::make_pair(hash, JsonNameAndObject{ index, std::make_unique<Json>() }));
-      auto & json = result.first->second.m_Object;
-
-      return ParentAndPath{ json.get(), this, Optional<Json::ObjectType::iterator>(result.first) };
+      auto & json = obj.emplace(index, Json());
+      return JsonParentAndPath{ &json, this };
     }
     else
     {
-      Json new_json;
-      new_json.m_JsonData = std::make_unique<JsonDataType>(ObjectType{});
-
-      auto result = obj.emplace(std::make_pair(hash, JsonNameAndObject{ index, std::make_unique<Json>(std::move(new_json)) }));
-      auto & json = result.first->second.m_Object;
-
-      return json->GetJsonAndParentAtPath(path, this, created_node_path_end);
+      auto & json = obj.emplace(index, CreateEmptyObject());
+      return json.GetJsonAndParentAtPath(path, this, created_node_path_end, parent_key);
     }
   }
 
   if (*path == 0)
   {
-    return ParentAndPath{ itr->second.m_Object.get(), this, Optional<Json::ObjectType::iterator>(itr) };
+    return JsonParentAndPath{ &(*itr).second, this };
   }
   else
   {
-    return itr->second.m_Object->GetJsonAndParentAtPath(path, this, created_node_path_end);
+    return (*itr).second.GetJsonAndParentAtPath(path, this, created_node_path_end, parent_key);
   }
 
-  return ParentAndPath{ this, parent, Optional<Json::ObjectType::iterator>{} };
+  return JsonParentAndPath{ this, parent };
 }
 
 
 void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOptPtr<ReflectionChangeNotification> reverse_change,
-  Json * parent_node, ObjectType::iterator * itr, const std::string & created_node_path)
+  NullOptPtr<Json> parent_node, const std::string_view & parent_key, const std::string & created_node_path)
 {
   if (created_node_path.size() > 0 && reverse_change)
   {
@@ -644,51 +631,52 @@ void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOp
 
       if (Parse(change.m_Data.data()) == JsonParseResult::kSyntaxError)
       {
-        throw false;
+        ASSERT(false, "Syntax error parsing json change");
       }
     }
     break;
   case ReflectionNotifyChangeType::kClear:
     {
-      if(reverse_change)
-      {
-        reverse_change->m_Type = ReflectionNotifyChangeType::kSet;
-        reverse_change->m_Path = change.m_Path;
-        Encode(reverse_change->m_Data);
-      }
-
       auto type = GetType();
       if (type == JsonType::kObject)
       {
-        auto & obj = m_JsonData->GetAs<ObjectType>();
+        if(reverse_change)
+        {
+          reverse_change->m_Type = ReflectionNotifyChangeType::kSet;
+          reverse_change->m_Path = change.m_Path;
+          Encode(reverse_change->m_Data);
+        }
+
+        auto & obj = m_JsonData.GetAs<ObjectType>();
         obj.clear();
       }
       else
       {
-        throw false;
+        ASSERT(false, "Attempting to clear a non-object json type");
       }
     }
     break;
   case ReflectionNotifyChangeType::kCompress:
     {
-      if(reverse_change)
-      {
-        reverse_change->m_Type = ReflectionNotifyChangeType::kSet;
-        reverse_change->m_Path = change.m_Path;
-        Encode(reverse_change->m_Data);
-      }
-
       auto type = GetType();
       if (type == JsonType::kObject)
       {
-        auto & obj = m_JsonData->GetAs<ObjectType>();
+        if(reverse_change)
+        {
+          reverse_change->m_Type = ReflectionNotifyChangeType::kSet;
+          reverse_change->m_Path = change.m_Path;
+          Encode(reverse_change->m_Data);
+        }
+
+        auto & obj = m_JsonData.GetAs<ObjectType>();
         std::map<uint64_t, Json> sorted;
 
-        for (auto & val : obj)
+        for (auto val : obj)
         {
-          if (val.second.m_Object->GetType() != JsonType::kNull)
+          if (val.second.GetType() != JsonType::kNull)
           {
-            sorted.emplace(std::make_pair(std::strtoull(val.second.m_Name.data(), nullptr, 10), std::move(*val.second.m_Object.get())));
+            uint64_t index = std::strtoull(val.first.data(), nullptr, 10);
+            sorted.emplace(std::make_pair(index, std::move(val.second)));
           }
         }
 
@@ -696,7 +684,7 @@ void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOp
         uint64_t index = 0;
         for (auto & val : sorted)
         {
-          obj.emplace(std::make_pair(crc32integer(index), JsonNameAndObject{ std::to_string(index), std::make_unique<Json>(std::move(val.second)) }));
+          obj.emplace(std::to_string(index), std::move(val.second));
           index++;
         }
       }
@@ -714,25 +702,19 @@ void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOp
       auto type = GetType();
       if (type != JsonType::kObject)
       {
-        m_JsonData = std::make_unique<JsonDataType>(ObjectType{});
+        m_JsonData = ObjectType{};
       }
 
-      auto & obj = m_JsonData->GetAs<ObjectType>();
+      auto & obj = m_JsonData.GetAs<ObjectType>();
       auto num_str = std::to_string(change.m_SubIndex);
-
-      Hash hash = crc32(num_str);
 
       Json json;
       if (json.Parse(change.m_Data.data()) == JsonParseResult::kSyntaxError)
       {
-        throw false;
+        ASSERT(false, "Syntax error while applying json insert");
       }
 
-      auto result = obj.emplace(std::make_pair(hash, JsonNameAndObject{ std::move(num_str), std::make_unique<Json>(json) }));
-      if (result.second == false)
-      {
-        result.first->second.m_Object = std::make_unique<Json>(std::move(json));
-      }
+      obj.emplace(num_str, std::move(json));
     }
     break;
   case ReflectionNotifyChangeType::kRemove:
@@ -740,11 +722,10 @@ void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOp
       auto type = GetType();
       if (type == JsonType::kObject)
       {
-        auto & obj = m_JsonData->GetAs<ObjectType>();
+        auto & obj = m_JsonData.GetAs<ObjectType>();
         auto num_str = std::to_string(change.m_SubIndex);
 
-        Hash hash = crc32(num_str);
-        auto itr = obj.find(hash);
+        auto itr = obj.find(num_str);
         if (itr != obj.end())
         {
           if (reverse_change)
@@ -752,7 +733,7 @@ void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOp
             reverse_change->m_Type = ReflectionNotifyChangeType::kInsert;
             reverse_change->m_Path = change.m_Path;
             reverse_change->m_SubIndex = change.m_SubIndex;
-            itr->second.m_Object->Encode(reverse_change->m_Data);
+            (*itr).second.Encode(reverse_change->m_Data);
           }
 
           obj.erase(itr);
@@ -771,8 +752,8 @@ void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOp
 
       if (parent_node)
       {
-        ObjectType & obj = parent_node->m_JsonData->GetAs<ObjectType>();
-        obj.erase(*itr);
+        ObjectType & obj = parent_node->m_JsonData.GetAs<ObjectType>();
+        obj.erase(parent_key);
       }
     }
     break;
@@ -782,6 +763,6 @@ void Json::ApplyChangeDirect(const ReflectionChangeNotification & change, NullOp
 Json Json::CreateEmptyObject()
 {
   Json json;
-  json.m_JsonData = std::make_unique<JsonDataType>(ObjectType{});
+  json.m_JsonData = ObjectType{};
   return json;
 }

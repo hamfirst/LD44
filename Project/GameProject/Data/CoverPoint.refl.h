@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
 #include "Runtime/Anchor/AnchorDef.refl.h"
 

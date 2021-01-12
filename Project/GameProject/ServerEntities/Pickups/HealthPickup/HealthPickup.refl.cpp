@@ -1,13 +1,13 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/GameController.refl.h"
-#include "Game/GameServerEventSender.h"
+#include "GameProject/GameController.refl.h"
+#include "GameProject/GameServerEventSender.h"
 
-#include "Game/ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h"
-#include "Game/ServerEntities/Pickups/HealthPickup/HealthPickup.refl.meta.h"
+#include "GameProject/ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h"
+#include "GameProject/ServerEntities/Pickups/HealthPickup/HealthPickup.refl.meta.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
 
 #include "Runtime/ClientEntity/ClientEntityResource.h"
@@ -17,7 +17,7 @@ GLOBAL_ASSET(ClientEntityResourcePtr, g_HealthPickupEntityFile, g_HealthPickupEn
 
 CLIENT_ASSET(ClientAssetType::kAudio, "./Sounds/HealthPickedUp.wav", g_HealthPickupSfx);
 
-bool HealthPickup::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container)
+bool HealthPickup::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world)
 {
   if(server_object == m_AvoidObject.Resolve(game_container.GetObjectManager()))
   {
@@ -27,7 +27,7 @@ bool HealthPickup::CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameSer
   return server_object->CastTo<PlayerServerEntity>();
 }
 
-void HealthPickup::PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container)
+void HealthPickup::PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world)
 {
   auto player = server_object->CastTo<PlayerServerEntity>();
   if(player)

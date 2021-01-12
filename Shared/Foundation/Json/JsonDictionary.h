@@ -1,16 +1,15 @@
 #pragma once
 
-#include <unordered_map>
 #include <memory>
 
+#include "Foundation/Variant/Variant.h"
+
 class Json;
-
-struct JsonNameAndObject
-{
-  std::string m_Name;
-  std::unique_ptr<Json> m_Object;
-};
-
+class JsonDictionary;
+class JsonDictionaryIterator;
+class JsonDictionaryConstIterator;
+struct JsonDictionaryElement;
+struct JsonDictionaryMap;
 
 class JsonDictionary
 {
@@ -21,61 +20,39 @@ public:
 
   ~JsonDictionary();
 
+  JsonDictionaryIterator begin();
+  JsonDictionaryConstIterator begin() const;
+
+  JsonDictionaryIterator end();
+  JsonDictionaryConstIterator end() const;
+
   JsonDictionary & operator = (const JsonDictionary & rhs);
-  JsonDictionary & operator = (JsonDictionary && rhs);
+  JsonDictionary & operator = (JsonDictionary && rhs) noexcept;
 
-  using iterator = std::unordered_map<uint32_t, JsonNameAndObject>::iterator;
+  NullOptPtr<Json> try_find(const std::string_view & key);
+  NullOptPtr<const Json> try_find(const std::string_view & key) const;
 
-  decltype(auto) begin()
-  {
-    return m_Dict.begin();
-  }
+  JsonDictionaryIterator find(const std::string_view & key);
+  JsonDictionaryConstIterator find(const std::string_view & key) const;
 
-  decltype(auto) begin() const
-  {
-    return m_Dict.begin();
-  }
+  Json & emplace(const std::string_view & key, const Json & json);
+  Json & emplace(const std::string_view & key, Json && json);
 
-  decltype(auto) end()
-  {
-    return m_Dict.end();
-  }
-
-  decltype(auto) end() const
-  {
-    return m_Dict.end();
-  }
-
-  decltype(auto) find(uint32_t key)
-  {
-    return m_Dict.find(key);
-  }
-
-  decltype(auto) find(uint32_t key) const
-  {
-    return m_Dict.find(key);
-  }
-
-  template <typename Pair>
-  decltype(auto) emplace(Pair && p)
-  {
-    return m_Dict.emplace(std::forward<Pair>(p));
-  }
-
-  template <typename Itr>
-  void erase(Itr && itr)
-  {
-    m_Dict.erase(std::forward<Itr>(itr));
-  }
-
-  void clear()
-  {
-    m_Dict.clear();
-  }
+  bool erase(const std::string_view & key);
+  void erase(const JsonDictionaryIterator & iterator);
+  void erase(const JsonDictionaryConstIterator & iterator);
+  void clear();
 
 private:
 
-  std::unordered_map<uint32_t, JsonNameAndObject> m_Dict;
+  void ConvertToLargeListIfNeeded();
+
+private:
+
+  using SmallList = std::vector<JsonDictionaryElement>;
+  using LargeList = std::unique_ptr<JsonDictionaryMap>;
+
+  Variant<SmallList, LargeList> m_List;
 };
 
 

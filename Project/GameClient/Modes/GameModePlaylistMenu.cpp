@@ -6,7 +6,7 @@
 #include "GameClient/Modes/GameModeFindingMatch.h"
 #include "GameClient/GameContainer.h"
 
-#include "GameShared/GamePlayListAsset.refl.meta.h"
+#include "Project/GameShared/PlayList/GamePlayListAsset.refl.meta.h"
 
 #include "LobbyShared/SharedTypes.refl.meta.h"
 

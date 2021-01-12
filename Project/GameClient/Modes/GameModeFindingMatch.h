@@ -2,7 +2,7 @@
 
 #include "GameClient/Modes/GameModeOnlineBase.h"
 
-#include "GameShared/GamePlayList.h"
+#include "Project/GameShared/PlayList/GamePlayList.h"
 
 #include "Engine/UI/UIManager.h"
 

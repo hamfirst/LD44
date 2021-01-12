@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
 
-#include "GameShared/Systems/GameLogicSystems.h"
-#include "GameShared/GameServerWorld.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
 #include "Runtime/ServerEntity/ServerEntity.h"
 #include "Runtime/ServerEntity/ServerEntityInitData.refl.h"
@@ -30,12 +29,12 @@ public:
   PickupBase & operator = (const PickupBase & rhs) = default;
   PickupBase & operator = (PickupBase && rhs) = default;
 
-  void Init(const PickupBaseInitData & init_data, GameServerWorld & game_container);
-  void UpdateFirst(GameServerWorld & game_container);
-  void UpdateMiddle(GameServerWorld & game_container);
+  void Init(const PickupBaseInitData & init_data, GameServerWorld & game_world);
+  void UpdateFirst(GameServerWorld & game_world);
+  void UpdateMiddle(GameServerWorld & game_world);
 
-  virtual bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container);
-  virtual void PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_container);
+  virtual bool CanBePickedUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world);
+  virtual void PickUp(NotNullPtr<ServerEntity> server_object, GameServerWorld & game_world);
 
 public:
 

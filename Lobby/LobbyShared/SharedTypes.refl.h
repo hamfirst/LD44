@@ -10,7 +10,7 @@
 
 #include "Lobby/LobbyConfig.h"
 
-#include "Game/GameNetworkData.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
 
 static const int kMaxTimeInMatchmaker = 60;
 

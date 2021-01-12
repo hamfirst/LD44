@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Game/GameNetworkData.refl.h"
-#include "GameShared/GameServerWorld.h"
+#include "GameProject/GameNetworkData.refl.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
 
 

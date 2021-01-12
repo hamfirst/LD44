@@ -1,4 +1,4 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
 #include "StormRefl/StormReflMetaFuncs.h"
 #include "StormRefl/StormReflJsonStd.h"

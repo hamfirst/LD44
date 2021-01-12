@@ -10,7 +10,7 @@
 
 #include "Runtime/UI/UIResource.h"
 
-#include "GameShared/GameStageManager.h"
+#include "Project/GameShared/Level/GameStageManager.h"
 
 #include "GameClient/Modes/GameMode.h"
 #include "GameClient/GameClientSystems.h"
@@ -23,6 +23,8 @@ class GameMode;
 class GameNetworkClient;
 class GameClientInstanceContainer;
 
+struct GameNetworkClientInitSettings;
+
 struct GameContainerInitSettings
 {
   bool m_AutoConnect = false;
@@ -30,8 +32,8 @@ struct GameContainerInitSettings
 
   LobbyLoginMode m_LoginMode = LobbyLoginMode::kGuest;
   std::string m_LoadBalancerHostName = "127.0.0.1";
-  std::string m_Token;
-  std::string m_UserName;
+  std::string m_Token = "";
+  std::string m_UserName = "user";
 };
 
 class GameContainer
@@ -59,8 +61,6 @@ public:
   NullOptPtr<GameClientInstanceContainer> GetInstanceData();
   void SetInstanceData(NullOptPtr<GameClientInstanceContainer> instance_data);
 
-  NullOptPtr<GameClientSystems> GetClientSystems();
-  void SetClientSystems(NullOptPtr<GameClientSystems> client_systems);
   void ResetAllGameplaySystems();
 
   RenderState & GetRenderState();
@@ -126,7 +126,6 @@ private:
   std::unique_ptr<GameContainerInitSettings> m_InitSettings;
 
   NullOptPtr<GameClientInstanceContainer> m_ClientInstanceData;
-  NullOptPtr<GameClientSystems> m_ClientSystems;
 
   GameLevelList m_LevelList;
   GameClientSave m_Save;

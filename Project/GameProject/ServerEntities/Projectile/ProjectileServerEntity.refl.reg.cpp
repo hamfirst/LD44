@@ -1,4 +1,4 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 #include "Foundation/SkipField/SkipField.h"
 
 #include "StormRefl/StormReflMetaFuncs.h"
@@ -17,8 +17,8 @@
 #include "Runtime/ServerEntity/ServerEntitySerialize.h"
 #include "Runtime/ServerEntity/ServerEntityComponentSerialize.h"
 
-#include "Game/ServerEntities/Projectile/ProjectileServerEntity.refl.h"
-#include "Game/ServerEntities/Projectile/ProjectileServerEntity.refl.meta.h"
+#include "GameProject/ServerEntities/Projectile/ProjectileServerEntity.refl.h"
+#include "GameProject/ServerEntities/Projectile/ProjectileServerEntity.refl.meta.h"
 
 REGISTER_SERVER_ENTITY_WITH_INIT_DATA(ProjectileServerEntity, ProjectileServerEntityInitData, ServerEntity);
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(ProjectileServerEntityInitData);

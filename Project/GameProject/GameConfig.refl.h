@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Game/GameCommon.h"
-#include "Game/GameServerTypes.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameServerTypes.h"
 
 struct GameConfig
 {

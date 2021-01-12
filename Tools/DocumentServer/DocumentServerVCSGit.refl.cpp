@@ -13,7 +13,6 @@ extern "C"
 #include "libgit2/include/git2.h"
 }
 
-#include "gsl/gsl"
 #include "hash/Hash64.h"
 
 #include <unordered_map>

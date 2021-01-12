@@ -45,59 +45,37 @@ set(GENERIC_SRC_Lobby
 
 set(GENERIC_HEADER_Lobby 
             BanList.refl.h
-            BanList.refl.meta.h
             Bot.refl.h
-            Bot.refl.meta.h
             BotConnection.refl.h
-            BotConnection.refl.meta.h
             BotEndpoint.h
             BotMessages.refl.h
-            BotMessages.refl.meta.h
             BuiltInChannel.refl.h
-            BuiltInChannel.refl.meta.h
             Channel.refl.h
-            Channel.refl.meta.h
             CommandParse.h
             CoordinatorState.h
             DataTypes.h
             Game.refl.h
-            Game.refl.meta.h
             GameData.refl.h
-            GameData.refl.meta.h
             GameList.refl.h
-            GameList.refl.meta.h
             GameServerConnection.refl.h
-            GameServerConnection.refl.meta.h
             GameServerEndpoint.h
             GameServerMessages.refl.h
-            GameServerMessages.refl.meta.h
             GooglePlatform.refl.h
-            GooglePlatform.refl.meta.h
             LoadBalancer.h
             LobbyConfig.h
             LobbyLevelList.refl.h
-            LobbyLevelList.refl.meta.h
             Matchmaker.refl.h
-            Matchmaker.refl.meta.h
             NodeState.h
             Rewards.refl.h
-            Rewards.refl.meta.h
             ServerManager.refl.h
-            ServerManager.refl.meta.h
             Squad.refl.h
-            Squad.refl.meta.h
             SteamOpenIdValidatorPage.h
             SteamServerMessages.refl.h
-            SteamServerMessages.refl.meta.h
             User.refl.h
-            User.refl.meta.h
             UserConnection.refl.h
-            UserConnection.refl.meta.h
             UserConnectionMessages.refl.h
-            UserConnectionMessages.refl.meta.h
             UserEndpoint.h
             WelcomeInfo.refl.h
-            WelcomeInfo.refl.meta.h
             #HEADER_PLACEHOLDER
             )
 

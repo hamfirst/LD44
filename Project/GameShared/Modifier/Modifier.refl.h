@@ -3,7 +3,7 @@
 
 #include "StormRefl/StormRefl.h"
 #include "GameShared/GameSharedCommon.h"
-#include "Game/GameServerTypes.h"
+#include "GameProject/GameServerTypes.h"
 
 enum STORM_REFL_ENUM class ModifierType
 {

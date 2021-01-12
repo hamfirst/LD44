@@ -1,7 +1,7 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 #include "StormNet/NetReflectionTypeDatabaseRegister.h"
 
-#include "Game/GameNetworkEvents.refl.meta.h"
+#include "GameProject/GameNetworkEvents.refl.meta.h"
 
 NET_REGISTER_BASE_TYPE(GlobalNetworkEvent);
 NET_REGISTER_BASE_TYPE(ServerAuthNetworkEvent);

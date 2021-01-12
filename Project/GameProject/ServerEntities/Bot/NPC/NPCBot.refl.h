@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "GameShared/Systems/GameLogicSystems.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
-#include "Game/ServerEntities/Bot/BotServerObject.refl.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
+#include "GameProject/ServerEntities/Bot/BotServerObject.refl.h"
 
 #include "Runtime/ServerEntity/ServerEntity.h"
 #include "Runtime/ServerEntity/ServerEntityInitData.refl.h"
@@ -32,10 +31,10 @@ public:
   NPCBot & operator = (const NPCBot & rhs) = default;
   NPCBot & operator = (NPCBot && rhs) = default;
 
-  void Init(const NPCBotInitData & init_data, GameServerWorld & game_container);
-  void UpdateFirst(GameServerWorld & game_container);
-  void UpdateMiddle(GameServerWorld & game_container);
-  void UpdateLast(GameServerWorld & game_container);
+  void Init(const NPCBotInitData & init_data, GameServerWorld & game_world);
+  void UpdateFirst(GameServerWorld & game_world);
+  void UpdateMiddle(GameServerWorld & game_world);
+  void UpdateLast(GameServerWorld & game_world);
 
   bool SERVER_ENTITY_EVENT_HANDLER HandleDamageEvent(const DamageEvent & ev, const EventMetaData & meta);
 

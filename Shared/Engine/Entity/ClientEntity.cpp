@@ -171,26 +171,6 @@ void ClientEntity::SetParent(NullOptPtr<ClientEntity> entity)
   }
 }
 
-NullOptPtr<ServerEntity> ClientEntity::GetServerObject(int history_index)
-{
-  auto server_object_manager = ::GetServerEntityManager(m_GameContainer);
-  auto obj = server_object_manager ? m_ServerObject.Resolve(*server_object_manager) : nullptr;
-
-  if (history_index == 0)
-  {
-    return obj;
-  }
-
-  if (server_object_manager == nullptr)
-  {
-    return nullptr;
-  }
-
-  history_index = std::min(history_index, obj->GetLifetime());
-  server_object_manager = GetServerEntityManager(history_index);
-  return m_ServerObject.Resolve(*server_object_manager);
-}
-
 void ClientEntity::SetRotation(bool flip_x, bool flip_y, float rotation)
 {
   m_RenderState.m_Matrix.x = flip_x ? -1.0f : 1.0f;

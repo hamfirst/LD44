@@ -9,7 +9,7 @@
 #include "ProjectSettings/ProjectPorts.h"
 #include "ProjectSettings/ProjectRandom.h"
 
-#include "Game/GameNetworkData.refl.h"
+#include "GameProject/GameNetworkData.refl.h"
 #include "Lobby/GameData.refl.h"
 #include "LobbyShared/SharedTypes.refl.h"
 

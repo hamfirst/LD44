@@ -58,7 +58,7 @@ public:
     return m_Array.size();
   }
 private:
-  std::vector<std::unique_ptr<Json>> m_Array;
+  std::vector<Json> m_Array;
 };
 
 

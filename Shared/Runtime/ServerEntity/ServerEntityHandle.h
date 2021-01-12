@@ -51,7 +51,7 @@ struct NetSerializer<ServerEntityHandle, NetBitWriter>
 {
   void operator()(const ServerEntityHandle & val, NetBitWriter & writer)
   {
-    if (val.m_SlotId >= 0)
+    if (val.Resolve(writer.GetServerManager()) != nullptr)
     {
       writer.WriteBits(1, 1);
       writer.WriteBits(val.m_SlotId, writer.GetServerManager()->GetHandleBits());
@@ -73,8 +73,8 @@ struct NetDeserializer<ServerEntityHandle, NetBitReader>
     {
       auto server_manager = reader.GetServerManager();
 
-      h.m_Gen = 0;
       h.m_SlotId = (int)reader.ReadUBits(server_manager->GetHandleBits());
+      h.m_Gen = server_manager->GetDynamicEntityGeneration(h.m_SlotId);
     }
     else
     {

@@ -44,7 +44,7 @@ void GameClientEntitySync::ActivateEntities()
   m_ActivateEntities = true;
 }
 
-bool GameClientEntitySync::IsLocal(NotNullPtr<ServerEntity> server_ent, GameServerWorld & game_container)
+bool GameClientEntitySync::IsLocal(NotNullPtr<ServerEntity> server_ent, GameServerWorld & game_world)
 {
   auto associated_player = server_ent->GetAssociatedPlayer(game_container);
 
@@ -70,7 +70,7 @@ bool GameClientEntitySync::IsLocal(NotNullPtr<ServerEntity> server_ent, GameServ
 }
 
 void GameClientEntitySync::SyncEntityList(SparseList<ClientEntityHandle> & entity_list,
-        ServerEntityManager & ent_manager, GameServerWorld & game_container, bool process_local, bool process_nonlocal)
+        ServerEntityManager & ent_manager, GameServerWorld & game_world, bool process_local, bool process_nonlocal)
 {
   auto & engine_state = m_GameContainer.GetEngineState();
 

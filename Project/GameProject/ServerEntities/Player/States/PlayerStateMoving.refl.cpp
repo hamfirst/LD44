@@ -1,23 +1,23 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "GameShared/GameServerWorld.h"
-#include "Game/GameServerEventSender.h"
-#include "Game/GameStage.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
+#include "GameProject/GameServerEventSender.h"
+#include "GameProject/GameStage.h"
 
-#include "Game/ServerEntities/Player/PlayerServerEntity.refl.h"
+#include "GameProject/ServerEntities/Player/PlayerServerEntity.refl.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateMoving.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateMoving.refl.meta.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateMoving.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateMoving.refl.meta.h"
 
-#include "Game/ServerEntities/Player/States/PlayerStateIdle.refl.h"
-#include "Game/ServerEntities/Player/States/PlayerStateJump.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateIdle.refl.h"
+#include "GameProject/ServerEntities/Player/States/PlayerStateJump.refl.h"
 
 #include "StormNet/NetReflectionTypeDatabase.h"
 
 NET_REGISTER_TYPE(PlayerStateMoving, PlayerStateBase);
 
-void PlayerStateMoving::Move(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateMoving::Move(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   auto move_speed = (GameNetVal)player.GetConfig()->m_MoveSpeed;
 
@@ -68,7 +68,7 @@ void PlayerStateMoving::Move(PlayerServerEntity & player, GameServerWorld & game
 #endif
 }
 
-void PlayerStateMoving::Transition(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateMoving::Transition(PlayerServerEntity & player, GameServerWorld & game_world)
 {
 #ifndef PLATFORMER_MOVEMENT
 
@@ -99,7 +99,7 @@ void PlayerStateMoving::Transition(PlayerServerEntity & player, GameServerWorld 
 }
 
 
-void PlayerStateMoving::Animate(PlayerServerEntity & player, GameServerWorld & game_container)
+void PlayerStateMoving::Animate(PlayerServerEntity & player, GameServerWorld & game_world)
 {
   // Vampire
   if(player.m_Bat)

@@ -5,7 +5,7 @@
 
 #include <StormNet/NetReflection.h>
 
-#include "Game/GameServerTypes.h"
+#include "GameProject/GameServerTypes.h"
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 #include "ProjectSettings/ProjectPerspective.h"

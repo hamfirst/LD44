@@ -32,13 +32,14 @@ public:
   virtual czstr GetDefaultEntityBinding() const;
   virtual czstr GetEntityBinding() const;
 
-  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_container) const;
+  virtual Optional<int> GetAssociatedPlayer(GameServerWorld & game_world) const;
   virtual void InitStaticComponents();
+
+  virtual NotNullPtr<GameServerWorld> GetWorld() const { return m_World; }
 
   bool IsDestroyed() const;
   int GetSlotIndex() const;
 
-  int GetLifetime() const;
   int GetTypeIndex() const;
 
   template <typename Type>
@@ -147,14 +148,14 @@ private:
   bool TriggerEventHandler(uint32_t event_type, const void * ev, const EventMetaData & meta);
 
 private:
+  NotNullPtr<GameServerWorld> m_World = nullptr;
   bool m_IsStatic = false;
   bool m_IsUnsynced = false;
   bool m_IsDestroyed = false;
   int m_TypeIndex = 0;
   int m_SlotIndex = 0;
-  int m_FramesAlive = 0;
 
-  SkipFieldIterator m_Iterator;
+  SkipFieldIterator m_Iterator = {};
   Handle m_Handle;
   ServerEntityHandle m_ServerEntityHandle;
 

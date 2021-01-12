@@ -1,7 +1,7 @@
 
 #include "GameShared/GameSharedCommon.h"
 #include "GameShared/Systems/CVCPushSystem.h"
-#include "Game/ServerEntities/GameServerEntityBase.refl.h"
+#include "GameProject/ServerEntities/GameServerEntityBase.refl.h"
 
 
 void CVCPushSystem::SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServerEntityBase> obj)
@@ -9,7 +9,7 @@ void CVCPushSystem::SetCharacterCVCPosition(const Box & box, NotNullPtr<GameServ
   m_Data.push_back(CVCData{ obj->GetEntityHandle(), box });
 }
 
-void CVCPushSystem::ProcessCVC(GameServerWorld & game_container)
+void CVCPushSystem::ProcessCVC(GameServerWorld & game_world)
 {
   for (std::size_t index1 = 0, end = m_Data.size(); index1 < end; ++index1)
   {

@@ -9,7 +9,7 @@
 #include "StormNet/NetReflection.h"
 #include "StormNet/NetMessageSender.h"
 
-#include "Game/GameServerTypes.h"
+#include "GameProject/GameServerTypes.h"
 
 #include "ProjectSettings/ProjectNetworkSettings.h"
 #include "ProjectSettings/ProjectPerspective.h"
@@ -102,11 +102,6 @@ struct ClientInput
 struct ClientAuthData
 {
   NET_REFL;
-
-#if (NET_MODE == NET_MODE_GGPO)
-  int m_Frame;
-#endif
-
   ClientInput m_Input;
 };
 
@@ -157,6 +152,18 @@ struct GamePlayer
 #endif
 };
 
+struct GameStateLoadingPlayer
+{
+  NET_REFL;
+  std::string m_UserName;
+  bool m_Loaded = false;
+  NetRangedNumber<int, -1, kMaxTeams - 1> m_Team = 0;
+
+#ifdef NET_USE_LOADOUT
+  GamePlayerLoadout m_Loadout;
+#endif
+};
+
 #ifdef NET_ALLOW_OBSERVERS
 struct GameObserver
 {
@@ -164,17 +171,6 @@ struct GameObserver
   std::string m_UserName;
 };
 #endif
-
-struct GameInstanceLowFrequencyData
-{
-  NET_REFL;
-  GameInitSettings m_Settings;
-  NetSparseList<GamePlayer, kMaxPlayers> m_Players;
-#ifdef NET_ALLOW_OBSERVERS
-  NetSparseList<GameObserver, 128> m_Observers;
-#endif
-
-};
 
 struct GameInstanceData
 {
@@ -185,6 +181,7 @@ struct GameInstanceData
 #ifdef NET_USE_SCORE
   NetRangedNumber<int, 0, kMaxScore> m_Score[kMaxTeams];
 #endif
+
   NetOptional<NetRangedNumber<int, -1, kMaxTeams>> m_WiningTeam;
 
 #ifdef NET_USE_ROUNDS
@@ -198,10 +195,6 @@ struct GameInstanceData
 
 #ifdef NET_USE_RANDOM
   NetRandom m_Random;
-#endif
-
-#if NET_MODE == NET_MODE_GGPO
-  int m_FrameCount = 0;
 #endif
 };
 

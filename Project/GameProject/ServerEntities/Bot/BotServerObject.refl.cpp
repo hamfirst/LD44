@@ -1,25 +1,25 @@
 
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
-#include "Game/GameController.refl.h"
-#include "Game/GameServerEventSender.h"
+#include "GameProject/GameController.refl.h"
+#include "GameProject/GameServerEventSender.h"
 
-#include "Game/ServerEntities/Bot/BotServerObject.refl.h"
-#include "Game/ServerEntities/Bot/BotServerObject.refl.meta.h"
+#include "GameProject/ServerEntities/Bot/BotServerObject.refl.h"
+#include "GameProject/ServerEntities/Bot/BotServerObject.refl.meta.h"
 
 #include "Runtime/Animation/AnimationState.h"
 
-void BotServerObject::Init(const BotServerObjectInitData & init_data, GameServerWorld & game_container)
+void BotServerObject::Init(const BotServerObjectInitData & init_data, GameServerWorld & game_world)
 {
 
 }
 
-void BotServerObject::UpdateFirst(GameServerWorld & game_container)
+void BotServerObject::UpdateFirst(GameServerWorld & game_world)
 {
   GameServerEntityBase::UpdateFirst(game_container);
 }
 
-void BotServerObject::UpdateMiddle(GameServerWorld & game_container)
+void BotServerObject::UpdateMiddle(GameServerWorld & game_world)
 {
   auto behavior_tree = GetBehaviorTree();
 

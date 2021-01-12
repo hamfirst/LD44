@@ -2,8 +2,8 @@
 
 #include "Runtime/Event/Event.h"
 
-#include "Game/GameplayEvents/DamageType.refl.h"
-#include "Game/ServerEntities/CharacterFacing.refl.h"
+#include "GameProject/GameplayEvents/DamageType.refl.h"
+#include "GameProject/ServerEntities/CharacterFacing.refl.h"
 
 struct PickupAvailableEvent
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game/Systems/GameServerEntityOverlapSystem.h"
+#include "GameProject/Systems/GameServerEntityOverlapSystem.h"
 #include "StormRefl/StormReflMetaCall.h"
 
 template <typename DataType, bool IsOverlap>

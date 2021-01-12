@@ -8,8 +8,8 @@
 
 #include "LobbyShared/LobbyGameFuncs.h"
 
-#include "Game/GameController.refl.h"
-#include "Game/GameStage.h"
+#include "GameProject/GameController.refl.h"
+#include "GameProject/GameStage.h"
 
 GameInstanceStateGameplay::GameInstanceStateGameplay(GameInstanceStateData & state_data, const GameStateLoading & loading_data) :
   GameInstanceStateBase(state_data),

@@ -1,6 +1,6 @@
 
-#include "Game/GameCommon.h"
-#include "Game/GameServerEventSender.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameServerEventSender.h"
 
 void GameServerEventSender::SendCreateEntity(const GameNetVec2 & pos, uint32_t asset_hash)
 {

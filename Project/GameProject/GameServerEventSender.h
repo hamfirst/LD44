@@ -3,8 +3,7 @@
 #include "Foundation/Common.h"
 #include "StormNet/NetMetaUtil.h"
 
-#include "Game/GameNetworkEvents.refl.h"
-#include "Game/Systems/GameDeliberateSyncSystemList.h"
+#include "GameProject/GameNetworkEvents.refl.h"
 
 #include "Runtime/ServerEntity/ServerEntityHandle.h"
 
@@ -86,16 +85,6 @@ public:
     return ReconcileEvent(typeid(T).hash_code(), event_id, pos);
   }
 
-#ifdef DELIBERATE_SYNC_SYSTEM_LIST
-  template <typename SystemData>
-  void SyncDeliberateSyncSystem()
-  {
-    auto type_index = NetMetaUtil::template GetTypeIndex<SystemData, DELIBERATE_SYNC_SYSTEM_LIST>();
-    ASSERT(type_index >= 0, "Invalid deliberate sync system type");
-    SyncDeliberateSyncSystem(type_index);
-  }
-#endif
-
   virtual void BlockRewind(std::size_t connection) {};
 
   void SendCreateEntity(const GameNetVec2 & pos, uint32_t asset_hash);
@@ -120,8 +109,4 @@ protected:
   virtual void SendEntityEvent(std::size_t class_id, const void * event_ptr, std::size_t connection_id, ServerEntityHandle object_handle) {}
   virtual void SendAuthEvent(std::size_t class_id, const void * event_ptr) {}
   virtual bool ReconcileEvent(std::size_t event_type_name_hash, uint64_t event_id, const GameNetVec2 & pos) { return true; }
-
-#ifdef DELIBERATE_SYNC_SYSTEM_LIST
-  virtual void SyncDeliberateSyncSystem(int system_index) { }
-#endif
 };

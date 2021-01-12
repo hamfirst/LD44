@@ -3,9 +3,9 @@
 #pragma once
 
 #include "GameShared/GameSharedCommon.h"
-#include "Game/GameFullState.refl.h"
+#include "GameProject/GameFullState.refl.h"
 
-#include "Game/ServerEntities/Bot/BotServerObject.refl.h"
+#include "GameProject/ServerEntities/Bot/BotServerObject.refl.h"
 
 
 class MoveForTimeBotState

@@ -1,5 +1,5 @@
-#include "Game/GameCommon.h"
-#include "Game/GameStage.h"
+#include "GameProject/GameCommon.h"
+#include "GameProject/GameStage.h"
 
 #include "Foundation/BasicTypes/BasicTypeHash.h"
 #include "Foundation/Pathfinding/Pathfinding.h"
@@ -7,11 +7,11 @@
 #include "Runtime/Map/MapCollision.h"
 #include "Runtime/ServerEntity/ServerEntitySystem.h"
 
-#include "Game/Data/PlayerSpawn.refl.meta.h"
-#include "Game/Data/KillVolume.refl.meta.h"
-#include "Game/Data/NPCSpawn.refl.meta.h"
-#include "Game/Data/CoverPoint.refl.meta.h"
-#include "GameShared/GameServerWorld.h"
+#include "GameProject/Data/PlayerSpawn.refl.meta.h"
+#include "GameProject/Data/KillVolume.refl.meta.h"
+#include "GameProject/Data/NPCSpawn.refl.meta.h"
+#include "GameProject/Data/CoverPoint.refl.meta.h"
+#include "Project/GameServerFramework/GameServerWorld.h"
 
 GameStage::GameStage(const Map & map) :
   m_DynamicObjectCount(127),
@@ -307,7 +307,7 @@ GameFullState GameStage::CreateDefaultGameState() const
   return GameFullState{ ServerEntityManager(m_StaticEntities, m_DynamicEntities, m_DynamicObjectCount, kMaxPlayers) };
 }
 
-void GameStage::InitAllObjects(GameServerWorld & game_container) const
+void GameStage::InitAllObjects(GameServerWorld & game_world) const
 {
   game_container.GetObjectManager().InitAllEntities(m_StaticEntities, m_DynamicEntities, game_container);
 }

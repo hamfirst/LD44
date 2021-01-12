@@ -1,4 +1,4 @@
-#include "Game/GameCommon.h"
+#include "GameProject/GameCommon.h"
 
 #include "StormData/StormData.h"
 #include "StormData/StormDataTypeDatabase.h"
@@ -9,8 +9,8 @@
 
 #include "Foundation/PropertyMeta/PropertyFieldMetaFuncs.h"
 
-#include "Game/Data/CoverPoint.refl.h"
-#include "Game/Data/CoverPoint.refl.meta.h"
+#include "GameProject/Data/CoverPoint.refl.h"
+#include "GameProject/Data/CoverPoint.refl.meta.h"
 
 STORM_DATA_DEFAULT_CONSTRUCTION_IMPL(CoverPoint);
 REGISTER_TYPE(CoverPoint, AnchorDataBase);
