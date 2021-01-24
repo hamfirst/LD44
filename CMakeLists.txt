@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 
+option(EXPORT_TEST "Export test data" ON)
+option(EXPORT_DIST "Export distribution data" OFF)
+option(ENABLE_PERFORCE "Enable perforce SCM" OFF)
+option(GENERATE_REFL "Build stormrefl and generate refl.meta.h files" ON)
+option(GENERATE_PCH "Use precompiled headers" ON)
+
 file(READ ProjectSettings/ProjectName.txt PROJECT_NAME)
 string(REGEX REPLACE "\n$" "" PROJECT_NAME "${PROJECT_NAME}")
 
@@ -24,6 +30,8 @@ message("-- Project Name: " ${PROJECT_NAME})
 include(CMake/StormBrewerEngine.cmake)
 include(CMake/cotire.cmake)
 
+
+
 include_directories(${PROJECT_SOURCE_DIR}
                     ${PROJECT_SOURCE_DIR}/StormTech
                     ${PROJECT_SOURCE_DIR}/External
@@ -31,6 +39,8 @@ include_directories(${PROJECT_SOURCE_DIR}
                     ${PROJECT_SOURCE_DIR}/Shared
                     ${PROJECT_SOURCE_DIR}/Project
                     ${PROJECT_SOURCE_DIR}/Lobby)
+
+
 
 add_subdirectory(Project/GameProject)
 add_subdirectory(Project/GameShared)
@@ -44,11 +54,6 @@ set_target_properties(LobbyShared PROPERTIES FOLDER Lobby)
 set(CLIENT_LINK)
 set(OUTPUTS)
 
-option(EXPORT_TEST ON)
-option(EXPORT_DIST OFF)
-option(ENABLE_PERFORCE OFF)
-option(GENERATE_REFL ON)
-option(GENERATE_PCH ON)
 
 if(${ENABLE_PERFORCE})
   message("-- Enabling perforce")
@@ -365,64 +370,6 @@ if(BUILD_TOOLS)
 
   if(NOT MSVC)
     target_link_libraries(DistUpload stdc++fs pthread)
-  endif()
-
-  link_directories(${CLANG_SRC_LIB_PATH})
-  add_executable(stormrefl StormTech/StormReflProc/main.cpp StormTech/StormReflProc/StormReflOutput.cpp)
-  target_link_libraries(stormrefl StormRefl)
-  set_target_properties(stormrefl PROPERTIES FOLDER Tools)
-
-  target_include_directories(stormrefl PRIVATE ${CLANG_SRC_INCLUDE_PATH})
-
-  target_link_libraries(stormrefl
-    clangFrontend
-    clangSerialization
-    clangDriver
-    clangParse
-    clangSema
-    clangAnalysis
-    clangAST
-    clangBasic
-    clangEdit
-    clangLex
-    clangTooling
-  )
-
-  target_link_libraries(stormrefl
-    LLVMX86AsmParser # MC, MCParser, Support, X86Desc, X86Info
-    LLVMX86Desc # MC, Support, X86AsmPrinter, X86Info
-    LLVMX86Info # MC, Support, Target
-    LLVMX86Utils # Core, Support
-    LLVMipo
-    LLVMScalarOpts
-    LLVMInstCombine
-    LLVMTransformUtils
-    LLVMAnalysis
-    LLVMTarget
-    LLVMOption # Support
-    LLVMMCParser # MC, Support
-    LLVMMC # Object, Support
-    LLVMObject # BitReader, Core, Support
-    LLVMBitReader # Core, Support
-    LLVMCore # Support
-    LLVMSupport
-    #LLVMDebugInfoDWARF
-    LLVMBinaryFormat
-    LLVMProfileData
-    LLVMDemangle
-    LLVMRemarks
-    LLVMSupport
-  )
-
-  if(MSVC)
-    target_include_directories(stormrefl PUBLIC C:\\Dev\\llvm\\tools\\clang\\include C:\\Dev\\llvm-build\\tools\\clang\\include C:\\Dev\\llvm\\include C:\\Dev\\llvm-build\\include)
-    target_compile_options(stormrefl PRIVATE "/MD" "/O2")
-    target_link_libraries(stormrefl Mincore.lib)
-    STRING (REGEX REPLACE "[/|-]RTC(su|[1su])" "" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
-  else()
-    target_compile_options(stormrefl PUBLIC "-fno-rtti" "-O3")
-    target_link_libraries(stormrefl -Wl,--whole-archive pthread -Wl,--no-whole-archive)
-    target_link_libraries(stormrefl ncurses stdc++fs z rt m c dl)
   endif()
 
   add_executable(DocumentServerExe Dummy.cpp)

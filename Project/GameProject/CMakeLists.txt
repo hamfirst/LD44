@@ -63,84 +63,49 @@ set(GENERIC_SRC_GameProject
 set(GENERIC_HEADER_GameProject 
             AI/PlayerAI.h
             Data/CoverPoint.refl.h
-            Data/CoverPoint.refl.meta.h
             Data/DealDamageAnimationEvent.refl.h
-            Data/DealDamageAnimationEvent.refl.meta.h
             Data/KillVolume.refl.h
-            Data/KillVolume.refl.meta.h
             Data/NPCSpawn.refl.h
-            Data/NPCSpawn.refl.meta.h
             Data/PlayerSpawn.refl.h
-            Data/PlayerSpawn.refl.meta.h
             GameCollisionType.refl.h
-            GameCollisionType.refl.meta.h
             GameCommon.h
             GameConfig.refl.h
-            GameConfig.refl.meta.h
             GameController.refl.h
-            GameController.refl.meta.h
             GameMessages.refl.h
-            GameMessages.refl.meta.h
             GameNetworkData.refl.h
-            GameNetworkData.refl.meta.h
             GameNetworkEvents.refl.h
-            GameNetworkEvents.refl.meta.h
             GameNetworkExternals.refl.h
-            GameNetworkExternals.refl.meta.h
             GameServerEventSender.h
             GameServerTypes.h
             GameSimulationEventCallbacks.h
             GameSimulationStats.refl.h
-            GameSimulationStats.refl.meta.h
             GameStage.h
             GameplayEvents/DamageEvent.h
             GameplayEvents/DamageType.refl.h
-            GameplayEvents/DamageType.refl.meta.h
             GameplayEvents/PickupEvents.h
             GameplayEvents/PlaceholderEvent.h
             ServerEntities/Bot/BotBehaviorTree.h
             ServerEntities/Bot/BotServerObject.refl.h
-            ServerEntities/Bot/BotServerObject.refl.meta.h
             ServerEntities/Bot/NPC/NPCBot.refl.h
-            ServerEntities/Bot/NPC/NPCBot.refl.meta.h
             ServerEntities/Bot/TestBot/TestBot.refl.h
-            ServerEntities/Bot/TestBot/TestBot.refl.meta.h
             ServerEntities/CharacterFacing.refl.h
-            ServerEntities/CharacterFacing.refl.meta.h
             ServerEntities/GameServerEntityBase.refl.h
-            ServerEntities/GameServerEntityBase.refl.meta.h
             ServerEntities/Pickups/HealthPickup/HealthPickup.refl.h
-            ServerEntities/Pickups/HealthPickup/HealthPickup.refl.meta.h
             ServerEntities/Pickups/PickupBase.refl.h
-            ServerEntities/Pickups/PickupBase.refl.meta.h
             ServerEntities/Player/PlayerConfig.refl.h
-            ServerEntities/Player/PlayerConfig.refl.meta.h
             ServerEntities/Player/PlayerServerEntity.refl.h
-            ServerEntities/Player/PlayerServerEntity.refl.meta.h
             ServerEntities/Player/States/PlayerStateBase.refl.h
-            ServerEntities/Player/States/PlayerStateBase.refl.meta.h
             ServerEntities/Player/States/PlayerStateBasicAttack.refl.h
-            ServerEntities/Player/States/PlayerStateBasicAttack.refl.meta.h
             ServerEntities/Player/States/PlayerStateBite.refl.h
-            ServerEntities/Player/States/PlayerStateBite.refl.meta.h
             ServerEntities/Player/States/PlayerStateIdle.refl.h
-            ServerEntities/Player/States/PlayerStateIdle.refl.meta.h
             ServerEntities/Player/States/PlayerStateJump.refl.h
-            ServerEntities/Player/States/PlayerStateJump.refl.meta.h
             ServerEntities/Player/States/PlayerStateMoving.refl.h
-            ServerEntities/Player/States/PlayerStateMoving.refl.meta.h
             ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.h
-            ServerEntities/Projectile/Motion/ProjectileMotionBase.refl.meta.h
             ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.h
-            ServerEntities/Projectile/Motion/ProjectileMotionLinear.refl.meta.h
             ServerEntities/Projectile/ProjectileConfig.refl.h
-            ServerEntities/Projectile/ProjectileConfig.refl.meta.h
             ServerEntities/Projectile/ProjectileServerEntity.refl.h
-            ServerEntities/Projectile/ProjectileServerEntity.refl.meta.h
             ServerEntities/Projectile/Response/ProjectileResponseBase.refl.h
-            ServerEntities/Projectile/Response/ProjectileResponseBase.refl.meta.h
             ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.h
-            ServerEntities/Projectile/Response/ProjectileResponseDefault.refl.meta.h
             #HEADER_PLACEHOLDER
             )
 
@@ -187,7 +152,7 @@ if(GENERATE_REFL)
   foreach(REFL_FILE ${GENERIC_REFL_GameProject})
     string(REPLACE ".refl.h" ".refl.meta.h" META_FILE ${REFL_FILE})
     add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${META_FILE}
-                       COMMAND stormrefl ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE} -- -DSTORM_REFL_PARSE -D_CRT_SECURE_NO_WARNINGS -std=c++17 -x c++ -Wno-pragma-once-outside-header -I${CMAKE_CURRENT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR}/StormTech -I${PROJECT_SOURCE_DIR}/Tools -I${PROJECT_SOURCE_DIR}/Shared -I${PROJECT_SOURCE_DIR}/Project -I${PROJECT_SOURCE_DIR}/Lobby -I${PROJECT_SOURCE_DIR}/External -I${CLANG_HEADER_PATH} -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+                       COMMAND stormrefl ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE} -- -DSTORM_REFL_PARSE -D_CRT_SECURE_NO_WARNINGS -std=c++17 -x c++ -Wno-pragma-once-outside-header -I${CMAKE_CURRENT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR}/StormTech -I${PROJECT_SOURCE_DIR}/Tools -I${PROJECT_SOURCE_DIR}/Shared -I${PROJECT_SOURCE_DIR}/Project -I${PROJECT_SOURCE_DIR}/Lobby -I${PROJECT_SOURCE_DIR}/External ${CLANG_COMMAND_LINE_OPTS} -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
                        MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE}
                        IMPLICIT_DEPENDS CXX ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE})
   endforeach()

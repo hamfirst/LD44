@@ -13,6 +13,21 @@ CMAKE_DEPENDENT_OPTION(DEVELOPMENT_BUILD "Development Build" ON "BUILD_TOOLS" OF
 SET(CMAKE_CXX_STANDARD 17)
 SET(CMAKE_DEBUG_POSTFIX "")
 
+set(CLANG_VERSION "11.0.1")
+set(CLANG_FILE "clang+llvm-11.0.1-x86_64-linux-gnu-ubuntu-20.10")
+
+
+if(NOT EXISTS ${CMAKE_BINARY_DIR}/${CLANG_FILE}/lib/cmake/clang/ClangTargets.cmake)
+  file(DOWNLOAD
+    https://github.com/llvm/llvm-project/releases/download/llvmorg-${CLANG_VERSION}/${CLANG_FILE}.tar.xz
+    ${CMAKE_BINARY_DIR}/llvm.tar.xz
+    SHOW_PROGRESS
+    )
+  execute_process(COMMAND tar -xf ${CMAKE_BINARY_DIR}/llvm.tar.xz -C ${CMAKE_BINARY_DIR})
+endif()
+
+set(CLANG_COMMAND_LINE_OPTS -I${CMAKE_BINARY_DIR}/${CLANG_FILE}/include/c++/v1 -I${CMAKE_BINARY_DIR}/${CLANG_FILE}/lib/clang/${CLANG_VERSION}/include -I/usr/include -nostdlib++ -nostdlibinc)
+
 if (MSVC)
   add_definitions(-D_WINDOWS)
 endif()
@@ -162,6 +177,7 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/StormTech/StormNetCustomBindings")
 add_subdirectory("${PROJECT_SOURCE_DIR}/StormTech/StormNetSys")
 add_subdirectory("${PROJECT_SOURCE_DIR}/StormTech/StormExpr")
 add_subdirectory("${PROJECT_SOURCE_DIR}/StormTech/StormRefl")
+add_subdirectory("${PROJECT_SOURCE_DIR}/StormTech/StormReflProc")
 
 set_target_properties(Foundation PROPERTIES FOLDER Shared)
 set_target_properties(Runtime PROPERTIES FOLDER Shared)

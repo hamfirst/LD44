@@ -152,7 +152,7 @@ public:
           auto name = base.getBaseTypeIdentifier()->getName();
           auto qual_name = clang::TypeName::getFullyQualifiedName(base, m_ASTContext, *g_PrintingPolicy);
 
-          class_data.m_BaseClasses.emplace_back(ReflectionDataBase{name, qual_name});
+          class_data.m_BaseClasses.emplace_back(ReflectionDataBase{name.str(), qual_name});
 
           auto record_type = base->getAs<RecordType>();
           if (record_type)
@@ -358,7 +358,7 @@ public:
             continue;
           }
 
-          ReflectedFunc func = { method->getName() };
+          ReflectedFunc func = { method->getName().str() };
           auto func_qual_type = m_ASTContext.getMemberPointerType(method->getType(), method->getParent()->getTypeForDecl());
 
           func.m_FullSignature = clang::TypeName::getFullyQualifiedName(func_qual_type, m_ASTContext, *g_PrintingPolicy);
@@ -366,7 +366,8 @@ public:
 
           for (auto param : method->parameters())
           {
-            func.m_Params.emplace_back(ReflectedParam{ param->getName(), clang::TypeName::getFullyQualifiedName(param->getType(), m_ASTContext, *g_PrintingPolicy) });
+            func.m_Params.emplace_back(ReflectedParam{ param->getName().str(),
+                                                       clang::TypeName::getFullyQualifiedName(param->getType(), m_ASTContext, *g_PrintingPolicy) });
           }
 
           class_data.m_Funcs.emplace_back(std::move(func));
@@ -426,7 +427,7 @@ public:
 
     for (auto && enum_elem : decl->enumerators())
     {
-      data.m_Elems.emplace_back(ReflectedEnumElem{ enum_elem->getName(), enum_elem->getQualifiedNameAsString() });
+      data.m_Elems.emplace_back(ReflectedEnumElem{ enum_elem->getName().str(), enum_elem->getQualifiedNameAsString() });
     }
 
     m_Enums.push_back(data);
@@ -516,7 +517,7 @@ public:
     auto file_entry = m_SourceManager.getFileEntryForID(full_souce_loc.getFileID());
     if (m_SourceFile == file_entry->getName())
     {
-      m_Includes.push_back(relative_path);
+      m_Includes.push_back(relative_path.str());
     }
   }
 

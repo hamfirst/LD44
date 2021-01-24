@@ -79,13 +79,11 @@ set(GENERIC_SRC_Runtime
 
 set(GENERIC_HEADER_Runtime 
             Anchor/AnchorDef.refl.h
-            Anchor/AnchorDef.refl.meta.h
             Anchor/AnchorTypeDatabase.h
             Anchor/AnchorTypeRegister.h
             Animation/AnimationState.h
             Asset/Asset.h
             Atlas/AtlasDef.refl.h
-            Atlas/AtlasDef.refl.meta.h
             Atlas/AtlasResource.h
             BinaryResource/BinaryResourceBase.h
             BinaryResource/BinaryResourceLoader.h
@@ -95,11 +93,9 @@ set(GENERIC_HEADER_Runtime
             BinaryResource/BinaryResourceReferenceBase.h
             BinaryResource/GenericBinaryResource.h
             ClientComponent/ClientComponentInitData.refl.h
-            ClientComponent/ClientComponentInitData.refl.meta.h
             ClientComponent/ClientComponentInitDataTypeDatabase.h
             ClientComponent/ClientComponentInitDataTypeDatabaseRegister.h
             ClientEntity/ClientEntityDef.refl.h
-            ClientEntity/ClientEntityDef.refl.meta.h
             ClientEntity/ClientEntityResource.h
             Collision/CollisionDatabase.h
             Collision/CollisionDatabaseResult.h
@@ -121,21 +117,16 @@ set(GENERIC_HEADER_Runtime
             Event/EventHandler.h
             Event/EventSystem.h
             FrameData/FrameData.refl.h
-            FrameData/FrameData.refl.meta.h
             FrameData/FrameDataExtract.h
             GenericResource/GenericResource.h
             Map/MapCollision.h
             Map/MapDef.refl.h
-            Map/MapDef.refl.meta.h
             Map/MapEffectLayerDef.refl.h
-            Map/MapEffectLayerDef.refl.meta.h
             Map/MapEffectLayerTypeDatabase.h
             Map/MapEffectLayerTypeRegister.h
             Map/MapHandles.refl.h
-            Map/MapHandles.refl.meta.h
             Map/MapMetaExtractor.h
             Map/MapPropertiesDef.refl.h
-            Map/MapPropertiesDef.refl.meta.h
             Map/MapPropertiesTypeDatabase.h
             Map/MapPropertiesTypeRegister.h
             Map/MapResource.h
@@ -143,7 +134,6 @@ set(GENERIC_HEADER_Runtime
             Map/MapTileJson.h
             Mover/Mover.h
             Path/PathDef.refl.h
-            Path/PathDef.refl.meta.h
             Path/PathTypeDatabase.h
             Path/PathTypeRegister.h
             Runtime.h
@@ -154,13 +144,11 @@ set(GENERIC_HEADER_Runtime
             ServerEntity/ServerEntityComponentFuncs.h
             ServerEntity/ServerEntityComponentSerialize.h
             ServerEntity/ServerEntityDef.refl.h
-            ServerEntity/ServerEntityDef.refl.meta.h
             ServerEntity/ServerEntityEventDispatch.h
             ServerEntity/ServerEntityEventRegister.h
             ServerEntity/ServerEntityEventSystem.h
             ServerEntity/ServerEntityHandle.h
             ServerEntity/ServerEntityInitData.refl.h
-            ServerEntity/ServerEntityInitData.refl.meta.h
             ServerEntity/ServerEntityInitDataTypeDatabase.h
             ServerEntity/ServerEntityManager.h
             ServerEntity/ServerEntityMetaFuncs.h
@@ -174,25 +162,18 @@ set(GENERIC_HEADER_Runtime
             ServerEntity/ServerTypesJson.h
             ServerEntity/ServerTypesNet.h
             Sprite/SpriteDef.refl.h
-            Sprite/SpriteDef.refl.meta.h
             Sprite/SpriteResource.h
             SpriteBase/SpriteAnimationEventDef.refl.h
-            SpriteBase/SpriteAnimationEventDef.refl.meta.h
             SpriteBase/SpriteAnimationEventRegister.h
             SpriteBase/SpriteAnimationEventTypeDatabase.h
             SpriteBase/SpriteBaseDef.refl.h
-            SpriteBase/SpriteBaseDef.refl.meta.h
             TileSheet/TileSheetDef.refl.h
-            TileSheet/TileSheetDef.refl.meta.h
             TileSheet/TileSheetResource.h
             UI/UIDef.refl.h
-            UI/UIDef.refl.meta.h
             UI/UIResource.h
             VisualEffect/VisualEffectDef.refl.h
-            VisualEffect/VisualEffectDef.refl.meta.h
             VisualEffect/VisualEffectResource.h
             Volume/VolumeDef.refl.h
-            Volume/VolumeDef.refl.meta.h
             Volume/VolumeTypeDatabase.h
             Volume/VolumeTypeRegister.h
             #HEADER_PLACEHOLDER
@@ -225,7 +206,7 @@ if(GENERATE_REFL)
   foreach(REFL_FILE ${GENERIC_REFL_Runtime})
     string(REPLACE ".refl.h" ".refl.meta.h" META_FILE ${REFL_FILE})
     add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${META_FILE}
-                       COMMAND stormrefl ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE} -- -DSTORM_REFL_PARSE -D_CRT_SECURE_NO_WARNINGS -std=c++17 -x c++ -Wno-pragma-once-outside-header -I${CMAKE_CURRENT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR}/StormTech -I${PROJECT_SOURCE_DIR}/Tools -I${PROJECT_SOURCE_DIR}/Shared -I${PROJECT_SOURCE_DIR}/Project -I${PROJECT_SOURCE_DIR}/Lobby -I${PROJECT_SOURCE_DIR}/External -I${CLANG_HEADER_PATH} -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+                       COMMAND stormrefl ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE} -- -DSTORM_REFL_PARSE -D_CRT_SECURE_NO_WARNINGS -std=c++17 -x c++ -Wno-pragma-once-outside-header -I${CMAKE_CURRENT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR}/StormTech -I${PROJECT_SOURCE_DIR}/Tools -I${PROJECT_SOURCE_DIR}/Shared -I${PROJECT_SOURCE_DIR}/Project -I${PROJECT_SOURCE_DIR}/Lobby -I${PROJECT_SOURCE_DIR}/External ${CLANG_COMMAND_LINE_OPTS} -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
                        MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE}
                        IMPLICIT_DEPENDS CXX ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE})
   endforeach()

@@ -75,13 +75,5 @@ set(PLATFORM_HEADER_ogg
             )
 endif()
 
-foreach(REFL_FILE ${GENERIC_REFL_ogg})
-  string(REPLACE ".refl.h" ".refl.meta.h" META_FILE ${REFL_FILE})
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${META_FILE}
-                     COMMAND stormrefl ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE} -- -DSTORM_REFL_PARSE -D_CRT_SECURE_NO_WARNINGS -std=c++17 -x c++ -Wno-pragma-once-outside-header -I${CMAKE_CURRENT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR} -I${PROJECT_SOURCE_DIR}/External -I${CLANG_HEADER_PATH} -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-                     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE}
-                     IMPLICIT_DEPENDS CXX ${CMAKE_CURRENT_SOURCE_DIR}/${REFL_FILE})
-endforeach()
-
 add_library(ogg STATIC ${GENERIC_SRC_ogg} ${PLATFORM_SRC_ogg}
             ${GENERIC_HEADER_ogg} ${PLATFORM_HEADER_ogg})
